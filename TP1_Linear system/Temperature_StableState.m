@@ -46,6 +46,7 @@ X = rand(DotNum);
 
 % Display resulting heat map, X
 Figure(1)
-surf(X)
+[HeatMap, padded] = vec2mat(X, width);
+surf(HeatMap)
 
 end
