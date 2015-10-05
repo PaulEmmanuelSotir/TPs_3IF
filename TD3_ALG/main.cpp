@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define ALLOC_STEP 5
-#define _CRT_SECURE_NO_WARNINGS
+
 /*
  * La racine se situe à l'index 0
  * Soit un nœud à l'index i alors son fils gauche est à l'index 2i+1 et son fils droit à 2i+2
@@ -76,23 +76,25 @@ void Display(BinaryHeap* heap)
 		printf("%d\r\n", heap->array[i]);
 }
 
-void swapValues(int* array, unsigned int idx1, unsigned int& idx2)
+void swapValues(int* array, unsigned int idx1, unsigned int* idx2)
 {
 	unsigned int tmp = array[idx1];
-	array[idx1] = array[idx2];
-	array[idx2] = tmp;
-	idx2 = idx1;
+	array[idx1] = array[*idx2];
+	array[*idx2] = tmp;
+	*idx2 = idx1;
 }
 
 int extract(BinaryHeap* heap)
 {
-	int max_value;
-	max_value = heap->array[0];
+	if (heap->filled <= 0)
+		return 0; // Pas terrible
+		
+	int max_value = heap->array[0];
 
 	if (heap->filled > 1)
 	{
 		// swap first and last value
-		heap->array[0] = heap->array[heap->filled];
+		heap->array[0] = heap->array[heap->filled-1];
 
 		// Remove last element from bnary heap
 		heap->filled--;
@@ -104,18 +106,20 @@ int extract(BinaryHeap* heap)
 			unsigned int pos_fils1 = pos_element * 2 + 1;
 			unsigned int pos_fils2 = pos_element * 2 + 2;
 
-			if(pos_fils2 > max_pos && pos_fils1 <= max_pos)
-				if (heap->array[pos_fils1] > heap->array[pos_element]) {
-					swapValues(heap->array, pos_fils1, pos_element);
-				}
+			if(pos_fils2 > max_pos && pos_fils1 <= max_pos) {
+				if (heap->array[pos_fils1] > heap->array[pos_element])
+					swapValues(heap->array, pos_fils1, &pos_element);
+				else
+					break;
+			}
 			else if(pos_fils2 <= max_pos && pos_fils1 <= max_pos)
 			{
 				if (heap->array[pos_fils1] > heap->array[pos_element] || heap->array[pos_fils2] > heap->array[pos_element])
 				{
 					if (heap->array[pos_fils1] > heap->array[pos_fils2])
-						swapValues(heap->array, pos_fils1, pos_element);
+						swapValues(heap->array, pos_fils1, &pos_element);
 					else
-						swapValues(heap->array, pos_fils2, pos_element);
+						swapValues(heap->array, pos_fils2, &pos_element);
 				}
 				else
 					break;
