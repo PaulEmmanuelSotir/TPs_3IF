@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define ALLOC_STEP 5
-
+#define _CRT_SECURE_NO_WARNINGS
 /*
  * La racine se situe à l'index 0
  * Soit un nœud à l'index i alors son fils gauche est à l'index 2i+1 et son fils droit à 2i+2
@@ -50,15 +50,15 @@ void insert(BinaryHeap* heap, int value)
 
 	heap->array[heap->filled] = value;
 
-	int position_pére = (heap->filled - 1) / 2;
-	int position_element_inséré = heap->filled;
-	while (position_pére >= 0 && heap->array[position_pére] < heap->array[position_element_inséré])
+	int position_pere = (heap->filled - 1) / 2;
+	int position_element_insere = heap->filled;
+	while (position_pere >= 0 && heap->array[position_pere] < heap->array[position_element_insere])
 	{
-		int tampon = heap->array[position_pére];
-		heap->array[position_pére] = heap->array[position_element_inséré];
-		heap->array[position_element_inséré] = tampon;
-		position_element_inséré = position_pére;
-		position_pére = (position_pére - 1) / 2;
+		int tampon = heap->array[position_pere];
+		heap->array[position_pere] = heap->array[position_element_insere];
+		heap->array[position_element_insere] = tampon;
+		position_element_insere = position_pere;
+		position_pere = (position_pere - 1) / 2;
 	}
 
 	heap->filled++;
@@ -76,29 +76,61 @@ void Display(BinaryHeap* heap)
 		printf("%d\n\r", heap->array[i]);
 }
 
-void extract(BinaryHeap* heap)
+void swapValues(int* array, unsigned int idx1, unsigned int& idx2)
+{
+	unsigned int tmp = array[idx1];
+	array[idx1] = array[idx2];
+	array[idx2] = tmp;
+	idx2 = idx1;
+}
+
+int extract(BinaryHeap* heap)
 {
 	if (heap == NULL)
 		return;
 	if (heap->array == NULL || heap->filled == 0)
 		return;
 
+	int max_value;
+	max_value = heap->array[0];
+
 	if (heap->filled > 1)
 	{
 		// swap first and last value
-		heap->array[heap->filled] = heap->array[heap->filled];
+		heap->array[0] = heap->array[heap->filled];
 
 		// Remove last element from bnary heap
 		heap->filled--;
 
-		int i = 0;
-		//while ()
-		//{
-		//	
-		//}
+		unsigned int pos_element = 0;
+		while (1)
+		{
+			unsigned int pos_fils1 = pos_element * 2 + 1;
+			unsigned int pos_fils2 = pos_element * 2 + 2;
+
+			if(pos_fils2 > heap->filled && pos_fils1 <= heap->filled)
+				if (heap->array[pos_fils1] > heap->array[pos_element]) {
+					swapValues(heap->array, pos_fils1, pos_element);
+				}
+			else if(pos_fils2 <= heap->filled && pos_fils1 <= heap->filled)
+			{
+				if (heap->array[pos_fils1] > heap->array[pos_element] || heap->array[pos_fils2] > heap->array[pos_element])
+				{
+					if (heap->array[pos_fils1] > heap->array[pos_fils2])
+						swapValues(heap->array, pos_fils1, pos_element);
+					else
+						swapValues(heap->array, pos_fils2, pos_element);
+				}
+				else
+					break;
+			}
+			else break;
+		}
 	}
 	else
 		heap->filled--;
+
+	return max_value;
 }
 
 int main(int argc, const char* argv[])
