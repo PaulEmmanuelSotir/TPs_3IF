@@ -73,7 +73,7 @@ void Display(BinaryHeap* heap)
 
 	unsigned int i;
 	for (i = 0; i < heap->filled; i++)
-		printf("%d\n\r", heap->array[i]);
+		printf("%d\r\n", heap->array[i]);
 }
 
 void swapValues(int* array, unsigned int idx1, unsigned int& idx2)
@@ -86,11 +86,6 @@ void swapValues(int* array, unsigned int idx1, unsigned int& idx2)
 
 int extract(BinaryHeap* heap)
 {
-	if (heap == NULL)
-		return;
-	if (heap->array == NULL || heap->filled == 0)
-		return;
-
 	int max_value;
 	max_value = heap->array[0];
 
@@ -101,6 +96,7 @@ int extract(BinaryHeap* heap)
 
 		// Remove last element from bnary heap
 		heap->filled--;
+		unsigned int max_pos = heap->filled - 1;
 
 		unsigned int pos_element = 0;
 		while (1)
@@ -108,11 +104,11 @@ int extract(BinaryHeap* heap)
 			unsigned int pos_fils1 = pos_element * 2 + 1;
 			unsigned int pos_fils2 = pos_element * 2 + 2;
 
-			if(pos_fils2 > heap->filled && pos_fils1 <= heap->filled)
+			if(pos_fils2 > max_pos && pos_fils1 <= max_pos)
 				if (heap->array[pos_fils1] > heap->array[pos_element]) {
 					swapValues(heap->array, pos_fils1, pos_element);
 				}
-			else if(pos_fils2 <= heap->filled && pos_fils1 <= heap->filled)
+			else if(pos_fils2 <= max_pos && pos_fils1 <= max_pos)
 			{
 				if (heap->array[pos_fils1] > heap->array[pos_element] || heap->array[pos_fils2] > heap->array[pos_element])
 				{
@@ -124,7 +120,8 @@ int extract(BinaryHeap* heap)
 				else
 					break;
 			}
-			else break;
+			else
+				break;
 		}
 	}
 	else
@@ -150,15 +147,14 @@ int main(int argc, const char* argv[])
 			int value = 0;
 			scanf("%d", &value);
 			insert(&heap, value);
-			Display(&heap);
 		}
 		else if (strcmp("extract", input) == 0)
 		{
-			extract(&heap);
-			Display(&heap);
+			printf("%d\r\n", extract(&heap));
 		}
 		else
 			printf("Invalid input");
 	}
+
 	return 0;
 }
