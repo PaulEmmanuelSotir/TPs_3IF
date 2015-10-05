@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ALLOC_STEP 10
+#define ALLOC_STEP 5
 
 /*
  * La racine se situe à l'index 0
@@ -17,16 +17,25 @@ typedef struct
 	int* array;
 } BinaryHeap;
 
-BinaryHeap* make_binaryHeap()
+void init(BinaryHeap* heap)
 {
-	BinaryHeap* newHeap = (BinaryHeap*)malloc(sizeof(BinaryHeap));
-	newHeap->allocated = ALLOC_STEP;
-	newHeap->filled = 0;
-	return newHeap;
+	heap->allocated = ALLOC_STEP;
+	heap->filled = 0;
+	heap->array = (int*)malloc(sizeof(int)*ALLOC_STEP);
+}
+
+void ReallocIfFull(BinaryHeap* heap)
+{
+	if (heap->filled >= heap->allocated)
+	{
+		heap->array = (int*)realloc(heap->array, heap->allocated + sizeof(int)*ALLOC_STEP);
+		heap->allocated += ALLOC_STEP;
+	}
 }
 
 void insert(BinaryHeap* heap, int value)
 {
+	ReallocIfFull(heap);
 
 }
 
@@ -38,7 +47,8 @@ void extract(BinaryHeap* heap)
 int main(int argc, const char* argv[])
 {
 	char input[30];
-	BinaryHeap* heap = make_binaryHeap();
+	BinaryHeap heap;
+	init(&heap);
 
 	while (1)
 	{
@@ -50,11 +60,11 @@ int main(int argc, const char* argv[])
 		{
 			int value = 0;
 			scanf("%d", &value);
-			insert(heap, value);
+			insert(&heap, value);
 		}
 		else if (strcmp("extract", input) == 0)
 		{
-			extract(heap);
+			extract(&heap);
 		}
 		else
 			printf("Invalid input");
