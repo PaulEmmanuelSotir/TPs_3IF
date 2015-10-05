@@ -34,7 +34,7 @@ void ReallocIfFull(BinaryHeap* heap)
 
 	if (heap->filled >= heap->allocated)
 	{
-		heap->array = (int*)realloc(heap->array, heap->allocated + sizeof(int)*ALLOC_STEP);
+		heap->array = (int*)realloc(heap->array, sizeof(int) * (ALLOC_STEP + heap->allocated));
 		heap->allocated += ALLOC_STEP;
 	}
 }
@@ -160,9 +160,9 @@ int main(int argc, const char* argv[])
 		}
 		else if (strcmp("extract", input) == 0)
 		{
-			int* max = (int*)malloc(sizeof(int));
-			if(extract(&heap, max))
-				printf("%d\r\n", *max);
+			int max = 0;
+			if(extract(&heap, &max))
+				printf("%d\r\n", max);
 		}
 		else
 			printf("Invalid input");
