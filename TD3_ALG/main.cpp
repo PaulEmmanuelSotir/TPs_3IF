@@ -84,12 +84,12 @@ void swapValues(int* array, unsigned int idx1, unsigned int* idx2)
 	*idx2 = idx1;
 }
 
-int extract(BinaryHeap* heap)
+int extract(BinaryHeap* heap, int* max)
 {
-	if (heap->filled <= 0)
-		return 0; // Pas terrible
-		
-	int max_value = heap->array[0];
+	if (heap->filled <= 0 || max == NULL || heap == NULL)
+		return 0;
+	
+	*max = heap->array[0];
 
 	if (heap->filled > 1)
 	{
@@ -131,7 +131,7 @@ int extract(BinaryHeap* heap)
 	else
 		heap->filled--;
 
-	return max_value;
+	return 1;
 }
 
 int main(int argc, const char* argv[])
@@ -154,7 +154,9 @@ int main(int argc, const char* argv[])
 		}
 		else if (strcmp("extract", input) == 0)
 		{
-			printf("%d\r\n", extract(&heap));
+			int* max = (int*)malloc(sizeof(int));
+			if(extract(&heap, max))
+				printf("%d\r\n", *max);
 		}
 		else
 			printf("Invalid input");
