@@ -134,6 +134,12 @@ int extract(BinaryHeap* heap, int* max)
 	return 1;
 }
 
+void dispose(BinaryHeap* heap)
+{
+	free(heap->array);
+	heap->array = NULL;
+}
+
 int main(int argc, const char* argv[])
 {
 	char input[30];
@@ -161,6 +167,8 @@ int main(int argc, const char* argv[])
 		else
 			printf("Invalid input");
 	}
+
+	dispose(&heap);
 
 	return 0;
 }
