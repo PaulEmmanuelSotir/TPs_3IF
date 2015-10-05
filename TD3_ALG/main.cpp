@@ -19,6 +19,9 @@ typedef struct
 
 void init(BinaryHeap* heap)
 {
+	if (heap == NULL)
+		return;
+
 	heap->allocated = ALLOC_STEP;
 	heap->filled = 0;
 	heap->array = (int*)malloc(sizeof(int)*ALLOC_STEP);
@@ -26,6 +29,9 @@ void init(BinaryHeap* heap)
 
 void ReallocIfFull(BinaryHeap* heap)
 {
+	if (heap == NULL)
+		return;
+
 	if (heap->filled >= heap->allocated)
 	{
 		heap->array = (int*)realloc(heap->array, heap->allocated + sizeof(int)*ALLOC_STEP);
@@ -35,13 +41,64 @@ void ReallocIfFull(BinaryHeap* heap)
 
 void insert(BinaryHeap* heap, int value)
 {
+	if (heap == NULL)
+		return;
+	if (heap->array == NULL)
+		return;
+
 	ReallocIfFull(heap);
 
+	heap->array[heap->filled] = value;
+
+	int position_pére = (heap->filled - 1) / 2;
+	int position_element_inséré = heap->filled;
+	while (position_pére >= 0 && heap->array[position_pére] < heap->array[position_element_inséré])
+	{
+		int tampon = heap->array[position_pére];
+		heap->array[position_pére] = heap->array[position_element_inséré];
+		heap->array[position_element_inséré] = tampon;
+		position_element_inséré = position_pére;
+		position_pére = (position_pére - 1) / 2;
+	}
+
+	heap->filled++;
+}
+
+void Display(BinaryHeap* heap)
+{
+	if (heap == NULL)
+		return;
+	if (heap->array == NULL)
+		return;
+
+	unsigned int i;
+	for (i = 0; i < heap->filled; i++)
+		printf("%d\n\r", heap->array[i]);
 }
 
 void extract(BinaryHeap* heap)
 {
+	if (heap == NULL)
+		return;
+	if (heap->array == NULL || heap->filled == 0)
+		return;
 
+	if (heap->filled > 1)
+	{
+		// swap first and last value
+		heap->array[heap->filled] = heap->array[heap->filled];
+
+		// Remove last element from bnary heap
+		heap->filled--;
+
+		int i = 0;
+		//while ()
+		//{
+		//	
+		//}
+	}
+	else
+		heap->filled--;
 }
 
 int main(int argc, const char* argv[])
@@ -61,10 +118,12 @@ int main(int argc, const char* argv[])
 			int value = 0;
 			scanf("%d", &value);
 			insert(&heap, value);
+			Display(&heap);
 		}
 		else if (strcmp("extract", input) == 0)
 		{
 			extract(&heap);
+			Display(&heap);
 		}
 		else
 			printf("Invalid input");
