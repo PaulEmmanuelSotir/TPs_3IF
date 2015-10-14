@@ -110,7 +110,13 @@ static void test(void(*testFunc)(), const char* testName = "")
 
 void main()
 {
-	std::cout << "### TESTING COLLECTION CLASS (no dogs will be harmed during this test) ###";
+	std::cout
+		<< R"(			 _________ ___    _____  __    __ )" << std::endl
+		<< R"(			/_  __/ _ <  /   / ___/_/ /___/ /_)" << std::endl
+		<< R"(			 / / / ___/ /   / /__/_  __/_  __/)" << std::endl
+		<< R"(			/_/ /_/  /_/    \___/ /_/   /_/   )" << std::endl;
+
+	std::cout << std::endl << "### TESTING COLLECTION CLASS (no dogs will be harmed during this test) ###";
 
 	test(test_lifetime, "OBJECT LIFETIME");
 	test(test_afficher, "AFFICHER");
