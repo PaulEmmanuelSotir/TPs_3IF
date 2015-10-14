@@ -82,7 +82,7 @@ public:
 	//
 
 
-	virtual ~collection ();
+	virtual ~collection();
 	// Mode d'emploi :
 	//
 	// Contrat :

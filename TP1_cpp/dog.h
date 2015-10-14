@@ -1,6 +1,6 @@
 #pragma once
 
-enum class color { RED, GREEN, BLUE, YELLOW, BROWN};
+enum class color { RED, GREEN, BLUE, YELLOW, BROWN };
 
 class dog
 {

@@ -105,7 +105,7 @@ bool collection::ajuster(size_t new_size)
 		new_dogs[i] = dogs[i];
 	max_size = new_size;
 
-	if(dogs != nullptr)
+	if (dogs != nullptr)
 		delete[] dogs;
 	dogs = new_dogs;
 
