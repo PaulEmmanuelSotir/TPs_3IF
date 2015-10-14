@@ -18,30 +18,32 @@ copyright            : (C) collection{year} par collection{user}
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// Rôle de la classe <collection{file_base}>
-//
-//
+// collection: 
 //------------------------------------------------------------------------ 
-
 class collection
 {
 	//----------------------------------------------------------------- PUBLIC
-
 public:
 	//----------------------------------------------------- Méthodes publiques
+	void afficher() const;
+	// Mode d'emploi : 
+	// 
+	// Contrat : 
+	// 
+
 	bool ajouter(dog* dog);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
 	//
 
-	bool retirer(const dog& dog);
+	bool retirer(const dog& dog1);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
 	//
 
-	bool retirer(const dog *const * dogs);
+	bool retirer(const dog *const * dogs, size_t size);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
