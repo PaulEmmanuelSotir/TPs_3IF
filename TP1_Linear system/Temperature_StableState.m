@@ -2,6 +2,8 @@ width = 30;
 height = 15;
 cut_pos = 12;
 DotNum = width*height;
+% Laplacien(u) = d²u/dx² + d²u/dy² = 0
+% 0 = u(x-1,y,t) + u(x+1,y,t) + u(x,y-1,t) + u(x,y+1,t) - 4*u(x,y,t)
 
 % Create vector representation of temperature map, B
 B = zeros(DotNum);
@@ -10,9 +12,9 @@ B(((height-1)*width+1):DotNum) = 50;	% 50°C bottom border
 for h=3:11
 	B((h*width+22):(h*width+23)) = 10;	% 10°C rectangle
 end
-B(7*width + 17) = 100; 					% 100°C dot 1
-B(7*width + 18) = 100; 					% 100°C dot 2
-B(7*width + 19) = 100; 					% 100°C dot 3
+B(7*width + 17) = 100; 					% 100°C dot I
+B(7*width + 18) = 100; 					% 100°C dot J
+B(7*width + 19) = 100; 					% 100°C dot K
 
 % Create linear system matrix, A
 A = zeros(DotNum, DotNum);
