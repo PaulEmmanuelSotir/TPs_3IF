@@ -2,18 +2,13 @@
 
 enum class color { RED, GREEN, BLUE, YELLOW, BROWN };
 
-class dog
+struct dog
 {
 public:
 	dog() = default;
-	explicit dog(unsigned int age) : m_age(age) { 	}
-	dog(color color, unsigned int age) : m_color(color), m_age(age) { 	}
+	explicit dog(unsigned int age) : age(age) { }
+	dog(color color, unsigned int age) : color(color), age(age) { }
 
-	unsigned int getAge()
-	{
-		return m_age;
-	}
-protected:
-	const color m_color = color::BLUE;
-	unsigned int m_age = 2;
+	const color color = color::BLUE;
+	unsigned int age = 2;
 };

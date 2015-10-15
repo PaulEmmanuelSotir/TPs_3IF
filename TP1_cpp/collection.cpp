@@ -33,7 +33,7 @@ void collection::afficher() const
 		std::cout << "{ }";
 
 	for (size_t i = 0; i < used_size; ++i)
-		std::cout << dogs[i]->getAge() << ((i < used_size - 1) ? ", " : " }");
+		std::cout << dogs[i]->age << ((i < used_size - 1) ? ", " : " }");
 }
 
 bool collection::ajouter(dog* dog)
