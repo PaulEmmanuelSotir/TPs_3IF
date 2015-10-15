@@ -49,11 +49,11 @@ static const char* test_afficher()
 	collection dogs2(2);
 
 	dogs1.afficher();
-	std::cout << std::endl;
+	std::cout << " ";
 	dogs2.afficher();
 
 	// Return expected output
-	return "";
+	return "{ 50, 3, 99 } { }";
 }
 
 static const char* test_ajouter()
@@ -65,21 +65,20 @@ static const char* test_ajouter()
 	collection dogs1(dogsArray, 3);
 	dogs1.ajouter(new dog(color::GREEN, 5));
 	dogs1.afficher();
-	std::cout << std::endl;
+	std::cout << " ";
 
 	collection dogs2(0);
 	dogs2.ajouter(new dog(color::GREEN, 5));
 	dogs2.afficher();
-	std::cout << std::endl;
+	std::cout << " ";
 
 	collection dogs3(2);
 	dogs3.ajouter(new dog(color::GREEN, 5));
 	dogs3.ajouter(nullptr);
 	dogs3.afficher();
-	std::cout << std::endl;
 
 	// Return expected output
-	return "";
+	return "{ 50, 3, 99, 5 } { 5 } { 5 }";
 }
 
 static const char* test_retirer()
@@ -177,9 +176,9 @@ void main()
 		<< R"(			 _________ ___    _____  __    __ )" << std::endl
 		<< R"(			/_  __/ _ <  /   / ___/_/ /___/ /_)" << std::endl
 		<< R"(			 / / / ___/ /   / /__/_  __/_  __/)" << std::endl
-		<< R"(			/_/ /_/  /_/    \___/ /_/   /_/   )" << std::endl;
+		<< R"(			/_/ /_/  /_/    \___/ /_/   /_/   )" << std::endl << std::endl;
 
-	std::cout << std::endl << "### TESTING COLLECTION CLASS (no dogs will be harmed during this test) ###";
+	std::cout << "### TESTING COLLECTION CLASS (no dogs will be harmed during this test) ###";
 
 	test(test_lifetime, "OBJECT LIFETIME");
 	test(test_afficher, "AFFICHER");
