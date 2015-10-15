@@ -31,13 +31,13 @@ public:
 	// Contrat : 
 	// 
 
-	bool ajouter(dog* dog);
+	bool ajouter(dog* new_dog);
 	// Mode d'emploi (constructeur de copie) :
-	//
+	// NOTE: takes ownership on given new_dog and could delete it.
 	// Contrat :
 	//
 
-	bool retirer(const dog& dog1);
+	bool retirer(const dog& old_dog);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
@@ -45,13 +45,12 @@ public:
 
 	bool retirer(const dog *const * dogs, size_t size);
 	// Mode d'emploi (constructeur de copie) :
-	//
 	// Contrat :
 	//
 
-	bool ajuster(size_t new_size);
+	bool ajuster(size_t capacity);
 	// Mode d'emploi (constructeur de copie) :
-	//
+	// capacity >= m_size !
 	// Contrat :
 	//
 
@@ -69,15 +68,15 @@ public:
 	// Avoid default copy constructor implementation
 	collection(const collection&) = delete;
 
-	explicit collection(size_t max_size);
+	explicit collection(size_t capacity);
 	// Mode d'emploi (constructeur de copie) :
 	//
 	// Contrat :
 	//
 
-	collection(dog** dogs, size_t max_size);
+	collection(dog** dogs, size_t size);
 	// Mode d'emploi (constructeur de copie) :
-	//
+	// NOTE: takes ownership on given dogs and could delete them.
 	// Contrat :
 	//
 
@@ -98,13 +97,11 @@ private:
 
 protected:
 	//----------------------------------------------------- Attributs protégés
-	dog** dogs = nullptr;
-	size_t max_size = 0;
-	size_t used_size = 0;
+	dog** m_dogs = nullptr;
+	size_t m_capacity = 0;
+	size_t m_size = 0;
 
-	static const size_t HIGH_ALLOCATION_STEP = 8;
-	static const size_t LOW_ALLOCATION_STEP = 4;
-	static const size_t ALLOCATION_STEP = (HIGH_ALLOCATION_STEP + LOW_ALLOCATION_STEP) / 2;
+	static const size_t INITIAL_ALLOCATION_SIZE = 5;
 
 private:
 	//------------------------------------------------------- Attributs privés

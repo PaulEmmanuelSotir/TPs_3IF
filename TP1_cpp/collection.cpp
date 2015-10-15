@@ -27,61 +27,67 @@ Distributed under the MIT License.(See http://opensource.org/licenses/MIT)
 
 void collection::afficher() const
 {
-	if (used_size > 0)
+	if (m_size > 0)
 		std::cout << "{ ";
 	else
 		std::cout << "{ }";
 
-	for (size_t i = 0; i < used_size; ++i)
-		std::cout << dogs[i]->age << ((i < used_size - 1) ? ", " : " }");
+	for (size_t i = 0; i < m_size; ++i)
+		std::cout << m_dogs[i]->age << ((i < m_size - 1) ? ", " : " }");
 }
 
-bool collection::ajouter(dog* dog)
+bool collection::ajouter(dog* new_dog)
 {
-	if (dog == nullptr)
+	if (new_dog == nullptr)
 		return false;
 
-	if (used_size == max_size)
+	// Reallocate memory if we don't have free space anymore
+	if (m_size == m_capacity)
 	{
-		if (!ajuster(max_size + ALLOCATION_STEP))
+		// Double capacity at each new allocations
+		if (!ajuster(m_size != 0 ? 2 * m_size : INITIAL_ALLOCATION_SIZE))
 			return false;
 	}
-	dogs[used_size] = dog;
-	used_size++;
+
+	// Append new dog value
+	m_dogs[m_size++] = new_dog;
 
 	return true;
 }
 
 bool collection::retirer(const dog *const * dogs, size_t size)
 {
-	if (dogs == nullptr || size == 0 || this->dogs == nullptr)
+	if (dogs == nullptr || size == 0 || m_dogs == nullptr)
 		return false;
 
-	size_t new_size = used_size - size;
+	size_t new_size = m_size - size;
 	dog** new_dogs = new dog*[new_size];
 	if (new_dogs == nullptr)
 		return false;
-	for (size_t i = 0; i < used_size; i++)
+	for (size_t i = 0; i < m_size; i++)
 	{
 		int compteur = 0;
 		bool exist = false;
 		for (size_t j = 0; j < size; j++)
 		{
-			if (this->dogs[i] == dogs[j])
+			if (m_dogs[i] == dogs[j])
 			{
 				exist = true;
-				delete this->dogs[i];
-				this->dogs[i] = nullptr;
+				delete m_dogs[i];
+				m_dogs[i] = nullptr;
 			}
 		}
 		if (!exist)
 		{
-			new_dogs[compteur] = this->dogs[i];
+			new_dogs[compteur] = m_dogs[i];
 			compteur++;
 		}
 	}
-	delete[] this->dogs;
-	this->dogs = new_dogs;
+	delete[] m_dogs;
+	m_dogs = new_dogs;
+
+	m_size = new_size;
+	m_capacity = new_size; // As specified, we need to avoid any unused allocated memory after a 'collection::retirer(...)' call
 
 	return true;
 }
@@ -94,43 +100,47 @@ bool collection::retirer(const dog& old_dog)
 
 bool collection::ajuster(size_t new_size)
 {
-	if (new_size <= used_size)
+	if (new_size <= m_size)
 		return false;
 
 	dog** new_dogs = new dog*[new_size];
 	if (new_dogs == nullptr)
 		return false;
 
-	for (size_t i = 0; i < used_size; i++)
-		new_dogs[i] = dogs[i];
-	max_size = new_size;
+	for (size_t i = 0; i < m_size; i++)
+		new_dogs[i] = m_dogs[i];
+	m_capacity = new_size;
 
-	if (dogs != nullptr)
-		delete[] dogs;
-	dogs = new_dogs;
+	if (m_dogs != nullptr)
+		delete[] m_dogs;
+	m_dogs = new_dogs;
 
 	return true;
 }
 
 bool collection::reunir(const collection& other)
 {
-	dog** new_dogs = new dog*[used_size + other.used_size + ALLOCATION_STEP];
+	// Allocate a new array of dog pointers
+	dog** new_dogs = new dog*[2 * (m_size + other.m_size)];
 	if (new_dogs == nullptr)
 		return false;
 
-	if (other.dogs != nullptr)
-		for (size_t i = 0; i < other.used_size; i++)
-			new_dogs[i + this->used_size] = other.dogs[i];
+	if (other.m_dogs != nullptr)
+		for (size_t i = 0; i < other.m_size; i++)
+			new_dogs[i + m_size] = other.m_dogs[i];
 
-	if (this->dogs != nullptr)
+	if (m_dogs != nullptr)
 	{
-		for (size_t i = 0; i < used_size; i++)
-			new_dogs[i] = this->dogs[i];
+		for (size_t i = 0; i < m_size; i++)
+			new_dogs[i] = m_dogs[i];
 
-		delete[] this->dogs;
+		delete[] m_dogs;
 	}
 
-	this->dogs = new_dogs;
+	m_dogs = new_dogs;
+	m_size = m_size + other.m_size;
+	m_capacity = 2 * m_size;
+
 	return true;
 }
 
@@ -145,10 +155,10 @@ collection::collection(size_t capacity)
 #endif
 
 	if (capacity > 0)
-		this->dogs = new dog*[capacity];
+		m_dogs = new dog*[capacity];
 	else
-		this->dogs = nullptr;
-	this->max_size = capacity;
+		m_dogs = nullptr;
+	m_capacity = capacity;
 } //----- Fin de collection{file_base} (constructeur de copie)
 
 collection::collection(dog** dogs, size_t size)
@@ -157,20 +167,31 @@ collection::collection(dog** dogs, size_t size)
 	cout << "Appel au constructeur 'collection::collection(dog*, size_t)'" << endl;
 #endif
 
-	this->max_size = size;
-	this->used_size = size;
+	m_capacity = size;
+	m_size = size;
 
 	if (size > 0)
 	{
-		this->dogs = new dog*[size];
-		if (dogs != nullptr)
+		m_dogs = new dog*[size];
+		if (m_dogs != nullptr)
 		{
-			for (size_t i = 0; i < size; ++i)
-				this->dogs[i] = dogs[i];
+			if (dogs != nullptr)
+			{
+				// Copy given dogs pointers
+				for (size_t i = 0; i < size; ++i)
+					m_dogs[i] = dogs[i];
+			}
+			else
+				m_dogs = nullptr;
+		}
+		else
+		{
+			// uh oh, dynamic allocation failed...
+			m_size = 0;
+			m_capacity = 0;
+			return;
 		}
 	}
-	else
-		this->dogs = nullptr;
 }
 
 collection::~collection()
@@ -181,17 +202,17 @@ collection::~collection()
 	cout << "Appel au destructeur de 'collection'" << endl;
 #endif
 
-	if (dogs != nullptr)
+	if (m_dogs != nullptr)
 	{
-		for (size_t i = 0; i < used_size; ++i)
+		for (size_t i = 0; i < m_size; ++i)
 		{
-			dog* dog_ptr = dogs[i];
+			dog* dog_ptr = m_dogs[i];
 			if (dog_ptr != nullptr)
 				delete dog_ptr;
-			dogs[i] = nullptr;
+			m_dogs[i] = nullptr;
 		}
-		delete[] dogs;
-		dogs = nullptr;
+		delete[] m_dogs;
+		m_dogs = nullptr;
 	}
 } //----- Fin de ~collection{file_base}
 
