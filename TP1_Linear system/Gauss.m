@@ -2,7 +2,7 @@ function [ X, m, error ] = Gauss( A, B, X, max_it )
 %GAUSS Resolve linear system AX=B
 %   Résolution de systemes linaires avec la methode de Gauss-Seidel
 
-if nargin < 5
+if nargin < 4
     max_it = -1 % no maximum iteration number by default
 end
 

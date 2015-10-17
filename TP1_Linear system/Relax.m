@@ -3,7 +3,7 @@ function [ X, m, error ] = Relax( A, B, X, omega, max_it)
 %   Résolution de systemes linaires avec la methode de Gauss relaxée
 
 if nargin < 5
-    max_it = -1 % no maximum iteration number by default
+    max_it = -1; % no maximum iteration number by default
 end
 
 m = 0;
