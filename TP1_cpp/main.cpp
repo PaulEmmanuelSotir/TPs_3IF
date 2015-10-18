@@ -16,17 +16,17 @@
 
 static const char* test_lifetime()
 {
-	dog * dogsArray[3] = { new dog(color::GREEN, 50),
-		new dog(color::RED, 3),
-		new dog(color::BLUE, 99) };
-
 	{
+		dog * dogsArray[3] = { new dog(color::GREEN, 50),
+			new dog(color::RED, 3),
+			new dog(color::BLUE, 99) };
+
 		collection dogs1(3);
 		collection dogs2(dogsArray, 3);
-	}
+	} // 'dogs1' and 'dogs2' destructors will be called here
 
-	volatile collection* dogs3 = new collection(100);
-	delete dogs3;
+	volatile collection* dogs = new collection(100);
+	delete dogs;
 
 	// Return expected output
 	return "";
@@ -62,20 +62,28 @@ static const char* test_ajouter()
 		new dog(color::RED, 3),
 		new dog(color::BLUE, 99) };
 
-	collection dogs1(dogsArray, 3);
-	dogs1.ajouter(new dog(color::GREEN, 5));
-	dogs1.afficher();
+	{
+		collection dogs(dogsArray, 3);
+		dogs.ajouter(new dog(color::GREEN, 5));
+		dogs.afficher();
+	}
+
 	std::cout << " ";
 
-	collection dogs2(0);
-	dogs2.ajouter(new dog(color::GREEN, 5));
-	dogs2.afficher();
+	{
+		collection dogs(0);
+		dogs.ajouter(new dog(color::GREEN, 5));
+		dogs.afficher();
+	}
+
 	std::cout << " ";
 
-	collection dogs3(2);
-	dogs3.ajouter(new dog(color::GREEN, 5));
-	dogs3.ajouter(nullptr);
-	dogs3.afficher();
+	{
+		collection dogs(2);
+		dogs.ajouter(new dog(color::GREEN, 5));
+		dogs.ajouter(nullptr);
+		dogs.afficher();
+	}
 
 	// Return expected output
 	return "{ 50, 3, 99, 5 } { 5 } { 5 }";
@@ -83,9 +91,57 @@ static const char* test_ajouter()
 
 static const char* test_retirer()
 {
+	// We need different allocation for each test as collection takes ownership over dogs and could delete them during 'retirer(...)' calls
+	auto create_dogs = []() {
+		auto dogsArray = new dog*[3];
+		dogsArray[0] = new dog(color::GREEN, 50);
+		dogsArray[1] = new dog(color::RED, 3);
+		dogsArray[2] = new dog(color::BLUE, 99);
+		return dogsArray;
+	};
+
+	{
+		dog** dogsArray = create_dogs();
+
+		collection dogs(dogsArray, 3);
+		dogs.retirer(nullptr, 0);
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		dog** dogsArray = create_dogs();
+
+		collection dogs(dogsArray, 3);
+		dogs.retirer(dogsArray, 3);
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		dog** dogsArray = create_dogs();
+
+		collection dogs(dogsArray, 3);
+		dogs.ajouter(new dog(color::RED, 3));
+		dogs.retirer(*dogsArray[1]);
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		dog** dogsArray = create_dogs();
+
+		collection dogs(0);
+		dogs.ajouter(new dog(color::GREEN, 5));
+		dogs.retirer(dogsArray, 3);
+		dogs.afficher();
+	}
 
 	// Return expected output
-	return "";
+	return "{ 50, 3, 99 } { } { 50, 99 } { 5 }";
 }
 
 static const char* test_ajuster()
