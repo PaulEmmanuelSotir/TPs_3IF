@@ -1,29 +1,22 @@
-/*************************************************************************
+/*********************************************************************************
 				collection  -  A collection of dogs
 				-----------------------------------
-début                : 01/10/2015
-copyright            : (C) 2015 par B3311
+date				: 01/10/2015
+copyright			: (C) 2015 par B3311
 Distributed under the MIT License.(See http://opensource.org/licenses/MIT)
-*************************************************************************/
+*********************************************************************************/
 
-//---------- Réalisation de la classe <collection{file_base}> (fichier collection{file_name}) --
+//------- Réalisation de la classe <collection.h> (fichier collection.cpp) -------
 
-//---------------------------------------------------------------- INCLUDE
+//------------------------------------------------------------------------ INCLUDE
 
-//-------------------------------------------------------- Include système
+//---------------------------------------------------------------- Include système
 #include <iostream>
 
-//------------------------------------------------------ Include personnel
+//-------------------------------------------------------------- Include personnel
 #include "collection.h"
 
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
-//----------------------------------------------------------------- PUBLIC
+//------------------------------------------------------------------------- PUBLIC
 
 void collection::afficher() const
 {
@@ -45,7 +38,7 @@ bool collection::ajouter(dog* new_dog)
 	if (m_size == m_capacity)
 	{
 		// Double capacity at each new allocations
-		if (!ajuster(m_size != 0 ? 2 * m_size : INITIAL_ALLOCATION_SIZE))
+		if (!ajuster(m_size > 0 ? 2 * m_size : INITIAL_ALLOCATION_SIZE))
 			return false;
 	}
 
@@ -55,79 +48,84 @@ bool collection::ajouter(dog* new_dog)
 	return true;
 }
 
-bool collection::retirer(const dog *const * dogs, size_t size)
+bool collection::retirer(const dog *const * dogs_to_remove, size_t size)
 {
-	if (dogs == nullptr || size == 0 || m_dogs == nullptr)
-		return false;
-
-	size_t new_size = m_size - size;
-	dog** new_dogs = new dog*[new_size];
-	if (new_dogs == nullptr)
-		return false;
-	for (size_t i = 0; i < m_size; i++)
+	if (dogs_to_remove == nullptr || size == 0 || m_dogs == nullptr)
 	{
-		int compteur = 0;
-		bool exist = false;
-		for (size_t j = 0; j < size; j++)
-		{
-			if (m_dogs[i] == dogs[j])
-			{
-				exist = true;
-				delete m_dogs[i];
-				m_dogs[i] = nullptr;
-			}
-		}
-		if (!exist)
-		{
-			new_dogs[compteur] = m_dogs[i];
-			compteur++;
-		}
+		ajuster(m_size); // As specified, we always allocate the shorter amount of memory possible (m_size == m_capacity) after 'retirer(...)' is called
+		return false;
 	}
-	delete[] m_dogs;
-	m_dogs = new_dogs;
 
-	m_size = new_size;
-	m_capacity = new_size; // As specified, we need to avoid any unused allocated memory after a 'collection::retirer(...)' call
+	// Find the number of dog to remove and get the index of the first one
+	unsigned int removes_todo_count = 0;
+	// pass 'removes_todo_count' by reference to get the exact size to allocate in memory for 'new_dogs' array
+	size_t idx = find_all_of(dogs_to_remove, size, removes_todo_count);
+
+	if (removes_todo_count == 0)
+	{
+		// There isn't any dog to remove
+		ajuster(m_size); // As specified, we always allocate the shorter amount of memory possible (m_size == m_capacity) after 'retirer(...)' is called
+		return false;
+	}
+
+	if (removes_todo_count >= m_size)
+		disposeDogs(); // We remove all dogs
+	else
+	{
+		size_t new_size = m_size - removes_todo_count;
+		dog** new_dogs = new dog*[new_size];
+
+		// Copy 'm_dogs' dogs in 'new_dogs' except those present in 'dogs_to_remove'
+		size_t removes_count = 0;
+		for (size_t i = 0; i < m_size; ++i)
+		{
+			auto dog = m_dogs[i];
+
+			// Check if 'm_dogs[i]' is in 'dogs_to_remove'
+			bool is_to_copy = true;
+			for (size_t j = 0; j < size && removes_count < removes_todo_count; ++j)
+			{
+				if (*(dogs_to_remove[j]) == *(dog))
+				{
+					++removes_count;
+					is_to_copy = false;
+				}
+			}
+
+			if (is_to_copy)
+				new_dogs[i - removes_count] = dog;
+		}
+
+		delete[] m_dogs;
+		m_dogs = new_dogs;
+		m_size = new_size;
+		m_capacity = new_size;
+	}
 
 	return true;
 }
 
 bool collection::retirer(const dog& old_dog)
 {
+	// Avoid code duplication
 	const dog *const ptr = &old_dog;
 	return retirer(&ptr, 1);
 }
 
-bool collection::ajuster(size_t new_size)
+bool collection::ajuster(size_t new_capacity)
 {
-	if (new_size <= m_size)
+	if (new_capacity < m_size || new_capacity == m_capacity)
 		return false;
 
-	dog** new_dogs = new dog*[new_size];
-	if (new_dogs == nullptr)
-		return false;
-
-	for (size_t i = 0; i < m_size; i++)
-		new_dogs[i] = m_dogs[i];
-	m_capacity = new_size;
-
-	if (m_dogs != nullptr)
+	if (new_capacity == 0)
+	{
+		// m_size == 0 and we want to free all pre-allocated memory (m_capacity > 0 && m_dogs != nullptr)
 		delete[] m_dogs;
-	m_dogs = new_dogs;
+		m_dogs = nullptr;
+		return true;
+	}
 
-	return true;
-}
-
-bool collection::reunir(const collection& other)
-{
-	// Allocate a new array of dog pointers
-	dog** new_dogs = new dog*[2 * (m_size + other.m_size)];
-	if (new_dogs == nullptr)
-		return false;
-
-	if (other.m_dogs != nullptr)
-		for (size_t i = 0; i < other.m_size; i++)
-			new_dogs[i + m_size] = other.m_dogs[i];
+	dog** new_dogs = new dog*[new_capacity];
 
 	if (m_dogs != nullptr)
 	{
@@ -138,14 +136,51 @@ bool collection::reunir(const collection& other)
 	}
 
 	m_dogs = new_dogs;
-	m_size = m_size + other.m_size;
-	m_capacity = 2 * m_size;
+	m_capacity = new_capacity;
 
 	return true;
 }
 
+bool collection::reunir(const collection& other)
+{
+	if (other.m_size == 0 || other.m_dogs == nullptr)
+		return false; // We don't have any dogs to append
 
-//-------------------------------------------- Constructeurs - destructeur
+	if (m_capacity - m_size >= other.m_size)
+	{
+		// We have enought free allocated space to store other.m_dogs in m_dogs
+		for (size_t i = 0; i < other.m_size; ++i)
+			m_dogs[m_size + i] = other.m_dogs[i];
+
+		m_size += other.m_size;
+	}
+	else
+	{
+		// Allocate a new array of dog pointers
+		dog** new_dogs = new dog*[2 * (m_size + other.m_size)];
+
+		// Copy other.m_dogs to new_dogs
+		for (size_t i = 0; i < other.m_size; i++)
+			new_dogs[i + m_size] = other.m_dogs[i];
+
+		if (m_dogs != nullptr)
+		{
+			// Copy m_dogs to new_dogs
+			for (size_t i = 0; i < m_size; ++i)
+				new_dogs[i] = m_dogs[i];
+
+			delete[] m_dogs;
+		}
+
+		m_dogs = new_dogs;
+		m_size += other.m_size;
+		m_capacity = 2 * m_size;
+	}
+
+	return true;
+}
+
+//---------------------------------------------------- Constructeurs - destructeur
 collection::collection(size_t capacity)
 // Algorithme :
 //
@@ -167,30 +202,16 @@ collection::collection(dog** dogs, size_t size)
 	cout << "Appel au constructeur 'collection::collection(dog*, size_t)'" << endl;
 #endif
 
-	m_capacity = size;
-	m_size = size;
-
-	if (size > 0)
+	if (size > 0 && dogs != nullptr)
 	{
+		m_capacity = size;
+		m_size = size;
+
 		m_dogs = new dog*[size];
-		if (m_dogs != nullptr)
-		{
-			if (dogs != nullptr)
-			{
-				// Copy given dogs pointers
-				for (size_t i = 0; i < size; ++i)
-					m_dogs[i] = dogs[i];
-			}
-			else
-				m_dogs = nullptr;
-		}
-		else
-		{
-			// uh oh, dynamic allocation failed...
-			m_size = 0;
-			m_capacity = 0;
-			return;
-		}
+
+		// Copy given dogs pointers
+		for (size_t i = 0; i < size; ++i)
+			m_dogs[i] = dogs[i];
 	}
 }
 
@@ -202,6 +223,38 @@ collection::~collection()
 	cout << "Appel au destructeur de 'collection'" << endl;
 #endif
 
+	disposeDogs();
+} //----- Fin de ~collection{file_base}
+
+//-------------------------------------------------------------------------- PRIVE
+
+//------------------------------------------------------------- Méthodes protégées
+size_t collection::find_all_of(const dog *const * dogs_to_find, size_t size, unsigned int& matches_count) const
+{
+	size_t first_match_idx = m_size;
+	matches_count = 0;
+
+	if (size > 0 && dogs_to_find != nullptr && m_size > 0)
+	{
+		for (size_t idx = m_size - 1; idx < m_size; --idx)
+		{
+			for (size_t idx2 = 0; idx2 < size; ++idx2)
+			{
+				if (*(m_dogs[idx]) == *(dogs_to_find[idx2]))
+				{
+					first_match_idx = idx;
+					++matches_count;
+					break;
+				}
+			}
+		}
+	}
+
+	return first_match_idx;
+}
+
+void collection::disposeDogs()
+{
 	if (m_dogs != nullptr)
 	{
 		for (size_t i = 0; i < m_size; ++i)
@@ -213,11 +266,8 @@ collection::~collection()
 		}
 		delete[] m_dogs;
 		m_dogs = nullptr;
+
+		m_size = 0;
+		m_capacity = 0;
 	}
-} //----- Fin de ~collection{file_base}
-
-  //------------------------------------------------------------------ PRIVE
-
-  //----------------------------------------------------- Méthodes protégées
-
-  //------------------------------------------------------- Méthodes privées
+}

@@ -12,3 +12,6 @@ public:
 	const color color = color::BLUE;
 	unsigned int age = 2;
 };
+
+inline bool operator==(const dog& lhs, const dog& rhs) { return lhs.age == rhs.age && lhs.color == rhs.color; }
+inline bool operator!=(const dog& lhs, const dog& rhs) { return !(lhs == rhs); }

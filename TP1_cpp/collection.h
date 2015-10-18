@@ -1,25 +1,21 @@
-/*************************************************************************
-collection{file_base}  -  description
--------------------
-début                : collection{date}
-copyright            : (C) collection{year} par collection{user}
-*************************************************************************/
+/*****************************************************************************
+				collection  -  A collection of dogs
+				-----------------------------------
+date                 : 01/10/2015
+copyright            : (C) 2015 par B3311
+Distributed under the MIT License.(See http://opensource.org/licenses/MIT)
+*****************************************************************************/
 
-//---------- Interface de la classe <collection{file_base}> (fichier collection{file_name}) ------
+//------- Interface de la classe <collection.h> (fichier collection.h) -------
 #ifndef COLLECTION_H
 #define COLLECTION_H
 
+//------------------------------------------------------- Interfaces utilisées
 #include "dog.h"
 
-//--------------------------------------------------- Interfaces utilisées
-
-//------------------------------------------------------------- Constantes 
-
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
-// collection: 
-//------------------------------------------------------------------------ 
+//----------------------------------------------------------------------------
+// collection:
+//----------------------------------------------------------------------------
 class collection
 {
 	//----------------------------------------------------------------- PUBLIC
@@ -39,12 +35,14 @@ public:
 
 	bool retirer(const dog& old_dog);
 	// Mode d'emploi (constructeur de copie) :
-	//
+	// NOTE: if given dog isn't in this collection, it won't reallocate memory for m_dogs, even if m_capacity > m_size
 	// Contrat :
 	//
 
 	bool retirer(const dog *const * dogs, size_t size);
 	// Mode d'emploi (constructeur de copie) :
+	// NOTE: we assume size is correct
+	// NOTE: if none of given dogs is in this collection, it still reallocate memory for m_dogs so that m_capacity == m_size
 	// Contrat :
 	//
 
@@ -77,9 +75,9 @@ public:
 	collection(dog** dogs, size_t size);
 	// Mode d'emploi (constructeur de copie) :
 	// NOTE: takes ownership on given dogs and could delete them.
+	// NOTE: we assume size is correct
 	// Contrat :
 	//
-
 
 	virtual ~collection();
 	// Mode d'emploi :
@@ -88,32 +86,18 @@ public:
 	//
 
 	//------------------------------------------------------------------ PRIVE 
-
 protected:
 	//----------------------------------------------------- Méthodes protégées
+	size_t find_all_of(const dog *const * dogs_to_find, size_t size, unsigned int& matches_count) const;
+	void disposeDogs();
 
-private:
-	//------------------------------------------------------- Méthodes privées
-
-protected:
 	//----------------------------------------------------- Attributs protégés
 	dog** m_dogs = nullptr;
 	size_t m_capacity = 0;
 	size_t m_size = 0;
 
+	//---------------------------------------------------- Constantes protégés
 	static const size_t INITIAL_ALLOCATION_SIZE = 5;
-
-private:
-	//------------------------------------------------------- Attributs privés
-
-	//---------------------------------------------------------- Classes amies
-
-	//-------------------------------------------------------- Classes privées
-
-	//----------------------------------------------------------- Types privés
-
 };
-
-//----------------------------------------- Types dépendants de <collection{file_base}>
 
 #endif // COLLECTION_H
