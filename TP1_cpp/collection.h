@@ -17,88 +17,62 @@ namespace TP1
 {
 	//----------------------------------------------------------------------------
 	// collection:
+	// classe qui permet de manipuler une collection d'objets de type dog
 	//----------------------------------------------------------------------------
 	class collection
 	{
 		//----------------------------------------------------------------- PUBLIC
 	public:
-		//------------------------------------------------------- Usings publiques
-		using size_type = size_t;
-		using dog_ptr = dog*;
-		using dog_cref = const dog&;
-		using dog_array = dog **;
-		using const_dog_array = const dog *const *;
-		using collection_cref = const collection&;
-
 		//----------------------------------------------------- Méthodes publiques
 		void afficher() const;
-		// Mode d'emploi : 
-		// 
-		// Contrat : 
-		// 
+		// Mode d'emploi : affiche le contenu de la collection
 
-		bool ajouter(dog* new_dog);
-		// Mode d'emploi (constructeur de copie) :
-		// NOTE: takes ownership on given new_dog and could delete it.
-		// Contrat :
-		//
+		bool ajouter(const dog& dog_to_add);
+		// Mode d'emploi: ajoute dog_to_add dans la collection courante
+		//		new_dog: reférence constante vers un dog qui sera ajouté dans la collection
 
 		bool retirer(const dog& old_dog);
-		// Mode d'emploi (constructeur de copie) :
-		// NOTE: if given dog isn't in this collection, it won't reallocate memory for m_dogs, even if m_capacity > m_size
-		// Contrat :
-		//
+		// Mode d'emploi: retire old_dog de la collection courante
+		//		old_dog: reference vers un dog qui sera retiré de la collection puis deleté
+		// NOTE: ajuste la capacité de la collection au minimum même si old_dog n'est pas présent dans la collection 
 
-		bool retirer(const dog *const * dogs, size_t size);
-		// Mode d'emploi (constructeur de copie) :
-		// NOTE: we assume size is correct
-		// NOTE: if none of given dogs is in this collection, it still reallocate memory for m_dogs so that m_capacity == m_size
-		// Contrat :
-		//
+		bool retirer(const dog dogs[], size_t size);
+		// Mode d'emploi: retire l'ensemble des dogs du parametre 'dogs' de la collection courante
+		//		dogs: tableau de dogs qui seront retirés de la collection puis deletés
+		//		size: taille du tableau dogs
+		// NOTE: ajuste la capacité de la collection au minimum même si aucun dog de dogs n'est pas présent dans la collection 
 
 		bool ajuster(size_t capacity);
-		// Mode d'emploi (constructeur de copie) :
-		// capacity >= m_size !
-		// Contrat :
-		//
+		// Mode d'emploi: ajuste, si possible, la capacité de la collection à la taille spécifiée
+		// 	capacity: nouvelle taille de mémoire allouée pour la structure de donnée interne
 
 		bool reunir(const collection& other);
-		// Mode d'emploi (constructeur de copie) :
-		//
-		// Contrat :
-		//
+		// Mode d'emploi: ajoute le contenu de la collection donnée en paramétre
+		//	other: reference vers la collection à réunir avec la collection courante
 
 		//------------------------------------------------- Surcharge d'opérateurs
-		// Avoid default copy assignment implementation
+		// Empêche l'implémentation par défaut du 'copy assignement operator'
 		collection& operator=(const collection&) = delete;
 
 		//-------------------------------------------- Constructeurs - destructeur
-		// Avoid default copy constructor implementation
+		// Empêche l'implémentation par défaut du constructeur de copie
 		collection(const collection&) = delete;
 
 		explicit collection(size_t capacity);
-		// Mode d'emploi (constructeur de copie) :
-		//
-		// Contrat :
-		//
+		// Mode d'emploi: Constructeur d'une collection de taille pré-allouée donnée
+		//	capacity: Taille de la nouvelle collection
 
-		collection(dog** dogs, size_t size);
-		// Mode d'emploi (constructeur de copie) :
-		// NOTE: takes ownership on given dogs and could delete them.
-		// NOTE: we assume size is correct
-		// Contrat :
-		//
+		collection(const dog dogs[], size_t size);
+		// Mode d'emploi: Constructeur d'une collection à partir d'un ensemble de dog donnée en paramètre
+		// NOTE: la classe collection prend l'ownership sur les dogs donnés en paramètre et pourrais donc les deleter
 
 		virtual ~collection();
-		// Mode d'emploi :
-		//
-		// Contrat :
-		//
+		// Mode d'emloi: Destructeur de la colection courante
 
 		//------------------------------------------------------------------ PRIVE 
 	protected:
 		//----------------------------------------------------- Méthodes protégées
-		size_t find_all_of(const dog *const * dogs_to_find, size_t size, unsigned int& matches_count) const;
+		unsigned int find_all_of(const dog dogs_to_find[], size_t size) const;
 		void disposeDogs();
 
 		//----------------------------------------------------- Attributs protégés

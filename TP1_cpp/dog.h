@@ -4,6 +4,10 @@ namespace TP1
 {
 	enum class color { RED, GREEN, BLUE, YELLOW, BROWN };
 
+	//----------------------------------------------------------------------------
+	// dog:
+	// structure representant un chien
+	//----------------------------------------------------------------------------
 	struct dog
 	{
 	public:
@@ -11,7 +15,7 @@ namespace TP1
 		explicit dog(unsigned int age) : age(age) { }
 		dog(color color, unsigned int age) : color(color), age(age) { }
 
-		const color color = color::BLUE;
+		color color = TP1::color::BLUE;
 		unsigned int age = 2;
 	};
 

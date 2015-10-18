@@ -18,9 +18,7 @@ Distributed under the MIT License.(See http://opensource.org/licenses/MIT)
 
 namespace TP1
 {
-
 	//------------------------------------------------------------------------- PUBLIC
-
 	void collection::afficher() const
 	{
 		if (m_size > 0)
@@ -32,10 +30,10 @@ namespace TP1
 			std::cout << m_dogs[i]->age << ((i < m_size - 1) ? ", " : " }");
 	}
 
-	bool collection::ajouter(dog* new_dog)
+	bool collection::ajouter(const dog& dog_to_add)
 	{
-		if (new_dog == nullptr)
-			return false;
+		// Copy given dog
+		dog* new_dog = new dog(dog_to_add);
 
 		// Reallocate memory if we don't have free space anymore
 		if (m_size == m_capacity)
@@ -51,7 +49,7 @@ namespace TP1
 		return true;
 	}
 
-	bool collection::retirer(const dog *const * dogs_to_remove, size_t size)
+	bool collection::retirer(const dog dogs_to_remove[], size_t size)
 	{
 		if (dogs_to_remove == nullptr || size == 0 || m_dogs == nullptr)
 		{
@@ -60,9 +58,7 @@ namespace TP1
 		}
 
 		// Find the number of dog to remove and get the index of the first one
-		unsigned int removes_todo_count = 0;
-		// pass 'removes_todo_count' by reference to get the exact size to allocate in memory for 'new_dogs' array
-		size_t idx = find_all_of(dogs_to_remove, size, removes_todo_count);
+		unsigned int removes_todo_count = find_all_of(dogs_to_remove, size);
 
 		if (removes_todo_count == 0)
 		{
@@ -88,7 +84,7 @@ namespace TP1
 				bool is_to_copy = true;
 				for (size_t j = 0; j < size && removes_count < removes_todo_count; ++j)
 				{
-					if (*(dogs_to_remove[j]) == *(dog))
+					if (dogs_to_remove[j] == *(dog))
 					{
 						++removes_count;
 						is_to_copy = false;
@@ -110,9 +106,7 @@ namespace TP1
 
 	bool collection::retirer(const dog& old_dog)
 	{
-		// Avoid code duplication
-		const dog *const ptr = &old_dog;
-		return retirer(&ptr, 1);
+		return retirer(&old_dog, 1);
 	}
 
 	bool collection::ajuster(size_t new_capacity)
@@ -153,7 +147,7 @@ namespace TP1
 		{
 			// We have enought free allocated space to store other.m_dogs in m_dogs
 			for (size_t i = 0; i < other.m_size; ++i)
-				m_dogs[m_size + i] = other.m_dogs[i];
+				m_dogs[m_size + i] = new dog(*(other.m_dogs[i]));
 
 			m_size += other.m_size;
 		}
@@ -164,11 +158,11 @@ namespace TP1
 
 			// Copy other.m_dogs to new_dogs
 			for (size_t i = 0; i < other.m_size; i++)
-				new_dogs[i + m_size] = other.m_dogs[i];
+				new_dogs[i + m_size] = new dog(*(other.m_dogs[i]));
 
 			if (m_dogs != nullptr)
 			{
-				// Copy m_dogs to new_dogs
+				// Copy m_dogs pointers to new_dogs
 				for (size_t i = 0; i < m_size; ++i)
 					new_dogs[i] = m_dogs[i];
 
@@ -199,7 +193,7 @@ namespace TP1
 		m_capacity = capacity;
 	} //----- Fin de collection{file_base} (constructeur de copie)
 
-	collection::collection(dog** dogs, size_t size)
+	collection::collection(const dog dogs[], size_t size)
 	{
 #ifdef MAP
 		cout << "Appel au constructeur 'collection::collection(dog*, size_t)'" << endl;
@@ -210,11 +204,12 @@ namespace TP1
 			m_capacity = size;
 			m_size = size;
 
+			// Create a new array of dog pointers
 			m_dogs = new dog*[size];
 
-			// Copy given dogs pointers
+			// Copy given dogs
 			for (size_t i = 0; i < size; ++i)
-				m_dogs[i] = dogs[i];
+				m_dogs[i] = new dog(dogs[i]);
 		}
 	}
 
@@ -232,10 +227,9 @@ namespace TP1
 	//-------------------------------------------------------------------------- PRIVE
 
 	//------------------------------------------------------------- Méthodes protégées
-	size_t collection::find_all_of(const dog *const * dogs_to_find, size_t size, unsigned int& matches_count) const
+	unsigned int collection::find_all_of(const dog dogs_to_find[], size_t size) const
 	{
-		size_t first_match_idx = m_size;
-		matches_count = 0;
+		unsigned int matches_count = 0;
 
 		if (size > 0 && dogs_to_find != nullptr && m_size > 0)
 		{
@@ -243,9 +237,8 @@ namespace TP1
 			{
 				for (size_t idx2 = 0; idx2 < size; ++idx2)
 				{
-					if (*(m_dogs[idx]) == *(dogs_to_find[idx2]))
+					if (*(m_dogs[idx]) == dogs_to_find[idx2])
 					{
-						first_match_idx = idx;
 						++matches_count;
 						break;
 					}
@@ -253,7 +246,7 @@ namespace TP1
 			}
 		}
 
-		return first_match_idx;
+		return matches_count;
 	}
 
 	void collection::disposeDogs()

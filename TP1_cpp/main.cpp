@@ -14,9 +14,10 @@
 static const char* test_lifetime()
 {
 	{
-		TP1::dog * dogsArray[3] = { new TP1::dog(TP1::color::GREEN, 50),
-			new TP1::dog(TP1::color::RED, 3),
-			new TP1::dog(TP1::color::BLUE, 99) };
+		TP1::dog dogsArray[3] = {
+			TP1::dog(TP1::color::GREEN, 50),
+			TP1::dog(TP1::color::RED, 3),
+			TP1::dog(TP1::color::BLUE, 99) };
 
 		TP1::collection dogs1(3);
 		TP1::collection dogs2(dogsArray, 3);
@@ -37,10 +38,11 @@ static const char* test_lifetime()
 
 static const char* test_afficher()
 {
-	TP1::dog * dogsArray[3] = {
-		new TP1::dog(TP1::color::GREEN, 50),
-		new TP1::dog(TP1::color::RED, 3),
-		new TP1::dog(TP1::color::BLUE, 99) };
+	TP1::dog dogsArray[3] = {
+		TP1::dog(TP1::color::GREEN, 50),
+		TP1::dog(TP1::color::RED, 3),
+		TP1::dog(TP1::color::BLUE, 99) };
+
 	TP1::collection dogs1(dogsArray, 3);
 	TP1::collection dogs2(2);
 
@@ -54,14 +56,14 @@ static const char* test_afficher()
 
 static const char* test_ajouter()
 {
-	TP1::dog * dogsArray[3] = {
-		new TP1::dog(TP1::color::GREEN, 50),
-		new TP1::dog(TP1::color::RED, 3),
-		new TP1::dog(TP1::color::BLUE, 99) };
-
 	{
+		TP1::dog dogsArray[3] = {
+			TP1::dog(TP1::color::GREEN, 50),
+			TP1::dog(TP1::color::RED, 3),
+			TP1::dog(TP1::color::BLUE, 99) };
+
 		TP1::collection dogs(dogsArray, 3);
-		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
+		dogs.ajouter(TP1::dog(TP1::color::GREEN, 5));
 		dogs.afficher();
 	}
 
@@ -69,37 +71,22 @@ static const char* test_ajouter()
 
 	{
 		TP1::collection dogs(0);
-		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
-		dogs.afficher();
-	}
-
-	std::cout << " ";
-
-	{
-		TP1::collection dogs(2);
-		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
-		dogs.ajouter(nullptr);
+		dogs.ajouter(TP1::dog(TP1::color::GREEN, 5));
 		dogs.afficher();
 	}
 
 	// Return expected output
-	return "{ 50, 3, 99, 5 } { 5 } { 5 }";
+	return "{ 50, 3, 99, 5 } { 5 }";
 }
 
 static const char* test_retirer()
 {
-	// We need different allocation for each test as collection takes ownership over dogs and could delete them during 'retirer(...)' calls
-	auto create_dogs = []() {
-		auto dogsArray = new TP1::dog*[3];
-		dogsArray[0] = new TP1::dog(TP1::color::GREEN, 50);
-		dogsArray[1] = new TP1::dog(TP1::color::RED, 3);
-		dogsArray[2] = new TP1::dog(TP1::color::BLUE, 99);
-		return dogsArray;
-	};
+	TP1::dog dogsArray[3] = {
+		TP1::dog(TP1::color::GREEN, 50),
+		TP1::dog(TP1::color::RED, 3),
+		TP1::dog(TP1::color::BLUE, 99) };
 
 	{
-		TP1::dog** dogsArray = create_dogs();
-
 		TP1::collection dogs(dogsArray, 3);
 		dogs.retirer(nullptr, 0);
 		dogs.afficher();
@@ -108,8 +95,6 @@ static const char* test_retirer()
 	std::cout << " ";
 
 	{
-		TP1::dog** dogsArray = create_dogs();
-
 		TP1::collection dogs(dogsArray, 3);
 		dogs.retirer(dogsArray, 3);
 		dogs.afficher();
@@ -118,21 +103,17 @@ static const char* test_retirer()
 	std::cout << " ";
 
 	{
-		TP1::dog** dogsArray = create_dogs();
-
 		TP1::collection dogs(dogsArray, 3);
-		dogs.ajouter(new TP1::dog(TP1::color::RED, 3));
-		dogs.retirer(*dogsArray[1]);
+		dogs.ajouter(TP1::dog(TP1::color::RED, 3));
+		dogs.retirer(dogsArray[1]);
 		dogs.afficher();
 	}
 
 	std::cout << " ";
 
 	{
-		TP1::dog** dogsArray = create_dogs();
-
 		TP1::collection dogs(0);
-		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
+		dogs.ajouter(TP1::dog(TP1::color::GREEN, 5));
 		dogs.retirer(dogsArray, 3);
 		dogs.afficher();
 	}
@@ -143,16 +124,84 @@ static const char* test_retirer()
 
 static const char* test_ajuster()
 {
+	TP1::dog dogsArray[3] = {
+		TP1::dog(TP1::color::GREEN, 50),
+		TP1::dog(TP1::color::RED, 3),
+		TP1::dog(TP1::color::BLUE, 99) };
+
+	{
+		TP1::collection dogs(dogsArray, 3);
+		dogs.ajouter(TP1::dog(TP1::color::YELLOW, 5));
+		std::cout << dogs.ajuster(4) << " ";
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		TP1::collection dogs(dogsArray, 3);
+		std::cout << dogs.ajuster(2) << " ";
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		TP1::collection dogs(5);
+		std::cout << dogs.ajuster(0) << " ";
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		TP1::collection dogs(dogsArray, 3);
+		std::cout << dogs.ajuster(10) << " ";
+		dogs.afficher();
+	}
 
 	// Return expected output
-	return "";
+	return "1 { 50, 3, 99, 5 } 0 { 50, 3, 99 } 1 { } 1 { 50, 3, 99 }";
 }
 
 static const char* test_reunir()
 {
+	TP1::dog dogsArray[3] = {
+		TP1::dog(TP1::color::GREEN, 50),
+		TP1::dog(TP1::color::RED, 3),
+		TP1::dog(TP1::color::BLUE, 99) };
+
+	{
+		TP1::dog dogsArray2[2] = {
+			TP1::dog(TP1::color::RED, 4),
+			TP1::dog(TP1::color::YELLOW, 1) };
+
+		TP1::collection dogs1(dogsArray, 3);
+		TP1::collection dogs2(dogsArray2, 2);
+		dogs1.reunir(dogs2);
+		dogs1.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		TP1::collection dogs1(dogsArray, 3);
+		TP1::collection dogs2(2);
+		dogs1.reunir(dogs2);
+		dogs1.afficher();
+	}
+
+	std::cout << " ";
+
+	{
+		TP1::collection dogs1(10);
+		TP1::collection dogs2(dogsArray, 3);
+		dogs1.reunir(dogs2);
+		dogs1.afficher();
+	}
 
 	// Return expected output
-	return "";
+	return "{ 50, 3, 99, 4, 1 } { 50, 3, 99 } { 50, 3, 99 }";
 }
 
 /*
@@ -186,7 +235,7 @@ static void test(const char*(*testFunc)(), const char* testName = "")
 {
 	static unsigned test_count = 0;
 
-	if (testName != "" || testName == nullptr)
+	if (testName[0] == '\0' || testName == nullptr)
 		std::cout << std::endl << std::endl << "### TEST " << ++test_count << " ###" << std::endl;
 	else
 		std::cout << std::endl << std::endl << "### TEST " << ++test_count << " (" << testName << ") ###" << std::endl;
@@ -223,7 +272,7 @@ static void test(const char*(*testFunc)(), const char* testName = "")
 		std::cout << "FAILED : wrong output (\tEXPECTED =\t\"" << expected_str << "\",\n\t\t\tOUTPUT =\t\"" << output << "\")" << std::endl;
 }
 
-void main()
+int main()
 {
 	std::cout
 		<< R"(			 _________ ___    _____  __    __ )" << std::endl
@@ -242,4 +291,6 @@ void main()
 
 	std::cout << std::endl << std::endl << "Press ENTER to exit...";
 	std::cin.get();
+
+	return 0;
 }
