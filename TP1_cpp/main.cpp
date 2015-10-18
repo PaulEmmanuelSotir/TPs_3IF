@@ -9,23 +9,20 @@
 #pragma GCC optimize ("O0")
 #elif _MSC_VER
 #pragma optimize("", off)
-#elif __MINGW32__
-#pragma GCC push_options // TODO: verifier que ça compile avec mingw et ajouter mingw64
-#pragma GCC optimize ("O0")
 #endif
 
 static const char* test_lifetime()
 {
 	{
-		dog * dogsArray[3] = { new dog(color::GREEN, 50),
-			new dog(color::RED, 3),
-			new dog(color::BLUE, 99) };
+		TP1::dog * dogsArray[3] = { new TP1::dog(TP1::color::GREEN, 50),
+			new TP1::dog(TP1::color::RED, 3),
+			new TP1::dog(TP1::color::BLUE, 99) };
 
-		collection dogs1(3);
-		collection dogs2(dogsArray, 3);
+		TP1::collection dogs1(3);
+		TP1::collection dogs2(dogsArray, 3);
 	} // 'dogs1' and 'dogs2' destructors will be called here
 
-	volatile collection* dogs = new collection(100);
+	volatile auto dogs = new TP1::collection(100);
 	delete dogs;
 
 	// Return expected output
@@ -36,17 +33,16 @@ static const char* test_lifetime()
 #pragma GCC pop_options
 #elif _MSC_VER
 #pragma optimize("", on)
-#elif __MINGW32__
-#pragma GCC pop_options // TODO: verifier que ça compile avec mingw et ajouter mingw64
 #endif
 
 static const char* test_afficher()
 {
-	dog * dogsArray[3] = { new dog(color::GREEN, 50),
-						new dog(color::RED, 3),
-						new dog(color::BLUE, 99) };
-	collection dogs1(dogsArray, 3);
-	collection dogs2(2);
+	TP1::dog * dogsArray[3] = {
+		new TP1::dog(TP1::color::GREEN, 50),
+		new TP1::dog(TP1::color::RED, 3),
+		new TP1::dog(TP1::color::BLUE, 99) };
+	TP1::collection dogs1(dogsArray, 3);
+	TP1::collection dogs2(2);
 
 	dogs1.afficher();
 	std::cout << " ";
@@ -58,29 +54,30 @@ static const char* test_afficher()
 
 static const char* test_ajouter()
 {
-	dog * dogsArray[3] = { new dog(color::GREEN, 50),
-		new dog(color::RED, 3),
-		new dog(color::BLUE, 99) };
+	TP1::dog * dogsArray[3] = {
+		new TP1::dog(TP1::color::GREEN, 50),
+		new TP1::dog(TP1::color::RED, 3),
+		new TP1::dog(TP1::color::BLUE, 99) };
 
 	{
-		collection dogs(dogsArray, 3);
-		dogs.ajouter(new dog(color::GREEN, 5));
+		TP1::collection dogs(dogsArray, 3);
+		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
 		dogs.afficher();
 	}
 
 	std::cout << " ";
 
 	{
-		collection dogs(0);
-		dogs.ajouter(new dog(color::GREEN, 5));
+		TP1::collection dogs(0);
+		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
 		dogs.afficher();
 	}
 
 	std::cout << " ";
 
 	{
-		collection dogs(2);
-		dogs.ajouter(new dog(color::GREEN, 5));
+		TP1::collection dogs(2);
+		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
 		dogs.ajouter(nullptr);
 		dogs.afficher();
 	}
@@ -93,17 +90,17 @@ static const char* test_retirer()
 {
 	// We need different allocation for each test as collection takes ownership over dogs and could delete them during 'retirer(...)' calls
 	auto create_dogs = []() {
-		auto dogsArray = new dog*[3];
-		dogsArray[0] = new dog(color::GREEN, 50);
-		dogsArray[1] = new dog(color::RED, 3);
-		dogsArray[2] = new dog(color::BLUE, 99);
+		auto dogsArray = new TP1::dog*[3];
+		dogsArray[0] = new TP1::dog(TP1::color::GREEN, 50);
+		dogsArray[1] = new TP1::dog(TP1::color::RED, 3);
+		dogsArray[2] = new TP1::dog(TP1::color::BLUE, 99);
 		return dogsArray;
 	};
 
 	{
-		dog** dogsArray = create_dogs();
+		TP1::dog** dogsArray = create_dogs();
 
-		collection dogs(dogsArray, 3);
+		TP1::collection dogs(dogsArray, 3);
 		dogs.retirer(nullptr, 0);
 		dogs.afficher();
 	}
@@ -111,9 +108,9 @@ static const char* test_retirer()
 	std::cout << " ";
 
 	{
-		dog** dogsArray = create_dogs();
+		TP1::dog** dogsArray = create_dogs();
 
-		collection dogs(dogsArray, 3);
+		TP1::collection dogs(dogsArray, 3);
 		dogs.retirer(dogsArray, 3);
 		dogs.afficher();
 	}
@@ -121,10 +118,10 @@ static const char* test_retirer()
 	std::cout << " ";
 
 	{
-		dog** dogsArray = create_dogs();
+		TP1::dog** dogsArray = create_dogs();
 
-		collection dogs(dogsArray, 3);
-		dogs.ajouter(new dog(color::RED, 3));
+		TP1::collection dogs(dogsArray, 3);
+		dogs.ajouter(new TP1::dog(TP1::color::RED, 3));
 		dogs.retirer(*dogsArray[1]);
 		dogs.afficher();
 	}
@@ -132,10 +129,10 @@ static const char* test_retirer()
 	std::cout << " ";
 
 	{
-		dog** dogsArray = create_dogs();
+		TP1::dog** dogsArray = create_dogs();
 
-		collection dogs(0);
-		dogs.ajouter(new dog(color::GREEN, 5));
+		TP1::collection dogs(0);
+		dogs.ajouter(new TP1::dog(TP1::color::GREEN, 5));
 		dogs.retirer(dogsArray, 3);
 		dogs.afficher();
 	}
@@ -208,7 +205,7 @@ static void test(const char*(*testFunc)(), const char* testName = "")
 		// Restore previous std::cout output buffer
 		std::cout.rdbuf(old);
 
-		std::cout << "FAILED : throwed an exception";
+		std::cout << "FAILED : Throwed an exception!";
 		return;
 	}
 
@@ -221,7 +218,7 @@ static void test(const char*(*testFunc)(), const char* testName = "")
 
 	// See if test output is as expected
 	if (string_cmp(output, expected_str) == 0)
-		std::cout << "PASSED";
+		std::cout << "PASSED (OUTPUT = \"" << output << "\")";
 	else
 		std::cout << "FAILED : wrong output (\tEXPECTED =\t\"" << expected_str << "\",\n\t\t\tOUTPUT =\t\"" << output << "\")" << std::endl;
 }
