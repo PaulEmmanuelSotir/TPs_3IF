@@ -1,19 +1,18 @@
-/*********************************************************************************
-				collection  -  A collection of dogs
-				-----------------------------------
-date				: 01/10/2015
-copyright			: (C) 2015 par B3311
-Distributed under the MIT License.(See http://opensource.org/licenses/MIT)
-*********************************************************************************/
+/*************************************************************************************
+						collection  -  A collection of dogs
+						-----------------------------------
+date                 : 10/2015
+copyright            : (C) 2015 by B3311
+*************************************************************************************/
 
-//------- Réalisation de la classe <collection.h> (fichier collection.cpp) -------
+//--------- Réalisation de la classe <collection.h> (fichier collection.cpp) ---------
 
-//------------------------------------------------------------------------ INCLUDE
+//---------------------------------------------------------------------------- INCLUDE
 
-//---------------------------------------------------------------- Include système
+//-------------------------------------------------------------------- Include système
 #include <iostream>
 
-//-------------------------------------------------------------- Include personnel
+//------------------------------------------------------------------ Include personnel
 #include "collection.h"
 
 namespace TP1
@@ -22,12 +21,16 @@ namespace TP1
 	void collection::afficher() const
 	{
 		if (m_size > 0)
-			std::cout << "{ ";
-		else
-			std::cout << "{ }";
+		{
+			std::cout << "({ ";
 
-		for (size_t i = 0; i < m_size; ++i)
-			std::cout << m_dogs[i]->age << ((i < m_size - 1) ? ", " : " }");
+			for (size_t i = 0; i < m_size; ++i)
+				std::cout << m_dogs[i]->age << ((i < m_size - 1) ? ", " : " }, ");
+
+			std::cout << m_capacity << ")";
+		}
+		else
+			std::cout << "({ }, " << m_capacity << ")";
 	}
 
 	bool collection::ajouter(const dog& dog_to_add)
@@ -112,18 +115,22 @@ namespace TP1
 	bool collection::ajuster(size_t new_capacity)
 	{
 		if (new_capacity < m_size || new_capacity == m_capacity)
-			return false;
+			return false; // We forbid any dog removal during an 'collection::ajuster' call
 
 		if (new_capacity == 0)
 		{
-			// m_size == 0 and we want to free all pre-allocated memory (m_capacity > 0 && m_dogs != nullptr)
+			// We know that 'm_size == 0', 'm_capacity > 0' and 'm_dogs != nullptr' 
+			// We free all pre-allocated memory:
 			delete[] m_dogs;
 			m_dogs = nullptr;
+			m_capacity = 0;
 			return true;
 		}
 
+		// Allocate a new array of dog pointers
 		dog** new_dogs = new dog*[new_capacity];
 
+		// If this collection have any dog pointers, we copy them to 'new_dogs' and we delete 'm_dogs'
 		if (m_dogs != nullptr)
 		{
 			for (size_t i = 0; i < m_size; i++)
@@ -132,6 +139,7 @@ namespace TP1
 			delete[] m_dogs;
 		}
 
+		// Assign the new array to 'm_dogs' and update 'm_capacity'
 		m_dogs = new_dogs;
 		m_capacity = new_capacity;
 
@@ -169,6 +177,7 @@ namespace TP1
 				delete[] m_dogs;
 			}
 
+			// Assign the new array to 'm_dogs' and update 'm_capacity' and 'm_size'
 			m_dogs = new_dogs;
 			m_size += other.m_size;
 			m_capacity = 2 * m_size;
@@ -179,8 +188,6 @@ namespace TP1
 
 	//---------------------------------------------------- Constructeurs - destructeur
 	collection::collection(size_t capacity)
-		// Algorithme :
-		//
 	{
 #ifdef MAP
 		cout << "Appel au constructeur 'collection::collection(size_t)'" << endl;
@@ -191,12 +198,12 @@ namespace TP1
 		else
 			m_dogs = nullptr;
 		m_capacity = capacity;
-	} //----- Fin de collection{file_base} (constructeur de copie)
+	}
 
 	collection::collection(const dog dogs[], size_t size)
 	{
 #ifdef MAP
-		cout << "Appel au constructeur 'collection::collection(dog*, size_t)'" << endl;
+		cout << "Appel au constructeur 'collection::collection(const dog[], size_t)'" << endl;
 #endif
 
 		if (size > 0 && dogs != nullptr)
@@ -214,13 +221,11 @@ namespace TP1
 	}
 
 	collection::~collection()
-		// Algorithme :
-		//
 	{
 #ifdef MAP
 		cout << "Appel au destructeur de 'collection'" << endl;
 #endif
-
+		// On désalloue la mémoire allouée pour le tableau de pointeur de dog et pour les dogs eux-même
 		disposeDogs();
 	} //----- Fin de ~collection{file_base}
 
@@ -267,5 +272,4 @@ namespace TP1
 			m_capacity = 0;
 		}
 	}
-
 }
