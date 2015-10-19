@@ -45,8 +45,14 @@ end
 [max_vecs, max_lambdas] = Deflation(A, nbr_val_propre_sup);
 [min_vecs, min_lambdas] = DeflationInverse(A, nbr_val_propre_inf);
 
-max_vecs
-max_lambdas
+it = 2;
+while it ~= 0
+    it = it - 1;
+    figure(1);
+    for i=1:10
+        surf(reshape(max_vecs{i}, 15, 10))
+    end
+    
+end
 
-min_vecs
-min_lambdas
+
