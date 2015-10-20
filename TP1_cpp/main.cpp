@@ -27,9 +27,9 @@ int main()
 
 	test(test_lifetime, "OBJECT LIFETIME");
 	test(test_afficher, "AFFICHER");
+	test(test_ajuster, "AJUSTER");
 	test(test_ajouter, "AJOUTER");
 	test(test_retirer, "RETIRER");
-	test(test_ajuster, "AJUSTER");
 	test(test_reunir, "REUNIR");
 
 	std::cout << std::endl << std::endl << "Press ENTER to exit...";
