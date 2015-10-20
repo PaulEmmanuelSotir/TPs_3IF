@@ -137,17 +137,66 @@ const char* test_afficher()
 		"({ }, 2)";				// Sub-test 2
 }
 
+// Description: test de la méthode ajuster de la classe TP1::collection
+//		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
+//			est correcte
+const char* test_ajuster()
+{
+	TP1::dog dogsArray[3] = {
+		TP1::dog(TP1::color::GREEN, 50),
+		TP1::dog(TP1::color::RED, 3),
+		TP1::dog(TP1::color::BLUE, 99) };
+
+	{ // Sub-test 1
+		TP1::collection dogs(dogsArray, 3);
+		std::cout << dogs.ajuster(2) << " ";
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{ // Sub-test 2
+		TP1::collection dogs(5);
+		std::cout << dogs.ajuster(0) << " ";
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{ // Sub-test 3
+		TP1::collection dogs(dogsArray, 3);
+		std::cout << dogs.ajuster(10) << " ";
+		dogs.afficher();
+	}
+
+	std::cout << " ";
+
+	{ // Sub-test 4
+		TP1::collection dogs(dogsArray, 3);
+		dogs.ajuster(10);
+		std::cout << dogs.ajuster(4) << " ";
+		dogs.afficher();
+	}
+
+	// Return expected output
+	return
+		"0 ({ 50, 3, 99 }, 3) "		// Sub-test 1
+		"1 ({ }, 0) "				// Sub-test 2
+		"1 ({ 50, 3, 99 }, 10) "		// Sub-test 3
+		"1 ({ 50, 3, 99 }, 4)";	// Sub-test 4
+}
+
 // Description: test de la méthode ajouter de la classe TP1::collection
 //		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
 //			est correcte
 const char* test_ajouter()
 {
-	{ // Sub-test 1
-		TP1::dog dogsArray[3] = {
-			TP1::dog(TP1::color::GREEN, 50),
-			TP1::dog(TP1::color::RED, 3),
-			TP1::dog(TP1::color::BLUE, 99) };
+	TP1::dog dogsArray[3] = {
+		TP1::dog(TP1::color::GREEN, 50),
+		TP1::dog(TP1::color::RED, 3),
+		TP1::dog(TP1::color::BLUE, 99) };
 
+	{ // Sub-test 1
 		TP1::collection dogs(dogsArray, 3);
 		dogs.ajouter(TP1::dog(TP1::color::GREEN, 5));
 		dogs.afficher();
@@ -161,10 +210,19 @@ const char* test_ajouter()
 		dogs.afficher();
 	}
 
+	std::cout << " ";
+
+	{ // Sub-test 3
+		TP1::collection dogs(1);
+		dogs.ajouter(TP1::dog(TP1::color::GREEN, 5));
+		dogs.afficher();
+	}
+
 	// Return expected output
 	return
 		"({ 50, 3, 99, 5 }, 6) "	// Sub-test 1
-		"({ 5 }, 5)";				// Sub-test 2
+		"({ 5 }, 5) "				// Sub-test 2
+		"({ 5 }, 1)";				// Sub-test 3
 }
 
 // Description: test de la méthode retirer de la classe TP1::collection
@@ -215,55 +273,6 @@ const char* test_retirer()
 		"1 ({ }, 0) "			// Sub-test 2
 		"1 ({ 50, 99 }, 2) "	// Sub-test 3
 		"0 ({ 5 }, 1)";			// Sub-test 4
-}
-
-// Description: test de la méthode ajuster de la classe TP1::collection
-//		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
-//			est correcte
-const char* test_ajuster()
-{
-	TP1::dog dogsArray[3] = {
-		TP1::dog(TP1::color::GREEN, 50),
-		TP1::dog(TP1::color::RED, 3),
-		TP1::dog(TP1::color::BLUE, 99) };
-
-	{ // Sub-test 1
-		TP1::collection dogs(dogsArray, 3);
-		std::cout << dogs.ajuster(2) << " ";
-		dogs.afficher();
-	}
-
-	std::cout << " ";
-
-	{ // Sub-test 2
-		TP1::collection dogs(5);
-		std::cout << dogs.ajuster(0) << " ";
-		dogs.afficher();
-	}
-
-	std::cout << " ";
-
-	{ // Sub-test 3
-		TP1::collection dogs(dogsArray, 3);
-		std::cout << dogs.ajuster(10) << " ";
-		dogs.afficher();
-	}
-
-	std::cout << " ";
-
-	{ // Sub-test 4
-		TP1::collection dogs(dogsArray, 3);
-		dogs.ajuster(10);
-		std::cout << dogs.ajuster(4) << " ";
-		dogs.afficher();
-	}
-
-	// Return expected output
-	return
-		"0 ({ 50, 3, 99 }, 3) "		// Sub-test 1
-		"1 ({ }, 0) "				// Sub-test 2
-		"1 ({ 50, 3, 99 }, 10) "		// Sub-test 3
-		"1 ({ 50, 3, 99 }, 4)";	// Sub-test 4
 }
 
 // Description: test de la méthode reunir de la classe TP1::collection
