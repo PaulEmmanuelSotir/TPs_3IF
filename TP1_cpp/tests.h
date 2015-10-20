@@ -25,7 +25,7 @@ using TestFuncPtr = const char*(*)();
 // Forward déclaration de la fonction statique d'aide 'string_cmp'
 static int string_cmp(const char* lhs, const char* rhs);
 
-// Mode d'emploi: Excecute une fonction de test donnée en paramètre
+// Description: Excecute une fonction de test donnée en paramètre
 //		testFunc: pointeur vers une fonction de test
 //		testName: nom optionel du test
 void test(TestFuncPtr testFunc, const char* testName = "")
@@ -79,12 +79,12 @@ void test(TestFuncPtr testFunc, const char* testName = "")
 #pragma optimize("", off)
 #endif
 
-// Mode d'emploi: test des constructeurs et du destructeur de la classe TP1::collection
+// Description: test des constructeurs et du destructeur de la classe TP1::collection
 //		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée 
 //			est correcte
 //		NOTE: L'optimization de ce test est désactivée car on ne veut pas que les objets
 //			de type 'TP1::collection' soit enlevés car non utilisés.
-static const char* test_lifetime()
+const char* test_lifetime()
 {
 	{
 		TP1::dog dogsArray[3] = {
@@ -109,7 +109,7 @@ static const char* test_lifetime()
 #pragma optimize("", on)
 #endif
 
-// Mode d'emploi: test de la méthode afficher de la classe TP1::collection
+// Description: test de la méthode afficher de la classe TP1::collection
 //		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
 //			est correcte
 const char* test_afficher()
@@ -137,7 +137,7 @@ const char* test_afficher()
 		"({ }, 2)";				// Sub-test 2
 }
 
-// Mode d'emploi: test de la méthode ajouter de la classe TP1::collection
+// Description: test de la méthode ajouter de la classe TP1::collection
 //		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
 //			est correcte
 const char* test_ajouter()
@@ -167,7 +167,7 @@ const char* test_ajouter()
 		"({ 5 }, 5)";				// Sub-test 2
 }
 
-// Mode d'emploi: test de la méthode retirer de la classe TP1::collection
+// Description: test de la méthode retirer de la classe TP1::collection
 //		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
 //			est correcte
 const char* test_retirer()
@@ -217,7 +217,7 @@ const char* test_retirer()
 		"0 ({ 5 }, 1)";			// Sub-test 4
 }
 
-// Mode d'emploi: test de la méthode ajuster de la classe TP1::collection
+// Description: test de la méthode ajuster de la classe TP1::collection
 //		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
 //			est correcte
 const char* test_ajuster()
@@ -266,7 +266,7 @@ const char* test_ajuster()
 		"1 ({ 50, 3, 99 }, 4)";	// Sub-test 4
 }
 
-// Mode d'emploi: test de la méthode reunir de la classe TP1::collection
+// Description: test de la méthode reunir de la classe TP1::collection
 //		RETOURNE: la chaine de charactère qui devrait être affichée si la méthode testée
 //			est correcte
 const char* test_reunir()
@@ -316,7 +316,7 @@ const char* test_reunir()
 
 //------------------------------------------------------------------------ STATIC
 
-// Mode d'emploi: Fonction permettant de comparer deux chaines de charactères
+// Description: Fonction permettant de comparer deux chaines de charactères
 //		lhs: première chaîne de charactère comparée
 //		rhs: deuxième chaîne de charactère comparée
 //		RETOURNE: un entier nul si les chaines sont égales, négatif si le premier 
