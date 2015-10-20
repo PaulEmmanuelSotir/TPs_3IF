@@ -149,7 +149,7 @@ const char* test_ajouter()
 			TP1::dog(TP1::color::BLUE, 99) };
 
 		TP1::collection dogs(dogsArray, 3);
-		std::cout << dogs.ajouter(TP1::dog(TP1::color::GREEN, 5)) << " ";
+		dogs.ajouter(TP1::dog(TP1::color::GREEN, 5));
 		dogs.afficher();
 	}
 
@@ -157,14 +157,14 @@ const char* test_ajouter()
 
 	{ // Sub-test 2
 		TP1::collection dogs(0);
-		std::cout << dogs.ajouter(TP1::dog(TP1::color::GREEN, 5)) << " ";
+		dogs.ajouter(TP1::dog(TP1::color::GREEN, 5));
 		dogs.afficher();
 	}
 
 	// Return expected output
 	return
-		"1 ({ 50, 3, 99, 5 }, 6) "	// Sub-test 1
-		"1 ({ 5 }, 5)";				// Sub-test 2
+		"({ 50, 3, 99, 5 }, 6) "	// Sub-test 1
+		"({ 5 }, 5)";				// Sub-test 2
 }
 
 // Mode d'emploi: test de la méthode retirer de la classe TP1::collection

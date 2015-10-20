@@ -33,7 +33,7 @@ namespace TP1
 			std::cout << "({ }, " << m_capacity << ")";
 	}
 
-	bool collection::ajouter(const dog& dog_to_add)
+	void collection::ajouter(const dog& dog_to_add)
 	{
 		// Copy given dog
 		dog* new_dog = new dog(dog_to_add);
@@ -42,14 +42,11 @@ namespace TP1
 		if (m_size == m_capacity)
 		{
 			// Double capacity at each new allocations
-			if (!ajuster(m_size > 0 ? 2 * m_size : INITIAL_ALLOCATION_SIZE))
-				return false;
+			ajuster(m_size > 0 ? 2 * m_size : INITIAL_ALLOCATION_SIZE);
 		}
 
 		// Append new dog value
 		m_dogs[m_size++] = new_dog;
-
-		return true;
 	}
 
 	bool collection::retirer(const dog dogs_to_remove[], size_t size)

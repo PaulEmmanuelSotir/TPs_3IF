@@ -31,8 +31,7 @@ namespace TP1
 
 		// Mode d'emploi: ajoute dog_to_add dans la collection courante
 		//		new_dog: reférence constante vers un dog qui sera ajouté dans la collection
-		//		RETOURNE: Un booléen indiquant si l'ajout a bien été effectué
-		bool ajouter(const dog& dog_to_add);
+		void ajouter(const dog& dog_to_add);
 
 		// Mode d'emploi: retire old_dog de la collection courante
 		//		old_dog: reference vers un dog qui sera retiré de la collection puis deleté
