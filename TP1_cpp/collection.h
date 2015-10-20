@@ -28,7 +28,7 @@ namespace TP1
 		//	La valeur de la collection est affichée sous la forme : "({ <val1>, <val2>, ... }, <m_capacity>)"
 		//	avec <val1>, <val2>, ... les âges des chiens et <m_capacity> la capacité de la collection.
 		void afficher() const;
-		
+
 		// Description: ajoute dog_to_add dans la collection courante
 		//		new_dog: reférence constante vers un dog qui sera ajouté dans la collection
 		void ajouter(const dog& dog_to_add);
@@ -38,7 +38,7 @@ namespace TP1
 		//		RETOURNE: Un booléen indiquant si au moins un dog a bien été retiré
 		//	NOTE: ajuste la capacité de la collection au minimum même si old_dog n'est pas présent dans la collection 
 		bool retirer(const dog& old_dog);
-		
+
 		// Description: retire l'ensemble des dogs du parametre 'dogs' de la collection courante
 		//		dogs: tableau de dogs qui seront retirés de la collection
 		//		size: taille du tableau dogs

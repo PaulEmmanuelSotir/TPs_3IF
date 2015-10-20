@@ -26,17 +26,17 @@ namespace TP1
 
 		dog() = default;
 		explicit dog(unsigned int age) : age(age) { }
-		dog(color color, unsigned int age) : color(color), age(age) { }
+		dog(color c, unsigned int age) : col(c), age(age) { }
 
 		//------------------------------------------------------ Membres publiques
 
-		color color = TP1::color::BLUE;
+		color col = TP1::color::BLUE;
 		unsigned int age = 2;
 	};
 
 	//------------------------------------------------------- OPERATOR OVERLOADING
 
-	inline bool operator==(const dog& lhs, const dog& rhs) { return lhs.age == rhs.age && lhs.color == rhs.color; }
+	inline bool operator==(const dog& lhs, const dog& rhs) { return lhs.age == rhs.age && lhs.col == rhs.col; }
 	inline bool operator!=(const dog& lhs, const dog& rhs) { return !(lhs == rhs); }
 }
 
