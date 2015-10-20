@@ -25,12 +25,12 @@ int main()
 
 	std::cout << "### TESTING COLLECTION CLASS (no dogs will be harmed during this test) ###";
 
-	test(test_lifetime, "OBJECT LIFETIME");
-	test(test_afficher, "AFFICHER");
-	test(test_ajuster, "AJUSTER");
-	test(test_ajouter, "AJOUTER");
-	test(test_retirer, "RETIRER");
-	test(test_reunir, "REUNIR");
+	test(test_lifetime, "OBJECT LIFETIME");	// test 1
+	test(test_afficher, "AFFICHER");		// test 2
+	test(test_ajuster, "AJUSTER");			// test 3
+	test(test_ajouter, "AJOUTER");			// test 4
+	test(test_retirer, "RETIRER");			// test 5
+	test(test_reunir, "REUNIR");			// test 6
 
 	std::cout << std::endl << std::endl << "Press ENTER to exit...";
 	std::cin.get();
