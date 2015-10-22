@@ -33,7 +33,7 @@ for t=1:T
                     A(n, n+width) = 1;
                     A(n, n-width) = 1;
                 else
-                    % 4-neighbors-point (Bn = 0 = -4Xn + Xn+1 + Xn-1 + Xn+width + Xn-width)
+                    % 4-neighbors-point
                     A(n, n) = -4;
                     A(n, n+1) = 1;
                     A(n, n-1) = 1;
@@ -44,7 +44,7 @@ for t=1:T
             end
         else if mod(n, width) ==  cut_pos
                 if n == cut_pos
-                    % 5-neighbors-point (Bn = 0 = -4Xn + Xn+1 + Xn-1 + Xn+width + Xn-width)
+                    % 5-neighbors-point
                     A(n, n) = -5;
                     A(n, n+1) = 1;
                     A(n, n-1) = 1;
@@ -52,7 +52,7 @@ for t=1:T
                     A(n, 1) = 1;
                     A(n, width) = 1;
                     else if n == cut_pos + DotNum - width
-                    	% 5-neighbors-point (Bn = 0 = -4Xn + Xn+1 + Xn-1 + Xn+width + Xn-width)
+                    	% 5-neighbors-point
                         A(n, n) = -5;
                         A(n, n+1) = 1;
                         A(n, n-1) = 1;
@@ -60,7 +60,7 @@ for t=1:T
                         A(n, DotNum-width+1) = 1;
                         A(n, DotNum) = 1;
                         else
-                            % 6-neighbors-point (Bn = 0 = -6Xn + Xn+1 + Xn-1 + Xn+width + Xn-width + Xn-cut_pos+1 + Xn-cut_pos+width)
+                            % 6-neighbors-point
                             A(n, n) = -6;
                             A(n, n+1) = 1;
                             A(n, n-1) = 1;

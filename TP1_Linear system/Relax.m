@@ -13,17 +13,18 @@ while(~isequal(A*X,B) && (m < max_it || max_it < 0))
 	m = m + 1;
 	X_m = X;
 	for i=1:n
-		sum1 = 0;
+		LX = 0;
 		for j=1:i-1
-			sum1 = sum1 + A(i,j)*X(j);
+			LX = LX + A(i,j)*X(j);
 		end
-		sum2 = 0;
+		UX = 0;
 		for j=i+1:n
-			sum2 = sum2 + A(i,j)*X_m(j);
+			UX = UX + A(i,j)*X_m(j);
 		end
 		
-		X(i) = (B(i) - sum1 - sum2)/A(i,i);
-		X(i) = (1-omega)*X_m(i)+omega*X(i);
+		X(i) = (B(i) - LX - UX)/A(i,i); % (L + D)X = B - U*X_m
+		X(i) = (1-omega)*X_m(i)+omega*X(i);	% (omg*L + D)X = omg*B - omg*U*X_m + (1-omg)D*X_m
+											% Soit (omg*Dinv*L + 1)X = omg*Dinv*(B - U*X_m) + (1-omg)*X_m
 	end
 end
 
