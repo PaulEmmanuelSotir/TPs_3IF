@@ -19,7 +19,7 @@ while(~isequal(A*X,B) && (m < max_it || max_it < 0))
         end
         sum2 = 0;
         for j=i+1:n
-        	sum2 = sum2 + A(i,j)*X_m(j);
+        	sum2 = sum2 + A(i,j)*X_m(j);% X_m pas nescessaires?
         end
         
         X(i) = (B(i) - sum1 - sum2)/A(i,i);
