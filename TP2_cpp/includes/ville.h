@@ -29,6 +29,6 @@ namespace TP2
 		capteur m_capteurs[1500];
 		size_t m_size = 0;
 
-		pair<unsigned int, unsigned int> m_weekTrafficDistribution [DAYS_COUNT][HOUR_COUNT];
+		pair<unsigned int, unsigned int> m_weekTrafficDistribution[DAYS_COUNT][HOUR_COUNT];
 	};
 }

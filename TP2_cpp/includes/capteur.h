@@ -20,18 +20,6 @@ namespace TP2
 		time_t min = 0;
 	};
 
-	std::ostream& operator<<(std::ostream& os, const timestamp& ts)
-	{
-		os << ts.year << " " << ts.month << " " << ts.day << " " << ts.d7 << " " << ts.hour << " " << ts.min;
-		return os;
-	}
-
-	std::istream& operator>>(std::istream& is, timestamp& ts)
-	{
-		is >> ts.year >> " " >> ts.month >> " " >> ts.day >> " " >> ts.d7 >> " " >> ts.hour >> " " >> ts.min;
-		return is;
-	}
-
 	class capteur
 	{
 	public:
@@ -43,9 +31,11 @@ namespace TP2
 
 		void update(traffic etat, timestamp t);
 
-		void ShowTimeDistribution();
-	
-		ID_t getID();
+		void ShowTimeDistribution() const;
+
+		traffic getTraffic() const;
+
+		ID_t getID() const;
 
 	protected:
 		ID_t m_id;
@@ -57,17 +47,10 @@ namespace TP2
 		unsigned long m_duree_noir = 0;
 	};
 
-	std::istream& operator>>(std::istream& is, capteur::traffic& e)
-	{
-		auto val = static_cast<char>(capteur::traffic::noir);
-		is >> val;
-		e = static_cast<capteur::traffic>(val);
-		return is;
-	}
-
-	std::ostream& operator<<(std::ostream& os, const capteur::traffic& e)
-	{
-		os << static_cast<char>(e);
-		return os;
-	}
+	bool operator==(const timestamp& lhs, const timestamp& rhs);
+	bool operator!=(const timestamp& lhs, const timestamp& rhs);
+	std::ostream& operator<<(std::ostream& os, const timestamp& ts);
+	std::istream& operator>>(std::istream& is, timestamp& ts);
+	std::istream& operator>>(std::istream& is, capteur::traffic& e);
+	std::ostream& operator<<(std::ostream& os, const capteur::traffic& e);
 }

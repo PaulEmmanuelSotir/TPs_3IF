@@ -17,8 +17,10 @@ namespace TP2
 	{
 		m_capteurs[m_size++] = sensor;
 
-		if(sensor.getTraffic() == capteur::traffic::noir || sensor.getTraffic() == capteur::traffic::orange)
-			
+		if (sensor.getTraffic() == capteur::traffic::noir || sensor.getTraffic() == capteur::traffic::orange)
+		{
+
+		}
 	}
 
 	capteur ville::getSensorById(capteur::ID_t id)

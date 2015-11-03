@@ -12,6 +12,7 @@ copyright            : (C) 2015 by B3311
 
 //------------------------------------------------------------------------- Include personnel
 #include "capteur.h"
+#include "ville.h"
 
 //-------------------------------------------------------------------------------------- MAIN
 
@@ -30,7 +31,7 @@ int main()
 			TP2::capteur::traffic etat;
 			TP2::timestamp t;
 
-			std::cin >> id >> " " >> t >> " " >> etat;
+			std::cin >> id >> t >> etat;
 
 			lyon.ajouter_capteur(TP2::capteur(id, etat, t));
 		}
@@ -46,7 +47,7 @@ int main()
 			TP2::timestamp::time_t d7;
 			std::cin >> d7;
 
-			lyon.
+	//		lyon.
 		}
 		else if (input == "STATS_D7")
 		{
