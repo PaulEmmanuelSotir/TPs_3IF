@@ -44,10 +44,10 @@ namespace TP2
 	void capteur::ShowTimeDistribution()
 	{
 		auto total = m_duree_noir + m_duree_orange + m_duree_rouge + m_duree_vert;
-		std::cout << static_cast<char>(traffic::vert) << " " << static_cast<int>(100 * m_duree_vert / total) << "%";
-		std::cout << static_cast<char>(traffic::rouge) << " " << static_cast<int>(100 * m_duree_rouge / total) << "%";
-		std::cout << static_cast<char>(traffic::orange) << " " << static_cast<int>(100 * m_duree_orange / total) << "%";
-		std::cout << static_cast<char>(traffic::noir) << " " << static_cast<int>(100 * m_duree_noir / total) << "%";
+		std::cout << traffic::vert << " " << static_cast<int>(100 * m_duree_vert / total) << "%";
+		std::cout << traffic::rouge << " " << static_cast<int>(100 * m_duree_rouge / total) << "%";
+		std::cout << traffic::orange << " " << static_cast<int>(100 * m_duree_orange / total) << "%";
+		std::cout << traffic::noir << " " << static_cast<int>(100 * m_duree_noir / total) << "%";
 	}
 
 	capteur::ID_t capteur::getID()

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 namespace TP2
 {
 	struct timestamp
@@ -17,6 +19,18 @@ namespace TP2
 		time_t hour = 0;
 		time_t min = 0;
 	};
+
+	std::ostream& operator<<(std::ostream& os, const timestamp& ts)
+	{
+		os << ts.year << " " << ts.month << " " << ts.day << " " << ts.d7 << " " << ts.hour << " " << ts.min;
+		return os;
+	}
+
+	std::istream& operator>>(std::istream& is, timestamp& ts)
+	{
+		is >> ts.year >> " " >> ts.month >> " " >> ts.day >> " " >> ts.d7 >> " " >> ts.hour >> " " >> ts.min;
+		return is;
+	}
 
 	class capteur
 	{
@@ -42,4 +56,18 @@ namespace TP2
 		unsigned long m_duree_orange = 0;
 		unsigned long m_duree_noir = 0;
 	};
+
+	std::istream& operator>>(std::istream& is, capteur::traffic& e)
+	{
+		auto val = static_cast<char>(capteur::traffic::noir);
+		is >> val;
+		e = static_cast<capteur::traffic>(val);
+		return is;
+	}
+
+	std::ostream& operator<<(std::ostream& os, const capteur::traffic& e)
+	{
+		os << static_cast<char>(e);
+		return os;
+	}
 }
