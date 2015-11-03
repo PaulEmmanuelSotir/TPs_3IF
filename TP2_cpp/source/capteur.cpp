@@ -41,6 +41,11 @@ namespace TP2
 		m_lastUpdate = t;
 	}
 
+	void capteur::update(capteur sens)
+	{
+		update(sens.m_traffic, sens.m_lastUpdate);
+	}
+
 	void capteur::ShowTimeDistribution() const
 	{
 		auto total = m_duree_noir + m_duree_orange + m_duree_rouge + m_duree_vert;
@@ -58,6 +63,11 @@ namespace TP2
 	capteur::ID_t capteur::getID() const
 	{
 		return m_id;
+	}
+
+	timestamp capteur::getLastTimestamp() const
+	{
+		return m_lastUpdate;
 	}
 
 	inline bool operator==(const timestamp& lhs, const timestamp& rhs)

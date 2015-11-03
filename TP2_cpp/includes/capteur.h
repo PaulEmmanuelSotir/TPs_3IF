@@ -30,12 +30,13 @@ namespace TP2
 		capteur(ID_t id, traffic etat, timestamp t);
 
 		void update(traffic etat, timestamp t);
+		void update(capteur sens);
 
 		void ShowTimeDistribution() const;
 
 		traffic getTraffic() const;
-
 		ID_t getID() const;
+		timestamp capteur::getLastTimestamp() const;
 
 	protected:
 		ID_t m_id;

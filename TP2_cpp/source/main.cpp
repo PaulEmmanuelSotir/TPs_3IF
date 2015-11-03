@@ -40,18 +40,23 @@ int main()
 			TP2::capteur::ID_t id;
 			std::cin >> id;
 
-			lyon.getSensorById(id).ShowTimeDistribution();
+			auto sensor = lyon.getSensorById(id);
+			if (sensor != nullptr)
+				sensor->ShowTimeDistribution();
 		}
 		else if (input == "JAM_DH")
 		{
 			TP2::timestamp::time_t d7;
 			std::cin >> d7;
 
-	//		lyon.
+			lyon.ShowDayTrafficByHour(d7);
 		}
 		else if (input == "STATS_D7")
 		{
+			TP2::timestamp::time_t d7;
+			std::cin >> d7;
 
+			lyon.ShowDayTraffic(d7);
 		}
 		else if (input == "OPT")
 		{
