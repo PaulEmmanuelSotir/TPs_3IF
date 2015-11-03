@@ -12,13 +12,14 @@ namespace TP2
 		timestamp() = default;
 		timestamp(time_t year, time_t month, time_t day, time_t d7, time_t hour, time_t min);
 
-		time_t year = 2015;
+		time_t year = 0;
 		time_t month = 1;
 		time_t day = 1;
 		time_t d7 = 1;
 		time_t hour = 0;
 		time_t min = 0;
 	};
+	const timestamp JESUS_BIRTH_DATE = TP2::timestamp();
 
 	class capteur
 	{
@@ -27,21 +28,22 @@ namespace TP2
 
 		enum class traffic : char { vert = 'V', rouge = 'J', orange = 'R', noir = 'N' };
 
+		capteur() = default;
 		capteur(ID_t id, traffic etat, timestamp t);
 
 		void update(traffic etat, timestamp t);
-		void update(capteur sens);
+		void update(const capteur& sens);
 
 		void ShowTimeDistribution() const;
 
 		traffic getTraffic() const;
 		ID_t getID() const;
-		timestamp capteur::getLastTimestamp() const;
+		timestamp getLastTimestamp() const;
 
 	protected:
-		ID_t m_id;
-		traffic m_traffic;
-		timestamp m_lastUpdate;
+		ID_t m_id = 0;
+		traffic m_traffic = traffic::vert;
+		timestamp m_lastUpdate = JESUS_BIRTH_DATE;
 		unsigned long m_duree_vert = 0;
 		unsigned long m_duree_rouge = 0;
 		unsigned long m_duree_orange = 0;

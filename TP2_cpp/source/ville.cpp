@@ -4,7 +4,7 @@
 
 namespace TP2
 {
-	ville::ville()
+	ville::ville() : m_capteurs()
 	{
 		//TODO: init m_capteurs
 
@@ -55,7 +55,7 @@ namespace TP2
 	{
 		for (size_t i = 0; i < m_size; i++)
 		{
-			auto capt = m_capteurs[i];
+			auto& capt = m_capteurs[i];
 			if (capt.getID() == id)
 				return &capt;
 		}

@@ -41,7 +41,7 @@ namespace TP2
 		m_lastUpdate = t;
 	}
 
-	void capteur::update(capteur sens)
+	void capteur::update(const capteur& sens)
 	{
 		update(sens.m_traffic, sens.m_lastUpdate);
 	}
