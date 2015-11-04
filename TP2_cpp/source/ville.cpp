@@ -9,7 +9,7 @@ namespace TP2
 		//TODO: init m_capteurs
 
 		for (size_t i = 0; i < DAYS_COUNT; i++)
-			for (size_t j = 0; j < HOUR_COUNT; i++)
+			for (size_t j = 0; j < HOUR_COUNT; j++)
 				m_weekTrafficJamDistribution[i][j] = pair<unsigned int, unsigned int>(0, 0);
 	}
 
