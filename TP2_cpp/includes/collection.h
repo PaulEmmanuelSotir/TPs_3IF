@@ -8,7 +8,7 @@ copyright            : (C) 2015 by B3311
 //-------------------- Interface de la classe collection<T> ----------------------
 #pragma once
 
-//----------------------------------------------------------- Interfaces utilisées
+//----------------------------------------------------------- Interfaces utilisï¿½es
 
 namespace TP1
 {
@@ -23,41 +23,41 @@ namespace TP1
 	public:
 		using size_type = size_t;
 
-		//----------------------------------------------------- Méthodes publiques
+		//----------------------------------------------------- Mï¿½thodes publiques
 
 		// Description : affiche la valeur de la collection.
-		//	La valeur de la collection est affichée sous la forme : "({ <val1>, <val2>, ... }, <m_capacity>)"
-		//	avec <val1>, <val2>, ... les âges des chiens et <m_capacity> la capacité de la collection.
+		//	La valeur de la collection est affichï¿½e sous la forme : "({ <val1>, <val2>, ... }, <m_capacity>)"
+		//	avec <val1>, <val2>, ... les ï¿½ges des chiens et <m_capacity> la capacitï¿½ de la collection.
 		void afficher() const;
 
 		// Description: ajoute val_to_add dans la collection courante
-		//		val_to_add: reférence constante vers une valeur de type T qui sera ajouté dans la collection
+		//		val_to_add: refï¿½rence constante vers une valeur de type T qui sera ajoutï¿½ dans la collection
 		void ajouter(const T& val_to_add);
 
 		// Description: retire old_val de la collection courante
-		//		old_val: reference vers un T qui sera retiré de la collection
-		//		RETOURNE: Un booléen indiquant si au moins un élément a bien été retiré
-		//	NOTE: ajuste la capacité de la collection au minimum même si old_val n'est pas présent dans la collection 
+		//		old_val: reference vers un T qui sera retirï¿½ de la collection
+		//		RETOURNE: Un boolï¿½en indiquant si au moins un ï¿½lï¿½ment a bien ï¿½tï¿½ retirï¿½
+		//	NOTE: ajuste la capacitï¿½ de la collection au minimum mï¿½me si old_val n'est pas prï¿½sent dans la collection 
 		bool retirer(const T& old_val);
 
 		// Description: retire l'ensemble des valeurs contenues dans le parametre 'vals' de la collection courante
-		//		vals: tableau de T qui seront retirés de la collection
+		//		vals: tableau de T qui seront retirï¿½s de la collection
 		//		size: taille du tableau vals
-		//		RETOURNE: Un booléen indiquant si au moins un élément a bien été retiré
-		//	NOTE: ajuste la capacité de la collection au minimum même si aucuns éléments de vals n'est pas présent dans la collection 
+		//		RETOURNE: Un boolï¿½en indiquant si au moins un ï¿½lï¿½ment a bien ï¿½tï¿½ retirï¿½
+		//	NOTE: ajuste la capacitï¿½ de la collection au minimum mï¿½me si aucuns ï¿½lï¿½ments de vals n'est pas prï¿½sent dans la collection 
 		bool retirer(const T vals[], size_type size);
 
-		// Description: ajuste, si possible, la capacité de la collection à la taille spécifiée
-		//		capacity: nouvelle taille de mémoire allouée pour la structure de donnée interne
-		//		RETOURNE: Un booléen indiquant si un ajustement de la capacité a bien été effectué
+		// Description: ajuste, si possible, la capacitï¿½ de la collection ï¿½ la taille spï¿½cifiï¿½e
+		//		capacity: nouvelle taille de mï¿½moire allouï¿½e pour la structure de donnï¿½e interne
+		//		RETOURNE: Un boolï¿½en indiquant si un ajustement de la capacitï¿½ a bien ï¿½tï¿½ effectuï¿½
 		bool ajuster(size_type capacity);
 
-		// Description: ajoute le contenu de la collection donnée en paramètre 
-		//		other: reference vers la collection à réunir avec la collection courante
-		//		RETOURNE: Un booléen indiquant si des éléments de 'other' on bien été ajoutés à la collection
+		// Description: ajoute le contenu de la collection donnï¿½e en paramï¿½tre 
+		//		other: reference vers la collection ï¿½ rï¿½unir avec la collection courante
+		//		RETOURNE: Un boolï¿½en indiquant si des ï¿½lï¿½ments de 'other' on bien ï¿½tï¿½ ajoutï¿½s ï¿½ la collection
 		bool reunir(const collection& other);
 
-		//------------------------------------------------- Surcharge d'opérateurs
+		//------------------------------------------------- Surcharge d'opï¿½rateurs
 		T& operator[](size_type idx);
 		T operator[](size_type idx) const;
 
@@ -65,12 +65,12 @@ namespace TP1
 		// Constructeur par default
 		collection() = default;
 
-		// Description: Constructeur d'une collection de taille pré-allouée donnée
+		// Description: Constructeur d'une collection de taille prï¿½-allouï¿½e donnï¿½e
 		//		capacity: Taille de la nouvelle collection
 		explicit collection(size_type capacity);
 
-		// Description: Constructeur d'une collection à partir d'un ensemble d'éléments donné en paramètre
-		//		vals: tableau des éléments qui seront ajoutés à la collection
+		// Description: Constructeur d'une collection ï¿½ partir d'un ensemble d'ï¿½lï¿½ments donnï¿½ en paramï¿½tre
+		//		vals: tableau des ï¿½lï¿½ments qui seront ajoutï¿½s ï¿½ la collection
 		//		size: taille du tableau vals
 		collection(const T vals[], size_type size);
 
@@ -79,34 +79,34 @@ namespace TP1
 
 		//------------------------------------------------------------------ PRIVE 
 	protected:
-		//----------------------------------------------------- Méthodes protégées
+		//----------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
 
-		// Description: Trouve le nombre d'éléments apparetenant à la fois à 'm_vals' 
-		//	et au paramètre 'vals_to_find'
-		//		vals_to_find: tableau d'éléments de type T qui seront recherchés dans la collection
+		// Description: Trouve le nombre d'ï¿½lï¿½ments apparetenant ï¿½ la fois ï¿½ 'm_vals' 
+		//	et au paramï¿½tre 'vals_to_find'
+		//		vals_to_find: tableau d'ï¿½lï¿½ments de type T qui seront recherchï¿½s dans la collection
 		//		size: taille du tableau 'vals_to_find'
-		//		RETOURNE: le nombre d'éléments apparetenant à la fois à 'm_vals' et à 'vals_to_find'
+		//		RETOURNE: le nombre d'ï¿½lï¿½ments apparetenant ï¿½ la fois ï¿½ 'm_vals' et ï¿½ 'vals_to_find'
 		unsigned int find_all_of(const T vals_to_find[], size_type size) const;
 
-		// Description: Désalloue la mémoire allouée pour le tableau de pointeur de T 
+		// Description: Dï¿½salloue la mï¿½moire allouï¿½e pour le tableau de pointeur de T 
 		//	et pour les objets de type T.
 		void disposeValues();
 
-		//----------------------------------------------------- Attributs protégés
+		//----------------------------------------------------- Attributs protï¿½gï¿½s
 
 		// Tableau de pointeurs de T
 		T** m_vals = nullptr;
 		// Taille du tableau m_vals
 		size_type m_capacity = 0;
-		// Taille utilisée du tableau m_vals
+		// Taille utilisï¿½e du tableau m_vals
 		size_type m_size = 0;
 
-		//---------------------------------------------------- Constantes protégés
+		//---------------------------------------------------- Constantes protï¿½gï¿½s
 
 		static const size_type INITIAL_ALLOCATION_SIZE = 5;
 	};
 
-	//------------------ Implémentation de la classe collection<T> -------------------
+	//------------------ Implï¿½mentation de la classe collection<T> -------------------
 
 	//------------------------------------------------------------------------- PUBLIC
 	template<typename T>
@@ -162,7 +162,7 @@ namespace TP1
 		}
 
 		if (removes_todo_count >= m_size)
-			disposeVal(); // We remove all elements
+			disposeValues(); // We remove all elements
 		else
 		{
 			size_type new_size = m_size - removes_todo_count;
@@ -322,11 +322,11 @@ namespace TP1
 #ifdef MAP
 		cout << "Appel au destructeur de 'collection'" << endl;
 #endif
-		// On désalloue la mémoire allouée pour le tableau de pointeur de T et pour les objets de type T eux-même
+		// On dï¿½salloue la mï¿½moire allouï¿½e pour le tableau de pointeur de T et pour les objets de type T eux-mï¿½me
 		disposeValues();
 	} //----- Fin de ~collection{file_base}
 
-	//-------------------------------------------------------- Surcharges d'opérateurs
+	//-------------------------------------------------------- Surcharges d'opï¿½rateurs
 	template<typename T>
 	T& collection<T>::operator[](size_type idx)
 	{
@@ -341,7 +341,7 @@ namespace TP1
 
 	//-------------------------------------------------------------------------- PRIVE
 
-	//------------------------------------------------------------- Méthodes protégées
+	//------------------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
 	template<typename T>
 	unsigned int collection<T>::find_all_of(const T vals_to_find[], size_type size) const
 	{

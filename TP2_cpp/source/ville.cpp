@@ -65,7 +65,7 @@ namespace TP2
 
 	void ville::ShowDayTrafficByHour(timestamp::time_t d7)
 	{
-		for (auto i = 0; i < HOUR_COUNT; i++)
+		for (size_t i = 0; i < HOUR_COUNT; i++)
 		{
 			const auto& stat = m_weekTrafficJamDistribution[d7][i];
 			std::cout << d7 << " "
