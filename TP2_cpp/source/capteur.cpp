@@ -4,109 +4,70 @@
 
 namespace TP2
 {
-	timestamp::timestamp(time_t year, time_t month, time_t day, time_t d7, time_t hour, time_t min)
+	capteur::capteur() : m_d7(1), m_hour(0), m_min(0) { }
+
+	capteur::capteur(sens_t id, sens_t d7, sens_t hour, sens_t min, traffic state)
+		: capteur()
 	{
-		this->year = year;
-		this->month = month;
-		this->day = day;
-		this->d7 = d7;
-		this->hour = hour;
-		this->min = min;
+		update(id, d7, hour, min, state);
 	}
 
-	capteur::capteur(ID_t id, traffic etat, timestamp t) : m_id(id)
+	inline size_t capteur::to_size_t(capteur::traffic state)
 	{
-		update(etat, t);
-	}
-
-	void capteur::update(traffic etat, timestamp t)
-	{
-		//TODO: implement == op 4 timestamps  
-		switch (etat)
+		switch (state)
 		{
-		case traffic::noir:
-			m_duree_noir++;
-			break;
-		case traffic::orange:
-			m_duree_orange++;
-			break;
-		case traffic::rouge:
-			m_duree_rouge++;
-			break;
-		case traffic::vert:
-			m_duree_vert++;
-			break;
+		case traffic::vert: return 0;
+		case traffic::rouge: return 1;
+		case traffic::orange: return 2;
+		case traffic::noir: return 3;
 		}
-
-		m_lastUpdate = t;
+		return 0; // impossible
 	}
 
-	void capteur::update(const capteur& sens)
+	void capteur::update(sens_t id, sens_t d7, sens_t hour, sens_t min, traffic state)
 	{
-		update(sens.m_traffic, sens.m_lastUpdate);
+		m_id = id;
+		m_d7 = d7;
+		m_hour = hour;
+		m_min = min;
+		m_taffic_counts[to_size_t(state)].count++;
 	}
 
-	void capteur::ShowTimeDistribution() const
+	void capteur::show_time_distribution() const
 	{
-		auto total = m_duree_noir + m_duree_orange + m_duree_rouge + m_duree_vert;
-		std::cout << traffic::vert << " " << static_cast<int>(100 * m_duree_vert / total) << "%";
-		std::cout << traffic::rouge << " " << static_cast<int>(100 * m_duree_rouge / total) << "%";
-		std::cout << traffic::orange << " " << static_cast<int>(100 * m_duree_orange / total) << "%";
-		std::cout << traffic::noir << " " << static_cast<int>(100 * m_duree_noir / total) << "%";
+		unsigned int total = 0;
+		for (size_t i = 0; i < capteur::TRAFFIC_CARDINALITY; ++i)
+			total += m_taffic_counts[i].count;
+
+		std::cout << traffic::vert << " " << static_cast<int>(100 * m_taffic_counts[to_size_t(traffic::vert)].count / total) << "%" << std::endl;
+		std::cout << traffic::rouge << " " << static_cast<int>(100 * m_taffic_counts[to_size_t(traffic::rouge)].count / total) << "%" << std::endl;
+		std::cout << traffic::orange << " " << static_cast<int>(100 * m_taffic_counts[to_size_t(traffic::orange)].count / total) << "%" << std::endl;
+		std::cout << traffic::noir << " " << static_cast<int>(100 * m_taffic_counts[to_size_t(traffic::noir)].count / total) << "%" << std::endl;
 	}
 
-	capteur::traffic capteur::getTraffic() const
-	{
-		return m_traffic;
-	}
+	capteur::sens_t capteur::get_id() const { return m_id; }
+	capteur::sens_t capteur::get_d7() const { return m_d7; }
+	capteur::sens_t capteur::get_hour() const { return m_hour; }
+	capteur::sens_t capteur::get_min() const { return m_min; }
 
-	capteur::ID_t capteur::getID() const
-	{
-		return m_id;
-	}
+	bool operator==(const capteur& lhs, const capteur& rhs) { return lhs.m_id == rhs.m_id; }
+	bool operator!=(const capteur& lhs, const capteur& rhs) { return !(lhs == rhs); }
+	bool operator<(const capteur& lhs, const capteur& rhs) { return lhs.m_id < rhs.m_id; }
+	bool operator>(const capteur& lhs, const capteur& rhs) { return rhs < lhs; }
+	bool operator<=(const capteur& lhs, const capteur& rhs) { return !(rhs < lhs); }
+	bool operator>=(const capteur& lhs, const capteur& rhs) { return !(lhs < rhs); }
 
-	timestamp capteur::getLastTimestamp() const
+	std::ostream& operator<<(std::ostream& os, const capteur::traffic& state)
 	{
-		return m_lastUpdate;
-	}
-
-	inline bool operator==(const timestamp& lhs, const timestamp& rhs)
-	{
-		return lhs.year == rhs.year &&
-			lhs.month == rhs.month &&
-			lhs.day == rhs.day &&
-			lhs.d7 == rhs.d7 &&
-			lhs.hour == rhs.hour &&
-			lhs.min == rhs.min;
-		//return std::make_tuple(lhs.year, lhs.month, lhs.day, lhs.d7, lhs.hour, lhs.min) == std::make_tuple(rhs.year, rhs.month, rhs.day, rhs.d7, rhs.hour, rhs.min);
-	}
-
-	inline bool operator!=(const timestamp& lhs, const timestamp& rhs) { return !(lhs == rhs); }
-
-	inline std::ostream& operator<<(std::ostream& os, const timestamp& ts)
-	{
-		os << ts.year << " " << ts.month << " " << ts.day << " " << ts.d7 << " " << ts.hour << " " << ts.min;
+		os << static_cast<char>(state);
 		return os;
 	}
 
-	inline std::istream& operator>>(std::istream& is, timestamp& ts)
+	std::istream& operator>>(std::istream& is, capteur::traffic& state)
 	{
-		is >> ts.year >> ts.month >> ts.day >> ts.d7 >> ts.hour >> ts.min;
+		auto c = static_cast<char>(capteur::traffic::noir);
+		is >> c;
+		state = static_cast<capteur::traffic>(c);
 		return is;
-	}
-
-	inline std::istream& operator>>(std::istream& is, capteur::traffic& e)
-	{
-		auto val = static_cast<char>(capteur::traffic::noir);
-		is >> val;
-		e = static_cast<capteur::traffic>(val);
-		return is;
-	}
-
-	inline std::ostream& operator<<(std::ostream& os, const capteur::traffic& e)
-	{
-		os << static_cast<char>(e);
-		return os;
 	}
 }
-

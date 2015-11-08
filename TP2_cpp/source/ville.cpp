@@ -1,38 +1,66 @@
+#include <iostream>
 
 #include "ville.h"
 #include "capteur.h"
 
 namespace TP2
 {
-	ville::ville() : m_capteurs()
+	ville::ville()
 	{
-		//TODO: init m_capteurs
-
 		for (size_t i = 0; i < DAYS_COUNT; i++)
 			for (size_t j = 0; j < HOUR_COUNT; j++)
-				m_weekTrafficJamDistribution[i][j] = pair<unsigned int, unsigned int>(0, 0);
+				m_week_jam_distribution[i][j] = pair<unsigned int, unsigned int>(0, 0);
 	}
 
-	void ville::ajouter_capteur(const capteur & sensor)
+	void ville::add_sensor(unsigned int id, capteur::sens_t d7, capteur::sens_t hour, capteur::sens_t min, capteur::traffic state)
 	{
-		auto sensor_ptr = getSensorById(sensor.getID());
-
-		if (sensor_ptr == nullptr)
-			m_capteurs[m_size++] = sensor;
-		else
-			sensor_ptr->update(sensor);
+		auto& sens = m_sensor_lookup_table[id];
+		sens.update(id, d7, hour, min, state);
+		update_week_stats(sens, state);
 	}
 
-	void ville::updateWeekStats(const capteur & sensor)
+	void ville::show_day_traffic_by_hour(capteur::sens_t d7) const
 	{
-		auto time = sensor.getLastTimestamp();
-		auto& jam_stat = m_weekTrafficJamDistribution[time.d7][time.hour];
+		for (size_t i = 0; i < HOUR_COUNT; i++)
+		{
+			const auto& stat = m_week_jam_distribution[d7][i];
+			std::cout << d7 << " "
+				<< i << " "
+				<< (stat.second == 0 ? 0 : static_cast<unsigned int>(100 * stat.first / stat.second)) << "%" << std::endl;
+		}
+	}
+
+	void ville::show_day_traffic(capteur::sens_t d7) const
+	{
+		const auto& stat = m_week_traffic_distribution[d7];
+		std::cout << capteur::traffic::vert << " " << static_cast<int>(100 * stat.green_count / stat.total_count) << "%";
+		std::cout << capteur::traffic::rouge << " " << static_cast<int>(100 * stat.red_count / stat.total_count) << "%";
+		std::cout << capteur::traffic::orange << " " << static_cast<int>(100 * stat.orange_count / stat.total_count) << "%";
+		std::cout << capteur::traffic::noir << " " << static_cast<int>(100 * stat.dark_count / stat.total_count) << "%";
+	}
+
+	void ville::show_optimal_timestamp(capteur::sens_t d7, capteur::sens_t h_start, capteur::sens_t h_end, capteur::sens_t seg_ids[], size_t seg_ids_size) const
+	{
+
+	}
+
+	nullable<capteur> ville::get_sensor_by_id(size_t id) const
+	{
+		nullable<capteur> nullable_sensor(m_sensor_lookup_table[id]);
+		return nullable_sensor;
+	}
+
+	//----prive...
+
+	void ville::update_week_stats(const capteur& sensor, capteur::traffic state)
+	{
+		auto& jam_stat = m_week_jam_distribution[sensor.get_d7()][sensor.get_hour()];
 		jam_stat.second++;
 
-		auto& stat = m_weekTrafficDistribution[time.d7];
+		auto& stat = m_week_traffic_distribution[sensor.get_d7()];
 		stat.total_count++;
 
-		switch (sensor.getTraffic())
+		switch (state)
 		{
 		case capteur::traffic::noir:
 			jam_stat.first++;
@@ -49,40 +77,5 @@ namespace TP2
 			stat.green_count++;
 			break;
 		}
-	}
-
-	capteur* ville::getSensorById(capteur::ID_t id)
-	{
-		for (size_t i = 0; i < m_size; i++)
-		{
-			auto& capt = m_capteurs[i];
-			if (capt.getID() == id)
-				return &capt;
-		}
-
-		return nullptr;
-	}
-
-	void ville::ShowDayTrafficByHour(timestamp::time_t d7)
-	{
-		for (size_t i = 0; i < HOUR_COUNT; i++)
-		{
-			const auto& stat = m_weekTrafficJamDistribution[d7][i];
-			std::cout << d7 << " "
-				<< i << " "
-				<< (stat.second == 0 ? 0 : static_cast<unsigned int>(100 * stat.first / stat.second)) << "%" << std::endl;
-		}
-	}
-
-	void ville::ShowDayTraffic(timestamp::time_t d7)
-	{
-		unsigned int total_count = 0;
-		unsigned int badtraffic_count = 0;
-
-		const auto& stat = m_weekTrafficDistribution[d7];
-		std::cout << capteur::traffic::vert << " " << static_cast<int>(100 * stat.green_count / stat.total_count) << "%";
-		std::cout << capteur::traffic::rouge << " " << static_cast<int>(100 * stat.red_count / stat.total_count) << "%";
-		std::cout << capteur::traffic::orange << " " << static_cast<int>(100 * stat.orange_count / stat.total_count) << "%";
-		std::cout << capteur::traffic::noir << " " << static_cast<int>(100 * stat.dark_count / stat.total_count) << "%";
 	}
 }

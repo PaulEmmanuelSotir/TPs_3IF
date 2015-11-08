@@ -2,27 +2,19 @@
 
 #include "capteur.h"
 #include "collection.h"
+#include "utils.h"
 
 namespace TP2
 {
-	template<typename T1, typename T2>
-	struct pair
-	{
-		pair() = default;
-		pair(T1 f, T2 s) : first(f), second(s) { }
-
-		T1 first;
-		T2 second;
-	};
-
 	class ville
 	{
 	public:
 		ville();
-		void ajouter_capteur(const capteur& sensor);
-		capteur* getSensorById(capteur::ID_t id);
-		void ShowDayTrafficByHour(timestamp::time_t d7);
-		void ShowDayTraffic(timestamp::time_t d7);
+		void add_sensor(unsigned int id, capteur::sens_t hour, capteur::sens_t min, capteur::sens_t d7, capteur::traffic state);
+		void show_day_traffic_by_hour(capteur::sens_t d7) const;
+		void show_day_traffic(capteur::sens_t d7) const;
+		void show_optimal_timestamp(capteur::sens_t d7, capteur::sens_t h_start, capteur::sens_t h_end, capteur::sens_t seg_ids[], size_t seg_ids_size) const;
+		nullable<capteur> get_sensor_by_id(size_t id) const;
 
 	private:
 		struct stat
@@ -38,15 +30,15 @@ namespace TP2
 			stat_t dark_count = 0;
 		};
 
-		void updateWeekStats(const capteur & sensor);
+		void update_week_stats(const capteur& sensor, capteur::traffic state);
 
 		static const size_t DAYS_COUNT = 7;
 		static const size_t HOUR_COUNT = 24;
 
-		TP1::collection<capteur> m_capteurs;
+		capteur m_sensor_lookup_table[1500];
 		size_t m_size = 0;
 
-		pair<unsigned int, unsigned int> m_weekTrafficJamDistribution[DAYS_COUNT][HOUR_COUNT];
-		stat m_weekTrafficDistribution[DAYS_COUNT];
+		pair<unsigned int, unsigned int> m_week_jam_distribution[DAYS_COUNT][HOUR_COUNT];
+		stat m_week_traffic_distribution[DAYS_COUNT];
 	};
 }

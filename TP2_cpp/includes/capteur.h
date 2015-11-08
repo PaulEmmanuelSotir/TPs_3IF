@@ -4,56 +4,52 @@
 
 namespace TP2
 {
-	struct timestamp
+	struct capteur
 	{
 	public:
-		using time_t = unsigned int;
-
-		timestamp() = default;
-		timestamp(time_t year, time_t month, time_t day, time_t d7, time_t hour, time_t min);
-
-		time_t year = 0;
-		time_t month = 1;
-		time_t day = 1;
-		time_t d7 = 1;
-		time_t hour = 0;
-		time_t min = 0;
-	};
-	const timestamp JESUS_BIRTH_DATE = TP2::timestamp();
-
-	class capteur
-	{
-	public:
-		using ID_t = unsigned long;
-
+		using sens_t = uint32_t;
 		enum class traffic : char { vert = 'V', rouge = 'J', orange = 'R', noir = 'N' };
 
-		capteur() = default;
-		capteur(ID_t id, traffic etat, timestamp t);
+	private:
+		struct state_count
+		{
+			state_count() : count(0) { };
+			sens_t count : 25;	// (0 - 33 554 432)	// There is a maximum of 20 000 000 events 
+		};
 
-		void update(traffic etat, timestamp t);
-		void update(const capteur& sens);
+	public:
+		capteur();
+		capteur(sens_t id, sens_t d7, sens_t hour, sens_t min, traffic state);
 
-		void ShowTimeDistribution() const;
+		void update(sens_t id, sens_t d7, sens_t hour, sens_t min, traffic state);
+		void show_time_distribution() const;
+		sens_t get_id() const;
+		sens_t get_d7() const;
+		sens_t get_hour() const;
+		sens_t get_min() const;
 
-		traffic getTraffic() const;
-		ID_t getID() const;
-		timestamp getLastTimestamp() const;
+	private:
+		static inline size_t capteur::to_size_t(traffic state);
 
-	protected:
-		ID_t m_id = 0;
-		traffic m_traffic = traffic::vert;
-		timestamp m_lastUpdate = JESUS_BIRTH_DATE;
-		unsigned long m_duree_vert = 0;
-		unsigned long m_duree_rouge = 0;
-		unsigned long m_duree_orange = 0;
-		unsigned long m_duree_noir = 0;
+		static const size_t TRAFFIC_CARDINALITY = 4;
+
+		sens_t m_id : 18;	// (0 - 262144)
+		sens_t m_d7 : 3;	// (0 - 7)
+		sens_t m_hour : 5;	// (0 - 31)
+		sens_t m_min : 6;	// (0 - 63)
+
+		state_count m_taffic_counts[TRAFFIC_CARDINALITY];
+
+		//----...
+
+		friend bool operator==(const capteur& lhs, const capteur& rhs);
+		friend bool operator!=(const capteur& lhs, const capteur& rhs);
+		friend bool operator<(const capteur& lhs, const capteur& rhs);
+		friend bool operator>(const capteur& lhs, const capteur& rhs);
+		friend bool operator<=(const capteur& lhs, const capteur& rhs);
+		friend bool operator>=(const capteur& lhs, const capteur& rhs);
 	};
 
-	bool operator==(const timestamp& lhs, const timestamp& rhs);
-	bool operator!=(const timestamp& lhs, const timestamp& rhs);
-	std::ostream& operator<<(std::ostream& os, const timestamp& ts);
-	std::istream& operator>>(std::istream& is, timestamp& ts);
-	std::istream& operator>>(std::istream& is, capteur::traffic& e);
-	std::ostream& operator<<(std::ostream& os, const capteur::traffic& e);
+	std::ostream& operator<<(std::ostream& os, const capteur::traffic& state);
+	std::istream& operator>>(std::istream& is, capteur::traffic& state);
 }
