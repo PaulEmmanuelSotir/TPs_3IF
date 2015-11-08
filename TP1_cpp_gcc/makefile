@@ -1,3 +1,8 @@
+############################################################################################
+################################## GENERIC MAKEFILE ########################################
+############################################################################################
+# TODO: g√rer les sous-dossiers / fichiers ayants le m√™mes noms dans des dossiers diff√©ren
+# TODO: g√rer les extentions .hpp, .cxx, ...
 
 # Debug mode (comment this line to build project in release mode)
 DEBUG = true
@@ -65,12 +70,12 @@ clean:
 rebuild: clean all
 
 help:
-	echo '				### MAKEFILE HELP ###'
-	echo 'PHONY TARGETS:'
-	echo '	all 	...'
-	echo '	clean 	...'
-	echo '	rebuild ...'
-	echo '	help	...'
+	@echo '				### MAKEFILE HELP ###'
+	@echo 'PHONY TARGETS:'
+	@echo '	all 	...'
+	@echo '	clean 	...'
+	@echo '	rebuild ...'
+	@echo '	help	...'
 
 # Build object files
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
