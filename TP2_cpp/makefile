@@ -12,9 +12,9 @@ CC = g++
 # Command used to remove files
 RM = rm -f
 # Compiler and pre-processor options
-CPPFLAGS = -Wall -std=c++14 -O3
+CPPFLAGS = -Wall -std=c++14 -Ofast
 # Debug flags
-DEBUGFLAGS = -g
+DEBUGFLAGS = #-g
 # Resulting program file name
 EXE_NAME = a.out
 # The source file extentions

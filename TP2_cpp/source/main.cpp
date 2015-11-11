@@ -14,9 +14,9 @@ copyright            : (C) 2015 by B3311
 #include <exception>	// std::range_error
 
 //------------------------------------------------------------------------- Include personnel
-#include "capteur.h"
+#include "capteur_event.h"
+#include "capteur_stat.h"
 #include "ville.h"
-#include "collection.h"
 
 //------------------------------------------------------------------------------------ Usings
 using namespace std::string_literals; // enables s-suffix for std::string literals
@@ -47,11 +47,11 @@ inline std::string find_first_word(const std::string &str, size_t begin_pos)
 	return str.substr(begin_pos, word_end_pos - begin_pos);
 }
 
-inline TP2::capteur::sens_t read_integer_from_buffer(const std::string& buffer, size_t& begin_pos)
+inline TP2::capteur_stat::sensor_t read_integer_from_buffer(const std::string& buffer, size_t& begin_pos)
 {
 	auto word = find_first_word(buffer, begin_pos);
 	begin_pos += word.length() + 1;
-	return static_cast<TP2::capteur::sens_t>(std::stoi(word));
+	return static_cast<TP2::capteur_stat::sensor_t>(std::stoi(word));
 }
 
 inline void next_buffer_word(const std::string& buffer, size_t& begin_pos)
@@ -65,6 +65,9 @@ inline void next_buffer_word(const std::string& buffer, size_t& begin_pos)
 /// <param name='command'> Commande à executer </param>
 /// <returns> Un booléen indiquant si la commande 'cmd::EXIT' a été reçue </returns>
 // TODO: vérifier les entrées (range)
+#include <type_traits>	// 'std::declval()' et 'std::forward()'
+#include <utility>		// std::declval
+#include "utils.h"
 inline bool process_command(TP2::ville& town, const std::string& buffer, size_t begin_pos, size_t end_pos)
 {
 	// Determine la commande reçue
@@ -77,9 +80,7 @@ inline bool process_command(TP2::ville& town, const std::string& buffer, size_t 
 	case cmd::ADD:
 	{
 		// Id
-		word = find_first_word(buffer, begin_pos);
-		auto id = static_cast<unsigned int>(std::stoi(word));
-		begin_pos += word.length() + 1;
+		auto id = read_integer_from_buffer(buffer, begin_pos); // hour
 
 		// Timestamp
 		next_buffer_word(buffer, begin_pos); // year (ignored)
@@ -90,18 +91,18 @@ inline bool process_command(TP2::ville& town, const std::string& buffer, size_t 
 		auto d7 = read_integer_from_buffer(buffer, begin_pos); // day of week
 
 		// Traffic
-		TP2::capteur::traffic state = static_cast<TP2::capteur::traffic>(buffer[begin_pos]);
+		TP2::traffic state = static_cast<TP2::traffic>(buffer[begin_pos]);
 
-		town.add_sensor(id, d7, hour, min, state);
+		town.add_sensor(TP2::capteur_event(id, d7, hour, min, state));
 	}
 	break;
 	case cmd::STATS_C:
 	{
 		auto id = read_integer_from_buffer(buffer, begin_pos); // Id
 
-		TP2::nullable<TP2::capteur> sens = town.get_sensor_by_id(id);
-		if (sens.is_null != nullptr)
-			sens.data.show_time_distribution();
+		auto sens = town.get_sensor_stat_by_id(id);
+		if (sens != nullptr)
+			sens->show_time_distribution();
 	}
 	break;
 	case cmd::JAM_DH:
@@ -124,11 +125,11 @@ inline bool process_command(TP2::ville& town, const std::string& buffer, size_t 
 		size_t seg_count = static_cast<size_t>(read_integer_from_buffer(buffer, begin_pos)); // Seg count
 
 		// Segments/Capteurs IDs
-		auto seg_ids = new TP2::capteur::sens_t[seg_count];
+		TP2::vec<TP2::capteur_stat::sensor_t> seg_ids(seg_count, seg_count);
 		for (size_t i = 0; i < seg_count; ++i)
 			seg_ids[i] = read_integer_from_buffer(buffer, begin_pos);
 
-		town.show_optimal_timestamp(d7, h_start, h_end, seg_ids, seg_count);
+		town.show_optimal_timestamp(d7, h_start, h_end, seg_ids);
 	}
 		break;
 	case cmd::EXIT:
@@ -143,7 +144,7 @@ int main()
 	TP2::ville lyon;
 
 	// Buffer contenant une partie de l'entrée issue de stdin
-	const size_t BUFFER_SIZE = 8192;
+	const size_t BUFFER_SIZE = 2*2*2*131072;
 	std::string buffer(BUFFER_SIZE, ' ');
 
 	// Positions de début et fin d'une commande dans le buffer
