@@ -11,7 +11,7 @@ copyright            : (C) 2015 by B3311
 #include <string>
 #include <type_traits>	// std::underlying_type
 #include <limits>		// std::numeric_limits
-#include <exception>	// std::range_error
+#include <stdexcept>	// std::range_error
 
 //------------------------------------------------------------------------- Include personnel
 #include "capteur_event.h"
