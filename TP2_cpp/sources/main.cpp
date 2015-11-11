@@ -41,20 +41,20 @@ cmd overlying(const std::string& name) {
 /// <param name='begin_pos'> position à partir de la quelle faire la recherche </param>
 /// <param name='sep'> Charactère utilisé comme séparateur entre les mots </param>
 /// <returns> Le mots trouvé </returns>
-inline std::string find_first_word(const std::string &str, size_t begin_pos)
+static inline std::string find_first_word(const std::string &str, size_t begin_pos)
 {
 	size_t word_end_pos = str.find_first_of(" \n", begin_pos);
 	return str.substr(begin_pos, word_end_pos - begin_pos);
 }
 
-inline TP2::capteur_stat::sensor_t read_integer_from_buffer(const std::string& buffer, size_t& begin_pos)
+static inline TP2::capteur_stat::sensor_t read_integer_from_buffer(const std::string& buffer, size_t& begin_pos)
 {
 	auto word = find_first_word(buffer, begin_pos);
 	begin_pos += word.length() + 1;
 	return static_cast<TP2::capteur_stat::sensor_t>(std::stoi(word));
 }
 
-inline void next_buffer_word(const std::string& buffer, size_t& begin_pos)
+static inline void next_buffer_word(const std::string& buffer, size_t& begin_pos)
 {
 	auto word = find_first_word(buffer, begin_pos);
 	begin_pos += word.length() + 1;
@@ -68,7 +68,7 @@ inline void next_buffer_word(const std::string& buffer, size_t& begin_pos)
 #include <type_traits>	// 'std::declval()' et 'std::forward()'
 #include <utility>		// std::declval
 #include "utils.h"
-inline bool process_command(TP2::ville& town, const std::string& buffer, size_t begin_pos, size_t end_pos)
+static inline bool process_command(TP2::ville& town, const std::string& buffer, size_t begin_pos, size_t end_pos)
 {
 	// Determine la commande reçue
 	auto word = find_first_word(buffer, begin_pos);

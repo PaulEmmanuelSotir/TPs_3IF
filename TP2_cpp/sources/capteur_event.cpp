@@ -58,7 +58,8 @@ namespace TP2
 	void swap(capteur_event& lhs, capteur_event& rhs) noexcept
 	{
 		// if one of the following swap calls isn't noexcept, we raise a static_assert
-		static_assert(is_nothrow_swappable<uint32_t&>(), "'Swap(capteur_event&, capteur_event&)' function could throw !");
+// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
+//		static_assert(is_nothrow_swappable<uint32_t&>(), "'Swap(capteur_event&, capteur_event&)' function could throw !");
 
 		// enable ADL (following lines will use custom implementation of swap or std::swap if there isn't custom implementation)
 		using std::swap;
@@ -67,14 +68,14 @@ namespace TP2
 	}
 
 	bool operator==(const capteur_event& lhs, const capteur_event& rhs) {
-		return reinterpret_cast<const uint32_t&>(lhs) & capteur_event::COMPARISION_MASK
-			== reinterpret_cast<const uint32_t&>(rhs) & capteur_event::COMPARISION_MASK;
+		return (reinterpret_cast<const uint32_t&>(lhs) & capteur_event::COMPARISION_MASK)
+			== (reinterpret_cast<const uint32_t&>(rhs) & capteur_event::COMPARISION_MASK);
 	}
 	bool operator!=(const capteur_event& lhs, const capteur_event& rhs) { return !(lhs == rhs); }
 
 	bool operator<(const capteur_event& lhs, const capteur_event& rhs) {
-		return reinterpret_cast<const uint32_t&>(lhs) & capteur_event::COMPARISION_MASK
-			< reinterpret_cast<const uint32_t&>(rhs) & capteur_event::COMPARISION_MASK;	// exploite l'ordre des membres de la strucutre 'sensor_event'
+		return (reinterpret_cast<const uint32_t&>(lhs) & capteur_event::COMPARISION_MASK)
+			< (reinterpret_cast<const uint32_t&>(rhs) & capteur_event::COMPARISION_MASK);	// exploite l'ordre des membres de la strucutre 'sensor_event' (et ignore l'attribut traff)
 	}
 	bool operator>(const capteur_event& lhs, const capteur_event& rhs) { return rhs < lhs; }
 	bool operator<=(const capteur_event& lhs, const capteur_event& rhs) { return !(rhs < lhs); }

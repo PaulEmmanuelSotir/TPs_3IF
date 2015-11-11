@@ -52,10 +52,10 @@ namespace TP2
 			total += m_taffic_counts[i];
 
 		if (total != 0)
-			std::cout << traffic::vert << " " << static_cast<int>(100 * m_taffic_counts[to_taffic_count_idx(traffic::vert)] / total) << "%" << std::endl
-				<< traffic::rouge << " " << static_cast<int>(100 * m_taffic_counts[to_taffic_count_idx(traffic::rouge)] / total) << "%" << std::endl
-				<< traffic::orange << " " << static_cast<int>(100 * m_taffic_counts[to_taffic_count_idx(traffic::orange)] / total) << "%" << std::endl
-				<< traffic::noir << " " << static_cast<int>(100 * m_taffic_counts[to_taffic_count_idx(traffic::noir)] / total) << "%" << std::endl;
+			std::cout << traffic::vert << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::vert)]) / total + 0.5) << "%" << std::endl
+				<< traffic::rouge << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::rouge)]) / total + 0.5) << "%" << std::endl
+				<< traffic::orange << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::orange)]) / total + 0.5) << "%" << std::endl
+				<< traffic::noir << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::noir)]) / total + 0.5) << "%" << std::endl;
 		else
 			std::cout << traffic::vert << " 0%" << std::endl
 				<< traffic::rouge << " 0%" << std::endl
@@ -90,7 +90,8 @@ namespace TP2
 	void swap(capteur_stat& lhs, capteur_stat& rhs) noexcept
 	{
 		// if one of the following swap calls isn't noexcept, we raise a static_assert
-		static_assert(is_nothrow_swappable<capteur_stat::sensor_t*, capteur_event>(), "Swap function could throw and let 'capteur_stat' objects in incoherant state!");
+// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
+//		static_assert(is_nothrow_swappable<capteur_stat::sensor_t*, capteur_event>(), "Swap function could throw and let 'capteur_stat' objects in incoherant state!");
 
 		// enable ADL (following lines will use custom implementation of swap or std::swap if there isn't custom implementation)
 		using std::swap;

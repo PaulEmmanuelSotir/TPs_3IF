@@ -105,9 +105,7 @@ namespace TP2
 		//----------------------------------------------- Constructeurs - destructeur
 
 		/// <summary> Constructeur par default ou constructeur définissant les opérateurs utilisés pour faire des comparaisons entre éléments </summary>
-		///	<param name='eq_pred'> Pointeur vers la fonction qui sera utilisée pour faire l'égalité entre deux éléments </param>
-		///	<param name='comp_inf_pred'> Pointeur vers la fonction qui sera utilisée pour faire une comparaison 'inférieur à' entre deux éléments </param>
-		explicit vec(predicate eq_pred = &default_equality_predicate<T>, predicate comp_inf_pred = &default_inferior_comp_predicate<T>);
+		vec();
 		
 		/// <summary> Constructeur de copie </summary>
 		vec(const vec& other);
@@ -135,6 +133,18 @@ namespace TP2
 
 		static const size_type MAX_ALLOCATION_SIZE = std::numeric_limits<size_type>::max() - 1;
 
+		//------------------------------------------------------- Fonctions statiques
+
+		// ces fonctions sont statiques car elles n'on aucuns liens avec une instance si ce n'est le type des objets en argument
+		// (évite des problème liés au fait de marquer ces fonction 'const' ou non)
+
+		/// <summary> Simple fonction utilisant l'opérateur '==' pour comparer deux objets de type T </summary>
+		template<typename U>
+		inline static bool default_equality_predicate(const U& a, const U& b) { return a == b; };
+		/// <summary> Simple fonction utilisant l'opérateur 'inferieur à' pour comparer deux objets de type T </summary>
+		template<typename U>
+		inline static bool default_inferior_comp_predicate(const U& a, const U& b) { return a < b; };
+
 		//--------------------------------------------------------------------- PRIVE 
 	protected:
 		//-------------------------------------------------------- Méthodes protégées
@@ -160,18 +170,6 @@ namespace TP2
 
 		/// <summary> Désalloue la mémoire allouée pour le tableau d'objets de type T </summary>
 		void dispose();
-
-		//----------------------------------------------- Fonctions statiques protégés
-
-		// ces fonctions sont statiques car elles n'on aucuns liens avec une instance si ce n'est le type des objets en argument
-		// (évite des problème liés au fait de marquer ces fonction 'const' ou non)
-
-		/// <summary> Simple fonction utilisant l'opérateur '==' pour comparer deux objets de type T </summary>
-		template<typename U>
-		inline static bool default_equality_predicate(const U& a, const U& b) { return a == b; };
-		/// <summary> Simple fonction utilisant l'opérateur 'inferieur à' pour comparer deux objets de type T </summary>
-		template<typename U>
-		inline static bool default_inferior_comp_predicate(const U& a, const U& b) { return a < b; };
 
 		//--------------------------------------------------------- Attributs protégés
 
@@ -400,11 +398,10 @@ namespace TP2
 	//---------------------------------------------------- Constructeurs - destructeur
 
 	template<typename T>
-	vec<T>::vec(predicate eq_pred = &default_equality_predicate<T>, predicate comp_inf_pred = &default_inferior_comp_predicate<T>)
-		: m_eq_pred(eq_pred), m_comp_inf_pred(comp_inf_pred)
+	vec<T>::vec()
 	{
 #ifdef MAP
-		cout << "Appel au constructeur 'vec<T>::vec(predicate eq_pred = &default_equality_predicate<T>, predicate comp_inf_pred = &default_inferior_comp_predicate<T>)'" << endl;
+		cout << "Appel au constructeur 'vec<T>::vec()'" << endl;
 #endif
 	}
 
@@ -440,7 +437,7 @@ namespace TP2
 	}
 
 	template<typename T>
-	vec<T>::vec(size_type capacity, size_type max_capacity = MAX_ALLOCATION_SIZE, predicate eq_pred = &default_equality_predicate<T>, predicate comp_inf_pred = &default_inferior_comp_predicate<T>)
+	vec<T>::vec(size_type capacity, size_type max_capacity, predicate eq_pred, predicate comp_inf_pred)
 		: m_capacity(capacity), m_max_capacity(max_capacity), m_eq_pred(eq_pred), m_comp_inf_pred(comp_inf_pred)
 	{
 #ifdef MAP
@@ -504,7 +501,8 @@ namespace TP2
 	void swap(vec<U>& lhs, vec<U>& rhs) noexcept
 	{
 		// if one of the following swap calls isn't noexcept, we raise a static_assert
-		static_assert(is_nothrow_swappable<typename vec<U>::size_type, U*>(), "Swap function could throw and let vec<T> objects in incoherant state!");
+// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
+//		static_assert(is_nothrow_swappable<typename vec<U>::size_type, U*>(), "Swap function could throw and let vec<T> objects in incoherant state!");
 
 		// enable ADL (following lines will use custom implementation of swap or std::swap if there isn't custom implementation)
 		using std::swap;

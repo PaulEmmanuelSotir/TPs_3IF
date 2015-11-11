@@ -37,7 +37,7 @@ namespace TP2
 			// Add new/first event to sensor's event vector
 			sensor_stats_to_find.second.add(new_event);
 
-			const auto& sens = m_sensor_stats.add(sensor_stats_to_find);
+			m_sensor_stats.add(sensor_stats_to_find);
 			m_sensor_stats.sort(); // sort m_sensor_stats vector using ids
 		}
 
@@ -53,7 +53,7 @@ namespace TP2
 			std::cout
 				<< d7 << " "
 				<< i << " "
-				<< (stat.second == 0 ? 0 : static_cast<unsigned int>(100 * stat.first / stat.second)) << "%" << std::endl;
+				<< (stat.second == 0 ? 0 : static_cast<unsigned int>((100.0 * stat.first) / stat.second + 0.5)) << "%" << std::endl;
 		}
 	}
 
@@ -63,10 +63,10 @@ namespace TP2
 
 		if (stat.total_count != 0)
 			std::cout
-			<< traffic::vert << " " << static_cast<int>(100 * stat.green_count / stat.total_count) << "%" << std::endl
-			<< traffic::rouge << " " << static_cast<int>(100 * stat.red_count / stat.total_count) << "%" << std::endl
-			<< traffic::orange << " " << static_cast<int>(100 * stat.orange_count / stat.total_count) << "%" << std::endl
-			<< traffic::noir << " " << static_cast<int>(100 * stat.dark_count / stat.total_count) << "%" << std::endl;
+			<< traffic::vert << " " << static_cast<int>((100.0 * stat.green_count) / stat.total_count + 0.5) << "%" << std::endl
+			<< traffic::rouge << " " << static_cast<int>((100.0 * stat.red_count) / stat.total_count + 0.5) << "%" << std::endl
+			<< traffic::orange << " " << static_cast<int>((100.0 * stat.orange_count) / stat.total_count + 0.5) << "%" << std::endl
+			<< traffic::noir << " " << static_cast<int>((100.0 * stat.dark_count) / stat.total_count + 0.5) << "%" << std::endl;
 		else
 			std::cout
 			<< traffic::vert << " 0%" << std::endl
@@ -89,7 +89,7 @@ namespace TP2
 
 	inline capteur_event findNextRegisteredEvent()
 	{
-
+		return capteur_event();
 	}
 
 	inline ville::capteur_stat_with_events* ville::get_sensor_stat_with_events_by_id(capteur_stat::sensor_t id)
@@ -111,7 +111,7 @@ namespace TP2
 
 	void ville::show_optimal_timestamp(capteur_stat::sensor_t d7, capteur_stat::sensor_t h_start, capteur_stat::sensor_t h_end, const vec<capteur_stat::sensor_t>& seg_ids)
 	{
-		double travel_duration = 0.0;
+	/*	double travel_duration = 0.0;
 		double minimal_travel_duration = std::numeric_limits<double>::max();
 		capteur_event minimal_travel_start_timestamp;
 
@@ -151,14 +151,14 @@ namespace TP2
 			<< d7 << " "
 			<< minimal_travel_start_timestamp.hour << " "
 			<< minimal_travel_start_timestamp.min << " "
-			<< static_cast<unsigned int>(minimal_travel_duration + 0.5) << std::endl;
+			<< static_cast<unsigned int>(minimal_travel_duration + 0.5) << std::endl;*/
 	}
 
 
 
 	double ville::get_travel_duration(const vec<capteur_stat::sensor_t>& seg_ids, size_t idx, capteur_stat::sensor_t d7, capteur_stat::sensor_t hour, capteur_stat::sensor_t minute)
 	{
-		if (idx >= seg_ids.length())
+	/*	if (idx >= seg_ids.length())
 			return 0; // end of recursion
 
 		// Correct minute and hour counts if nescessary
@@ -199,7 +199,8 @@ namespace TP2
 		else
 			travel_duration += travel_duration(traffic::noir); // we suppose unkown traffic to be 'traffic::noir'
 
-		return travel_duration + get_remaining_travel_duration(seg_ids, idx + 1, d7, hour, minute + travel_duration);
+		return travel_duration + get_remaining_travel_duration(seg_ids, idx + 1, d7, hour, minute + travel_duration);*/
+		return 0;
 	}
 
 	capteur_stat* ville::get_sensor_stat_by_id(capteur_stat::sensor_t id)

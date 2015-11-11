@@ -45,6 +45,8 @@ namespace TP2
 	// enable ADL (following lines will use custom implementation of swap or std::swap if there isn't custom implementation)
 	namespace { using std::swap; }
 
+// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
+/*
 	// TODO: faire une fonction plus générique vérifiant la noexcept-itude pour toute fonctions spécifiée en paramètre (pas seulement swap)
 	/// <summary> Metafonction permettant d'aider à vérifier si un ensemble de types disposent d'une fonction swap marquée noexcept </summary>
 	/// <returns> Un booléen indiquant si les types passés en paramètre template peuvent être tous swapés en sécurité </returns>
@@ -58,6 +60,7 @@ namespace TP2
 	constexpr bool is_nothrow_swappable() {
 		return noexcept(swap(std::declval<T&>(), std::declval<T&>())); // Fin de la récursion
 	}
+*/
 
 	// Possible sans récursion avec 'noexcept( std::tuple<Ts...>->swap() )'
 	// Egalement possibe avec le c++ 17 (fold expressions) :
