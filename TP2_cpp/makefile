@@ -24,7 +24,7 @@ SRC_EXT = cpp
 HDR_EXT = h
 
 # Source directory
-SRCDIR = source
+SRCDIR = sources
 # Headers directory
 INCDIR = includes
 # Main output directory

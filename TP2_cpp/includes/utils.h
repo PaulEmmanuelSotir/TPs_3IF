@@ -69,7 +69,7 @@ namespace TP2
 	// TODO: correct if n overflows ?
 	/// <summary> Calcule la plus petite puissance de 2 supérieure à n (0 si n est négatif) </summary>
 	template <typename Integer, typename = typename std::enable_if_t < std::is_integral<Integer>::value && std::is_signed<Integer>::value>>
-	inline Integer lowestPowOfTwoGreaterThan(Integer n)
+	inline Integer lowest_pow_of_two_greater_than(Integer n)
 	{
 		// see "http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2"
 		if (n < 0)
@@ -82,7 +82,7 @@ namespace TP2
 
 	/// <summary> Calcule la plus petite puissance de 2 supérieure à n </summary>
 	template <typename UnsignedInteger, typename = typename std::enable_if_t<std::is_integral<UnsignedInteger>::value && std::is_unsigned<UnsignedInteger>::value>, typename = void>
-	inline UnsignedInteger lowestPowOfTwoGreaterThan(UnsignedInteger n)
+	inline UnsignedInteger lowest_pow_of_two_greater_than(UnsignedInteger n)
 	{
 		// see "http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2"
 		--n;

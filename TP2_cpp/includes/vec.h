@@ -98,13 +98,6 @@ namespace TP2
 		/// <summary> Surcharges de l'operateur '[]' permettant l'accès et la modification d'un élément du vecteur </summary>
 		T& operator[](size_type idx);
 
-		/// <summary> Surcharge de l'operateur ostream :
-		///		La valeur du vec est serialisée sous la forme : "({ 'val1', 'val2', ... }, 'm_capacity')"
-		///		avec 'val1', 'val2', ... les éléments du vec et 'm_capacity' la capacité du vec. </summary>
-		/// <remarks>: utilise l'opérateur ostream sur le type T </remarks>
-		template<typename U>
-		friend std::ostream& operator<<(std::ostream& os, const vec<U>& dt);
-
 		/// <summary> Permute deux vecs donnés en paramètres dont les types d'éléments, T, sont identiques. </summary>
 		template<typename U>
 		friend void swap(vec<U>& lhs, vec<U>& rhs) noexcept;
@@ -114,7 +107,7 @@ namespace TP2
 		/// <summary> Constructeur par default ou constructeur définissant les opérateurs utilisés pour faire des comparaisons entre éléments </summary>
 		///	<param name='eq_pred'> Pointeur vers la fonction qui sera utilisée pour faire l'égalité entre deux éléments </param>
 		///	<param name='comp_inf_pred'> Pointeur vers la fonction qui sera utilisée pour faire une comparaison 'inférieur à' entre deux éléments </param>
-		vec(predicate eq_pred = &default_equality_predicate<T>, predicate comp_inf_pred = &default_inferior_comp_predicate<T>);
+		explicit vec(predicate eq_pred = &default_equality_predicate<T>, predicate comp_inf_pred = &default_inferior_comp_predicate<T>);
 		
 		/// <summary> Constructeur de copie </summary>
 		vec(const vec& other);
@@ -252,7 +245,7 @@ namespace TP2
 		else
 		{
 			// Allocate a new array of T objects
-			size_type new_capacity = lowestPowOfTwoGreaterThan(m_size + other.m_size);
+			size_type new_capacity = lowest_pow_of_two_greater_than(m_size + other.m_size);
 			T* new_vals = new T[new_capacity];
 
 			// Copy other.m_vals to new_vals
@@ -506,25 +499,7 @@ namespace TP2
 	T& vec<T>::operator[](size_type idx) {
 		return m_vals[idx];
 	}
-
-	template<typename U>
-	std::ostream& operator<<(std::ostream& os, const vec<U>& vec)
-	{
-		if (vec.m_size > 0)
-		{
-			os << "({ ";
-
-			for (typename vec<U>::size_type i = 0; i < vec.m_size; ++i)
-				os << vec.m_vals[i] << ((i < vec.m_size - 1) ? ", " : " }, ");
-
-			os << vec.m_capacity << ")";
-		}
-		else
-			os << "({ }, " << vec.m_capacity << ")";
-
-		return os;
-	}
-
+	
 	template<typename U>
 	void swap(vec<U>& lhs, vec<U>& rhs) noexcept
 	{
@@ -549,7 +524,7 @@ namespace TP2
 		// Take a power of two capacity greater than 2 * m_size
 		if (m_size > 0) // TODO: likely
 		{
-			size_type powOf2_size = lowestPowOfTwoGreaterThan(2 * m_size);
+			size_type powOf2_size = lowest_pow_of_two_greater_than(2 * m_size);
 			ajust(powOf2_size < m_max_capacity ? powOf2_size : m_max_capacity);
 		}
 		else

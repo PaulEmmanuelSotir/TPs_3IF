@@ -140,7 +140,7 @@ namespace TP2
 					if (travel_duration < minimal_travel_duration)
 					{
 						minimal_travel_duration = travel_duration;
-						minimal_travel_start_timestamp = capteur_event(segment->first.get_id(), d7, hour, minute, traffic::vert);
+						minimal_travel_start_timestamp = capteur_event(segment->first.get_id(), d7, hour, minute);
 					}
 				}
 			}
@@ -172,7 +172,7 @@ namespace TP2
 
 		// TODO: find the first one
 		// Find if we have events for this minute
-		auto event_idx = segment_events.find(capteur_event(seg_ids[idx], d7, hour, minute, traffic::noir)); // traffic don't matter for 'capteur_event' comparison
+		auto event_idx = segment_events.find(capteur_event(seg_ids[idx], d7, hour, minute));
 
 		if (event_idx <= segment_events.MAX_ALLOCATION_SIZE)
 		{
