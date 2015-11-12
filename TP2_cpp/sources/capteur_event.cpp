@@ -1,10 +1,21 @@
+/********************************************************************************************
+										capteur_event.cpp
+										-----------------
+date                 : 10/2015
+copyright            : (C) 2015 by B3311
+********************************************************************************************/
+
+//--------------------------------------------------------------------------- Include système
 #include <iostream>
 
+//------------------------------------------------------------------------- Include personnel
 #include "capteur_event.h"
 #include "utils.h"
 
 namespace TP2
 {
+	//------------------------------------------------------------------------- Constructeurs
+
 	capteur_event::capteur_event(sensor_t id, sensor_t d7, sensor_t hour, sensor_t min, traffic state)
 	{
 #ifdef MAP
@@ -17,6 +28,8 @@ namespace TP2
 		this->min = min;
 		set_traffic(state);
 	}
+
+	//-------------------------------------------------------------------- Méthodes publiques
 
 	void capteur_event::set_traffic(traffic state)
 	{
@@ -53,7 +66,7 @@ namespace TP2
 		return traffic::vert; // impossible
 	}
 
-	//------------------------------------------------------- Surcharges d'opérateurs
+	//--------------------------------------------------------------- Surcharges d'opérateurs
 
 	void swap(capteur_event& lhs, capteur_event& rhs) noexcept
 	{

@@ -12,7 +12,7 @@ CC = g++
 # Command used to remove files
 RM = rm -f
 # Compiler and pre-processor options
-CPPFLAGS = -Wall -std=c++14 -Ofast
+CPPFLAGS = -Wall -std=c++11 -Ofast
 # Debug flags
 DEBUGFLAGS = #-g
 # Resulting program file name
@@ -22,6 +22,8 @@ SRC_EXT = cpp
 # The header file types
 # TODO allow .hpp header files
 HDR_EXT = h
+
+TEST_SCRIPT = ./tests/test.sh
 
 # Source directory
 SRCDIR = sources
@@ -58,7 +60,7 @@ OBJS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
 # List of dependency files
 DEPS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(DEP_PATH)/%.d)
 
-.PHONY: all clean rebuild help
+.PHONY: all clean rebuild help test
 
 all: $(BUILD_PATH)/$(EXE_NAME)
 
@@ -77,6 +79,10 @@ help:
 	@echo '	rebuild ...'
 	@echo '	help	...'
 
+# Traget to execute test
+test: $(BUILD_PATH)/$(EXE_NAME)
+	$(TEST_SCRIPT) $(BUILD_PATH)/$(EXE_NAME)
+	
 # Build object files
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	@mkdir -p $(DEP_PATH)

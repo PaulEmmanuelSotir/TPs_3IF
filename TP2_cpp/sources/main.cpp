@@ -19,14 +19,14 @@ copyright            : (C) 2015 by B3311
 #include "ville.h"
 
 //------------------------------------------------------------------------------------ Usings
-using namespace std::string_literals; // enables s-suffix for std::string literals
+//using namespace std::string_literals; // enables s-suffix for std::string literals
 
 //----------------------------------------------------------------- Enumération des commandes
 // Equivalent à 'enum class cmd : std::string {...};' (underlying type non intégral)
 enum class cmd { ADD, STATS_C, JAM_DH, STATS_D7, OPT, EXIT };
 namespace { // Namespace anonyme permettant de rendre 'CMDS' et 'cmd_ut' locals
 	using cmd_ut = std::underlying_type<cmd>::type;
-	const std::string CMDS[] = { "ADD"s, "STATS_C"s, "JAM_DH"s, "STATS_D7"s, "OPT"s, "EXIT"s };
+	const std::string CMDS[] = { "ADD", "STATS_C", "JAM_DH", "STATS_D7", "OPT", "EXIT" };
 }
 std::string underlying(cmd command) { return CMDS[static_cast<cmd_ut>(command)]; }
 cmd overlying(const std::string& name) {
@@ -64,10 +64,6 @@ static inline void next_buffer_word(const std::string& buffer, size_t& begin_pos
 /// <param name='town'> Commande à executer </param>
 /// <param name='command'> Commande à executer </param>
 /// <returns> Un booléen indiquant si la commande 'cmd::EXIT' a été reçue </returns>
-// TODO: vérifier les entrées (range)
-#include <type_traits>	// 'std::declval()' et 'std::forward()'
-#include <utility>		// std::declval
-#include "utils.h"
 static inline bool process_command(TP2::ville& town, const std::string& buffer, size_t begin_pos, size_t end_pos)
 {
 	// Determine la commande reçue
@@ -127,11 +123,11 @@ static inline bool process_command(TP2::ville& town, const std::string& buffer, 
 		// Segments/Capteurs IDs
 		TP2::vec<TP2::capteur_stat::sensor_t> seg_ids(seg_count, seg_count);
 		for (size_t i = 0; i < seg_count; ++i)
-			seg_ids[i] = read_integer_from_buffer(buffer, begin_pos);
+			seg_ids.add(read_integer_from_buffer(buffer, begin_pos));
 
 		town.show_optimal_timestamp(d7, h_start, h_end, seg_ids);
 	}
-		break;
+	break;
 	case cmd::EXIT:
 		return true;
 	}
@@ -144,7 +140,7 @@ int main()
 	TP2::ville lyon;
 
 	// Buffer contenant une partie de l'entrée issue de stdin
-	const size_t BUFFER_SIZE = 2*2*2*131072;
+	const size_t BUFFER_SIZE = 2 * 2 * 2 * 131072;
 	std::string buffer(BUFFER_SIZE, ' ');
 
 	// Positions de début et fin d'une commande dans le buffer
@@ -153,7 +149,7 @@ int main()
 
 	// Lit l'entrée par blocks en utlisant stdin pour des raisons de performances
 	size_t buffer_used_size = std::numeric_limits<size_t>::max();
-	auto cut_cmd_beg = ""s; // String contenant le début des commandes à cheval entre deux buffers
+	auto cut_cmd_beg = static_cast<std::string>(""); // String contenant le début des commandes à cheval entre deux buffers
 	while (buffer_used_size >= BUFFER_SIZE)
 	{
 		// Lie une block issu de stdin

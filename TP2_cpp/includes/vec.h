@@ -1,6 +1,6 @@
 /************************************************************************************
-					vec  -  A dynamic and generic vector
-					------------------------------------
+						vec  -  A dynamic and generic vector
+						------------------------------------
 date                 : 11/2015
 copyright            : (C) 2015 by B3311
 ************************************************************************************/
@@ -31,7 +31,7 @@ namespace TP2
 		//-------------------------------------------------------------------- PUBLIC
 	public:
 		using size_type = std::size_t;
-		using predicate = bool(*)(const T&, const T&);	// TODO: serais mieux avec std::function<>
+		using predicate = bool(*)(const T&, const T&);	// TODO: serais mieux avec std::function<> ou un foncteur maison (plus typé)
 
 		//-------------------------------------------------------- Méthodes publiques
 
@@ -55,14 +55,15 @@ namespace TP2
 		/// <summary> Retire old_val de le vec courant </summary>
 		///	<param name='old_val'> reference vers un T qui sera retiré de le vec </param>
 		///	<returns> Un booléen indiquant si au moins un élément a bien été retiré </returns>
-		/// <remarks>: Utilise l'opérateur '==' par défaut pour comparer les éléments </remarks>
+		/// <remarks> le vecteur doit avoir un prédicat pour faire la comparaison </remarks>
 		bool remove(const T& old_val);
 
 		/// <summary> Retire l'ensemble des valeurs contenues dans le parametre 'vals' du vec courant </summary>
 		///	<param name='vals'> tableau de T qui seront retirés du vec </param>
 		///	<param name='size'> taille du tableau vals </param>
 		///	<returns> Un booléen indiquant si au moins un élément a bien été retiré </returns>
-		/// <remarks> Utilise l'opérateur '=='  par défaut pour comparer les éléments </remarks>
+		/// <remarks> le vecteur doit avoir un prédicat pour faire la comparaison </remarks>
+		// Non type-safe, TODO: utiliser gsl::array_view, std::array et/ou std::initializer_list
 		bool remove(const T vals[], size_type size);
 
 		/// <summary> Ajuste, si possible, la capacité du vec à la taille spécifiée </summary>
@@ -72,7 +73,7 @@ namespace TP2
 
 		/// <summary> Trouve un élément spécifié en paramaètre dans le vecteur </summary>
 		///	<param name='element_to_find'> Référence constante vers l'élement de type T à rechercher </param>
-		/// <remarks> Utilise par défaut l'opérateur '==' pour comparer les éléments </remarks>
+		/// <remarks> le vecteur doit avoir un prédicat pour faire la comparaison </remarks>
 		/// <remarks> Si le vecteur à été trié avant, cette opération utlise un algorithme de recherche plus rappide </remarks>
 		///	<returns> L'indice de l'élément dans le vecteur ou MAX_ALLOCATION_SIZE+1 si aucun éléments n'a été trouvé </returns>
 		size_type find(const T& element_to_find) const;
@@ -106,7 +107,7 @@ namespace TP2
 
 		/// <summary> Constructeur par default ou constructeur définissant les opérateurs utilisés pour faire des comparaisons entre éléments </summary>
 		vec();
-		
+
 		/// <summary> Constructeur de copie </summary>
 		vec(const vec& other);
 
@@ -118,12 +119,12 @@ namespace TP2
 		///	<param name='max_capacity'> Taille maximum du nouveau vec </param>
 		///	<param name='eq_pred'> Pointeur vers la fonction qui sera utilisée pour faire l'égalité entre deux éléments </param>
 		///	<param name='comp_inf_pred'> Pointeur vers la fonction qui sera utilisée pour faire une comparaison 'inférieur à' entre deux éléments </param>
-		explicit vec(size_type capacity, size_type max_capacity = MAX_ALLOCATION_SIZE, predicate eq_pred = &default_equality_predicate<T>, predicate comp_inf_pred = &default_inferior_comp_predicate<T>);
+		explicit vec(size_type capacity, size_type max_capacity = MAX_ALLOCATION_SIZE, predicate eq_pred = nullptr, predicate comp_inf_pred = nullptr);
 
 		/// <summary> Constructeur d'un vec à partir d'un ensemble d'éléments donné en paramètre </summary>
 		///	<param name='vals'> tableau des éléments qui seront ajoutés au vec </param>
 		///	<param name='size'> taille du tableau vals </param>
-		// Non type-safe, TODO: utiliser gsl::array_view, std::array et/ou std::initializer_list
+		// Non type-safe, TODO: utiliser gsl::array_view ou std::array
 		//vec(const T vals[], size_type size);
 
 		/// <summary> Destructeur de la colection courante </summary>
@@ -138,16 +139,19 @@ namespace TP2
 		// ces fonctions sont statiques car elles n'on aucuns liens avec une instance si ce n'est le type des objets en argument
 		// (évite des problème liés au fait de marquer ces fonction 'const' ou non)
 
-		/// <summary> Simple fonction utilisant l'opérateur '==' pour comparer deux objets de type T </summary>
+		/// <summary> Simple fonction retournant toujours 'false' (pour les types ne disposant pas de l'opérateur '==' </summary>
 		template<typename U>
-		inline static bool default_equality_predicate(const U& a, const U& b) { return a == b; };
-		/// <summary> Simple fonction utilisant l'opérateur 'inferieur à' pour comparer deux objets de type T </summary>
+		inline static bool default_equality_predicate(const U& a, const U& b) { return false; };
+
+		/// <summary> Simple fonction retournant toujours 'false' (pour les types ne disposant pas de l'opérateur 'inferieur à' </summary>
 		template<typename U>
-		inline static bool default_inferior_comp_predicate(const U& a, const U& b) { return a < b; };
+		inline static bool default_inferior_comp_predicate(const U& a, const U& b) { return false; };
+		// TODO utiliser SFINAE sur la présence des overloads de == et < pour les utiliser si disponnibles
 
 		//--------------------------------------------------------------------- PRIVE 
 	protected:
 		//-------------------------------------------------------- Méthodes protégées
+
 		/// <summary> Réalloue la mémoire pour le tableau m_vals.
 		///		La nouvelle capacité du vecteur sera la plus petite puissance de 2 superieure au double de la capacité actuelle </summary>
 		inline void reallocateMemory();
@@ -184,9 +188,9 @@ namespace TP2
 		/// Booleen indiquant si le vecteur peut être considèré comme trié
 		bool m_is_sorted = false;
 		/// Pointeur vers la fonction qui sera utilisée pour faire l'égalité entre deux éléments 
-		predicate m_eq_pred = default_equality_predicate;
+		predicate m_eq_pred = nullptr;//default_equality_predicate<T>;
 		/// Pointeur vers la fonction qui sera utilisée pour faire une comparaison 'inférieur à' entre deux éléments
-		predicate m_comp_inf_pred = default_equality_predicate;
+		predicate m_comp_inf_pred = nullptr;//default_equality_predicate<T>;
 
 		//------------------------------------------------------- Constantes protégées
 
@@ -201,7 +205,7 @@ namespace TP2
 	void vec<T>::add(const T& val_to_add)
 	{
 		// Reallocate memory if we don't have free space anymore
-		if (m_size == m_capacity) // TODO: unlikely
+		if (UNLIKELY(m_size == m_capacity))
 			reallocateMemory();
 
 		// Append/Copy new value
@@ -218,7 +222,7 @@ namespace TP2
 		m_is_sorted = false; // We assume vector is no more sorted
 
 		// Reallocate memory if we don't have free space anymore
-		if (m_size == m_capacity) // TODO: unlikely
+		if (UNLIKELY(m_size == m_capacity))
 			reallocateMemory();
 
 		// Just call T constructor with specified arguments without any memory allocation
@@ -269,6 +273,7 @@ namespace TP2
 		return true;
 	}
 
+	// Non type-safe, TODO: utiliser gsl::array_view ou std::array
 	template<typename T>
 	bool vec<T>::remove(const T vals_to_remove[], size_type size)
 	{
@@ -298,7 +303,7 @@ namespace TP2
 				bool is_to_copy = true;
 				for (size_type j = 0; j < size && removes_count < removes_todo_count; ++j)
 				{
-					if (m_eq_pred(vals_to_remove[j],val))
+					if (m_eq_pred(vals_to_remove[j], val))
 					{
 						++removes_count;
 						is_to_copy = false;
@@ -359,13 +364,16 @@ namespace TP2
 	template<typename T>
 	typename vec<T>::size_type vec<T>::find(const T& element_to_find) const
 	{
-		if (m_size > 0) // TODO: LIKELY
+		if (UNLIKELY(m_eq_pred == nullptr || m_comp_inf_pred == nullptr))
+			return vec::MAX_ALLOCATION_SIZE + 1;
+
+		if (LIKELY(m_size > 0))
 		{
 			if (m_is_sorted)
 			{
 				if (m_size != 1)
 					// Dichotomic search
-					return dichoto(0, m_size - 1, element_to_find);
+					return dichoto(0, m_size-1, element_to_find);
 				else
 					return m_eq_pred(element_to_find, m_vals[0]) ? 0 : MAX_ALLOCATION_SIZE + 1;
 			}
@@ -377,12 +385,15 @@ namespace TP2
 						return i;
 			}
 		}
-		return static_cast<size_type>(-1);
+		return vec::MAX_ALLOCATION_SIZE + 1;
 	}
 
 	template<typename T>
 	void vec<T>::sort()
 	{
+		if (UNLIKELY(m_eq_pred == nullptr || m_comp_inf_pred == nullptr))
+			return;
+
 		// Use quick sort algorithm to sort elements
 		quickSort(0, m_size);
 
@@ -423,6 +434,8 @@ namespace TP2
 		cout << "Appel au constructeur de copie 'vec<T>::vec(const vec<T>&)'" << endl;
 #endif
 		m_size = other.m_size;
+		m_eq_pred = other.m_eq_pred;
+		m_comp_inf_pred = other.m_comp_inf_pred;
 		try // T's copy assignment operator could throw and let vec in incoherent state
 		{
 			// Copy 'other' vec elements
@@ -496,7 +509,7 @@ namespace TP2
 	T& vec<T>::operator[](size_type idx) {
 		return m_vals[idx];
 	}
-	
+
 	template<typename U>
 	void swap(vec<U>& lhs, vec<U>& rhs) noexcept
 	{
@@ -520,7 +533,7 @@ namespace TP2
 	inline void vec<T>::reallocateMemory()
 	{
 		// Take a power of two capacity greater than 2 * m_size
-		if (m_size > 0) // TODO: likely
+		if (LIKELY(m_size > 0))
 		{
 			size_type powOf2_size = lowest_pow_of_two_greater_than(2 * m_size);
 			ajust(powOf2_size < m_max_capacity ? powOf2_size : m_max_capacity);
@@ -560,19 +573,22 @@ namespace TP2
 	template<typename T>
 	typename vec<T>::size_type vec<T>::dichoto(size_type beg_idx, size_type end_idx, const T& val) const
 	{
-		while (beg_idx <= end_idx)
-		{
-			// get middle index
-			const size_type mid_idx = beg_idx + ((end_idx - beg_idx) / 2);
+		long beg_idx_l = beg_idx;
+		long end_idx_l = end_idx;
 
-			if (m_eq_pred(m_vals[mid_idx], val)) // TODO: UNLIKELY
-				return mid_idx;			// return the index of the element we found
+		while (beg_idx_l <= end_idx_l)
+		{
+			const long mid_idx = (end_idx_l + beg_idx_l) / 2;         // get middle index
+
+			if (m_eq_pred(m_vals[mid_idx], val))
+				return mid_idx;				// return the index of the element we found
 			else if (m_comp_inf_pred(m_vals[mid_idx], val))
-				beg_idx = mid_idx + 1;	// we split the right part
+				beg_idx_l = mid_idx + 1;	// we choose the right part
 			else
-				end_idx = mid_idx - 1;	// we split the left part
+				end_idx_l = mid_idx - 1;	// we choose the left part
 		}
-		return MAX_ALLOCATION_SIZE + 1;	// Not found
+
+		return MAX_ALLOCATION_SIZE + 1; // Not found
 	}
 
 	template<typename T>
@@ -580,7 +596,7 @@ namespace TP2
 	{
 		unsigned int matches_count = 0;
 
-		if (size > 0 && vals_to_find != nullptr && m_size > 0) // TODO: UNLIKELY
+		if (size > 0 && vals_to_find != nullptr && m_size > 0)
 		{
 			for (size_type idx2 = 0; idx2 < size; ++idx2)
 			{

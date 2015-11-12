@@ -10,6 +10,36 @@ copyright            : (C) 2015 by B3311
 //------------------------------------------------------------------ Includes systeme
 #include <type_traits> // pour exploiter SFINAE et pour 'std::declval()'
 
+//--------------------------------------------------------------------------- Defines
+
+#ifdef __GNUC__ // We use __builtin_expect intrinsinc if available
+/// <summary> Permet de contrôler comment les branchages (if-else, ...) sont traduits en 
+///		assembleur en donnant pour information au compilateur le fait que l'expression
+///		booleenne 'expr' a plus de chances d'être vraie que fausse </summary>
+///	<remarks> La macro utilisant des fonctions intrinsèques au compilateur, il est possible
+///		, selon le compilateur utilisé, que cette macro soit sans éffets. </remarks>
+#define LIKELY(expr)    __builtin_expect((bool)(expr), !0)
+/// <summary> Permet de contrôler comment les branchages (if-else, ...) sont traduits en 
+///		assembleur en donnant pour information au compilateur le fait que l'expression
+///		booleenne 'expr' a plus de chances d'être fausse que vraie </summary>
+///	<remarks> La macro utilisant des fonctions intrinsèques au compilateur, il est possible
+///		, selon le compilateur utilisé, que cette macro soit sans éffets. </remarks>
+#define UNLIKELY(expr)  __builtin_expect((bool)(expr), 0)
+#else
+/// <summary> Permet de contrôler comment les branchages (if-else, ...) sont traduits en 
+///		assembleur en donnant pour information au compilateur le fait que l'expression
+///		booleenne 'expr' a plus de chances d'être vraie que fausse </summary>
+///	<remarks> La macro utilisant des fonctions intrinsèques au compilateur, il est possible
+///		, selon le compilateur utilisé, que cette macro soit sans éffets. </remarks>
+#define LIKELY(expr)    expr
+/// <summary> Permet de contrôler comment les branchages (if-else, ...) sont traduits en 
+///		assembleur en donnant pour information au compilateur le fait que l'expression
+///		booleenne 'expr' a plus de chances d'être fausse que vraie </summary>
+///	<remarks> La macro utilisant des fonctions intrinsèques au compilateur, il est possible
+///		, selon le compilateur utilisé, que cette macro soit sans éffets. </remarks>
+#define UNLIKELY(expr)  expr
+#endif
+
 namespace TP2
 {
 	//-------------------------------------------------------------------------------
@@ -45,22 +75,22 @@ namespace TP2
 	// enable ADL (following lines will use custom implementation of swap or std::swap if there isn't custom implementation)
 	namespace { using std::swap; }
 
-// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
-/*
-	// TODO: faire une fonction plus générique vérifiant la noexcept-itude pour toute fonctions spécifiée en paramètre (pas seulement swap)
-	/// <summary> Metafonction permettant d'aider à vérifier si un ensemble de types disposent d'une fonction swap marquée noexcept </summary>
-	/// <returns> Un booléen indiquant si les types passés en paramètre template peuvent être tous swapés en sécurité </returns>
-	template <typename Head, typename T, typename... Ts>
-	constexpr bool is_nothrow_swappable() {
-		return noexcept(swap(std::declval<Head&>(), std::declval<Head&>())) &&
-			is_nothrow_swappable<T, Ts...>(); // Récursion
-	}
+	// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
+	/*
+		// TODO: faire une fonction plus générique vérifiant la noexcept-itude pour toute fonctions spécifiée en paramètre (pas seulement swap)
+		/// <summary> Metafonction permettant d'aider à vérifier si un ensemble de types disposent d'une fonction swap marquée noexcept </summary>
+		/// <returns> Un booléen indiquant si les types passés en paramètre template peuvent être tous swapés en sécurité </returns>
+		template <typename Head, typename T, typename... Ts>
+		constexpr bool is_nothrow_swappable() {
+			return noexcept(swap(std::declval<Head&>(), std::declval<Head&>())) &&
+				is_nothrow_swappable<T, Ts...>(); // Récursion
+		}
 
-	template <typename T>
-	constexpr bool is_nothrow_swappable() {
-		return noexcept(swap(std::declval<T&>(), std::declval<T&>())); // Fin de la récursion
-	}
-*/
+		template <typename T>
+		constexpr bool is_nothrow_swappable() {
+			return noexcept(swap(std::declval<T&>(), std::declval<T&>())); // Fin de la récursion
+		}
+	*/
 
 	// Possible sans récursion avec 'noexcept( std::tuple<Ts...>->swap() )'
 	// Egalement possibe avec le c++ 17 (fold expressions) :
@@ -71,7 +101,7 @@ namespace TP2
 
 	// TODO: correct if n overflows ?
 	/// <summary> Calcule la plus petite puissance de 2 supérieure à n (0 si n est négatif) </summary>
-	template <typename Integer, typename = typename std::enable_if_t < std::is_integral<Integer>::value && std::is_signed<Integer>::value>>
+	template <typename Integer, typename = typename std::enable_if<std::is_integral<Integer>::value && std::is_signed<Integer>::value>::type>
 	inline Integer lowest_pow_of_two_greater_than(Integer n)
 	{
 		// see "http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2"
@@ -84,7 +114,7 @@ namespace TP2
 	}
 
 	/// <summary> Calcule la plus petite puissance de 2 supérieure à n </summary>
-	template <typename UnsignedInteger, typename = typename std::enable_if_t<std::is_integral<UnsignedInteger>::value && std::is_unsigned<UnsignedInteger>::value>, typename = void>
+	template <typename UnsignedInteger, typename = typename std::enable_if<std::is_integral<UnsignedInteger>::value && std::is_unsigned<UnsignedInteger>::value>::type, typename = void>
 	inline UnsignedInteger lowest_pow_of_two_greater_than(UnsignedInteger n)
 	{
 		// see "http://graphics.stanford.edu/~seander/bithacks.html#RoundUpPowerOf2"

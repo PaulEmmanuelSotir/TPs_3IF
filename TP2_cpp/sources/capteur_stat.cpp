@@ -1,10 +1,21 @@
+/********************************************************************************************
+										capteur_stat.cpp
+										----------------
+date                 : 10/2015
+copyright            : (C) 2015 by B3311
+********************************************************************************************/
+
+//--------------------------------------------------------------------------- Include systeme
 #include <iostream>
 
+//------------------------------------------------------------------------- Include personnel
 #include "capteur_stat.h"
 #include "utils.h"
 
 namespace TP2
 {
+	//------------------------------------------------------------------------- Constructeurs
+
 	capteur_stat::capteur_stat(capteur_event initial_event)
 		: capteur_stat()
 	{
@@ -36,6 +47,15 @@ namespace TP2
 		swap(*this, other);
 	}
 
+	capteur_stat::~capteur_stat()
+	{
+#ifdef MAP
+		cout << "Appel au destructeur '~capteur_stat::capteur_stat()'" << endl;
+#endif
+	}
+
+	//-------------------------------------------------------------------- Méthodes publiques
+
 	void capteur_stat::update(capteur_event new_event)
 	{
 		if (m_stat_timestamp.id == new_event.id)
@@ -53,20 +73,22 @@ namespace TP2
 
 		if (total != 0)
 			std::cout << traffic::vert << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::vert)]) / total + 0.5) << "%" << std::endl
-				<< traffic::rouge << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::rouge)]) / total + 0.5) << "%" << std::endl
-				<< traffic::orange << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::orange)]) / total + 0.5) << "%" << std::endl
-				<< traffic::noir << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::noir)]) / total + 0.5) << "%" << std::endl;
+			<< traffic::rouge << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::rouge)]) / total + 0.5) << "%" << std::endl
+			<< traffic::orange << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::orange)]) / total + 0.5) << "%" << std::endl
+			<< traffic::noir << " " << static_cast<int>((100.0 * m_taffic_counts[to_taffic_count_idx(traffic::noir)]) / total + 0.5) << "%" << std::endl;
 		else
 			std::cout << traffic::vert << " 0%" << std::endl
-				<< traffic::rouge << " 0%" << std::endl
-				<< traffic::orange << " 0%" << std::endl
-				<< traffic::noir << " 0%" << std::endl;
+			<< traffic::rouge << " 0%" << std::endl
+			<< traffic::orange << " 0%" << std::endl
+			<< traffic::noir << " 0%" << std::endl;
 	}
 
 	capteur_stat::sensor_t capteur_stat::get_id() const { return m_stat_timestamp.id; }
 	capteur_stat::sensor_t capteur_stat::get_d7() const { return m_stat_timestamp.d7; }
 	capteur_stat::sensor_t capteur_stat::get_hour() const { return m_stat_timestamp.hour; }
 	capteur_stat::sensor_t capteur_stat::get_min() const { return m_stat_timestamp.min; }
+
+	//---------------------------------------------------------------------- Méthodes privées
 
 	inline size_t capteur_stat::to_taffic_count_idx(traffic state)
 	{
@@ -80,18 +102,13 @@ namespace TP2
 		return 0; // impossible
 	}
 
-	const capteur_stat& capteur_stat::operator=(capteur_stat other)
-	{
-		// Copy and swap idiom
-		swap(*this, other);
-		return *this;
-	}
+	//---------------------------------------------------------------- Surchages d'opérateurs
 
 	void swap(capteur_stat& lhs, capteur_stat& rhs) noexcept
 	{
 		// if one of the following swap calls isn't noexcept, we raise a static_assert
-// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
-//		static_assert(is_nothrow_swappable<capteur_stat::sensor_t*, capteur_event>(), "Swap function could throw and let 'capteur_stat' objects in incoherant state!");
+		// Commenté car is_nothrow_swappable ne fonctionne pas avec gcc installé en IF
+		//		static_assert(is_nothrow_swappable<capteur_stat::sensor_t*, capteur_event>(), "Swap function could throw and let 'capteur_stat' objects in incoherant state!");
 
 		// enable ADL (following lines will use custom implementation of swap or std::swap if there isn't custom implementation)
 		using std::swap;
@@ -100,7 +117,14 @@ namespace TP2
 		swap(lhs.m_taffic_counts, rhs.m_taffic_counts);
 	}
 
-	bool operator==(const capteur_stat& lhs, const capteur_stat& rhs) {	return lhs.m_stat_timestamp == rhs.m_stat_timestamp; }
+	const capteur_stat& capteur_stat::operator=(capteur_stat other)
+	{
+		// Copy and swap idiom
+		swap(*this, other);
+		return *this;
+	}
+
+	bool operator==(const capteur_stat& lhs, const capteur_stat& rhs) { return lhs.m_stat_timestamp == rhs.m_stat_timestamp; }
 	bool operator!=(const capteur_stat& lhs, const capteur_stat& rhs) { return !(lhs == rhs); }
 
 	bool operator<(const capteur_stat& lhs, const capteur_stat& rhs) { return lhs.m_stat_timestamp < rhs.m_stat_timestamp; }
