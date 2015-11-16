@@ -26,13 +26,15 @@ copyright            : (C) 2015 by B3311
 enum class cmd { ADD, STATS_C, JAM_DH, STATS_D7, OPT, EXIT };
 namespace { // Namespace anonyme permettant de rendre 'CMDS' et 'cmd_ut' locals
 	using cmd_ut = std::underlying_type<cmd>::type;
-	const std::string CMDS[] = { "ADD", "STATS_C", "JAM_DH", "STATS_D7", "OPT", "EXIT" };
+	const std::string CMDS[] = { std::string("ADD"), std::string("STATS_C"), std::string("JAM_DH"), std::string("STATS_D7"), std::string("OPT"), std::string("EXIT") };
 }
 std::string underlying(cmd command) { return CMDS[static_cast<cmd_ut>(command)]; }
 cmd overlying(const std::string& name) {
 	for (cmd_ut i = 0; i <= static_cast<cmd_ut>(cmd::EXIT); ++i)
+	{
 		if (name == CMDS[i])
 			return static_cast<cmd>(i);
+	}
 	throw std::range_error("Given string out of 'cmd' enumeration range.");
 }
 
@@ -147,7 +149,7 @@ int main()
 	size_t cmd_begin_pos = 0;
 	size_t cmd_end_pos = 0;
 
-	// Lit l'entrée par blocks en utlisant stdin pour des raisons de performances
+	// Lit l'entrée par blocs en utilisant stdin pour des raisons de performances
 	size_t buffer_used_size = std::numeric_limits<size_t>::max();
 	auto cut_cmd_beg = static_cast<std::string>(""); // String contenant le début des commandes à cheval entre deux buffers
 	while (buffer_used_size >= BUFFER_SIZE)

@@ -498,7 +498,7 @@ namespace TP2
 	const vec<T>& vec<T>::operator=(vec other)
 	{
 		// Copy and swap idiom (in 'rule of 4' context (copy elision))
-		swap(*this, other);
+		swap(*this, other));
 		return *this;
 	}
 

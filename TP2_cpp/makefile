@@ -14,7 +14,7 @@ RM = rm -f
 # Compiler and pre-processor options
 CPPFLAGS = -Wall -std=c++11 -Ofast
 # Debug flags
-DEBUGFLAGS = #-g
+DEBUGFLAGS = -g
 # Resulting program file name
 EXE_NAME = a.out
 # The source file extentions
