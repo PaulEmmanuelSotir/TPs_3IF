@@ -34,8 +34,8 @@ end
 
 %%% Constantes globales %%%
 % (enlever si inutile)
-global a; global b; global N;
-global Freq0; global Beta; global Cst; global Tau;
+%global a; global b; global N;
+%global Freq0; global Beta; global Cst; global Tau;
 
 %%%%%%%%%% X0(t) %%%%%%%%%%
 function [ y ] = x0( t )
