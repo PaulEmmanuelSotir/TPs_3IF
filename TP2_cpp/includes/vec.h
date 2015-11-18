@@ -26,6 +26,7 @@ namespace TP2
 	//-------------------------------------------------------------------------------
 	// TODO: Implementer des itérateurs pour vec
 	template<typename T>
+	// requires EqualityComparable<ValueType<T>>, N> // TODO: enlever ça (exemple de requires proposé par la c++ guideline 
 	class vec
 	{
 		//-------------------------------------------------------------------- PUBLIC
@@ -128,7 +129,7 @@ namespace TP2
 		//vec(const T vals[], size_type size);
 
 		/// <summary> Destructeur de la colection courante </summary>
-		virtual ~vec();
+		virtual ~vec() noexcept;
 
 		//------------------------------------------------------ Constantes publiques
 
@@ -173,7 +174,7 @@ namespace TP2
 		unsigned int find_all_of(const T vals_to_find[], size_type size) const;
 
 		/// <summary> Désalloue la mémoire allouée pour le tableau d'objets de type T </summary>
-		void dispose();
+		void dispose() noexcept;
 
 		//--------------------------------------------------------- Attributs protégés
 
@@ -484,7 +485,7 @@ namespace TP2
 	}*/
 
 	template<typename T>
-	vec<T>::~vec()
+	vec<T>::~vec() noexcept
 	{
 #ifdef MAP
 		cout << "Appel au destructeur de 'vec<T>'" << endl;
@@ -609,7 +610,7 @@ namespace TP2
 	}
 
 	template<typename T>
-	void vec<T>::dispose()
+	void vec<T>::dispose() noexcept
 	{
 		if (m_vals != nullptr)
 		{
