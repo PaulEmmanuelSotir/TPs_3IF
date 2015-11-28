@@ -1,0 +1,1 @@
+cat fichier.txt >sortie.txt && echo "essai" >sortie2.txt
