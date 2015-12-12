@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 
+#include "Graph.h"
 #include "Typed_main_binding.h"
 
 namespace TP3
