@@ -120,6 +120,8 @@ namespace TP3
 
 				// Determine URLs toplist size
 				auto toplist_count = list_count_opt ? list_count_opt->value : list_option::default_value;
+				if (toplist_count < 1)
+					throw std::out_of_range("URLs toplist size must be greater than 0");
 
 				// Get top URL listS from unordered multimap '*urls' (partial sort by URL occurrence number)
 				using url_score_t = std::pair<std::string, unsigned int>;

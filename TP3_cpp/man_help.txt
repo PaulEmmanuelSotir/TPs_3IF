@@ -1,0 +1,35 @@
+NAME
+	log_analyzer - Analyze Apache Log
+
+SYNOPSIS
+	log_analyzer LOG_FILE [OPTION]...
+
+DESCRIPTION
+	Analyzes a given apache server LOG_FILE to output a 'get' request graph or a list of most used URLs.
+
+	-g, -G, --graph
+		Creates a graph in which each node is a URL, and each link is a successfull
+		GET request between these nodes. Outputs GraphViz text file using specfied filename.
+		If this option isn't specified, the program will only output a list of most used URLs.
+	-l, -L, --listCount
+		Specifies the maximum number of URLs in the outputed list of most used URLs. 
+		Must be greater than 1 (10 by default).
+	-e, -E, --excludeMedia
+		Excludes css, javascript and image files from the result.
+	-t, -T, --hour
+		Ignore all log entries which haven't been added at the specfied hour.
+	-h, --help
+		Show this documentation
+
+EXAMPLES
+	log_analyzer mylog.log --hour 12 -e
+	Get top ten list of URLs used at 12th hour and which aren't images, css nor javascript files
+
+	log_analyzer mylog.log -e -g graph.dot
+	Get GET request graph of URLs which aren't images, css nor javascript files
+
+	log_analyzer mylog.log -t 2 -l 20
+	Get top 20 list of URLs used at 2th hour
+
+REPORTING BUGS
+	You didn't saw any bugs.

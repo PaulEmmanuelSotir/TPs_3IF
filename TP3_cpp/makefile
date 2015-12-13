@@ -5,7 +5,7 @@
 # TODO: g√rer les extentions .hpp, .cxx, ...
 
 # Debug mode (comment this line to build project in release mode)
-DEBUG = true
+#DEBUG = true
 
 # Compiler
 CC = g++
@@ -16,7 +16,7 @@ CPPFLAGS = -Wall -std=c++11 -Ofast
 # Debug flags
 DEBUGFLAGS = -g
 # Resulting program file name
-EXE_NAME = a.out
+EXE_NAME = log_analyzer
 # The source file extentions
 SRC_EXT = cpp
 # The header file types
