@@ -1,1 +1,1 @@
-cat fichier.txt >sortie.txt && echo "essai" >sortie2.txt
+ ../../bin/release/log_analyzer example.log -e --listCount 1

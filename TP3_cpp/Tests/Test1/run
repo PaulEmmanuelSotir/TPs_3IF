@@ -1,1 +1,1 @@
-cat fichier.txt >sortie.txt
+../../bin/release/log_analyzer example.log -g graphe.dot

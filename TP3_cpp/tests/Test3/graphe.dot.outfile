@@ -1,0 +1,13 @@
+digraph {
+node4 [label="http://www.google.com/"];
+node3 [label="/foo.gif"];
+node2 [label="/bar.html"];
+node1 [label="/bar.gif"];
+node0 [label="/yoyo.html"];
+node4 -> node1 [label="1"];
+node0 -> node0 [label="1"];
+node0 -> node2 [label="1"];
+node0 -> node1 [label="2"];
+node2 -> node3 [label="2"];
+node2 -> node2 [label="1"];
+}

@@ -1,1 +1,1 @@
-Ce test permet de vérifier la production de deux fichiers en sortie du programme testé
+Test la creation d'une liste des URLs les plus utilisés avec l'options -e pour exclure les fichiers images, css et javascript
