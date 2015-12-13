@@ -4,31 +4,37 @@
 #include <algorithm>
 
 #include "Graph.h"
+#include "Help_txt.h"
 #include "Typed_main_binding.h"
 
 namespace TP3
 {
 	//! structure validant le concept de ...
-	struct hour_option
-	{
-		unsigned short value;
-
-		static std::array<std::string, 1> get_option_tags() noexcept { return{ "-t" }; }
-	};
-
-	//! structure validant le concept de ...
-	struct exclusion_option
-	{
-		static std::array<std::string, 1> get_option_tags() noexcept { return{ "-e" }; }
-	};
-
 	//! structure validant le concept de ...
 	struct output_graph_file_option
 	{
 		std::string value;
 
-		static std::array<std::string, 1> get_option_tags() noexcept { return{ "-g" }; }
+		static std::array<std::string, 3> get_option_tags() noexcept { return{ "-g", "-G", "--graph" }; }
 	};
+
+	//! structure validant le concept de ...
+	struct hour_option
+	{
+		unsigned short value;
+
+		static std::array<std::string, 3> get_option_tags() noexcept { return{ "-t", "-T", "--hour" }; }
+	};
+
+	//! structure validant le concept de ...
+	struct exclusion_option
+	{ static std::array<std::string, 3> get_option_tags() noexcept { return{ "-e", "-E", "--excludeMedias" }; } };
+
+	//! structure validant le concept de ...
+	struct help_option
+	{ static std::array<std::string, 2> get_option_tags() noexcept { return{ "-g", "--help" }; } };
+
+	using std::experimental::optional;
 
 	//! structure validant le concept de ...
 	struct input_log_file_option
@@ -36,15 +42,16 @@ namespace TP3
 		std::string value;
 	};
 
-	using std::experimental::optional;
 
 	void typed_main(optional<input_log_file_option> input_log,
+					optional<output_graph_file_option> output_graph,
 					optional<hour_option> hour_opt,
 					optional<exclusion_option> excl_opt,
-					optional<output_graph_file_option> output_graph)
+					optional<help_option> help)
 	{
-		if (!input_log)
-			throw std::invalid_argument("No input log file have been specified");
+		// Tagless option are mandatory for now (see TP::make_typed_main_binding<...>) (no need for following commented lines)
+		//if (!input_log)
+		//	throw std::invalid_argument("No input log file have been specified");
 
 	//	Log_parser parser;
 
