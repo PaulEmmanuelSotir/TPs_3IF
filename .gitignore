@@ -8,6 +8,8 @@ Debug/
 Release/
 .vs/
 
+*.opendb
+
 # Compiled Object files
 *.slo
 *.lo
@@ -32,8 +34,7 @@ Release/
 *.a
 *.lib
 
-# Executables
-*.exe
+# Executables (except *.exe)
 *.out
 *.app
 
