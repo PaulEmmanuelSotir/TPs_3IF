@@ -23,7 +23,7 @@ namespace TP3
 
 	//TODO: quel sens donner à 'strong_convertion' ici ?
 	template<typename T, bool strong_convertion = true>
-	inline T parse(const std::string& str) noexcept
+	inline T parse(const std::string& str)
 	{
 		return static_cast<T>(str);
 	}

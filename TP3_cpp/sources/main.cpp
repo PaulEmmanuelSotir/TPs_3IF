@@ -25,7 +25,7 @@ namespace TP3
 	{
 		std::string value;
 
-		static std::array<std::string, 3> get_option_tags() noexcept { return{ "-g", "-G", "--graph" }; }
+		static tags_t<3> get_option_tags() noexcept { return tags_t<3>{{ "-g", "-G", "--graph" }}; } // pour les versions plus récentes de gcc on peut ecrire simplement "return { "-g", "-G", "--graph" };"
 	};
 
 	//! structure validant le concept de ...
@@ -33,20 +33,20 @@ namespace TP3
 	{
 		unsigned short value;
 
-		static std::array<std::string, 3> get_option_tags() noexcept { return{ "-t", "-T", "--hour" }; }
+		static tags_t<3> get_option_tags() noexcept { return tags_t<3>{{ "-t", "-T", "--hour" }}; }
 	};
 
 	//! structure validant le concept de ...
 	struct exclusion_option
-	{ static std::array<std::string, 3> get_option_tags() noexcept { return{ "-e", "-E", "--excludeMedias" }; } };
+	{ static tags_t<3> get_option_tags() noexcept { return tags_t<3>{ { "-e", "-E", "--excludeMedias"}}; } };
 
 	//! structure validant le concept de ...
 	struct help_option
-	{ static std::array<std::string, 2> get_option_tags() noexcept { return{ "-g", "--help" }; } };
+	{ static tags_t<2> get_option_tags() noexcept { return tags_t<2>{ { "-g", "--help" }}; } };
 
 	using std::experimental::optional;
 
-	void serialize_graph(const std::string& output_filename,std::unique_ptr<Graph<std::string>> graph)
+	void serialize_graph(const std::string& output_filename, std::unique_ptr<Graph<std::string>> graph)
 	{
 		std::string line;
 		std::ofstream outfile(output_filename, std::ios::trunc);
@@ -103,7 +103,7 @@ namespace TP3
 				// Get and display top 10 URLS from unordered multimap (partial sort by URL occurrence number)
 				using url_score_t = std::pair<std::string, unsigned int>;
 				std::vector<url_score_t> topten(std::min(static_cast<size_t>(10), urls->size()));
-				std::partial_sort_copy(std::cbegin(*urls), std::cend(*urls), std::begin(topten), std::end(topten), [](const url_score_t& a, const url_score_t& b)
+				std::partial_sort_copy(std::begin(*urls), std::end(*urls), std::begin(topten), std::end(topten), [](const url_score_t& a, const url_score_t& b)
 				{ return b.second < a.second; });
 
 				// Display the URLs top 10

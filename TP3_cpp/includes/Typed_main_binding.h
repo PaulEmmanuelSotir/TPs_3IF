@@ -10,6 +10,9 @@
 
 namespace TP3
 {
+	template<size_t N>
+	using tags_t = std::array<std::string, N>;
+
 	template<typename T, typename = void>
 	struct option_has_value : std::false_type { };
 
@@ -22,10 +25,10 @@ namespace TP3
 	template<typename T>
 	struct has_option_tag_getter<T, decltype(std::declval<T>().get_option_tags(), void())> : std::true_type { };
 
-	// TODO: verifier que T n'est pas std::array<std::string, 0>
+	// TODO: verifier que T n'est pas tags_t<0>
 /*	template<typename T>
 	constexpr bool has_option_tag()
-	{ return has_option_tag_getter<T>::value && std::is_same<decltype(std::declval<T>().get_option_tags()), std::array<std::string, 0>>::value; }*/
+	{ return has_option_tag_getter<T>::value && std::is_same<decltype(std::declval<T>().get_option_tags()), tags_t<0>>::value; }*/
 
 	//! ...
 	//! @remarks
@@ -87,12 +90,14 @@ namespace TP3
 	{
 		if (argc > 0 && argv != nullptr)
 		{
-			unsigned int arg_processed_cout = 1;
+			int arg_processed_cout = 1;
 
 			// Store an array of booleans indicating Args...'s option type (tag presence and value presence)
-			std::array<std::pair<bool, bool>, sizeof...(Args)> options_types_info = { std::make_pair(has_option_tag_getter<Args>::value, option_has_value<Args>::value)... };
+			std::array<std::pair<bool, bool>, sizeof...(Args)> options_types_info = decltype(options_types_info){ { std::make_pair(has_option_tag_getter<Args>::value, option_has_value<Args>::value)... }};
+			// c++14: std::array<std::pair<bool, bool>, sizeof...(Args)> options_types_info = { std::make_pair(has_option_tag_getter<Args>::value, option_has_value<Args>::value)... };
 			// Store an array of options tags
-			std::array<std::vector<std::string>, sizeof...(Args)> options_tags = { get_option_tags<Args>()... };
+			std::array<std::vector<std::string>, sizeof...(Args)> options_tags = decltype(options_tags){ { get_option_tags<Args>()... }};
+			// c++14: std::array<std::vector<std::string>, sizeof...(Args)> options_tags = { get_option_tags<Args>()... }; 
 
 			// Find presence of options with tags in argv
 			int previous_found_option_param_count = 0;
@@ -138,7 +143,7 @@ namespace TP3
 				auto type_info = options_types_info[T_idx];
 				if (!type_info.first) // if T has option tag getter
 				{
-					size_t idx = 1;
+					int idx = 1;
 					bool reached_later_option = false;
 					for(const auto& p : m_found_parameters)
 					{
@@ -169,9 +174,9 @@ namespace TP3
 				}
 			}
 			if(arg_processed_cout < argc)
-				throw std::invalid_argument("Invalid opyions");
+				throw std::invalid_argument("Invalid options");
 
-			m_found_parameters.insert(std::end(m_found_parameters), std::cbegin(found_tagless_options), std::cend(found_tagless_options));
+			m_found_parameters.insert(std::end(m_found_parameters), std::begin(found_tagless_options), std::end(found_tagless_options));
 
 			// We have verified command shape and found all options/parameters of the command, we can now parse parameters and call typed main:
 			this->m_typed_main_func((get_opt<Args>(argc, argv))...);
@@ -235,7 +240,7 @@ namespace TP3
 	template<typename T, typename>
 	std::vector<std::string> Typed_main_binding<Args...>::get_option_tags() {
 		const auto& tags_array = T::get_option_tags();
-		return std::vector<std::string>(std::cbegin(tags_array), std::cend(tags_array));
+		return std::vector<std::string>(std::begin(tags_array), std::end(tags_array));
 	}
 
 	template<typename ... Args>

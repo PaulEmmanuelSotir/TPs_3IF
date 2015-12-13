@@ -103,8 +103,8 @@ namespace TP3
 	std::unique_ptr<Log_parser::urls_scores_t> Log_parser::parse_toplist(const std::string& log_file_name) const
 	{
 		// Multimap storing documents URLs with their occurrence number 
-		auto urls = std::make_unique<urls_scores_t>();
-
+		auto urls = std::unique_ptr<urls_scores_t>(new urls_scores_t()); // c++14: std::make_unique<urls_scores_t>();
+			
 		for_each_log_line(std::move(log_file_name), [this, &urls](URL_t doc_url, URL_t referer_url)
 		{
 			auto url_it = urls->find(doc_url);
@@ -119,7 +119,7 @@ namespace TP3
 
 	std::unique_ptr<Log_parser::graph_t> Log_parser::parse_graph(const std::string& log_file_name) const
 	{
-		auto log_graph = std::make_unique<graph_t>();
+		auto log_graph = std::unique_ptr<graph_t>(new graph_t()); // c++14: std::make_unique<graph_t>();
 
 		for_each_log_line(std::move(log_file_name), [this, &log_graph](URL_t doc_url, URL_t referer_url)
 		{
