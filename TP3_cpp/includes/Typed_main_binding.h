@@ -82,6 +82,7 @@ namespace TP3
 	//!			publique et statique 'get_option_tags()' retournant un objet itérable contenant
 	//!			des valeurs implicitment convertibles en 'std::string'.
 	// TODO: support default values
+	// TODO: allow multiple typed_main implementation for alternative command usages
 	template<typename... Args>
 	class Typed_main_binding
 	{

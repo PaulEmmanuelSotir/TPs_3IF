@@ -10,14 +10,15 @@ DESCRIPTION
 	-g, -G, --graph
 		Creates a graph in which each node is a URL, and each link is a successfull
 		GET request between these nodes. Outputs GraphViz text file using specfied filename.
-		If this option isn't specified, the program will only output a list of most used URLs.
+		If this option isn't specified, the program will only output a list of most used URLs
+		with their respective occurrence number (sorted in descending usage order).
 	-l, -L, --listCount
 		Specifies the maximum number of URLs in the outputed list of most used URLs. 
 		Must be greater than 1 (10 by default).
 	-e, -E, --excludeMedia
 		Excludes css, javascript and image files from the result.
 	-t, -T, --hour
-		Ignore all log entries which haven't been added at the specfied hour.
+		Ignore all log entries which haven't been added at the specfied hour (hour GMT+0000).
 	-h, --help
 		Show this documentation
 

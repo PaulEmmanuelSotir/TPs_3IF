@@ -131,7 +131,7 @@ namespace TP3
 
 				// Display the URLs top 10
 				for (const auto& score : topten)
-					std::cout << '"' << score.first << "\" : " << score.second << std::endl;
+					std::cout << '"' << score.first << "\" :\t" << score.second << " occurrences" << std::endl;
 			}
 		}
 		else

@@ -131,9 +131,8 @@ namespace TP3
 			if (std::regex_search(line, matches, (m_is_exclusion_filter_enabled ? LOG_LINE_REGEX_E : LOG_LINE_REGEX)))
 			{
 				if (m_filter_hour)
-					if (*m_filter_hour != parse<hour_t>(matches[HOUR_MATCH_NUM].str()))
+					if (*m_filter_hour != static_cast<hour_t>(parse<hour_t>(matches[HOUR_MATCH_NUM].str()) - parse<int>(matches[TIMEZONE_MATCH_NUM].str())/100)) // hour - timezone/100
 						continue;
-				// TIME ZONE: auto gmt_offset = parse<int>(matches[TIMEZONE_MATCH_NUM].str());
 
 				auto doc_url = matches[GET_URL_MATCH_NUM].str();
 				const auto& intranet_match = matches[INSA_INTRANET_MATCH_NUM];
@@ -147,6 +146,9 @@ namespace TP3
 					parsing_func(std::move(doc_url), matches[REFERER_MATCH_NUM].str());
 			}
 		}
+
+		if (infile.bad())
+			throw std::invalid_argument("Error while reading log file");
 
 		infile.close();
 	}

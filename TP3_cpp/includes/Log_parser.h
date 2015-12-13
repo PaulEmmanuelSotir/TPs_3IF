@@ -30,7 +30,7 @@ namespace TP3
 		//----------------------------------------------------------------- PUBLIC
 	public:
 		//----------------------------------------------- Types et alias publiques
-		using hour_t = unsigned int;
+		using hour_t = unsigned short;
 		using URL_t = std::string;
 		using graph_t = Graph<URL_t>;
 		using urls_scores_t = std::unordered_multimap<URL_t, unsigned int>;
@@ -72,7 +72,7 @@ namespace TP3
 		//------------------------------------------------------- Attributs privés
 
 		bool m_is_exclusion_filter_enabled = false;
-		std::experimental::optional<hour_t> m_filter_hour = 0;
+		std::experimental::optional<hour_t> m_filter_hour = std::experimental::nullopt;
 	};
 }
 
