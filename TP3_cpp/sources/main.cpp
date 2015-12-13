@@ -81,18 +81,14 @@ namespace TP3
 
 int main(int argc, char* argv[])
 {
-//	auto main_binding = TP3::make_typed_main_binding(TP3::typed_main);
-	auto main_binding = TP3::Typed_main_binding<TP3::input_log_file_option,
-												TP3::hour_option,
-												TP3::exclusion_option,
-												TP3::output_graph_file_option>(TP3::typed_main);
+	auto main_binding = TP3::make_typed_main_binding(&TP3::typed_main);
 
 	try
 	{
 		main_binding.exec(argc, argv);
 	}
-	catch (std::invalid_argument e) { std::cout << "ERROR: " << e.what(); }
-	catch (std::out_of_range e) { std::cout << "ERROR: " << e.what(); }
+	catch (std::invalid_argument e) { std::cout << "ERROR: " << e.what() << std::endl; }
+	catch (std::out_of_range e) { std::cout << "ERROR: " << e.what() << std::endl; }
 
 	return EXIT_SUCCESS;
 }

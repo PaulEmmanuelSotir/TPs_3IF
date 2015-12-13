@@ -67,9 +67,13 @@ namespace TP3
 		std::vector<std::pair<size_t, int>> m_found_parameters;
 	};
 
+	//! ...
+	//! @remarks This function permits implicit template deduction by taking C-style function pointer instead of std::function<...>
 	template<typename... Args>
-	Typed_main_binding<Args...> make_typed_main_binding(std::function<void(std::experimental::optional<Args>...)> typed_main)
-	{ return Typed_main_binding<Args...>(typed_main); }
+	Typed_main_binding<Args...> make_typed_main_binding(void(*typed_main)(std::experimental::optional<Args>...) )
+	{
+		return Typed_main_binding<Args...>(std::function<void(std::experimental::optional<Args>...)> (typed_main));
+	}
 
 	template<typename... Args>
 	Typed_main_binding<Args...>::Typed_main_binding(const typed_main_t& typed_main)
@@ -83,6 +87,8 @@ namespace TP3
 	{
 		if (argc > 0 && argv != nullptr)
 		{
+			unsigned int arg_processed_cout = 1;
+
 			// Store an array of booleans indicating Args...'s option type (tag presence and value presence)
 			std::array<std::pair<bool, bool>, sizeof...(Args)> options_types_info = { std::make_pair(has_option_tag_getter<Args>::value, option_has_value<Args>::value)... };
 			// Store an array of options tags
@@ -110,9 +116,10 @@ namespace TP3
 								if(arg_idx <= previous_found_option_param_count + previous_found_option_idx)
 									throw std::invalid_argument("No parameter after an option tag which need one");
 								previous_found_option_param_count = type_info.second ? 1 : 0; // if T has option parameter/value
+								arg_processed_cout += 1 + previous_found_option_param_count;
 								if (processed_template_arg_indices[T_idx])
 									// (TODO: allow it) Don't allow multiple option usage for simplicity reasons
-									throw new std::invalid_argument("Multiple tag for the same option");
+									throw std::invalid_argument("Multiple tag for the same option");
 								m_found_parameters.emplace_back(T_idx, arg_idx);
 								processed_template_arg_indices[T_idx] = true;
 								previous_found_option_idx = arg_idx;
@@ -137,22 +144,33 @@ namespace TP3
 					{
 						if (reached_later_option && p.second == idx)
 							// mandatory/tagless parameter index is actually used by an option with a tag
-							throw new std::invalid_argument("Missing mandatory tagless option");
+							throw std::invalid_argument("Missing mandatory tagless option");
 
 						if(p.first < T_idx)
 						{
 							if (reached_later_option)
-								throw new std::invalid_argument("Invalid command shape (options order imposed by tagless option(s) not respected)");
+								throw std::invalid_argument("Invalid command shape (options order imposed by tagless option(s) not respected)");
 							idx = p.second + type_info.second ? 2 : 1; // if T has option parameter/value
 						}
 						else if(p.first > T_idx && !reached_later_option)
 						{
+							if (p.second == idx)
+								throw std::invalid_argument("Missing mandatory tagless option or invalid command shape");
 							reached_later_option = true;
 							found_tagless_options.emplace_back(T_idx, idx);
+							arg_processed_cout++;
 						}
+					}
+					if(!reached_later_option && idx < argc)
+					{
+						found_tagless_options.emplace_back(T_idx, idx);
+						arg_processed_cout++;
 					}
 				}
 			}
+			if(arg_processed_cout < argc)
+				throw std::invalid_argument("Invalid opyions");
+
 			m_found_parameters.insert(std::end(m_found_parameters), std::cbegin(found_tagless_options), std::cend(found_tagless_options));
 
 			// We have verified command shape and found all options/parameters of the command, we can now parse parameters and call typed main:
