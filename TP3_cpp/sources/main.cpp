@@ -1,5 +1,12 @@
+/*********************************************************************************
+									main.cpp
+									--------
+date                 : 12/2015
+copyright            : (C) 2015 by B3311
+*********************************************************************************/
 
-#include <set>
+//----------------------------------------------------------------------- INCLUDES
+//-------------------------------------------------------------- Includes systèmes
 #include <array>
 #include <string>
 #include <fstream>
@@ -7,46 +14,59 @@
 #include <iterator>
 #include <iostream>
 #include <algorithm>
-#include <unordered_map>
 
+//------------------------------------------------------------ Includes personnels
 #include "Graph.h"
 #include "Help_txt.h"
 #include "Log_parser.h"
 #include "Typed_main_binding.h"
 
+//! \namespace TP3
+//! espace de nommage regroupant le code crée pour le TP3 de C++
 namespace TP3
 {
-	//! structure validant le concept de ...
+	//------------------------------------------------------------ COMMAND OPTIONS
+
+	//! @remarks valide le concept de 'option_with_value'
 	struct input_log_file_option
 	{ std::string value; };
 
-	//! structure validant le concept de ...
+	//! @remarks valide le concept de 'option_with_tags' et 'option_with_value'
 	struct output_graph_file_option
 	{
 		std::string value;
-
 		static tags_t<3> get_option_tags() noexcept { return tags_t<3>{{ "-g", "-G", "--graph" }}; } // pour les versions plus récentes de gcc on peut ecrire simplement "return { "-g", "-G", "--graph" };"
 	};
 
-	//! structure validant le concept de ...
+	//! @remarks valide le concept de 'option_with_tags' et 'option_with_value'
 	struct hour_option
 	{
 		unsigned short value;
-
 		static tags_t<3> get_option_tags() noexcept { return tags_t<3>{{ "-t", "-T", "--hour" }}; }
 	};
 
-	//! structure validant le concept de ...
+	//! @remarks valide le concept de 'option_with_tags' et 'option_with_value'
+	struct list_option
+	{
+		size_t value;
+		static const size_t default_value = 10;
+		static tags_t<3> get_option_tags() noexcept { return tags_t<3>{ { "-l", "-L", "--listCount" }}; }
+	};
+
+	//! @remarks valide le concept de 'option_with_tags'
 	struct exclusion_option
 	{ static tags_t<3> get_option_tags() noexcept { return tags_t<3>{ { "-e", "-E", "--excludeMedias"}}; } };
 
-	//! structure validant le concept de ...
+	//! @remarks valide le concept de 'option_with_tags'
 	struct help_option
 	{ static tags_t<2> get_option_tags() noexcept { return tags_t<2>{ { "-g", "--help" }}; } };
 
 	using std::experimental::optional;
 
-	void serialize_graph(const std::string& output_filename, std::unique_ptr<Graph<std::string>> graph)
+	//----------------------------------------------------------- STATIC FUNCTIONS
+
+	//! Fonction créant un fichier GraphViz à partir d'un objet de type Graph<std::string>
+	static void serialize_graph(const std::string& output_filename, std::unique_ptr<Graph<std::string>> graph)
 	{
 		std::string line;
 		std::ofstream outfile(output_filename, std::ios::trunc);
@@ -69,16 +89,14 @@ namespace TP3
 		outfile.close();
 	}
 
-	void typed_main(optional<input_log_file_option> input_log,
+	//! "Main typé" appellé par un objet de type 'Typed_main_binding<Args...>'
+	static void typed_main(optional<input_log_file_option> input_log, // input_log is actually mandatory (tagless option)
 					optional<output_graph_file_option> output_graph,
 					optional<hour_option> hour_opt,
+					optional<list_option> list_count_opt,
 					optional<exclusion_option> excl_opt,
 					optional<help_option> help)
 	{
-		// Tagless option are mandatory for now (see TP::make_typed_main_binding<...>) (no need for following commented lines)
-		//if (!input_log)
-		//	throw std::invalid_argument("No input log file have been specified");
-
 		if (!help)
 		{
 			Log_parser parser;
@@ -98,11 +116,14 @@ namespace TP3
 			else
 			{
 				// Parse log to obtain the URLs with their respective occurrence number (unordered_multimap)
-				auto urls = parser.parse_toplist(input_log->value);
+				auto urls = parser.parse_urllist(input_log->value);
 
-				// Get and display top 10 URLS from unordered multimap (partial sort by URL occurrence number)
+				// Determine URLs toplist size
+				auto toplist_count = list_count_opt ? list_count_opt->value : list_option::default_value;
+
+				// Get top URL listS from unordered multimap '*urls' (partial sort by URL occurrence number)
 				using url_score_t = std::pair<std::string, unsigned int>;
-				std::vector<url_score_t> topten(std::min(static_cast<size_t>(10), urls->size()));
+				std::vector<url_score_t> topten(std::min(toplist_count, urls->size()));
 				std::partial_sort_copy(std::begin(*urls), std::end(*urls), std::begin(topten), std::end(topten), [](const url_score_t& a, const url_score_t& b)
 				{ return b.second < a.second; });
 
@@ -116,6 +137,9 @@ namespace TP3
 	}
 }
 
+//--------------------------------------------------------------------------- MAIN
+
+//! Fonction main utilisant simplement un binding vers le main typé
 int main(int argc, char* argv[])
 {
 	auto main_binding = TP3::make_typed_main_binding(&TP3::typed_main);

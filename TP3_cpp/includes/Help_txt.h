@@ -1,8 +1,18 @@
+/*********************************************************************************
+									Help text
+									---------
+date                 : 12/2015
+copyright            : (C) 2015 by B3311
+*********************************************************************************/
+
 #ifndef HELP_TXT_H
 #define HELP_TXT_H
 
+//! \namespace TP3
+//! espace de nommage regroupant le code crée pour le TP3 de C++
 namespace TP3
 {
+	//! Retourne le texte d'aide du programme
 	constexpr const char* Help_txt() noexcept
 	{
 		return

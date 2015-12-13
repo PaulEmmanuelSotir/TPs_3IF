@@ -1,26 +1,42 @@
+/*********************************************************************************
+							Utils  -  A few common functions or types
+							-----------------------------------------
+date                 : 12/2015
+copyright            : (C) 2015 by B3311
+*********************************************************************************/
+
 #ifndef UTILS_H
 #define UTILS_H
 
 #include <tuple>
 #include <string>
-#include <type_traits>
 
+//! \namespace TP3
+//! espace de nommage regroupant le code crée pour le TP3 de C++
 namespace TP3
 {
+	//----------------------------------------------- Variadic template indexing utils
+
+	//! Obtient le Nème type T issu du variadic template 'Args...'
 	template <size_t N, typename... Args>
 	using get_by_Index_t = typename std::tuple_element<N, std::tuple<Args...>>::type;
 
+	//! Metafunction recursive obtenant l'indice du premier type T dans le variadic template 'Args...'
 	template <typename T, typename... Args>
 	struct index_of;
 
+	//! Metafunction recursive obtenant l'indice du premier type T dans le variadic template 'Args...'
 	template <typename T, typename... Args>
 	struct index_of<T, T, Args...> : std::integral_constant<std::size_t, 0> { };
 
+	//! Metafunction recursive obtenant l'indice du premier type T dans le variadic template 'Args...'
 	template <typename T, typename Tail, typename... Args>
 	struct index_of<T, Tail, Args...> : std::integral_constant<std::size_t, 1 + index_of<T, Args...>::value> { };
 
+	//----------------------------------------------------------------- Parse<T, bool>
 	//TODO: add support for any integer base
 
+	//! Fonction template convertissant une 'std::string' vers le type T
 	//TODO: quel sens donner à 'strong_convertion' ici ?
 	template<typename T, bool strong_convertion = true>
 	inline T parse(const std::string& str)
@@ -176,3 +192,4 @@ namespace TP3
 }
 
 #endif // UTILS_H
+

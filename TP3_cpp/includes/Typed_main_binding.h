@@ -1,76 +1,149 @@
+/*********************************************************************************
+					Typed_main_binding  - An helper class for main args
+					---------------------------------------------------
+date                 : 12/2015
+copyright            : (C) 2015 by B3311
+*********************************************************************************/
+
+//---------- Interface de la classe template Typed_main_binding<Args...> ---------
 #ifndef TYPED_MAIN_BINDING_H
 #define TYPED_MAIN_BINDING_H
 
+//-------------------------------------------------------------- Includes systèmes
 #include <vector>
 #include <utility>
 #include "optional.h"
 #include <type_traits>
 
+//------------------------------------------------------------ Includes personnels
 #include "Utils.h"
 
+//! \namespace TP3
+//! espace de nommage regroupant le code crée pour le TP3 de C++
 namespace TP3
 {
+	//-------------------------------------------------------------- Metafonctions
+
+	//! Alias simplifiant la spécification du type de retour des méthodes 'get_option_tags()'
+	//! @remarks
+	//!		Les seules contraintes concernant le concept de 'option_with_tags' est que le type
+	//!		de retour de 'get_option_tags()' soit itérable et contienne des valeurs implicitement 
+	//!		convertibles en 'std::string' (pas nescessairement statique ou de type tags_t<N>)
 	template<size_t N>
 	using tags_t = std::array<std::string, N>;
 
-	template<typename T, typename = void>
-	struct option_has_value : std::false_type { };
-
-	template<typename T>
-	struct option_has_value<T, decltype(std::declval<T>().value, void())> : std::true_type { };
-
+	//! Spécialisation d'une metafonction aidant à verifier si un type T n'est pas conforme
+	//! au concept de 'option_with_tags'
 	template<typename T, typename = void>
 	struct has_option_tag_getter : std::false_type { };
 
+	//! Spécialisation d'une metafonction aidant à verifier si un type T est conforme au
+	//! concept de 'option_with_tags' (verifie seulement la présence de la méthode statique)
 	template<typename T>
 	struct has_option_tag_getter<T, decltype(std::declval<T>().get_option_tags(), void())> : std::true_type { };
 
-	// TODO: verifier que T n'est pas tags_t<0>
+	//! Spécialisation d'une metafonction aidant à verifier si un type T n'est pas conforme
+	//! au concept de 'option_with_value'
+	template<typename T, typename = void>
+	struct option_has_value : std::false_type { };
+
+	//! Spécialisation d'une metafonction aidant à verifier si un type T est conforme au
+	//! concept de 'option_with_value'
+	template<typename T>
+	struct option_has_value<T, decltype(std::declval<T>().value, void())> : std::true_type { };
+
+	// TODO: verifier que T n'est pas tags_t<0> :
 /*	template<typename T>
 	constexpr bool has_option_tag()
 	{ return has_option_tag_getter<T>::value && std::is_same<decltype(std::declval<T>().get_option_tags()), tags_t<0>>::value; }*/
 
-	//! ...
+	//---------------------------------------------------------------------- Types
+
+	//! Classe template permettant de simplifier l'interprétation de argv et argc.
+	//! A partir d'une fonction dont la signature est du type 'typed_main_t<Args...>'
+	//! (avec les types Args validants les concepts décrits ci dessous), la classe
+	//! template en déduit statiquement la forme des commandes acceptables et gère
+	//! autmatiquement toutes les vérifications et convertions nescessaires au runtime
+	//! pour pouvoir appeler, si possible, le main typé spécifié lors de la construction
+	//! avec les paramètres optionnels correspondants à la commande.
 	//! @remarks
-	//!		Uses 'TP3::parse<T,true>' to get options values from std:string. User could overload 'TP3::parse<T,true>' for its own types if needed.
-	//! Les arguments templates 'Args' doivent être conformes au concept 'option_with_param' ou 'option'.
-	//! Description du concept 'option' ...
-	//! Description du concept 'option_with_param' ...
+	//!		Les arguments templates 'Args' doivent être conformes aux concepts de :
+	//!		- 'option_with_tags' et 'option_with_value' : option ayant un ou des tags
+	//!			et un paramètre (e.g. "-t 21")
+	//!		- ou 'option_with_tags' : option sans paramètre avec un tag (e.g. "-e")
+	//!		- ou 'option_with_value' : option sans tags et ayant un paramètre.
+	//!			Ce type d'option est en fait obligatoire : il determine la forme de la
+	//!			commande car toute les options de (Args...) avant celle-ci doivent être
+	//!			également avant dans argv (de même pour les options après une option sans tag)
+	//! @remarks
+	//!		- Description du concept 'option_with_value' : Le type T doit contenir un attribut
+	//!			publique 'value' tel que son type soit pourvus d'une surcharge de 'T TP3::parse<T>(std::string)'
+	//!		- Description du concept 'option_with_tags' : Le type T doit contenir une méthode
+	//!			publique et statique 'get_option_tags()' retournant un objet itérable contenant
+	//!			des valeurs implicitment convertibles en 'std::string'.
+	// TODO: support default values
 	template<typename... Args>
 	class Typed_main_binding
 	{
+		//----------------------------------------------------------------- PUBLIC
 	public:
+		//----------------------------------------------- Types et alias publiques
 		using typed_main_t = std::function<void(std::experimental::optional<Args>...)>;
 
-		explicit Typed_main_binding(const typed_main_t& typed_main);
+		//----------------------------------------------------- Méthodes publiques
 
+		//! Execute, si possible, le main typé en construisant les paramètres optionels 
+		//! du main typé à partir de argv et argc.
+		//! @throw std::invalid_argument
+		//! @throw std::out_of_range
 		void exec(int argc, char* argv[]);
 
+		//----------------------------------------------------- Méthodes spéciales
+
+		//! Constructeur prenant en paramètre le main typé qui sera executé
+		explicit Typed_main_binding(const typed_main_t& typed_main);
+
+		//------------------------------------------------------------------ PRIVE
 	private:
+		//------------------------------------------------------- Méthodes privées
+
+		//! spécialisation template utilisant SFINAE pour cibler les options ayant
+		//! seulement un tag (validant le concept de 'option_with_tags')
 		template<typename T, typename = typename std::enable_if<!option_has_value<T>::value && has_option_tag_getter<T>::value>::type>
+		// C++14: template<typename T, typename = typename std::enable_if_t<!option_has_value<T>::value && has_option_tag_getter<T>::value>>
 		std::experimental::optional<T> get_opt(int argc, char* argv[]);
 
-		//! spécialisation template utilisant SFINAE pour cibler les options ayant un parametre (type T ayant un membre 'value')
+		//! spécialisation template utilisant SFINAE pour cibler les options ayant
+		//! un parametre (validant les concepts de 'option_with_tags' et 'option_with_value')
 		template<typename T, typename = typename std::enable_if<option_has_value<T>::value && has_option_tag_getter<T>::value>::type, typename = void>
 		std::experimental::optional<T> get_opt(int argc, char* argv[]);
 
-		//! spécialisation template utilisant SFINAE pour cibler les options ne disposant pas de getter 'get_option_tags()'
+		//! spécialisation template utilisant SFINAE pour cibler les options ne 
+		//! disposant pas de tags (validant le concept de 'option_with_value')
 		template<typename T, typename = typename std::enable_if<option_has_value<T>::value && !has_option_tag_getter<T>::value>::type, typename = void, typename = void>
 		std::experimental::optional<T> get_opt(int argc, char* argv[]);
 
 		// TODO: ajouter une spécialisation de get_opt pour gérer les paramètres multiples pour une même option
 
-		template<typename T, typename = typename std::enable_if<has_option_tag_getter<T>::value>::type>
-		static std::vector<std::string> get_option_tags();
-
-		template<typename T, typename = typename std::enable_if<!has_option_tag_getter<T>::value>::type, typename = void>
-		static std::vector<std::string> get_option_tags();
+		//------------------------------------------------------- Attributs privés
 
 		typed_main_t m_typed_main_func;
 		std::vector<std::pair<size_t, int>> m_found_parameters;
+
+		//---------------------------------------------------- Fonctions statiques
+
+		//! Fonction permettant la construction d'un tableau des tags de tout les types Args...
+		template<typename T, typename = typename std::enable_if<has_option_tag_getter<T>::value>::type>
+		static std::vector<std::string> get_option_tags();
+
+		//! Fonction permettant la construction d'un tableau des tags de tout les types Args...
+		template<typename T, typename = typename std::enable_if<!has_option_tag_getter<T>::value>::type, typename = void>
+		static std::vector<std::string> get_option_tags();
 	};
 
-	//! ...
+	//--------------------------------------------------------- Fonctions globales
+
+	//! Fonction créant un objet de type 'Typed_main_binding<Args...>' à partir d'un pointeur de fonction vers un main typé
 	//! @remarks This function permits implicit template deduction by taking C-style function pointer instead of std::function<...>
 	template<typename... Args>
 	Typed_main_binding<Args...> make_typed_main_binding(void(*typed_main)(std::experimental::optional<Args>...) )
@@ -78,13 +151,12 @@ namespace TP3
 		return Typed_main_binding<Args...>(std::function<void(std::experimental::optional<Args>...)> (typed_main));
 	}
 
+	//----- Implémentation de la classe template Typed_main_binding<Args...> -----
+
 	template<typename... Args>
 	Typed_main_binding<Args...>::Typed_main_binding(const typed_main_t& typed_main)
 		: m_typed_main_func(typed_main) { }
 	
-	//! ...
-	//! @throw std::invalid_argument
-	//! @throw std::out_of_range
 	template<typename... Args>
 	void Typed_main_binding<Args...>::exec(int argc, char* argv[])
 	{
@@ -94,10 +166,10 @@ namespace TP3
 
 			// Store an array of booleans indicating Args...'s option type (tag presence and value presence)
 			std::array<std::pair<bool, bool>, sizeof...(Args)> options_types_info = decltype(options_types_info){ { std::make_pair(has_option_tag_getter<Args>::value, option_has_value<Args>::value)... }};
-			// c++14: std::array<std::pair<bool, bool>, sizeof...(Args)> options_types_info = { std::make_pair(has_option_tag_getter<Args>::value, option_has_value<Args>::value)... };
+			// C++14: std::array<std::pair<bool, bool>, sizeof...(Args)> options_types_info = { std::make_pair(has_option_tag_getter<Args>::value, option_has_value<Args>::value)... };
 			// Store an array of options tags
 			std::array<std::vector<std::string>, sizeof...(Args)> options_tags = decltype(options_tags){ { get_option_tags<Args>()... }};
-			// c++14: std::array<std::vector<std::string>, sizeof...(Args)> options_tags = { get_option_tags<Args>()... }; 
+			// C++14: std::array<std::vector<std::string>, sizeof...(Args)> options_tags = { get_option_tags<Args>()... }; 
 
 			// Find presence of options with tags in argv
 			int previous_found_option_param_count = 0;
@@ -114,7 +186,10 @@ namespace TP3
 					auto type_info = options_types_info[T_idx];
 					if(type_info.first) // if T has option tag getter (ignore mandatory/tagless parameters for now)
 					{
-						for (const auto& tag : options_tags[T_idx])
+						auto T_tags = options_tags[T_idx];
+						if (T_tags.size() == 0)
+							throw std::invalid_argument("Option with tags don't have any tag");
+						for (const auto& tag : T_tags)
 						{
 							if (tag == cmd_str)
 							{

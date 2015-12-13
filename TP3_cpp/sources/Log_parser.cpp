@@ -1,4 +1,13 @@
+/*********************************************************************************
+						Log_parser  - An apache log parser
+						----------------------------------
+date                 : 12/2015
+copyright            : (C) 2015 by B3311
+*********************************************************************************/
 
+//-------------------- Implémentation de la classe Log_parser --------------------
+
+//-------------------------------------------------------------- Includes systèmes
 #include <array>
 #include <regex>
 #include <string>
@@ -8,17 +17,22 @@
 #include <iterator>
 #include "optional.h"
 
+//------------------------------------------------------------ Includes personnels
 #include "Log_parser.h"
 #include "Graph.h"
 #include "Utils.h"
 
 namespace TP3
 {
+	//------------------------------------------------------------------- STATIQUE
+	//------------------------------------------------------------ Regex statiques
+
 	//! Extentions to ignored if media exclusion filter is enabled
 	static const std::string EXCLUDED_EXTENTIONS = "js|css|png|ogg|jpg|jpeg|bmp|raw|tiff|gif|ppm|pgm|pbm|pnm|webp|heif|bpgcd5|deep|ecw|fits|fits|flif|ILBM|IMG|Nrrd|PAM|PCX|PGF|PLBM|SGI|SID|TGA|VICAR";
 
 	//! Regex matching an IP (ipv4 or ipv6)
 	static const std::string IP_REGEX = R"regex((?:(?:[0-9]{1,3}\.){3}|^(?:[0-9]{1,3}\.){5})[0-9]{1,3})regex";
+	// static const std::string IP_REGEX_WEAK = R"regex((?:(?:[0-9]+.)+))regex";
 
 	//! Regex matching a timestamp (sub-matches hour and GMT+...)
 	// TODO: verifier le nombre de charactères d'un mois...
@@ -36,6 +50,7 @@ namespace TP3
 	static const std::string SIZE_REGEX = R"regex([0-9]+)regex";
 
 	//! Regex matching an apache log line with GET and 200 as status code (hour and URLs can be extracted (submatches))
+	// C++14: utiliser les string literals "..."s
 	static const std::regex LOG_LINE_REGEX = std::regex(
 		  R"r(^\s*)r" + IP_REGEX + R"regex(\s+-\s+-)regex" // <IP> - -
 		+ R"r(\s+)r" + TIMESTAMP_REGEX
@@ -60,11 +75,47 @@ namespace TP3
 	static const size_t REFERER_MATCH_NUM = 4;
 	static const size_t INSA_INTRANET_MATCH_NUM = 5;
 
+	//--------------------------------------------------------------------- PUBLIC
+	//--------------------------------------------------------- Méthodes publiques
+
 	void Log_parser::enable_hour_filter(hour_t hour) { m_filter_hour = hour; }
 	void Log_parser::disable_hour_filter() { m_filter_hour = std::experimental::nullopt; }
 
 	void Log_parser::enable_exclusion() noexcept { m_is_exclusion_filter_enabled = true; }
 	void Log_parser::disable_exclusion() noexcept { m_is_exclusion_filter_enabled = false; }
+
+	std::unique_ptr<Log_parser::urls_scores_t> Log_parser::parse_urllist(const std::string& log_file_name) const
+	{
+		// Multimap storing documents URLs with their occurrence number 
+		auto urls = std::unique_ptr<urls_scores_t>(new urls_scores_t()); // C++14: std::make_unique<urls_scores_t>();
+			
+		for_each_log_line(std::move(log_file_name), [this, &urls](URL_t doc_url, URL_t referer_url)
+		{
+			auto url_it = urls->find(doc_url);
+			if (url_it != std::end(*urls))
+				url_it->second++;
+			else
+				urls->emplace(std::move(doc_url), 1);
+		});
+
+		return urls;
+	}
+
+	std::unique_ptr<Log_parser::graph_t> Log_parser::parse_graph(const std::string& log_file_name) const
+	{
+		auto log_graph = std::unique_ptr<graph_t>(new graph_t()); // C++14: std::make_unique<graph_t>();
+
+		for_each_log_line(std::move(log_file_name), [this, &log_graph](URL_t doc_url, URL_t referer_url)
+		{
+			log_graph->add_link(std::move(referer_url), std::move(doc_url));
+		});
+
+		return log_graph;
+	}
+
+
+	//---------------------------------------------------------------------- PRIVE
+	//----------------------------------------------------------- Méthodes privées
 
 	void Log_parser::for_each_log_line(const std::string& log_file_name, const std::function<void(URL_t, URL_t)>& parsing_func) const
 	{
@@ -100,32 +151,5 @@ namespace TP3
 		infile.close();
 	}
 
-	std::unique_ptr<Log_parser::urls_scores_t> Log_parser::parse_toplist(const std::string& log_file_name) const
-	{
-		// Multimap storing documents URLs with their occurrence number 
-		auto urls = std::unique_ptr<urls_scores_t>(new urls_scores_t()); // c++14: std::make_unique<urls_scores_t>();
-			
-		for_each_log_line(std::move(log_file_name), [this, &urls](URL_t doc_url, URL_t referer_url)
-		{
-			auto url_it = urls->find(doc_url);
-			if (url_it != std::end(*urls))
-				url_it->second++;
-			else
-				urls->emplace(std::move(doc_url), 1);
-		});
-
-		return urls;
-	}
-
-	std::unique_ptr<Log_parser::graph_t> Log_parser::parse_graph(const std::string& log_file_name) const
-	{
-		auto log_graph = std::unique_ptr<graph_t>(new graph_t()); // c++14: std::make_unique<graph_t>();
-
-		for_each_log_line(std::move(log_file_name), [this, &log_graph](URL_t doc_url, URL_t referer_url)
-		{
-			log_graph->add_link(std::move(referer_url), std::move(doc_url));
-		});
-
-		return log_graph;
-	}
 }
+
