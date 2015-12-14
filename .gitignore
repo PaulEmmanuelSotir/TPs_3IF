@@ -34,8 +34,7 @@ Release/
 *.a
 *.lib
 
-# Executables (except *.exe)
-*.out
+# Executables (except *.exe and *.out >.<)
 *.app
 
 # Vim temporary files
