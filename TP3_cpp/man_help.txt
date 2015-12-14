@@ -19,7 +19,7 @@ DESCRIPTION
 		Excludes css, javascript and image files from the result.
 	-t, -T, --hour
 		Ignore all log entries which haven't been added at the specfied hour (hour GMT+0000).
-	-h, --help
+	-h
 		Show this documentation
 
 EXAMPLES

@@ -37,7 +37,7 @@ namespace TP3
 			R"help(		Excludes css, javascript and image files from the result.)help" "\n"
 			R"help(	-t, -T, --hour)help" "\n"
 			R"help(		Ignore all log entries which haven't been added at the specfied hour (hour GMT+0000).)help" "\n"
-			R"help(	-h, --help)help" "\n"
+			R"help(	-h)help" "\n"
 			R"help(		Show this documentation)help" "\n"
 			R"help()help" "\n"
 			R"help(EXAMPLES)help" "\n"

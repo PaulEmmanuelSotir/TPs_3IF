@@ -114,7 +114,7 @@ namespace TP3
 	//! Fonction créant un fichier GraphViz à partir d'un objet de type Graph<T>
 	//! @remarks utilise l'opérateur output stream (<<) sur le type T pour le serialiser
 	template<typename T>
-	static void serialize_graph(const std::string& output_filename, std::unique_ptr<Graph<T>> graph)
+	void serialize_graph(const std::string& output_filename, std::unique_ptr<Graph<T>> graph)
 	{
 		std::string line;
 		std::ofstream outfile(output_filename, std::ios::trunc);

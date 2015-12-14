@@ -63,9 +63,9 @@ namespace TP3
 	//! A partir d'une fonction dont la signature est du type 'typed_main_t<Args...>'
 	//! (avec les types Args validants les concepts décrits ci dessous), la classe
 	//! template en déduit statiquement la forme des commandes acceptables et gère
-	//! autmatiquement toutes les vérifications et convertions nescessaires au runtime
-	//! pour pouvoir appeler, si possible, le main typé spécifié lors de la construction
-	//! avec les paramètres optionnels correspondants à la commande.
+	//! automatiquement toutes les vérifications et conversions nécessaires au runtime
+	//! pour pouvoir appeler, si possible, le main typé spécifié (avec les paramètres
+	//! optionnels correspondants à la commande).
 	//! @remarks
 	//!		Les arguments templates 'Args' doivent être conformes aux concepts de :
 	//!		- 'option_with_tags' et 'option_with_value' : option ayant un ou des tags
@@ -255,7 +255,7 @@ namespace TP3
 			m_found_parameters.insert(std::end(m_found_parameters), std::begin(found_tagless_options), std::end(found_tagless_options));
 
 			// We have verified command shape and found all options/parameters of the command, we can now parse parameters and call typed main:
-			this->m_typed_main_func((get_opt<Args>(argc, argv))...);
+			m_typed_main_func((get_opt<Args>(argc, argv))...);
 		}
 	}
 

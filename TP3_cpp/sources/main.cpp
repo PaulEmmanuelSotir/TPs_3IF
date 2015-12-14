@@ -35,7 +35,7 @@ namespace TP3
 	struct output_graph_file_option
 	{
 		std::string value;
-		static tags_t<3> get_option_tags() noexcept { return tags_t<3>{{ "-g", "-G", "--graph" }}; } // pour les versions plus récentes de gcc on peut ecrire simplement "return { "-g", "-G", "--graph" };"
+		static tags_t<3> get_option_tags() noexcept { return tags_t<3>{{ "-g", "-G", "--graph" }}; /* C++11/14: "return { "-g", "-G", "--graph" };" */ } 
 	};
 
 	//! @remarks valide le concept de 'option_with_tags' et 'option_with_value'
@@ -59,7 +59,7 @@ namespace TP3
 
 	//! @remarks valide le concept de 'option_with_tags'
 	struct help_option
-	{ static tags_t<2> get_option_tags() noexcept { return tags_t<2>{ { "-g", "--help" }}; } };
+	{ static tags_t<1> get_option_tags() noexcept { return tags_t<1>{ { "-h" }}; } };
 
 	using std::experimental::optional;
 
@@ -118,11 +118,20 @@ namespace TP3
 	}
 }
 
+
 //--------------------------------------------------------------------------- MAIN
 
 //! Fonction main utilisant simplement un binding vers le main typé
 int main(int argc, char* argv[])
 {
+	// On traite le cas où seul '-h' est spécifié à part car le binding considère le nom du fichier log comme obligatoire
+	if (argc == 2)
+		if (argv[1] == std::string("-h")/* C++14: "-h"s*/)
+		{
+			std::cout << TP3::Help_txt();
+			return EXIT_SUCCESS;
+		}
+
 	auto main_binding = TP3::make_typed_main_binding(&TP3::typed_main);
 
 	try

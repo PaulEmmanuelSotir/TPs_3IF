@@ -25,11 +25,11 @@ namespace TP3
 	template <typename T, typename... Args>
 	struct index_of;
 
-	//! Metafunction recursive obtenant l'indice du premier type T dans le variadic template 'Args...'
+	//! Metafunction recursive obtenant l'indice du premier type T dans le variadic template 'Args...' (condition d'arret)
 	template <typename T, typename... Args>
 	struct index_of<T, T, Args...> : std::integral_constant<std::size_t, 0> { };
 
-	//! Metafunction recursive obtenant l'indice du premier type T dans le variadic template 'Args...'
+	//! Metafunction recursive obtenant l'indice du premier type T dans le variadic template 'Args...' (récursion)
 	template <typename T, typename Tail, typename... Args>
 	struct index_of<T, Tail, Args...> : std::integral_constant<std::size_t, 1 + index_of<T, Args...>::value> { };
 
