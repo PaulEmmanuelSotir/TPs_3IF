@@ -65,30 +65,6 @@ namespace TP3
 
 	//----------------------------------------------------------- STATIC FUNCTIONS
 
-	//! Fonction créant un fichier GraphViz à partir d'un objet de type Graph<std::string>
-	static void serialize_graph(const std::string& output_filename, std::unique_ptr<Graph<std::string>> graph)
-	{
-		std::string line;
-		std::ofstream outfile(output_filename, std::ios::trunc);
-
-		if (!outfile.is_open())
-			throw std::invalid_argument("Invalid output file path or don't have modification right");
-
-		outfile << "digraph {" << std::endl;
-
-		// Write nodes
-		for (const auto& node : graph->get_nodes())
-			outfile << "node" << node.second << " [label=\"" << node.first << "\"];" << std::endl;
-
-		// Write links
-		for (const auto& link : graph->get_links())
-			outfile << "node" << link.first << " -> " << "node" << link.second.destination << " [label=\"" << link.second.occurrence << "\"];" << std::endl;
-
-		outfile << "}" << std::endl;
-
-		outfile.close();
-	}
-
 	//! "Main typé" appellé par un objet de type 'Typed_main_binding<Args...>'
 	static void typed_main(optional<input_log_file_option> input_log, // input_log is actually mandatory (tagless option)
 					optional<output_graph_file_option> output_graph,

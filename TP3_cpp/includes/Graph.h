@@ -10,6 +10,7 @@ copyright            : (C) 2015 by B3311
 #define GRAPH_H
 
 //--------------------------------------------------------------- Includes systeme
+#include <memory>
 #include <unordered_map>
 #include <initializer_list>
 
@@ -107,6 +108,34 @@ namespace TP3
 		//! map non ordonée contenant les noeuds (valeur et identifiant)
 		std::unordered_map<T, node_id_t> m_nodes;
 	};
+
+	//--------------------------------------------------------- Fonctions globales
+
+	//! Fonction créant un fichier GraphViz à partir d'un objet de type Graph<T>
+	//! @remarks utilise l'opérateur output stream (<<) sur le type T pour le serialiser
+	template<typename T>
+	static void serialize_graph(const std::string& output_filename, std::unique_ptr<Graph<T>> graph)
+	{
+		std::string line;
+		std::ofstream outfile(output_filename, std::ios::trunc);
+
+		if (!outfile.is_open())
+			throw std::invalid_argument("Invalid output file path or don't have modification right");
+
+		outfile << "digraph {" << std::endl;
+
+		// Write nodes
+		for (const auto& node : graph->get_nodes())
+			outfile << "node" << node.second << " [label=\"" << node.first << "\"];" << std::endl;
+
+		// Write links
+		for (const auto& link : graph->get_links())
+			outfile << "node" << link.first << " -> " << "node" << link.second.destination << " [label=\"" << link.second.occurrence << "\"];" << std::endl;
+
+		outfile << "}" << std::endl;
+
+		outfile.close();
+	}
 
 	//--------------- Implémentation de la classe template Graph<T> --------------
 
