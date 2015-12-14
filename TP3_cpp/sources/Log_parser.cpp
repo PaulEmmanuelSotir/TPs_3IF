@@ -27,7 +27,7 @@ namespace TP3
 	//------------------------------------------------------------------- STATIQUE
 	//------------------------------------------------------------ Regex statiques
 
-	//! Extentions to ignored if media exclusion filter is enabled
+	//! Extentions to be ignored if media exclusion filter is enabled
 	static const std::string EXCLUDED_EXTENTIONS = "js|css|png|ogg|jpg|jpeg|bmp|raw|tiff|gif|ppm|pgm|pbm|pnm|webp|heif|bpgcd5|deep|ecw|fits|fits|flif|ILBM|IMG|Nrrd|PAM|PCX|PGF|PLBM|SGI|SID|TGA|VICAR";
 
 	//! Regex matching an IP (ipv4 or ipv6)
@@ -35,7 +35,6 @@ namespace TP3
 	// static const std::string IP_REGEX_WEAK = R"regex((?:(?:[0-9]+.)+))regex";
 
 	//! Regex matching a timestamp (sub-matches hour and GMT+...)
-	// TODO: verifier le nombre de charactères d'un mois...
 	static const std::string TIMESTAMP_REGEX = R"regex((?:\[[0-9]{1,2}\/[A-Z][a-z]{2,3}\/[0-9]{4}:([0-9]{1,2}):(?:[0-9]{1,2}:?){2} ((?:\+|\-)?[0-9]{4})\]))regex";
 
 	//! Regex matching an absolute URL (submatches insa intranet domain name if any) (based on regex of 'stephenhay' in link bellow)
@@ -131,8 +130,12 @@ namespace TP3
 			if (std::regex_search(line, matches, (m_is_exclusion_filter_enabled ? LOG_LINE_REGEX_E : LOG_LINE_REGEX)))
 			{
 				if (m_filter_hour)
-					if (*m_filter_hour != static_cast<hour_t>(parse<hour_t>(matches[HOUR_MATCH_NUM].str()) - parse<int>(matches[TIMEZONE_MATCH_NUM].str())/100)) // hour - timezone/100
+				{
+					auto timezone = parse<int>(matches[TIMEZONE_MATCH_NUM].str()) / 100;
+					auto hour = parse<hour_t>(matches[HOUR_MATCH_NUM].str());
+					if (*m_filter_hour != static_cast<hour_t>(positive_mod(hour - timezone, 24)))
 						continue;
+				}
 
 				auto doc_url = matches[GET_URL_MATCH_NUM].str();
 				const auto& intranet_match = matches[INSA_INTRANET_MATCH_NUM];

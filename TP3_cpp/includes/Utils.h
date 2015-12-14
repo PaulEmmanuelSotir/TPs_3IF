@@ -33,6 +33,13 @@ namespace TP3
 	template <typename T, typename Tail, typename... Args>
 	struct index_of<T, Tail, Args...> : std::integral_constant<std::size_t, 1 + index_of<T, Args...>::value> { };
 
+	//---------------------------------------------------------------- Positive modulo
+	template<typename T>
+	constexpr T positive_mod(T a, T b)
+	{
+		return ((a % b) + b) % b;
+	}
+
 	//----------------------------------------------------------------- Parse<T, bool>
 	//TODO: add support for any integer base
 
