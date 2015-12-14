@@ -111,8 +111,11 @@ namespace TP3
 				parser.enable_exclusion();
 
 			if (output_graph)
+			{
 				// Parse and serialize graph
 				serialize_graph(output_graph->value, parser.parse_graph(input_log->value));
+				std::cout << "Dot-file " << output_graph->value << " generated." << std::endl;
+			}
 			else
 			{
 				// Parse log to obtain the URLs with their respective occurrence number (unordered_multimap)
