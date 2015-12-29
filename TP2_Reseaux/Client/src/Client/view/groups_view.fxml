@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.Groups_controller">
+   <children>
+      <ListView prefHeight="405.0" prefWidth="720.0" VBox.vgrow="ALWAYS" />
+      <HBox>
+         <children>
+            <TextField fx:id="GroupNameTextField" maxWidth="400.0" onAction="#CreateGroup" promptText="Group name..." HBox.hgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+            <Button mnemonicParsing="false" onAction="#CreateGroup" text="Create group">
+               <font>
+                  <Font name="Gill Sans MT" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0"/>
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>
