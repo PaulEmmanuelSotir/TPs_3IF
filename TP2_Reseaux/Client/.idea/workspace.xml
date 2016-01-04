@@ -5,28 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eda4b964-775c-4915-b0da-f61da99fab79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Client/Navigator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Server/src/Server/StorageDAL.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Shared/src/shared/AppendingObjectOutputStream.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Shared/src/shared/Pair.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/Navigator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/controller/Groups_controller.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/controller/Login_controller.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/controller/NewAccount_controller.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/view/groups_view.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/view/login_view.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/view/newAccount_view.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Server/src/Server/ClientConnection.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Server/src/Server/Server.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Server/src/Server/StorageDAL.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/AppendingObjectOutputStream.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/Pair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/README.md" afterPath="$PROJECT_DIR$/../../TP1_Reseau/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/Main.java" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/controller/Chat_controller.java" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/controller/Chat_controller.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/view/chat_view.fxml" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/src/Client/view/chat_view.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/ClientRequest.java" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/ClientRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/Group.java" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/Group.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/Message.java" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/Message.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/ServerRequest.java" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/ServerRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/User.java" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Shared/src/shared/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Main.java" afterPath="$PROJECT_DIR$/src/Client/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Socket_DAL.java" afterPath="$PROJECT_DIR$/src/Client/Socket_DAL.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/controller/Chat_controller.java" afterPath="$PROJECT_DIR$/src/Client/controller/Chat_controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/controller/Groups_controller.java" afterPath="$PROJECT_DIR$/src/Client/controller/Groups_controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/controller/Login_controller.java" afterPath="$PROJECT_DIR$/src/Client/controller/Login_controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/controller/NewAccount_controller.java" afterPath="$PROJECT_DIR$/src/Client/controller/NewAccount_controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/view/chat_view.fxml" afterPath="$PROJECT_DIR$/src/Client/view/chat_view.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/view/groups_view.fxml" afterPath="$PROJECT_DIR$/src/Client/view/groups_view.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/view/login_view.fxml" afterPath="$PROJECT_DIR$/src/Client/view/login_view.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/view/newAccount_view.fxml" afterPath="$PROJECT_DIR$/src/Client/view/newAccount_view.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Server/src/Server/ClientConnection.java" afterPath="$PROJECT_DIR$/../Server/src/Server/ClientConnection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Server/src/Server/Server.java" afterPath="$PROJECT_DIR$/../Server/src/Server/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Shared/src/shared/ClientRequest.java" afterPath="$PROJECT_DIR$/../Shared/src/shared/ClientRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Shared/src/shared/Group.java" afterPath="$PROJECT_DIR$/../Shared/src/shared/Group.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Shared/src/shared/Message.java" afterPath="$PROJECT_DIR$/../Shared/src/shared/Message.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Shared/src/shared/ServerRequest.java" afterPath="$PROJECT_DIR$/../Shared/src/shared/ServerRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Shared/src/shared/User.java" afterPath="$PROJECT_DIR$/../Shared/src/shared/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP3_cpp/sources/main.cpp" afterPath="$PROJECT_DIR$/../../TP3_cpp/sources/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP_Fourier/transfo_Fourier_discrete.m" afterPath="$PROJECT_DIR$/../../TP_Fourier/transfo_Fourier_discrete.m" />
     </list>
@@ -854,16 +854,16 @@
       <workItem from="1451666375992" duration="9410000" />
       <workItem from="1451769992083" duration="4910000" />
       <workItem from="1451833173355" duration="28167000" />
-      <workItem from="1451936622983" duration="13426000" />
+      <workItem from="1451936622983" duration="13926000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104781000" />
+    <option name="totallyTimeSpent" value="105281000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -875,7 +875,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26109937" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1921875" sideWeight="0.49577168" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1921875" sideWeight="0.49577168" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />

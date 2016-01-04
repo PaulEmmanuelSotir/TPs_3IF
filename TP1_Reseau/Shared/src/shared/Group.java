@@ -9,18 +9,22 @@ public class Group implements Serializable {
 		this.creation = creation;
 		this.groupName = groupName;
 	}
-	
+
+	@Override
 	public int hashCode() {
 		return groupName.hashCode();
 	}
-	
-	public boolean equals(Group other) {
-		return other.groupName == groupName;
+
+	@Override
+	public boolean equals(Object other) {
+		if(other instanceof Group)
+			return ((Group)other).groupName.equals(groupName);
+		return false;
 	}
 	
 	public final Date creation;
 	public final String groupName;
 
-	// Numéro identifiant la classe lors de la serialization (utilisé pour verifier la présence de la classe lors de la déserialization)
+	// Numï¿½ro identifiant la classe lors de la serialization (utilisï¿½ pour verifier la prï¿½sence de la classe lors de la dï¿½serialization)
 	private static final long serialVersionUID = 4964625258033421772L;
 }

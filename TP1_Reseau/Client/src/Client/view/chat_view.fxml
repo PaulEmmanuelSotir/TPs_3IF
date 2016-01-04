@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <SplitPane dividerPositions="0.25" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.Chat_controller">
    <items>
-      <ListView maxWidth="300.0" minWidth="200.0" prefHeight="200.0" prefWidth="250.0" />
-      <VBox alignment="BOTTOM_LEFT">
+      <VBox alignment="CENTER" maxWidth="300.0" minWidth="200.0" prefHeight="200.0" prefWidth="250.0">
          <children>
-            <ListView VBox.vgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#QuitGroup" text="Quit room">
+               <font>
+                  <Font name="Gill Sans MT" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="4.0" left="2.0" right="2.0" top="2.0" />
+               </VBox.margin>
+            </Button>
+            <ListView fx:id="UsersListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <VBox fx:id="MessagesListViewParent" alignment="BOTTOM_LEFT">
+         <children>
+            <!--<ListView VBox.vgrow="ALWAYS" />-->
             <HBox>
                <children>
                   <TextField fx:id="MessageTextField" onAction="#SendMessage" promptText="Message..." HBox.hgrow="ALWAYS">

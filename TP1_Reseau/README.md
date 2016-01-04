@@ -1,3 +1,5 @@
+TODO: adapter le code pour utiliser les RMI
+
 A rendre: 
 	- javadoc
 	- document de deux pages max résumant les étapes acomplies

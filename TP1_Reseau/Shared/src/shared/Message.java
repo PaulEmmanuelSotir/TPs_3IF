@@ -13,6 +13,8 @@ public class Message implements Serializable {
 		this.userName = userName;
 	}
 
-	// Numéro identifiant la classe lors de la serialization (utilisé pour verifier la présence de la classe lors de la déserialization)
+	//TODO: override equals...
+
+	// Numï¿½ro identifiant la classe lors de la serialization (utilisï¿½ pour verifier la prï¿½sence de la classe lors de la dï¿½serialization)
 	private static final long serialVersionUID = -39456554774699643L;
 }

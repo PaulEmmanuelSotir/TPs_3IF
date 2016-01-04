@@ -9,18 +9,22 @@ public class User implements Serializable {
 		Id = id;
 		Name = name;
 	}
-	
+
+	@Override
 	public int hashCode() {
 		return Id.hashCode();
 	}
-	
-	public boolean equals(User other) {
-		return other.Id == Id;
+
+	@Override
+	public boolean equals(Object other) {
+		if(other instanceof User)
+			return ((User)other).Id.equals(Id);
+		return false;
 	}
 
 	public final UUID Id;
 	public String Name;
 	
-	// Numéro identifiant la classe lors de la serialization (utilisé pour verifier la présence de la classe lors de la déserialization)
+	// Numï¿½ro identifiant la classe lors de la serialization (utilisï¿½ pour verifier la prï¿½sence de la classe lors de la dï¿½serialization)
 	private static final long serialVersionUID = 4900438272231148693L;
 }
