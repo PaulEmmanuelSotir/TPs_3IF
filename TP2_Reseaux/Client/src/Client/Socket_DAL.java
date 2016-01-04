@@ -1,19 +1,21 @@
 package Client;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.io.*;
 import java.net.*;
 
 import shared.*;
 
-public class Socket_DAL {
-	public Socket_DAL(Consumer<Exception> connection_error_callback, Consumer<Message> message_callback) {
-		m_message_callback = message_callback;
+public class Socket_DAL extends Thread {
+	public Socket_DAL(String host_name, int port, Consumer<Exception> connection_error_callback) {
+		reset_callbacks();
 		m_error_callback = connection_error_callback;
-		m_sending_request = false;
+		m_port = port;
+		m_host_name = host_name;
 	}
 
-	public void Connect(String host_name, int port) {
+	public void open() {
 		m_socket = null;
 		m_os = null;
 		m_oos = null;
@@ -22,23 +24,25 @@ public class Socket_DAL {
 		reset_callbacks();
 		
 		try {
-			m_socket = new Socket (host_name, port);
+			m_socket = new Socket (m_host_name, m_port);
 			m_os = m_socket.getOutputStream();
 			m_oos = new ObjectOutputStream(m_os);
 			m_is = m_socket.getInputStream();
 			m_ois = new ObjectInputStream(m_is);
 		} catch (IOException e) {
-			m_error_callback.accept(e);
-			Disconnect();
+			if(m_error_callback != null)
+				m_error_callback.accept(e);
+			close();
         }
 	}
 	
-	public void Disconnect() {
+	public void close() {
 		try
 		{
 			DisposeConnection();
 		} catch (IOException e) {
-			//m_error_callback.accept(e);
+			//if(m_error_callback != null)
+			//	m_error_callback.accept(e);
 			/* TODO: savoir quoi faire ici */
         } finally {
 			m_socket = null;
@@ -56,8 +60,13 @@ public class Socket_DAL {
 		DisposeConnection();
 	}
 
+	public void setMessageCallback(Consumer<Message> message_callback) { m_message_callback = message_callback; }
+	public void setErrorCallback(Consumer<Exception> connection_error_callback) { m_error_callback = connection_error_callback; }
+	public void setGroupListUpdateCallback(Consumer<Group> group_list_update_callback) { m_group_list_update_callback = group_list_update_callback; }
+	public void setGroupUserListCallback(BiConsumer<Boolean, String> group_user_list_update_callback) { m_group_user_list_update_callback = group_user_list_update_callback; }
+
 	public void CreateGroup(User user, String group_name, Consumer<Group> group_callback) {
-		if(m_oos != null && !m_sending_request)
+		if(m_oos != null && !m_sending_request && !m_is_disposing)
 		{
 			m_sending_request = true;
 			m_group_creation_callback = group_callback;
@@ -67,8 +76,8 @@ public class Socket_DAL {
 		//TODO: else m_error_callback ??
 	}
 
-	public void JoinGroup(User user, Group group, Consumer<Group> group_join_callback) {
-		if(m_oos != null && !m_sending_request)
+	public void JoinGroup(User user, Group group, BiConsumer<Group, Pair<String[], Message[]>> group_join_callback) {
+		if(m_oos != null && !m_sending_request && !m_is_disposing)
 		{
 			m_sending_request = true;
 			m_group_join_callback = group_join_callback;
@@ -79,7 +88,7 @@ public class Socket_DAL {
 	}
 
 	public void QuitGroup(User user, Group group, Consumer<Boolean> group_quit_callback) {
-		if(m_oos != null && !m_sending_request)
+		if(m_oos != null && !m_sending_request && !m_is_disposing)
 		{
 			m_sending_request = true;
 			m_group_quit_callback = group_quit_callback;
@@ -90,18 +99,18 @@ public class Socket_DAL {
 	}
 
 	public void GetGroups(Consumer<Group[]> group_list_callback) {
-		if(m_oos != null && !m_sending_request)
+		if(m_oos != null && !m_sending_request && !m_is_disposing)
 		{
 			m_sending_request = true;
 			m_group_list_callback = group_list_callback;
-			ClientRequest request = new ClientRequest(ClientRequest.Type.GROUP_JOIN);
+			ClientRequest request = new ClientRequest(ClientRequest.Type.GROUP_GETTER);
 			SendRequest(request);
 		}
 		//TODO: else m_error_callback ??
 	}
 
 	public void SendMessage(Message message) {
-		if(m_oos != null)
+		if(m_oos != null && !m_is_disposing)
 		{
 			ClientRequest request = new ClientRequest(ClientRequest.Type.SEND_MESSAGE, message);
 			SendRequest(request);
@@ -110,7 +119,7 @@ public class Socket_DAL {
 	}
 
 	public void CreateUserName(String name, Consumer<User> username_callback) {
-		if(m_oos != null && !m_sending_request)
+		if(m_oos != null && !m_sending_request && !m_is_disposing)
 		{
 			m_sending_request = true;
 			m_username_callback = username_callback;
@@ -120,8 +129,25 @@ public class Socket_DAL {
 		//TODO: else m_error_callback ??
 	}
 
-	public void RequestReceivingTask() {
-		while(m_socket != null)
+	public void SubmitCredentials(String username, String password, Consumer<User> login_callback) {
+		if(m_oos != null && !m_sending_request && !m_is_disposing)
+		{
+			m_sending_request = true;
+			m_login_callback = login_callback;
+			ClientRequest request = new ClientRequest(ClientRequest.Type.LOGIN, username, password);
+			SendRequest(request);
+		}
+		//TODO: else m_error_callback ??
+	}
+
+	public void Logout() {
+		if(m_oos != null)
+			SendRequest(new ClientRequest(ClientRequest.Type.LOGOUT));
+	}
+
+	@Override
+	public void run() {
+		while(m_socket != null && !m_is_disposing)
 		{
 			try {
 				Object obj = m_ois.readObject();
@@ -130,6 +156,18 @@ public class Socket_DAL {
 				{
 					ServerRequest request = (ServerRequest)obj;
 					switch(request.type) {
+						case LOGIN_SUCCESS:
+							if(is_valid_data(request.data, m_login_callback, User.class))
+								m_login_callback.accept((User)request.data[0]);
+							else if (m_login_callback != null)
+								m_login_callback.accept(null);
+							reset_callbacks();
+							break;
+						case LOGIN_ERROR:
+							if (m_login_callback != null)
+								m_login_callback.accept(null);
+							reset_callbacks();
+							break;
 						case GROUP_CREATION_ERROR:
 							if (m_group_creation_callback != null)
 								m_group_creation_callback.accept(null);
@@ -143,28 +181,34 @@ public class Socket_DAL {
 							reset_callbacks();
 							break;
 						case GROUP_JOIN_SUCCESS:
-							if(is_valid_data(request.data, m_group_join_callback, Group.class))
-										m_group_join_callback.accept((Group)request.data[0]);
+							if(is_valid_data(request.data, m_group_join_callback, Group.class, String[].class, Message[].class))
+								m_group_join_callback.accept((Group)request.data[0], new Pair<>((String[])request.data[1], (Message[])request.data[2]));
 							else if (m_group_join_callback != null)
-								m_group_join_callback.accept(null);
+								m_group_join_callback.accept(null, null);
 							reset_callbacks();
 							break;
 						case GROUP_JOIN_ERROR:
 							if (m_group_join_callback != null)
-								m_group_join_callback.accept(null);
+								m_group_join_callback.accept(null, null);
 							reset_callbacks();
 							break;
 						case GROUP_EXIT_SUCCESS:
 							if (m_group_quit_callback != null)
 								m_group_quit_callback.accept(true);
+							reset_callbacks();
+							break;
 						case GROUP_EXIT_ERROR:
 							if (m_group_quit_callback != null)
 								m_group_quit_callback.accept(false);
+							reset_callbacks();
+							break;
 						case SEND_GROUP_LIST:
-							if(is_valid_data(request.data, m_group_list_callback, Group[].class))
-								m_group_list_callback.accept((Group[])request.data[0]);
-							else if (m_group_list_callback != null)
-								m_group_list_callback.accept(null);
+							if (m_group_list_callback != null && request.data != null) {
+								if(request.data instanceof Group[])
+									m_group_list_callback.accept((Group[])request.data);
+								else
+									m_group_list_callback.accept(null);
+							}
 							reset_callbacks();
 							break;
 						case SEND_MESSAGE:
@@ -185,16 +229,28 @@ public class Socket_DAL {
 								m_username_callback.accept(null);
 							reset_callbacks();
 							break;
+						case GROUP_LIST_UPDATED:
+							if(is_valid_data(request.data, m_group_list_update_callback, Group.class))
+								m_group_list_update_callback.accept((Group)request.data[0]);
+							else if (m_group_list_update_callback != null)
+								m_group_list_update_callback.accept(null);
+							break;
+						case GROUP_USER_LIST_UPDATED:
+							if(is_valid_data(request.data, m_group_user_list_update_callback, Boolean.class, String.class))
+								m_group_user_list_update_callback.accept((Boolean)request.data[0], (String)request.data[1]);
+							else if (m_group_user_list_update_callback != null)
+								m_group_user_list_update_callback.accept(false, null);
+							break;
 					}
 				}
 			} catch(ClassNotFoundException|IOException e) {
 				/* TODO: quitter l'application ?*/
 				if(m_error_callback != null)
 					m_error_callback.accept(e);
-				Disconnect();
+				close();
 			}
 			
-			/*TODO: sleep ou trouver un moyen de faire de facon evenmentielle*/
+			/*TODO: sleep ?*/
 		}
 	}
 
@@ -204,11 +260,15 @@ public class Socket_DAL {
 		} catch(IOException e) {
 			if(m_error_callback != null)
 				m_error_callback.accept(e);
-			Disconnect();
+			close();
 		}
 	}
 
 	private void DisposeConnection() throws IOException {
+		if(!m_is_disposing) {
+			m_is_disposing = true;
+			Logout();
+		}
 		if(m_socket != null)
 			m_socket.close();
 		if(m_os != null)
@@ -224,17 +284,23 @@ public class Socket_DAL {
 	private void reset_callbacks() {
 		m_group_creation_callback = null;
 		m_group_join_callback = null;
+		m_group_quit_callback = null;
 		m_group_list_callback = null;
 		m_username_callback = null;
+		m_login_callback = null;
+
 		m_sending_request = false;
 	}
 
-	private boolean is_valid_data(Object[] data, Consumer<?> callback, Class<?>... types) {
+	private boolean is_valid_data(Object[] data, Object callback, Class<?>... types) {
 		if (callback != null) {
 			if (data != null && types != null) {
 				if (types.length == data.length) {
 					for (int idx = 0; idx < types.length; ++idx) {
-						if (types[idx] != data.getClass())
+						Object obj = data[idx];
+						if(obj == null)
+							return false;
+						if (!types[idx].equals(obj.getClass()))
 							return false;
 					}
 					return true;
@@ -244,21 +310,27 @@ public class Socket_DAL {
 		return false;
 	}
 
-	Socket m_socket;
-	ObjectInputStream m_ois;
-	ObjectOutputStream m_oos;
-	InputStream m_is;
-	OutputStream m_os;
+	private Socket m_socket;
+	private ObjectInputStream m_ois;
+	private ObjectOutputStream m_oos;
+	private InputStream m_is;
+	private OutputStream m_os;
 
-	Consumer<Exception> m_error_callback;
-	Consumer<Message> m_message_callback;
+	private Consumer<Exception> m_error_callback = null;
+	private Consumer<Message> m_message_callback = null;
+	private BiConsumer<Boolean, String> m_group_user_list_update_callback = null;
+	private Consumer<Group> m_group_list_update_callback = null;
 
 	// TODO: on suppose qu'il n'y aura q'une seule requette de faite à la fois... Comment faire sinon?
-	Consumer<Group> m_group_creation_callback;
-	Consumer<Group> m_group_join_callback;
-	Consumer<Boolean> m_group_quit_callback;
-	Consumer<Group[]> m_group_list_callback;
-	Consumer<User> m_username_callback;
+	private Consumer<Group> m_group_creation_callback;
+	private BiConsumer<Group, Pair<String[], Message[]>> m_group_join_callback;
+	private Consumer<Boolean> m_group_quit_callback;
+	private Consumer<Group[]> m_group_list_callback;
+	private Consumer<User> m_username_callback;
+	private Consumer<User> m_login_callback;
 
-	boolean m_sending_request;
+	private boolean m_sending_request;
+	private boolean m_is_disposing = false;
+	private int m_port;
+	private String m_host_name;
 }

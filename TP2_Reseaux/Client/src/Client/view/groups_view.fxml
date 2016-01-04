@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.Groups_controller">
+<VBox fx:id="GroupsListViewParent" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.Groups_controller">
    <children>
-      <ListView prefHeight="405.0" prefWidth="720.0" VBox.vgrow="ALWAYS" />
+      <!--<ListView prefHeight="405.0" prefWidth="720.0" VBox.vgrow="ALWAYS"/>-->
       <HBox>
          <children>
             <TextField fx:id="GroupNameTextField" maxWidth="400.0" onAction="#CreateGroup" promptText="Group name..." HBox.hgrow="ALWAYS">

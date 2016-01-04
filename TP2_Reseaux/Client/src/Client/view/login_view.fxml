@@ -8,7 +8,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.controller.Login_controller">
    <children>
       <GridPane alignment="CENTER" maxWidth="310.0" minHeight="240.0" minWidth="200.0" prefHeight="287.0" prefWidth="310.0">
@@ -16,12 +15,12 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" />
-            <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="21.0" />
-            <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="74.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+            <RowConstraints maxHeight="95.0"/>
+            <RowConstraints maxHeight="95.0"/>
         </rowConstraints>
          <children>
             <Label text="LOGIN">
@@ -53,19 +52,33 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <PasswordField fx:id="PasswordTextField" maxWidth="300.0" onAction="#SubmitCredentials" promptText="password..." GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-            </PasswordField>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#SubmitCredentials" text="Submit" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets top="20.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Gill Sans MT" size="14.0" />
-               </font>
-            </Button>
+            <PasswordField fx:id="PasswordTextField" maxWidth="300.0" onAction="#SubmitCredentials" promptText="password..." GridPane.rowIndex="4"/>
+             <HBox alignment="CENTER" GridPane.rowIndex="5">
+                 <GridPane.margin>
+                     <Insets top="10.0" />
+                 </GridPane.margin>
+                 <Button onAction="#SubmitCredentials" text="Login">
+                     <font>
+                         <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                 </Button>
+                 <Button onAction="#CreateNewAccount" text="Create new account">
+                     <font>
+                         <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                     <HBox.margin>
+                         <Insets left="10.0" />
+                     </HBox.margin>
+                 </Button>
+             </HBox>
+            <Label fx:id="ErrorMessageLabel" text="Error: bad password or username" textFill="#c00000" GridPane.rowIndex="6" visible="false">
+                 <font>
+                     <Font name="Gill Sans MT" size="16.0" />
+                 </font>
+                 <GridPane.margin>
+                     <Insets top="20.0" />
+                 </GridPane.margin>
+             </Label>
          </children>
          <VBox.margin>
             <Insets left="10.0" right="10.0" />
