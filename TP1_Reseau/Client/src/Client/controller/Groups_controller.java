@@ -1,6 +1,7 @@
 package Client.controller;
 
 import Client.Navigator;
+import Client.RMI_DAL;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -8,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import Client.Socket_DAL;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
@@ -16,13 +16,11 @@ import javafx.scene.layout.VBox;
 import shared.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class Groups_controller {
 
-	public void setDAL(Socket_DAL dal) {
+	public void setDAL(RMI_DAL dal) {
 		m_dal = dal;
         m_groups = new HashSet<>();
 
@@ -103,6 +101,6 @@ public class Groups_controller {
     private Set<Group> m_groups;
 
     private Navigator m_navigator = null;
-    private Socket_DAL m_dal = null;
+    private RMI_DAL m_dal = null;
     private User m_user = null;
 }

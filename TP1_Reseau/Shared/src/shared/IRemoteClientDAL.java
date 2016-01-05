@@ -2,16 +2,15 @@ package shared;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
-/*GROUP_CREATION_ERROR,
-		GROUP_CREATION_SUCCESS,
-		GROUP_JOIN_ERROR,
-		SEND_GROUP_LIST,
-		SEND_MESSAGE,
-		CREATE_USERNAME_ERROR,
-		CREATE_USERNAME_SUCCESS */
 		
 public interface IRemoteClientDAL extends Remote {
-	void receiveMessage (Message message ) throws RemoteException;
-	
+	void OnUserLoggedIn(User user) throws RemoteException;
+	void OnGroupCreated(Group group) throws RemoteException;
+	void OnGroupJoined(Group group, String[] usernames, Message[] history) throws RemoteException;
+	void OnGroupExit(Boolean success) throws RemoteException;
+	void OnSendGroupList(Group[] groups) throws RemoteException;
+	void OnSendMessage(Message message) throws RemoteException;
+	void OnUserCreated(User user) throws RemoteException;
+	void OnGroupListUpdated(Group new_group) throws RemoteException;
+	void OnGroupUserListUpdated(Boolean is_joining, String new_username) throws RemoteException;
 }

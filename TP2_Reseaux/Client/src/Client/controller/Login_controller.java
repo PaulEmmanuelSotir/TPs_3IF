@@ -16,15 +16,6 @@ public class Login_controller {
         if(dal == null) {
             m_dal = new Socket_DAL("localhost", 1001, (Exception e) -> {
                 // TODO: show popup with connection retry
-
-
-                Platform.runLater(() -> {
-                    final Popup popup = new Popup();
-                    popup.setX(300);
-                    popup.setY(200);
-
-                    popup.show(m_navigator.getPrimaryStage());
-                });
             });
 
             m_dal.open();

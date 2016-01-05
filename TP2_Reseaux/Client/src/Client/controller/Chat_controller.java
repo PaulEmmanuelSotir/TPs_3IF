@@ -7,9 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 
 import Client.Socket_DAL;
 import Client.Navigator;
@@ -17,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import shared.*;
 
 public class Chat_controller {
@@ -103,21 +106,28 @@ public class Chat_controller {
             if (item != null) {
                 HBox message_node = new HBox();
 
-                Label username_label = new Label(item.userName);
-                username_label.setFont(new Font("Gill Sans MT", 12));
+                Label username_label = new Label(item.userName + ": ");
+                username_label.setFont(Font.font("Gill Sans MT", FontWeight.EXTRA_BOLD, 12));
 
                 Label message_label = new Label(item.data);
                 message_label.setFont(new Font("Gill Sans MT", 12));
 
                 Label timestamp_label = new Label(item.timestamp.toString());
-                timestamp_label.setFont(new Font("Gill Sans MT", 8));
+                timestamp_label.setFont(new Font("Gill Sans MT", 9));
+                timestamp_label.setAlignment(Pos.CENTER_RIGHT);
 
                 message_node.getChildren().add(username_label);
                 message_node.getChildren().add(message_label);
                 message_node.getChildren().add(timestamp_label);
+                message_node.setHgrow(message_label, Priority.ALWAYS);
+                message_node.setMargin(timestamp_label, new Insets(6, 0, 0, 0));
+                message_node.setMargin(username_label, new Insets(5, 0, 0, 0));
+                message_node.setMargin(message_label, new Insets(5, 40, 0, 5));
 
                 setGraphic(message_node);
             }
+            else
+                setGraphic(null);
         }
     }
 }

@@ -1,34 +1,23 @@
 package Client.controller;
 
 import Client.Navigator;
+import Client.RMI_DAL;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import Client.Socket_DAL;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Popup;
 
 public class Login_controller {
-    public void init(Navigator nav, Socket_DAL dal) {
+    public void init(Navigator nav, RMI_DAL dal) {
         m_navigator = nav;
 
         if(dal == null) {
-            m_dal = new Socket_DAL("localhost", 1001, (Exception e) -> {
+            m_dal = new RMI_DAL("localhost", (Exception e) -> {
                 // TODO: show popup with connection retry
-
-
-                Platform.runLater(() -> {
-                    final Popup popup = new Popup();
-                    popup.setX(300);
-                    popup.setY(200);
-
-                    popup.show(m_navigator.getPrimaryStage());
-                });
             });
 
             m_dal.open();
-            m_dal.start();
         }
         else {
             m_dal = dal;
@@ -71,5 +60,5 @@ public class Login_controller {
     @FXML protected Label ErrorMessageLabel;
 
     private Navigator m_navigator = null;
-    private Socket_DAL m_dal;
+    private RMI_DAL m_dal;
 }

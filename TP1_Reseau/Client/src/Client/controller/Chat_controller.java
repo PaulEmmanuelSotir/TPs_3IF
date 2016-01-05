@@ -3,15 +3,14 @@ package Client.controller;
 import java.util.Date;
 import java.util.TreeMap;
 
+import Client.RMI_DAL;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 
-import Client.Socket_DAL;
 import Client.Navigator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -31,7 +30,7 @@ public class Chat_controller {
         });
     }
 
-	public void setDAL(Socket_DAL dal) {
+	public void setDAL(RMI_DAL dal) {
         m_dal = dal;
         m_dal.setMessageCallback((message -> {
             Platform.runLater(() -> {
@@ -90,7 +89,7 @@ public class Chat_controller {
     @FXML protected ListView UsersListView;
 
     private Navigator m_navigator = null;
-    private Socket_DAL m_dal;
+    private RMI_DAL m_dal;
     private User m_user;
     private Group m_group;
     private ObservableList<Message> m_messages = FXCollections.observableArrayList(); // TODO: sort messages by date to prevent bad message order when simultaneous sending occurs ??

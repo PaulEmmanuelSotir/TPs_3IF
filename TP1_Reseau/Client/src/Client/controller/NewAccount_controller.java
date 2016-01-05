@@ -1,9 +1,9 @@
 package Client.controller;
 
 import Client.Navigator;
+import Client.RMI_DAL;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import Client.Socket_DAL;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.concurrent.RunnableFuture;
 
 public class NewAccount_controller {
-	public void setDAL(Socket_DAL dal) { m_dal = dal; }
+	public void setDAL(RMI_DAL dal) { m_dal = dal; }
     public void setNavigator(Navigator nav) { m_navigator = nav; }
 
     @FXML protected void SubmitUsername(ActionEvent event) {
@@ -66,5 +66,5 @@ public class NewAccount_controller {
     @FXML protected HBox SumbitButtons;
 
     private Navigator m_navigator = null;
-    private Socket_DAL m_dal;
+    private RMI_DAL m_dal;
 }

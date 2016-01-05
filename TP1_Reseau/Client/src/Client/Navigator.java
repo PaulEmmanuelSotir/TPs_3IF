@@ -20,7 +20,7 @@ public class Navigator {
 
     public Stage getPrimaryStage() { return m_primaryStage; }
 
-    public void showLoginPage(Socket_DAL dal) {
+    public void showLoginPage(RMI_DAL dal) {
         if(dal != null)
             m_dal = dal;
         try {
@@ -40,7 +40,7 @@ public class Navigator {
         }
     }
 
-    public void showNewAccountPage(Socket_DAL dal) {
+    public void showNewAccountPage(RMI_DAL dal) {
         if(dal != null)
             m_dal = dal;
         try {
@@ -61,7 +61,7 @@ public class Navigator {
         }
     }
 
-    public void showGroupsPage(Socket_DAL dal, User user) {
+    public void showGroupsPage(RMI_DAL dal, User user) {
         if(dal != null)
             m_dal = dal;
         try {
@@ -83,7 +83,7 @@ public class Navigator {
         }
     }
 
-    public void showChatPage(Socket_DAL dal, User user, Group group, String[] usernames, Message[] message_history) {
+    public void showChatPage(RMI_DAL dal, User user, Group group, String[] usernames, Message[] message_history) {
         if(dal != null)
             m_dal = dal;
         try {
@@ -110,7 +110,7 @@ public class Navigator {
 
     public void disposeDAL() {
         if(m_dal != null)
-            m_dal.close();
+            m_dal.dispose();
     }
 
     private void changeScene(Parent content) {
@@ -124,5 +124,5 @@ public class Navigator {
     }
 
     private Stage m_primaryStage;
-    private Socket_DAL m_dal = null;
+    private RMI_DAL m_dal = null;
 }
