@@ -1,5 +1,8 @@
 package shared;
 
+/**
+ * Classe générique regroupant deux objets de type 'L' et 'R' pour former une paire.
+ */
 public class Pair<L,R> {
 
     public Pair(L left, R right) {

@@ -2,7 +2,15 @@ package shared;
 
 import java.io.Serializable;
 
+/**
+ * Classe représentant une requette du serveur vers un client.
+ * Cette classe est utilisée pour définir le protocole basé sur les sockets: la classe contient un attribut type indiquant
+ * le type de requette faite et un tableau d'objets représentant les données associées à la requette (devant être serialisables).
+ */
 public class ServerRequest implements Serializable {
+	/**
+	 * Enumération des types de requettes serveur
+	 */
 	public enum Type {
 		LOGIN_SUCCESS,
 		LOGIN_ERROR,
@@ -19,18 +27,32 @@ public class ServerRequest implements Serializable {
 		GROUP_LIST_UPDATED,
 		GROUP_USER_LIST_UPDATED};
 
+	/**
+	 * Constructeur initialisant la requette avec son type et les données qu'elle contient
+	 * @param request_type Le type de la requette serveur
+	 * @param values Les objets associés à la requette serveur
+	 */
 	public ServerRequest(Type request_type, Object... values)
 	{
 		type = request_type;
 		data = values;
 	}
-	
+
+	/**
+	 * Constructeur initialisant la requette avec son type et sans données associées
+	 * @param request_type Le type de la requette serveur
+	 */
 	public ServerRequest(Type request_type)
 	{
 		type = request_type;
 		data = null;
 	}
 
+	/**
+	 * Vérifie l'égalitée (basée sur l'égalité du type et des objets contenus) entre l'objet donné en paramètre et l'instance courante.
+	 * @param other L'objet avec le quel l'instance courante est comparée.
+	 * @return      Un booléen indiquant l'égalité
+	 */
 	@Override
 	public boolean equals(Object other) {
 		if(other instanceof  ServerRequest) {
@@ -57,7 +79,9 @@ public class ServerRequest implements Serializable {
 	
 	public final Type type;
 	public final Object[] data;
-	
-	// Num�ro identifiant la classe lors de la serialisation (utilis� pour verifier la pr�sence de la classe lors de la d�serialisation)
+
+	/**
+	 * Numéro identifiant la classe lors de la serialization (utilisé pour verifier la présence de la classe lors de la déserialization)
+	 */
 	private static final long serialVersionUID = 5215608498221700206L;
 }
