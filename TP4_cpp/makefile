@@ -16,7 +16,7 @@ CPPFLAGS = -Wall -std=c++11 -Ofast
 # Debug flags
 DEBUGFLAGS = -g
 # Resulting program file name
-EXE_NAME = log_analyzer
+EXE_NAME = geometry
 # The source file extentions
 SRC_EXT = cpp
 # The header file types
