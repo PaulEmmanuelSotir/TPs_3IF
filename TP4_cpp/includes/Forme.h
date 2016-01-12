@@ -3,8 +3,8 @@
 					------------------------------------------
 *********************************************************************************/
 
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef FORME_H
+#define FORME_H
 
 #include <ostream>
 
@@ -12,6 +12,7 @@
 //! espace de nommage regroupant le code crée pour le TP4 de C++
 namespace TP4
 {
+	//! Classe abstraite représentant une forme géométrique sérialisable
 	class Forme
 	{
 	public:
@@ -22,4 +23,4 @@ namespace TP4
 	};
 }
 
-#endif // UTILS_H
+#endif // FORME_H
