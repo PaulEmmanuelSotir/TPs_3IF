@@ -2,7 +2,7 @@
 #define SEGMENT_H
 
 #include <ostream>
-#include <String>
+#include <string>
 
 #include "Utils.h"
 #include "Forme.h"
@@ -14,15 +14,19 @@ namespace TP4
 	{	
 		
 		Segment() = default;
-		Segment(String name, Point first_point, Point second_point);
+		Segment(std::string name, Point first_point, Point second_point);
 		virtual ~Segment() = default;
+
+		void Move(double dx, double dy) override;
+		bool IsContained(double x, double y) override;
 
 		void SerializeTo(const std::ostream& output_stream) override;
 		void DeserializeFrom(const std::ostream& output_stream) override;
 
+		std::string name;
 		Point first_point;
 		Point second_point;
-		String name;
+		
 	
 	};
 

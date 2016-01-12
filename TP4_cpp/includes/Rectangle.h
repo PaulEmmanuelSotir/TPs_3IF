@@ -20,6 +20,9 @@ namespace TP4
 		Rectangle() = default;
 		Rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
 		virtual ~Rectangle() = default;
+		
+		void Move(double dx, double dy) override;
+		bool IsContained(double x, double y) override;
 
 		void SerializeTo(const std::ostream& output_stream) override;
 		void DeserializeFrom(const std::ostream& output_stream) override;

@@ -16,6 +16,9 @@ namespace TP4
 	class Forme
 	{
 	public:
+		virtual void Move(double dx, double dy) = 0;
+		virtual bool IsContained(double x, double y) = 0;		
+		
 		virtual void SerializeTo(const std::ostream& output_stream) = 0;
 		virtual void DeserializeFrom(const std::ostream& output_stream) = 0;
 
