@@ -16,7 +16,14 @@ void TP4::Rectangle::Move(double dx, double dy)
 
 bool TP4::Rectangle::IsContained(double x, double y)
 {
-	bool is_contained;
+    bool is_contained = false;
+    
+    if (x>=top_left_corner.first && x<=bottom_right_corner.first && y<=top_left_corner.second && y>=bottom_right_corner.second)
+    {
+        is_contained = true;
+    }
+    
+    return is_contained;
 }
 
 void TP4::Rectangle::SerializeTo(const std::ostream& output_stream)
