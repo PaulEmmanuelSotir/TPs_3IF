@@ -26,6 +26,7 @@ namespace TP4
 
 		Point top_left_corner;
 		Point bottom_right_corner;
+		std::string name;
 	};
 }
 
