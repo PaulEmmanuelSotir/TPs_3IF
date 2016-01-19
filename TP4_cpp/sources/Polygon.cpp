@@ -11,15 +11,45 @@
 #include <vector>
 
 #include "Polygon.h"
+#include "Utils.h"
 
 namespace TP4
 {
 	std::unique_ptr<Polygon> make_polygon(std::string name, std::vector<Point> vertices)
 	{
-		bool is_convex = false;
-		// TODO: vérifier que le polygone est convexe
-		if (name.empty() || !is_convex)
-			return nullptr;
+        if (name.empty())
+            return nullptr;
+        
+        if (vertices.size()>3)
+        {
+            Point p1, p2;
+            
+            p1.first = vertices[0].first - vertices[vertices.size()].first;
+            p1.second = vertices[0].second - vertices[vertices.size()].second;
+            p2.first = vertices[1].first - vertices[0].first;
+            p2.second = vertices[1].second - vertices[0].second;
+            
+            double det_value;
+            double current_det_value;
+            
+            det_value = p1.first * p2.second - p1.second * p2.first;
+            
+            for (int i = 0; i < vertices.size(); ++i)
+            {
+                p1.first = vertices[mod(i+1,vertices.size())].first - vertices[i].first;
+                p1.second = vertices[mod(i+1,vertices.size())].second - vertices[i].second;
+                p2.first = vertices[mod(i+2,vertices.size())].first - vertices[mod(i+1,vertices.size())].first;
+                p2.second = vertices[mod(i+2,vertices.size())].second - vertices[mod(i+1,vertices.size())].second;
+                
+                current_det_value = p1.first * p2.second - p1.second * p2.first;
+                
+                if (det_value*current_det_value<=0)
+                    return nullptr;
+                
+            }
+        }
+        
+		
 
 		return std::unique_ptr<Polygon>(new Polygon(std::move(name), std::move(vertices)));
 	}

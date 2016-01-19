@@ -38,24 +38,24 @@ namespace TP4
 	}
 
 	// TODO: see if it would be better to create a struct binary op + see if handle unsigned values is needed
-	template <typename T, typename U, typename = typename _STD enable_if_t<!_STD is_arithmetic<T>::value>>
+	template <typename T, typename U, typename = typename std::enable_if_t<!std::is_arithmetic<T>::value>>
 	inline U mod(T a, T b) {
 		return a % b;
 	}
 
-	template <typename UnsignedInteger, typename = typename _STD enable_if_t<_STD is_integral<UnsignedInteger>::value && _STD is_unsigned<UnsignedInteger>::value>>
+	template <typename UnsignedInteger, typename = typename std::enable_if_t<std::is_integral<UnsignedInteger>::value && std::is_unsigned<UnsignedInteger>::value>>
 	constexpr UnsignedInteger mod(UnsignedInteger a, UnsignedInteger b) {
 		return UNLIKELY(a >= b) ? a % b : a;
 	}
 
-	template <typename Integer, typename = typename _STD enable_if_t<_STD is_integral<Integer>::value && _STD is_signed<Integer>::value>, typename = void>
+	template <typename Integer, typename = typename std::enable_if_t<std::is_integral<Integer>::value && std::is_signed<Integer>::value>, typename = void>
 	constexpr Integer mod(Integer a, Integer b) {
 		return UNLIKELY(a >= b || -a >= b) ? a % b : a; // see https://www.youtube.com/watch?v=nXaxk27zwlk&feature=youtu.be&t=3394
 	}
 
-	template <typename Floating, typename = typename _STD enable_if_t<_STD is_floating_point<Floating>::value>, typename = void, typename = void>
+	template <typename Floating, typename = typename std::enable_if_t<std:: is_floating_point<Floating>::value>, typename = void, typename = void>
 	inline Floating mod(Floating a, Floating b) {
-		return _STD fmod(a, b); // TODO: benchmark this to see if "UNLIKELY(a >= b || -a >= b) ? ... : a;" could help.
+		return std:: fmod(a, b); // TODO: benchmark this to see if "UNLIKELY(a >= b || -a >= b) ? ... : a;" could help.
 	}
 }
 
