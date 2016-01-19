@@ -9,6 +9,10 @@
 #include <fstream>
 #include <string>
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/archive_exception.hpp>
+
 #include "Utils.h"
 #include "Scene.h"
 #include "Command.h"
@@ -108,9 +112,12 @@ int main()
 					std::cout << "OK" << std::endl;
 					break;
 				case TP4::command_type::LIST:
+				{
 					check_size(words, TP4::List_cmd::args_count);
-					geometry_scene.Serialize_to(std::cout);
+					boost::archive::text_oarchive archive{ std::cout };
+					archive << geometry_scene;
 					break;
+				}
 				case TP4::command_type::UNDO:
 					check_size(words, TP4::Undo_cmd::args_count);
 					geometry_scene.Undo();
@@ -153,6 +160,11 @@ int main()
 			catch (const std::logic_error&)
 			{
 				//std::cout << "Error: " << e.what() << std::endl;
+				std::cout << "ERR" << std::endl;
+			}
+			catch (const boost::archive::archive_exception&)
+			{
+				//std::cout << "Error during serialization: " << e.what() << std::endl;
 				std::cout << "ERR" << std::endl;
 			}
 		}

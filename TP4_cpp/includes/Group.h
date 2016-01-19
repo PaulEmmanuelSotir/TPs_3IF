@@ -32,11 +32,16 @@ namespace TP4
 		void Move(coord_t dx, coord_t dy) override;
 		bool Is_contained(const Point& point) const override;
 
-		void Serialize_to(const std::ostream& output_stream) const override;
-		void Deserialize_from(const std::istream& input_stream) override;
+		//void Serialize_to(const std::ostream& output_stream) const override;
+		//void Deserialize_from(const std::istream& input_stream) override;
 
 	protected:
 		const std::vector<std::unique_ptr<IShape>> m_shapes;
+
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version);
+
+		friend class boost::serialization::access;
 	};
 
 	using Shape_union = Group<true>;
@@ -64,16 +69,24 @@ namespace TP4
 		return !is_union;
 	}
 
-	template<bool is_union>
-	void Group<is_union>::Serialize_to(const std::ostream& output_stream) const
-	{
-		// TODO: generate JSON
-	}
+	//template<bool is_union>
+	//void Group<is_union>::Serialize_to(const std::ostream& output_stream) const
+	//{
+	//	// TODO: generate JSON
+	//}
+
+	//template<bool is_union>
+	//void Group<is_union>::Deserialize_from(const std::istream& input_stream)
+	//{
+	//	// TODO: parse JSON
+	//}
 
 	template<bool is_union>
-	void Group<is_union>::Deserialize_from(const std::istream& input_stream)
+	template<class Archive>
+	void Group<is_union>::serialize(Archive & ar, const unsigned int version)
 	{
-		// TODO: parse JSON
+		ar & boost::serialization::base_object<IShape>(*this);
+		ar & m_shapes;
 	}
 }
 

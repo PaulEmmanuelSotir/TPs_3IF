@@ -55,7 +55,7 @@ namespace TP4
 
 	template <typename Floating, typename = typename std::enable_if_t<std:: is_floating_point<Floating>::value>, typename = void, typename = void>
 	inline Floating mod(Floating a, Floating b) {
-		return std:: fmod(a, b); // TODO: benchmark this to see if "UNLIKELY(a >= b || -a >= b) ? ... : a;" could help.
+		return std::fmod(a, b); // TODO: benchmark this to see if "UNLIKELY(a >= b || -a >= b) ? ... : a;" could help.
 	}
 }
 

@@ -32,6 +32,7 @@ namespace TP4
 	};
 	inline Command::~Command() = default; // Un destructeur virtuel pur doit quand même avoir une implémentation
 
+	//! Classe template
 	template<command_type type, typename... Args>
 	class Command_spec : public Command
 	{
@@ -52,7 +53,6 @@ namespace TP4
 
 	using name_t = std::string;
 	using coord_t = int;
-
 
 	template<typename String>
 	inline coord_t move_str_to_coord_t(String&& str)

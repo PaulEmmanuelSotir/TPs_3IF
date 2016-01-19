@@ -17,39 +17,37 @@ namespace TP4
 {
 	std::unique_ptr<Polygon> make_polygon(std::string name, std::vector<Point> vertices)
 	{
-        if (name.empty())
-            return nullptr;
-        
-        if (vertices.size()>3)
-        {
-            Point p1, p2;
-            
-            p1.first = vertices[0].first - vertices[vertices.size()].first;
-            p1.second = vertices[0].second - vertices[vertices.size()].second;
-            p2.first = vertices[1].first - vertices[0].first;
-            p2.second = vertices[1].second - vertices[0].second;
-            
-            double det_value;
-            double current_det_value;
-            
-            det_value = p1.first * p2.second - p1.second * p2.first;
-            
-            for (int i = 0; i < vertices.size(); ++i)
-            {
-                p1.first = vertices[mod(i+1,vertices.size())].first - vertices[i].first;
-                p1.second = vertices[mod(i+1,vertices.size())].second - vertices[i].second;
-                p2.first = vertices[mod(i+2,vertices.size())].first - vertices[mod(i+1,vertices.size())].first;
-                p2.second = vertices[mod(i+2,vertices.size())].second - vertices[mod(i+1,vertices.size())].second;
-                
-                current_det_value = p1.first * p2.second - p1.second * p2.first;
-                
-                if (det_value*current_det_value<=0)
-                    return nullptr;
-                
-            }
-        }
-        
-		
+		if (name.empty())
+			return nullptr;
+
+		if (vertices.size() > 3)
+		{
+			Point p1, p2;
+
+			p1.first = vertices[0].first - vertices[vertices.size()].first;
+			p1.second = vertices[0].second - vertices[vertices.size()].second;
+			p2.first = vertices[1].first - vertices[0].first;
+			p2.second = vertices[1].second - vertices[0].second;
+
+			double det_value;
+			double current_det_value;
+
+			det_value = p1.first * p2.second - p1.second * p2.first;
+
+			for (size_t i = 0; i < vertices.size(); ++i)
+			{
+				p1.first = vertices[mod(i + 1, vertices.size())].first - vertices[i].first;
+				p1.second = vertices[mod(i + 1, vertices.size())].second - vertices[i].second;
+				p2.first = vertices[mod(i + 2, vertices.size())].first - vertices[mod(i + 1, vertices.size())].first;
+				p2.second = vertices[mod(i + 2, vertices.size())].second - vertices[mod(i + 1, vertices.size())].second;
+
+				current_det_value = p1.first * p2.second - p1.second * p2.first;
+
+				if (det_value*current_det_value <= 0)
+					return nullptr;
+
+			}
+		}
 
 		return std::unique_ptr<Polygon>(new Polygon(std::move(name), std::move(vertices)));
 	}
@@ -74,8 +72,8 @@ namespace TP4
 		for (size_t i = 0; i < m_vertices.size(); ++i)
 		{
 			double length_1 = sqrt((m_vertices[i].first - x)*(m_vertices[i].first - x) + (m_vertices[i].second - y)*(m_vertices[i].second - y));
-			double length_2_squared = (m_vertices[i].first - m_vertices[mod(i + 1,m_vertices.size())].first)*(m_vertices[i].first - m_vertices[mod(i + 1,m_vertices.size())].first) + (m_vertices[i].second - m_vertices[mod(i + 1,m_vertices.size())].second)*(m_vertices[i].second - m_vertices[mod(i + 1,m_vertices.size())].second);
-			double length_3 = sqrt((m_vertices[mod(i + 1,m_vertices.size())].first - x)*(m_vertices[mod(i + 1,m_vertices.size())].first - x) + (m_vertices[mod(i + 1,m_vertices.size())].second - y)*(m_vertices[mod(i + 1,m_vertices.size())].second - y));
+			double length_2_squared = (m_vertices[i].first - m_vertices[mod(i + 1, m_vertices.size())].first)*(m_vertices[i].first - m_vertices[mod(i + 1, m_vertices.size())].first) + (m_vertices[i].second - m_vertices[mod(i + 1, m_vertices.size())].second)*(m_vertices[i].second - m_vertices[mod(i + 1, m_vertices.size())].second);
+			double length_3 = sqrt((m_vertices[mod(i + 1, m_vertices.size())].first - x)*(m_vertices[mod(i + 1, m_vertices.size())].first - x) + (m_vertices[mod(i + 1, m_vertices.size())].second - y)*(m_vertices[mod(i + 1, m_vertices.size())].second - y));
 
 			double cos = length_2_squared / ((length_1*length_1) + (length_3*length_3) - 2 * length_3*length_1);
 
@@ -87,16 +85,6 @@ namespace TP4
 			return true;
 		return false;
 
-	}
-
-	void Polygon::Serialize_to(const std::ostream& output_stream) const
-	{
-		// TODO: generate JSON
-	}
-
-	void Polygon::Deserialize_from(const std::istream& input_stream)
-	{
-		// TODO: parse JSON
 	}
 
 	Polygon::Polygon(std::string&& name, std::vector<Point>&& vertices)

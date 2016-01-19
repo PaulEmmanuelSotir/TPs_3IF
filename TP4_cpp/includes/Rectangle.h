@@ -22,17 +22,30 @@ namespace TP4
 
 		void Move(coord_t dx, coord_t dy) override;
 		bool Is_contained(const Point& point) const override;
-
+/*
 		void Serialize_to(const std::ostream& output_stream) const override;
-		void Deserialize_from(const std::istream& input_stream) override;
+		void Deserialize_from(const std::istream& input_stream) override;*/
 
 	protected:
 		Point m_top_left_corner = { 0U, 1U };
 		Point m_bottom_right_corner = { 1U, 0U };
 
 		Rectangle(std::string&& name, Point&& top_left_corner, Point&& bottom_right_corner);
+
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version);
+
+		friend class boost::serialization::access;
 		friend std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
 	};
+
+	template<class Archive>
+	void Rectangle::serialize(Archive & ar, const unsigned int version)
+	{
+		ar & boost::serialization::base_object<IShape>(*this);
+		ar & m_top_left_corner;
+		ar & m_bottom_right_corner;
+	}
 
 	std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
 }

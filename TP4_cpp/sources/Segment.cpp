@@ -38,7 +38,7 @@ namespace TP4
 		return false;
 	}
 
-	void Segment::Serialize_to(const std::ostream& output_stream) const
+	/*void Segment::Serialize_to(const std::ostream& output_stream) const
 	{
 
 	}
@@ -46,7 +46,7 @@ namespace TP4
 	void Segment::Deserialize_from(const std::istream& input_stream)
 	{
 
-	}
+	}*/
 
 	Segment::Segment(std::string&& name, Point&& first_point, Point&& second_point)
 		: IShape(std::move(name)), m_first_point(std::move(first_point)), m_second_point(std::move(second_point))

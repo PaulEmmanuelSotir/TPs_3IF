@@ -128,8 +128,9 @@ namespace TP4
 		if (!in_fstream.is_open())
 			throw std::invalid_argument("Wrong file name");
 
-		Deserialize_from(in_fstream);
-		in_fstream.close();
+		boost::archive::text_iarchive archive(in_fstream);
+		archive >> *this;
+		// archive and stream are closed when destructors are called
 
 		Append_to_history(Load_cmd(std::move(filename)));
 	}
@@ -141,19 +142,10 @@ namespace TP4
 		if (!out_fstream.is_open())
 			throw std::invalid_argument("Wrong file name");
 
-		Serialize_to(out_fstream);
-		out_fstream.close();
+		boost::archive::text_oarchive archive(out_fstream);
+		archive << *this;
+		// archive and stream are closed when destructors are called
 
 		Append_to_history(Save_cmd(std::move(filename)));
-	}
-
-	void Scene::Serialize_to(const std::ostream& output_stream) const
-	{
-		// ...
-	}
-
-	void Scene::Deserialize_from(const std::istream& input_stream)
-	{
-		// ...
 	}
 }

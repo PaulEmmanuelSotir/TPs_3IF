@@ -11,10 +11,12 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 #include "IShape.h"
 #include "Utils.h"
 #include "Command.h"
-#include "ISerializable.h"
 
 //! \namespace TP4
 //! espace de nommage regroupant le code crée pour le TP4 de C++
@@ -22,7 +24,7 @@ namespace TP4
 {
 	//! ...
 	//! Etant donné que la classe contient des std::unique_ptr, la classe n'est pas copiable (uniquement movable)
-	class Scene final : public ISerializable
+	class Scene final
 	{
 	public:
 		Scene()							= default;
@@ -30,7 +32,6 @@ namespace TP4
 		Scene& operator=(Scene&&)		= default;
 		Scene(const Scene&)				= delete;
 		Scene& operator=(const Scene&)	= delete;
-		~Scene() override				= default;
 
 		//! @throws std::invalid_argument ...
 		void Add_segment(name_t name, Point x, Point y);
@@ -47,18 +48,20 @@ namespace TP4
 		void Load(std::string filename);
 		void Save(std::string filename);
 
-		void Serialize_to(const std::ostream& output_stream) const override;
-		void Deserialize_from(const std::istream& input_stream) override;
-
 	private:
+		std::unordered_map<name_t, std::unique_ptr<IShape>> m_shapes;
+		std::vector<std::unique_ptr<Command>> m_command_history;
+
 		template<typename T>
 		void Append_to_history(const T& cmd);
 
 		template<typename Group_t>
 		void CreateGroup(const name_t& group_name, const std::unordered_set<name_t>& shapes_names);
 
-		std::unordered_map<name_t, std::unique_ptr<IShape>> m_shapes;
-		std::vector<std::unique_ptr<Command>> m_command_history;
+		template<class Archive>
+		void serialize(Archive & ar, const unsigned int version) { ar & m_shapes; }
+
+		friend class boost::serialization::access;
 	};
 
 
@@ -97,7 +100,6 @@ namespace TP4
 		// Add shape to m_shapes
 		m_shapes.emplace(group_name, std::make_unique<Group_t>(group_name, std::move(shapes)));
 	}
-
 }
 
 #endif // SCENE_H
