@@ -41,24 +41,16 @@ namespace TP4
 		auto y = point.second;
 
 		// Calcul de la somme des cosinus que font les angles entre les sommets consécutifs et le point
-		for (size_t i = 0; i < m_vertices.size() - 1; ++i)
+		for (size_t i = 0; i < m_vertices.size(); ++i)
 		{
 			double length_1 = sqrt((m_vertices[i].first - x)*(m_vertices[i].first - x) + (m_vertices[i].second - y)*(m_vertices[i].second - y));
-			double length_2_squared = (m_vertices[i].first - m_vertices[i + 1].first)*(m_vertices[i].first - m_vertices[i + 1].first) + (m_vertices[i].second - m_vertices[i + 1].second)*(m_vertices[i].second - m_vertices[i + 1].second);
-			double length_3 = sqrt((m_vertices[i + 1].first - x)*(m_vertices[i + 1].first - x) + (m_vertices[i + 1].second - y)*(m_vertices[i + 1].second - y));
+			double length_2_squared = (m_vertices[i].first - m_vertices[mod(i + 1,m_vertices.size())].first)*(m_vertices[i].first - m_vertices[mod(i + 1,m_vertices.size())].first) + (m_vertices[i].second - m_vertices[mod(i + 1,m_vertices.size())].second)*(m_vertices[i].second - m_vertices[mod(i + 1,m_vertices.size())].second);
+			double length_3 = sqrt((m_vertices[mod(i + 1,m_vertices.size())].first - x)*(m_vertices[mod(i + 1,m_vertices.size())].first - x) + (m_vertices[mod(i + 1,m_vertices.size())].second - y)*(m_vertices[mod(i + 1,m_vertices.size())].second - y));
 
 			double cos = length_2_squared / ((length_1*length_1) + (length_3*length_3) - 2 * length_3*length_1);
 
 			sum += cos;
 		}
-
-		double length_1 = sqrt((m_vertices[m_vertices.size() - 1].first - x)*(m_vertices[m_vertices.size() - 1].first - x) + (m_vertices[m_vertices.size() - 1].second - y)*(m_vertices[m_vertices.size() - 1].second - y));
-		double length_2_squared = sqrt((m_vertices[m_vertices.size() - 1].first - m_vertices[0].first)*(m_vertices[m_vertices.size() - 1].first - m_vertices[0].first) + (m_vertices[m_vertices.size() - 1].second - m_vertices[0].second)*(m_vertices[m_vertices.size() - 1].second - m_vertices[0].second));
-		double length_3 = sqrt((m_vertices[0].first - x)*(m_vertices[0].first - x) + (m_vertices[0].second - y)*(m_vertices[0].second - y));
-
-		double cos = length_2_squared / ((length_1*length_1) + (length_3*length_3) - 2 * length_3*length_1);
-
-		sum += cos;
 
 		// Si la somme est 1 le point est à l'intérieur (somme des angles = 360°)
 		if (sum < 1.001 && sum > 0.999)
