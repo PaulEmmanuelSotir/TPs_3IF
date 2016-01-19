@@ -1,10 +1,10 @@
 /*********************************************************************************
 					IShape - Une forme géométrique serialisable
-					------------------------------------------
+					-------------------------------------------
 *********************************************************************************/
 
-#ifndef FORME_H
-#define FORME_H
+#ifndef ISHAPE_H
+#define ISHAPE_H
 
 #include <ostream>
 #include <istream>
@@ -16,6 +16,8 @@
 //! espace de nommage regroupant le code crée pour le TP4 de C++
 namespace TP4
 {
+	// TODO: implement operator overloadings == != < > <= >=
+
 	//! Classe abstraite représentant une forme géométrique sérialisable
 	class IShape : public ISerializable
 	{
@@ -32,4 +34,4 @@ namespace TP4
 	};
 }
 
-#endif // FORME_H
+#endif // ISHAPE_H
