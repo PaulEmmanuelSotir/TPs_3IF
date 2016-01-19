@@ -1,37 +1,46 @@
+#include <string>
+#include <iostream>
 
 #include "rectangle.h"
+#include <Polygon.h>
 
-TP4::Rectangle::Rectangle(std::string name, Point top_left_corner, Point bottom_right_corner)
-	: name(name), top_left_corner(top_left_corner), bottom_right_corner(bottom_right_corner)
-{ }
-
-void TP4::Rectangle::Move(double dx, double dy)
+namespace TP4
 {
-	this->top_left_corner.first += dx;
-	this->top_left_corner.second += dy;	
-	
-	this->bottom_right_corner.first += dx;
-	this->bottom_right_corner.second += dy;		
-}
+	std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner)
+	{
+		if (name.empty() || top_left_corner.first >= bottom_right_corner.first || top_left_corner.second <= bottom_right_corner.second)
+			return nullptr;
+		return std::unique_ptr<Rectangle>(new Rectangle(std::move(name), std::move(top_left_corner), std::move(bottom_right_corner)));
+	}
 
-bool TP4::Rectangle::IsContained(double x, double y)
-{
-    bool is_contained = false;
-    
-    if (x>=top_left_corner.first && x<=bottom_right_corner.first && y<=top_left_corner.second && y>=bottom_right_corner.second)
-    {
-        is_contained = true;
-    }
-    
-    return is_contained;
-}
+	void Rectangle::Move(coord_t dx, coord_t dy)
+	{
+		m_top_left_corner.first += dx;
+		m_top_left_corner.second += dy;
 
-void TP4::Rectangle::SerializeTo(const std::ostream& output_stream)
-{
-	// TODO: generate JSON
-}
+		m_bottom_right_corner.first += dx;
+		m_bottom_right_corner.second += dy;
+	}
 
-void TP4::Rectangle::DeserializeFrom(const std::ostream& output_stream)
-{
-	// TODO: parse JSON
+	bool Rectangle::Is_contained(const Point& point) const
+	{
+		auto x = point.first;
+		auto y = point.second;
+
+		return (x >= m_top_left_corner.first && x <= m_bottom_right_corner.first && y <= m_top_left_corner.second && y >= m_bottom_right_corner.second);
+	}
+
+	void Rectangle::Serialize_to(const std::ostream& output_stream) const
+	{
+		// TODO: generate JSON
+	}
+
+	void Rectangle::Deserialize_from(const std::istream& input_stream)
+	{
+		// TODO: parse JSON
+	}
+
+	Rectangle::Rectangle(std::string&& name, Point&& top_left_corner, Point&& bottom_right_corner)
+		: IShape(std::move(name)), m_top_left_corner(std::move(top_left_corner)), m_bottom_right_corner(std::move(bottom_right_corner))
+	{ }
 }

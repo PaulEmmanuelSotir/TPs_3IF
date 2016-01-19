@@ -8,29 +8,33 @@
 
 #include <ostream>
 
-#include "Forme.h"
+#include "IShape.h"
 #include "Utils.h"
 
 //! \namespace TP4
 //! espace de nommage regroupant le code crée pour le TP4 de C++
 namespace TP4
 {
-	struct Rectangle : Forme
+	class Rectangle : public IShape
 	{
-		Rectangle() = default;
-		Rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
-		virtual ~Rectangle() = default;
-		
-		void Move(double dx, double dy) override;
-		bool IsContained(double x, double y) override;
+	public:
+		~Rectangle() override = default;
 
-		void SerializeTo(const std::ostream& output_stream) override;
-		void DeserializeFrom(const std::ostream& output_stream) override;
+		void Move(coord_t dx, coord_t dy) override;
+		bool Is_contained(const Point& point) const override;
 
-		Point top_left_corner;
-		Point bottom_right_corner;
-		std::string name;
+		void Serialize_to(const std::ostream& output_stream) const override;
+		void Deserialize_from(const std::istream& input_stream) override;
+
+	protected:
+		Point m_top_left_corner = { 0U, 1U };
+		Point m_bottom_right_corner = { 1U, 0U };
+
+		Rectangle(std::string&& name, Point&& top_left_corner, Point&& bottom_right_corner);
+		friend std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
 	};
+
+	std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
 }
 
 #endif // RECTANGLE_H

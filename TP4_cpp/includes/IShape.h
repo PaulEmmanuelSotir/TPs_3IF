@@ -1,5 +1,5 @@
 /*********************************************************************************
-					Forme - Une forme géométrique serialisable
+					IShape - Une forme géométrique serialisable
 					------------------------------------------
 *********************************************************************************/
 
@@ -7,22 +7,28 @@
 #define FORME_H
 
 #include <ostream>
+#include <istream>
+
+#include "ISerializable.h"
+#include "Command.h"
 
 //! \namespace TP4
 //! espace de nommage regroupant le code crée pour le TP4 de C++
 namespace TP4
 {
 	//! Classe abstraite représentant une forme géométrique sérialisable
-	class Forme
+	class IShape : public ISerializable
 	{
 	public:
-		virtual void Move(double dx, double dy) = 0;
-		virtual bool IsContained(double x, double y) = 0;		
-		
-		virtual void SerializeTo(const std::ostream& output_stream) = 0;
-		virtual void DeserializeFrom(const std::ostream& output_stream) = 0;
+		virtual void Move(coord_t dx, coord_t dy) = 0;
+		virtual bool Is_contained(const Point& point) const = 0;
 
-		virtual ~Forme() = 0;
+	protected:
+		explicit IShape(std::string&& name)
+			: m_name(std::move(name))
+		{ }
+
+		const std::string m_name;
 	};
 }
 
