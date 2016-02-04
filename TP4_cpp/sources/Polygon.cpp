@@ -6,11 +6,12 @@
 //
 //
 
+#include "Polygon.h"
+
 #include <math.h>
 #include <string>
-#include <vector>
+#include <boost/serialization/vector.hpp>
 
-#include "Polygon.h"
 #include "Utils.h"
 
 namespace TP4

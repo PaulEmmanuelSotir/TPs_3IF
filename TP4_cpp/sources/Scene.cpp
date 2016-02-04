@@ -1,10 +1,9 @@
-#include <unordered_set>
-#include <iostream>
+#include "Scene.h"
+
 #include <fstream>
 #include <tuple>
 
 #include "Group.h"
-#include "Scene.h"
 #include "Segment.h"
 #include "Polygon.h"
 #include "rectangle.h"
@@ -75,13 +74,13 @@ namespace TP4
 
 	void Scene::Union(name_t union_name, const std::unordered_set<name_t>& shapes_names)
 	{
-		CreateGroup<Shape_union>(union_name, shapes_names);
+		Create_group<Shape_union>(union_name, shapes_names);
 		Append_to_history(Union_cmd(std::move(union_name), shapes_names));
 	}
 
 	void Scene::Intersect(name_t inter_name, const std::unordered_set<name_t>& shapes_names)
 	{
-		CreateGroup<Shape_intersection>(inter_name, shapes_names);
+		Create_group<Shape_intersection>(inter_name, shapes_names);
 		Append_to_history(Inter_cmd(std::move(inter_name), shapes_names));
 	}
 
@@ -128,8 +127,8 @@ namespace TP4
 		if (!in_fstream.is_open())
 			throw std::invalid_argument("Wrong file name");
 
-		boost::archive::text_iarchive archive(in_fstream);
-		archive >> *this;
+		boost::archive::xml_iarchive archive(in_fstream);
+		archive >> boost::serialization::make_nvp("scene", *this);
 		// archive and stream are closed when destructors are called
 
 		Append_to_history(Load_cmd(std::move(filename)));
@@ -142,8 +141,8 @@ namespace TP4
 		if (!out_fstream.is_open())
 			throw std::invalid_argument("Wrong file name");
 
-		boost::archive::text_oarchive archive(out_fstream);
-		archive << *this;
+		boost::archive::xml_oarchive archive(out_fstream);
+		archive << boost::serialization::make_nvp("scene", *this);
 		// archive and stream are closed when destructors are called
 
 		Append_to_history(Save_cmd(std::move(filename)));

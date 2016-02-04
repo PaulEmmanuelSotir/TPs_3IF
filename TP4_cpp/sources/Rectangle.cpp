@@ -1,8 +1,9 @@
+#include "rectangle.h"
+
 #include <string>
 #include <iostream>
 
-#include "rectangle.h"
-#include <Polygon.h>
+#include "Polygon.h"
 
 namespace TP4
 {
@@ -29,16 +30,6 @@ namespace TP4
 
 		return (x >= m_top_left_corner.first && x <= m_bottom_right_corner.first && y <= m_top_left_corner.second && y >= m_bottom_right_corner.second);
 	}
-
-	//void Rectangle::Serialize_to(const std::ostream& output_stream) const
-	//{
-	//	// TODO: generate JSON
-	//}
-
-	//void Rectangle::Deserialize_from(const std::istream& input_stream)
-	//{
-	//	// TODO: parse JSON
-	//}
 
 	Rectangle::Rectangle(std::string&& name, Point&& top_left_corner, Point&& bottom_right_corner)
 		: IShape(std::move(name)), m_top_left_corner(std::move(top_left_corner)), m_bottom_right_corner(std::move(bottom_right_corner))

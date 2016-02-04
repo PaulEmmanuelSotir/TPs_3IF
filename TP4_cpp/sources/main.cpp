@@ -3,15 +3,21 @@
 									--------
 *********************************************************************************/
 
-#include <unordered_set>
 #include <functional>
 #include <iostream>
 #include <fstream>
 #include <string>
 
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+//#include <boost/archive/text_oarchive.hpp>
+//#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/archive_exception.hpp>
+#include <boost/serialization/unordered_set.hpp>
+#include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/utility.hpp>
 
 #include "Utils.h"
 #include "Scene.h"
@@ -32,6 +38,7 @@ int main()
 
 	TP4::Scene geometry_scene;
 	std::string line;
+	auto is_error_message_enabled = false;
 
 	while (true)
 	{
@@ -57,7 +64,7 @@ int main()
 					break;
 				case TP4::command_type::ADD_POLYGON:
 				{
-					check_size(words, 1U + 2U*3, true, ((words.size() - 2U) % 2U) == 0);
+					check_size(words, 1U + 2U * 3, true, ((words.size() - 2U) % 2U) == 0);
 					std::vector<TP4::Point> points;
 					for (size_t i = 2; i < words.size(); i += 2)
 						points.emplace_back(move_str_to_coord_t(words[i]), move_str_to_coord_t(words[i + 1]));
@@ -73,7 +80,7 @@ int main()
 						if (!shape_names.insert(std::move(words[i])).second)
 							throw std::invalid_argument("Can't create union from duplicate shapes");
 
-					geometry_scene.Intersect(std::move(words[1]), shape_names);
+					geometry_scene.Union(std::move(words[1]), shape_names);
 					std::cout << "OK" << std::endl;
 					break;
 				}
@@ -85,13 +92,13 @@ int main()
 						if (!shape_names.insert(std::move(words[i])).second)
 							throw std::invalid_argument("Can't create union from duplicate shapes");
 
-					geometry_scene.Union(std::move(words[1]), shape_names);
+					geometry_scene.Intersect(std::move(words[1]), shape_names);
 					std::cout << "OK" << std::endl;
 					break;
 				}
 				case TP4::command_type::HIT:
 					check_size(words, 3U);
-					if(geometry_scene.Is_point_contained_by({ move_str_to_coord_t(words[2]), move_str_to_coord_t(words[3]) }, std::move(words[1])))
+					if (geometry_scene.Is_point_contained_by({ move_str_to_coord_t(words[2]), move_str_to_coord_t(words[3]) }, std::move(words[1])))
 						std::cout << "YES" << std::endl;
 					else
 						std::cout << "NO" << std::endl;
@@ -114,8 +121,10 @@ int main()
 				case TP4::command_type::LIST:
 				{
 					check_size(words, TP4::List_cmd::args_count);
-					boost::archive::text_oarchive archive{ std::cout };
-					archive << geometry_scene;
+					// TODO: OVERLOAD << INSTEAD
+					//boost::archive::text_oarchive archive{ std::cout };
+					boost::archive::xml_oarchive archive{ std::cout };
+					archive << boost::serialization::make_nvp("scene", geometry_scene);
 					break;
 				}
 				case TP4::command_type::UNDO:
@@ -140,8 +149,8 @@ int main()
 					check_size(words, TP4::Save_cmd::args_count);
 					geometry_scene.Save(std::move(words[1]));
 					std::cout << "OK" << std::endl;
-				}
 					break;
+				}
 				case TP4::command_type::CLEAR:
 					check_size(words, TP4::Clear_cmd::args_count);
 					geometry_scene.Clear();
@@ -150,22 +159,36 @@ int main()
 				case TP4::command_type::EXIT:
 					check_size(words, TP4::Exit_cmd::args_count);
 					return EXIT_SUCCESS;
+				case TP4::command_type::ENABLE_ERROR_MESSAGES:
+					is_error_message_enabled = true;
+					std::cout << "OK" << std::endl;
+					break;
+				case TP4::command_type::DISABLE_ERROR_MESSAGES:
+					is_error_message_enabled = false;
+					std::cout << "OK" << std::endl;
+					break;
 				}
 			}
-			catch (const std::range_error&)
+			catch (const std::range_error& e)
 			{
-				//std::cout << "Error: Invalid command" << std::endl;
-				std::cout << "ERR" << std::endl;
+				if (is_error_message_enabled)
+					std::cout << "Error: Invalid command" << std::endl;
+				else
+					std::cout << "ERR" << std::endl;
 			}
-			catch (const std::logic_error&)
+			catch (const std::logic_error& e)
 			{
-				//std::cout << "Error: " << e.what() << std::endl;
-				std::cout << "ERR" << std::endl;
+				if (is_error_message_enabled)
+					std::cout << "Error: " << e.what() << std::endl;
+				else
+					std::cout << "ERR" << std::endl;
 			}
-			catch (const boost::archive::archive_exception&)
+			catch (const boost::archive::archive_exception& e)
 			{
-				//std::cout << "Error during serialization: " << e.what() << std::endl;
-				std::cout << "ERR" << std::endl;
+				if (is_error_message_enabled)
+					std::cout << "Error during (de)serialization: " << e.what() << std::endl;
+				else
+					std::cout << "ERR" << std::endl;
 			}
 		}
 	}

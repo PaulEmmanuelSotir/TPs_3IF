@@ -1,8 +1,7 @@
+#include "Command.h"
 
 #include <string>
 #include <tuple>
-
-#include "Command.h"
 
 namespace TP4
 {
@@ -10,7 +9,8 @@ namespace TP4
 	{
 		using cmd_ut = std::underlying_type<command_type>::type;
 		const std::string CMDS[] = { std::string("S"), std::string("R"), std::string("PC"), std::string("OR"), std::string("OI"), std::string("HIT"), std::string("DELETE"), std::string("MOVE"),
-									 std::string("LIST"), std::string("UNDO"), std::string("REDO"), std::string("LOAD"), std::string("SAVE"), std::string("CLEAR") , std::string("EXIT") };
+									 std::string("LIST"), std::string("UNDO"), std::string("REDO"), std::string("LOAD"), std::string("SAVE"), std::string("CLEAR"), std::string("EN_ERROR_MESS"),
+									 std::string("DIS_ERROR_MESS"), std::string("EXIT") };
 	}
 
 	std::string underlying(command_type command)

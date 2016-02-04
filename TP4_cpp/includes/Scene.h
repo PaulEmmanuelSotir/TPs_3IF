@@ -6,17 +6,25 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <memory>
-#include <vector>
-#include <unordered_map>
-#include <unordered_set>
+#include <boost/config.hpp>
+//#include <boost/archive/text_oarchive.hpp>
+//#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/split_member.hpp>
+#include <boost/serialization/unordered_set.hpp>
+#include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/utility.hpp>
 
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-
-#include "IShape.h"
-#include "Utils.h"
+#include "Rectangle.h"
 #include "Command.h"
+#include "Segment.h"
+#include "Polygon.h"
+#include "IShape.h"
+#include "Group.h"
 
 //! \namespace TP4
 //! espace de nommage regroupant le code crée pour le TP4 de C++
@@ -24,14 +32,15 @@ namespace TP4
 {
 	//! ...
 	//! Etant donné que la classe contient des std::unique_ptr, la classe n'est pas copiable (uniquement movable)
+	//! TODO: faire une copie qui crée de nouveaux unique_ptr ?
 	class Scene final
 	{
 	public:
-		Scene()							= default;
-		Scene(Scene&&)					= default;
-		Scene& operator=(Scene&&)		= default;
-		Scene(const Scene&)				= delete;
-		Scene& operator=(const Scene&)	= delete;
+		Scene() = default;
+		Scene(Scene&&) = default;
+		Scene& operator=(Scene&&) = default;
+		Scene(const Scene&) = delete;
+		Scene& operator=(const Scene&) = delete;
 
 		//! @throws std::invalid_argument ...
 		void Add_segment(name_t name, Point x, Point y);
@@ -56,10 +65,58 @@ namespace TP4
 		void Append_to_history(const T& cmd);
 
 		template<typename Group_t>
-		void CreateGroup(const name_t& group_name, const std::unordered_set<name_t>& shapes_names);
+		void Create_group(const name_t& group_name, const std::unordered_set<name_t>& shapes_names);
 
-		template<class Archive>
-		void serialize(Archive & ar, const unsigned int version) { ar & m_shapes; }
+		//! Fonction ajoutant au registre de l'archive de serialisation les types dérivés de IShape. Cela permet à boost::serialization de gèrer le polymorphisme lors de la (de)serialisation
+		template<typename Archive>
+		static void register_IShape_derived_types(Archive& ar)
+		{
+			ar.template register_type<Rectangle>();
+			ar.template register_type<Segment>();
+			ar.template register_type<Polygon>();
+			ar.template register_type<Shape_union>();
+			ar.template register_type<Shape_intersection>();
+		}
+
+		template<typename Archive>
+		void save(Archive& ar, const unsigned int version) const
+		{
+			register_IShape_derived_types(ar);
+
+			// Serialisation manuelle de m_shapes (on ne peut pas faire 'ar << m_shapes' car m_shapes contient des unique_ptr non copiables
+			auto size = m_shapes.size();
+			ar << boost::serialization::make_nvp("shape_count", size);
+			for (const auto& p : m_shapes)
+			{
+				ar << boost::serialization::make_nvp("name", p.first);
+				ar << boost::serialization::make_nvp("shape", p.second);
+			}
+		}
+
+		template<typename Archive>
+		void load(Archive& ar, const unsigned int version)
+		{
+			register_IShape_derived_types(ar);
+			m_shapes.clear();
+
+			// Deserialisation manuelle de m_shapes (on ne peut pas faire 'ar >> m_shapes' car m_shapes contient des unique_ptr non copiables
+			decltype(m_shapes)::size_type size;
+			ar >> boost::serialization::make_nvp("shape_count", size);
+			m_shapes.clear();
+			m_shapes.reserve(size);
+
+			while (size-- != 0)
+			{
+				std::unique_ptr<IShape> shape;
+				name_t name;
+				ar >> boost::serialization::make_nvp("name", name);
+				ar >> boost::serialization::make_nvp("shape", shape);
+				if (shape)
+					m_shapes[name] = std::move(shape);
+			}
+		}
+
+		BOOST_SERIALIZATION_SPLIT_MEMBER()
 
 		friend class boost::serialization::access;
 	};
@@ -72,19 +129,19 @@ namespace TP4
 	}
 
 	template<typename Group_t>
-	void Scene::CreateGroup(const name_t& group_name, const std::unordered_set<name_t>& shapes_names)
+	void Scene::Create_group(const name_t& group_name, const std::unordered_set<name_t>& shapes_names)
 	{
 		std::vector<decltype(m_shapes)::iterator> shapes_its;
 
 		// Vérifie si le nom n'est pas déja pris
-		if (m_shapes.find(group_name) != std::cend(m_shapes))
+		if (m_shapes.find(group_name) != std::end(m_shapes))
 			throw std::invalid_argument("Shape name already existing");
 
 		// Trouve les formes concernées et vérifie qu'il n'y a pas de duplicats
 		for (const auto& shape_name : shapes_names)
 		{
 			auto it = m_shapes.find(shape_name);
-			if (it == std::cend(m_shapes))
+			if (it == std::end(m_shapes))
 				throw std::invalid_argument("One or more shape name is invalid");
 			shapes_its.push_back(it);
 		}

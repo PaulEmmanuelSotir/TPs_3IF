@@ -8,9 +8,12 @@
 
 #include <tuple>
 #include <string>
-#include <vector>
-#include <memory>
-#include <unordered_set>
+
+#include <boost/serialization/unordered_set.hpp>
+#include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/utility.hpp>
 
 #include "Utils.h"
 
@@ -19,7 +22,7 @@
 namespace TP4
 {
 	//----------------------------------------- Enumération des types de commandes
-	enum class command_type { ADD_SEGMENT, ADD_RECTANGLE, ADD_POLYGON, UNION, INTER, HIT, DELETE, MOVE, LIST, UNDO, REDO, LOAD, SAVE, CLEAR, EXIT };
+	enum class command_type { ADD_SEGMENT, ADD_RECTANGLE, ADD_POLYGON, UNION, INTER, HIT, DELETE, MOVE, LIST, UNDO, REDO, LOAD, SAVE, CLEAR, ENABLE_ERROR_MESSAGES, DISABLE_ERROR_MESSAGES, EXIT };
 	std::string underlying(command_type command);
 	command_type overlying(const std::string& name);
 
@@ -53,6 +56,7 @@ namespace TP4
 
 	using name_t = std::string;
 	using coord_t = int;
+	using Point = std::pair<coord_t, coord_t>;
 
 	template<typename String>
 	inline coord_t move_str_to_coord_t(String&& str)

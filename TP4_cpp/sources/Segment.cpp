@@ -1,8 +1,10 @@
+#include "Segment.h"
+
 #include <string>
 
 #include "Utils.h"
-#include "Segment.h"
-#include <Command.h>
+#include "Command.h"
+
 
 namespace TP4
 {
@@ -15,11 +17,11 @@ namespace TP4
 
 	void Segment::Move(coord_t dx, coord_t dy)
 	{
-		this->m_first_point.first += dx;
-		this->m_first_point.second += dy;
+		m_first_point.first += dx;
+		m_first_point.second += dy;
 
-		this->m_second_point.first += dx;
-		this->m_second_point.second += dy;
+		m_second_point.first += dx;
+		m_second_point.second += dy;
 	}
 
 	bool Segment::Is_contained(const Point& point) const
@@ -37,16 +39,6 @@ namespace TP4
 
 		return false;
 	}
-
-	/*void Segment::Serialize_to(const std::ostream& output_stream) const
-	{
-
-	}
-
-	void Segment::Deserialize_from(const std::istream& input_stream)
-	{
-
-	}*/
 
 	Segment::Segment(std::string&& name, Point&& first_point, Point&& second_point)
 		: IShape(std::move(name)), m_first_point(std::move(first_point)), m_second_point(std::move(second_point))
