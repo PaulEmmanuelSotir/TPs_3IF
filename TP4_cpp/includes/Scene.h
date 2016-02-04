@@ -6,18 +6,30 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <string>
+#include <memory>
+
 #include <boost/config.hpp>
-//#include <boost/archive/text_oarchive.hpp>
-//#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/utility.hpp>
 #include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/split_member.hpp>
+#include <boost/serialization/split_free.hpp>
 #include <boost/serialization/unordered_set.hpp>
 #include <boost/serialization/unordered_map.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/utility.hpp>
+#include <boost/serialization/assume_abstract.hpp>
+
+#ifdef USE_TXT_ARCHIVE
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#else
+#ifdef USE_BINARY_ARCHIVE
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#else // Use XML archive
+#include <boost/archive/xml_iarchive.hpp>
+#include <boost/archive/xml_oarchive.hpp>
+#endif // USE_BINARY_ARCHIVE
+#endif // USE_TXT_ARCHIVE
 
 #include "Rectangle.h"
 #include "Command.h"
@@ -31,35 +43,34 @@
 namespace TP4
 {
 	//! ...
-	//! Etant donné que la classe contient des std::unique_ptr, la classe n'est pas copiable (uniquement movable)
 	//! TODO: faire une copie qui crée de nouveaux unique_ptr ?
 	class Scene final
 	{
 	public:
 		Scene() = default;
 		Scene(Scene&&) = default;
-		Scene& operator=(Scene&&) = default;
 		Scene(const Scene&) = delete;
+		Scene& operator=(Scene&&) = default;
 		Scene& operator=(const Scene&) = delete;
 
 		//! @throws std::invalid_argument ...
-		void Add_segment(name_t name, Point x, Point y);
-		void Add_rectangle(name_t name, Point x, Point y);
-		void Add_polygon(name_t name, const std::vector<Point>& vertices);
-		void Delete(const std::vector<name_t>& name);
-		void Union(name_t union_name, const std::unordered_set<name_t>& shapes_names);
-		void Intersect(name_t inter_name, const std::unordered_set<name_t>& shapes_names);
-		bool Is_point_contained_by(Point point, name_t shape_name) const;
-		void Move_shape(name_t shape_name, coord_t dx, coord_t dy);
-		void Clear();
 		void Undo();
 		void Redo();
+		void Clear();
 		void Load(std::string filename);
 		void Save(std::string filename);
+		void Delete(const std::vector<name_t>& name);
+		void Add_segment(name_t name, Point x, Point y);
+		void Add_rectangle(name_t name, Point x, Point y);
+		bool Is_point_contained_by(Point point, name_t shape_name) const;
+		void Move_shape(name_t shape_name, coord_t dx, coord_t dy);
+		void Add_polygon(name_t name, const std::vector<Point>& vertices);
+		void Union(name_t union_name, const std::unordered_set<name_t>& shapes_names);
+		void Intersect(name_t inter_name, const std::unordered_set<name_t>& shapes_names);
 
 	private:
-		std::unordered_map<name_t, std::unique_ptr<IShape>> m_shapes;
 		std::vector<std::unique_ptr<Command>> m_command_history;
+		std::unordered_map<name_t, std::unique_ptr<IShape>> m_shapes;
 
 		template<typename T>
 		void Append_to_history(const T& cmd);
@@ -67,7 +78,10 @@ namespace TP4
 		template<typename Group_t>
 		void Create_group(const name_t& group_name, const std::unordered_set<name_t>& shapes_names);
 
-		//! Fonction ajoutant au registre de l'archive de serialisation les types dérivés de IShape. Cela permet à boost::serialization de gèrer le polymorphisme lors de la (de)serialisation
+		//----...
+
+		//! Fonction ajoutant au registre de l'archive de serialisation les types dérivés de IShape. 
+		//! Cela permet à boost::serialization de gèrer le polymorphisme lors de la (de)serialisation
 		template<typename Archive>
 		static void register_IShape_derived_types(Archive& ar)
 		{
@@ -125,7 +139,7 @@ namespace TP4
 	template<typename T>
 	void Scene::Append_to_history(const T& cmd)
 	{
-		m_command_history.push_back(std::make_unique<T>(cmd));
+		m_command_history.push_back(std::unique_ptr<T>(new T(cmd))); // C++ 14: std::make_unique<T>(cmd));
 	}
 
 	template<typename Group_t>
@@ -155,8 +169,9 @@ namespace TP4
 		}
 
 		// Add shape to m_shapes
-		m_shapes.emplace(group_name, std::make_unique<Group_t>(group_name, std::move(shapes)));
+		m_shapes.emplace(group_name, std::unique_ptr<Group_t>(new Group_t(group_name, std::move(shapes)))); // C++ 14: std::make_unique<Group_t>(group_name, std::move(shapes)));
 	}
 }
+#include "Serialization.h"
 
 #endif // SCENE_H

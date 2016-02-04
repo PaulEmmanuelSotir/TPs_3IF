@@ -6,17 +6,17 @@
 #ifndef GROUP_H
 #define GROUP_H
 
-#include <boost/serialization/split_member.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/unique_ptr.hpp>
+#include <string>
 
 #include "IShape.h"
 #include "Utils.h"
 
 // TODO: it might be desired to suppress the tracking of objects as it is known a priori that the application in question can never create duplicate objects. Serialization of pointers can be "fine tuned" via the specification of Class Serialization Traits as described in another section of this manual
 
+//----------------------------------------------------------- forward declarations
 namespace TP4
 {
+	//--------------------------------------- Serialized class forward declaration
 	template<bool is_union>
 	class Group;
 
@@ -40,14 +40,22 @@ namespace boost // C++ 17: namespace boost::serialization
 //! espace de nommage regroupant le code crée pour le TP4 de C++
 namespace TP4
 {
-	//! ...
+	using Shape_union = Group<true>;
+	using Shape_intersection = Group<false>;
+
+	//----------------------------------------------------------------------------
+	//! Classe représentant une intersection ou une union de formes. Le paramètre 
+	//! template 'is_union' est un booléen indiquant si il s'agit d'une union ou 
+	//! d'une intersection de fomres géomètriques.
+	//! La classe est serialisable grâce à boost::serialization.
+	//----------------------------------------------------------------------------
 	template<bool is_union>
 	class Group : public IShape
 	{
 	public:
 		using shape_vec_t = std::vector<std::unique_ptr<IShape>>;
 
-		Group(std::string name, shape_vec_t&& shapes);
+		Group(name_t name, shape_vec_t&& shapes);
 		Group(Group&&) = default;
 		Group& operator=(Group&&) = default;
 		Group(const Group&) = delete;
@@ -60,23 +68,19 @@ namespace TP4
 	protected:
 		shape_vec_t m_shapes;
 
-		template<class Archive>
-		inline void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & boost::serialization::make_nvp("IShape", boost::serialization::base_object<IShape>(*this));
-		}
-
 		friend class boost::serialization::access;
+
+		template<class Archive>
+		inline void serialize(Archive& ar, const unsigned int version);
 
 		template<class Archive, bool is_u>
 		friend void boost::serialization::save_construct_data(Archive& ar, const Group<is_u>* shape, const unsigned int file_version);
-
 		template<class Archive, bool is_u>
 		friend void boost::serialization::load_construct_data(Archive& ar, Group<is_u>* shape, const unsigned int file_version);
 	};
 
 	template<bool is_union>
-	Group<is_union>::Group(std::string name, shape_vec_t&& shapes)
+	Group<is_union>::Group(name_t name, shape_vec_t&& shapes)
 		: IShape(std::move(name)), m_shapes(std::move(shapes))
 	{ }
 
@@ -90,12 +94,17 @@ namespace TP4
 	template<bool is_union>
 	bool Group<is_union>::Is_contained(const Point& point) const
 	{
-		bool test = is_union;
-		// TODO: verifier que ça marche bien
 		for (auto& shape_ptr : m_shapes)
 			if ((!is_union) ^ shape_ptr->Is_contained(point))
 				return is_union;
 		return !is_union;
+	}
+
+	template<bool is_union>
+	template<class Archive>
+	inline void Group<is_union>::serialize(Archive& ar, const unsigned int version)
+	{
+		ar & boost::serialization::make_nvp("IShape", boost::serialization::base_object<IShape>(*this));
 	}
 }
 

@@ -5,10 +5,9 @@
 #include "Utils.h"
 #include "Command.h"
 
-
 namespace TP4
 {
-	std::unique_ptr<Segment> make_segment(std::string name, Point first_point, Point second_point)
+	std::unique_ptr<Segment> make_segment(name_t name, Point first_point, Point second_point)
 	{
 		if (name.empty() || first_point == second_point)
 			return nullptr;

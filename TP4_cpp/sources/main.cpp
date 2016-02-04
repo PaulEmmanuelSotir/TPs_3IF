@@ -8,20 +8,14 @@
 #include <fstream>
 #include <string>
 
-//#include <boost/archive/text_oarchive.hpp>
-//#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
+#include <boost/config.hpp>
 #include <boost/archive/archive_exception.hpp>
-#include <boost/serialization/unordered_set.hpp>
-#include <boost/serialization/unordered_map.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/utility.hpp>
 
 #include "Utils.h"
 #include "Scene.h"
 #include "Command.h"
+#include "Serialization_forward_declaration.h"
+#include "Serialization.h"
 
 namespace
 {
@@ -169,7 +163,7 @@ int main()
 					break;
 				}
 			}
-			catch (const std::range_error& e)
+			catch (const std::range_error&)
 			{
 				if (is_error_message_enabled)
 					std::cout << "Error: Invalid command" << std::endl;

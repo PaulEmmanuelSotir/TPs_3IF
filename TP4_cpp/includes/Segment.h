@@ -1,21 +1,24 @@
 #ifndef SEGMENT_H
 #define SEGMENT_H
 
-#include <ostream>
 #include <string>
-
-#include <boost/serialization/export.hpp>
 
 #include "Utils.h"
 #include "IShape.h"
 #include "Command.h"
 
-namespace TP4 { class Segment; }
+//----------------------------------------------------------- forward declarations
+namespace TP4
+{
+	//--------------------------------------- Serialized class forward declaration
+	class Segment;
+}
 
 namespace boost // C++ 17: namespace boost::serialization
 {
 	namespace serialization
 	{
+		//-------------------------------------- Serialization forward declaration
 		template<class Archive>
 		inline void save_construct_data(Archive& ar, const TP4::Segment* shape, const unsigned int file_version);
 
@@ -24,8 +27,14 @@ namespace boost // C++ 17: namespace boost::serialization
 	}
 }
 
+//! \namespace TP4
+//! espace de nommage regroupant le code crée pour le TP4 de C++
 namespace TP4
 {
+	//----------------------------------------------------------------------------
+	//! Classe représentant un segment constitué de deux points distincts.
+	//! La classe est serialisable grâce à boost::serialization.
+	//----------------------------------------------------------------------------
 	class Segment : public IShape
 	{
 	public:
@@ -34,34 +43,31 @@ namespace TP4
 		void Move(coord_t dx, coord_t dy) override;
 		bool Is_contained(const Point& point) const override;
 
-		/*void Serialize_to(const std::ostream& output_stream) const override;
-		void Deserialize_from(const std::istream& input_stream) override;*/
-
 	protected:
 		Point m_first_point = { 0U, 0U };
 		Point m_second_point = { 1U, 0U };
 
 		Segment(std::string&& name, Point&& first_point, Point&& second_point);
 
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version);
+		friend std::unique_ptr<Segment> make_segment(name_t name, Point first_point, Point second_point);
 
 		friend class boost::serialization::access;
-		friend std::unique_ptr<Segment> make_segment(std::string name, Point first_point, Point second_point);
 
+		template<class Archive>
+		void serialize(Archive& ar, const unsigned int version);
 		template<class Archive>
 		friend void boost::serialization::save_construct_data(Archive& ar, const Segment* shape, const unsigned int file_version);
 		template<class Archive>
 		friend void boost::serialization::load_construct_data(Archive& ar, Segment* shape, const unsigned int file_version);
 	};
 
+	std::unique_ptr<Segment> make_segment(name_t name, Point first_point, Point second_point);
+
 	template<class Archive>
 	void Segment::serialize(Archive& ar, const unsigned int version)
 	{
 		ar & boost::serialization::make_nvp("IShape", boost::serialization::base_object<IShape>(*this));
 	}
-
-	std::unique_ptr<Segment> make_segment(std::string name, Point first_point, Point second_point);
 }
 
 namespace boost

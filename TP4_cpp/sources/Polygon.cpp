@@ -10,13 +10,14 @@
 
 #include <math.h>
 #include <string>
+
 #include <boost/serialization/vector.hpp>
 
 #include "Utils.h"
 
 namespace TP4
 {
-	std::unique_ptr<Polygon> make_polygon(std::string name, std::vector<Point> vertices)
+	std::unique_ptr<Polygon> make_polygon(name_t name, std::vector<Point> vertices)
 	{
 		if (name.empty())
 			return nullptr;

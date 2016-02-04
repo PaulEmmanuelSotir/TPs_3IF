@@ -7,7 +7,7 @@
 
 namespace TP4
 {
-	std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner)
+	std::unique_ptr<Rectangle> make_rectangle(name_t name, Point top_left_corner, Point bottom_right_corner)
 	{
 		if (name.empty() || top_left_corner.first >= bottom_right_corner.first || top_left_corner.second <= bottom_right_corner.second)
 			return nullptr;

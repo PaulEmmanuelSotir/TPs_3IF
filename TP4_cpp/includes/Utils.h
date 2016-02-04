@@ -10,12 +10,7 @@
 #include <sstream>
 #include <string>
 
-#include <boost/serialization/utility.hpp>
-#include <boost/serialization/unordered_set.hpp>
-#include <boost/serialization/unordered_map.hpp>
 #include <boost/serialization/vector.hpp>
-#include <boost/serialization/unique_ptr.hpp>
-#include <boost/serialization/nvp.hpp>
 
 // On utilise la fonction intrinsèque __builtin_expect si disponnible
 #ifdef __GNUC__

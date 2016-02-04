@@ -7,9 +7,13 @@
 #define ISHAPE_H
 
 #include <boost/config.hpp>
+#include <boost/serialization/vector.hpp>
 #include <boost/serialization/utility.hpp>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/unique_ptr.hpp>
+#include <boost/serialization/split_free.hpp>
+#include <boost/serialization/unordered_set.hpp>
+#include <boost/serialization/unordered_map.hpp>
+#include <boost/serialization/assume_abstract.hpp>
 
 #include "Command.h"
 
@@ -28,19 +32,18 @@ namespace TP4
 		virtual bool Is_contained(const Point& point) const = 0;
 
 	protected:
-		explicit IShape(std::string&& name)
+		explicit IShape(name_t&& name)
 			: m_name(std::move(name))
 		{ }
 
-		std::string m_name;
+		name_t m_name;
 
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version) { }
+		template<typename Archive>
+		inline void serialize(Archive& ar, const unsigned int version) { }
 
 		friend class boost::serialization::access;
 	};
-
-	BOOST_SERIALIZATION_ASSUME_ABSTRACT(IShape);
 }
+#include "Serialization.h"
 
 #endif // ISHAPE_H

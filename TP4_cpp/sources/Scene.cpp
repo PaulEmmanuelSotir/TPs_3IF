@@ -61,7 +61,7 @@ namespace TP4
 		for (const auto& shape_name : shapes_names)
 		{
 			it_t it = m_shapes.find(shape_name);
-			if (it == std::cend(m_shapes))
+			if (it == std::end(m_shapes)) // C++ 14: std::cend
 				throw std::invalid_argument("One or more shape name is invalid");
 			shape_iterators.push_back(it);
 		}
@@ -87,7 +87,7 @@ namespace TP4
 	bool Scene::Is_point_contained_by(Point point, name_t shape_name) const
 	{
 		auto it = m_shapes.find(shape_name);
-		if (it == std::cend(m_shapes))
+		if (it == std::end(m_shapes)) // C++ 14: std::cend
 			throw std::invalid_argument("Invalid shape name");
 
 		return it->second->Is_contained(point);
@@ -96,7 +96,7 @@ namespace TP4
 	void Scene::Move_shape(name_t shape_name, coord_t dx, coord_t dy)
 	{
 		auto it = m_shapes.find(shape_name);
-		if (it == std::cend(m_shapes))
+		if (it == std::end(m_shapes)) // C++ 14: std::cend
 			throw std::invalid_argument("Invalid shape name");
 
 		it->second->Move(dx, dy);

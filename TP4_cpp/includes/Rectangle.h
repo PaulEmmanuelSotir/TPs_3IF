@@ -6,12 +6,18 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include <ostream>
+#include <string>
 
-#include "IShape.h"
 #include "Utils.h"
+#include "IShape.h"
+#include "Serialization_forward_declaration.h"
 
-namespace TP4 { class Rectangle; }
+//----------------------------------------------------------- forward declarations
+namespace TP4
+{
+	//--------------------------------------- Serialized class forward declaration
+	class Rectangle;
+}
 
 namespace boost // C++ 17: namespace boost::serialization
 {
@@ -29,6 +35,11 @@ namespace boost // C++ 17: namespace boost::serialization
 //! espace de nommage regroupant le code crée pour le TP4 de C++
 namespace TP4
 {
+	//----------------------------------------------------------------------------
+	//! Classe représentant un rectangle définit à partir de son coin superieur 
+	//! gauche et de son coin inferieur bas. La classe est serialisable grâce à 
+	//! boost::serialization.
+	//----------------------------------------------------------------------------
 	class Rectangle : public IShape
 	{
 	public:
@@ -41,28 +52,28 @@ namespace TP4
 		Point m_top_left_corner = { 0U, 1U };
 		Point m_bottom_right_corner = { 1U, 0U };
 
-		Rectangle(std::string&& name, Point&& top_left_corner, Point&& bottom_right_corner);
+		Rectangle(name_t&& name, Point&& top_left_corner, Point&& bottom_right_corner);
+
+		friend std::unique_ptr<Rectangle> make_rectangle(name_t name, Point top_left_corner, Point bottom_right_corner);
+
+		friend class boost::serialization::access;
 
 		template<class Archive>
 		void serialize(Archive& ar, const unsigned int version);
-
-		friend class boost::serialization::access;
 
 		template<class Archive>
 		friend void boost::serialization::save_construct_data(Archive& ar, const Rectangle* shape, const unsigned int file_version);
 		template<class Archive>
 		friend void boost::serialization::load_construct_data(Archive& ar, Rectangle* shape, const unsigned int file_version);
-
-		friend std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
 	};
+
+	std::unique_ptr<Rectangle> make_rectangle(name_t name, Point top_left_corner, Point bottom_right_corner);
 
 	template<class Archive>
 	void Rectangle::serialize(Archive& ar, const unsigned int version)
 	{
 		ar & boost::serialization::make_nvp("IShape", boost::serialization::base_object<IShape>(*this));
 	}
-
-	std::unique_ptr<Rectangle> make_rectangle(std::string name, Point top_left_corner, Point bottom_right_corner);
 }
 
 namespace boost

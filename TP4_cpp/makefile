@@ -1,7 +1,7 @@
 ############################################################################################
 ################################## GENERIC MAKEFILE ########################################
 ############################################################################################
-# TODO: g√rer les sous-dossiers / fichiers ayants le m√™mes noms dans des dossiers diff√©ren
+# TODO: g√rer les sous-dossiers / fichiers ayants le m√™mes noms dans des dossiers diff√©rts
 # TODO: g√rer les extentions .hpp, .cxx, ...
 
 # Debug mode (comment this line to build project in release mode)
@@ -38,9 +38,11 @@ DEBUGDIR = debug
 # Dependency files directory
 DEPDIR = dep
 # Libraries paths
-LIBS = #-l
+LIB_DIRS = /mingw64/lib
+# Library file names (e.g. '-lboost_serialization-mt')
+LIBS = -lboost_serialization-mt
 # List of include paths
-INCLUDES = ./$(INCDIR)
+INCLUDES = ./$(INCDIR) #"/c/Program Files (x86)/boost_1_60_0"
 
 ifdef DEBUG
 BUILD_PATH = ./$(OUTPUT_DIR)/$(DEBUGDIR)
@@ -82,9 +84,11 @@ help:
 # Build object files
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	@mkdir -p $(DEP_PATH)
-	$(CC) $(CPPFLAGS) $(DEBUGFLAGS) -I $(INCLUDES) $(LIBS) -MMD -MP -MF $(DEP_PATH)/$*.d -c $< -o $@
+	$(CC) $(CPPFLAGS) $(DEBUGFLAGS) -I $(INCLUDES) -MMD -MP -MF $(DEP_PATH)/$*.d -c $< -o $@
 
 # Build main target
 $(BUILD_PATH)/$(EXE_NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(BUILD_PATH)/$(EXE_NAME)
+	$(CC) -L $(LIB_DIRS) -o $(BUILD_PATH)/$(EXE_NAME) $(OBJS) $(LIBS)
+
+# -lboost_serialization
 
