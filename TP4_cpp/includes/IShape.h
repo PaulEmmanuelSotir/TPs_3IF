@@ -44,6 +44,5 @@ namespace TP4
 		friend class boost::serialization::access;
 	};
 }
-#include "Serialization.h"
 
 #endif // ISHAPE_H

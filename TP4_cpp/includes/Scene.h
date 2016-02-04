@@ -172,6 +172,5 @@ namespace TP4
 		m_shapes.emplace(group_name, std::unique_ptr<Group_t>(new Group_t(group_name, std::move(shapes)))); // C++ 14: std::make_unique<Group_t>(group_name, std::move(shapes)));
 	}
 }
-#include "Serialization.h"
 
 #endif // SCENE_H

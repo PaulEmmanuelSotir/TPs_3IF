@@ -10,7 +10,6 @@
 
 #include "Utils.h"
 #include "IShape.h"
-#include "Serialization_forward_declaration.h"
 
 //----------------------------------------------------------- forward declarations
 namespace TP4
