@@ -24,8 +24,8 @@ namespace TP4
 		{
 			Point p1, p2;
 
-			p1.first = vertices[0].first - vertices[vertices.size()].first;
-			p1.second = vertices[0].second - vertices[vertices.size()].second;
+			p1.first = vertices[0].first - vertices[vertices.size()-1].first;
+			p1.second = vertices[0].second - vertices[vertices.size() - 1].second;
 			p2.first = vertices[1].first - vertices[0].first;
 			p2.second = vertices[1].second - vertices[0].second;
 
@@ -95,4 +95,14 @@ namespace TP4
 	Polygon::Polygon(const std::vector<Point>&& vertices)
 		: vertices(std::move(vertices))
 	{ }
+
+	std::ostream& operator<<(std::ostream& flux, const Polygon& polygone)
+	{
+		flux << "{ ";
+		for (size_t i = 0; i < polygone.vertices.size(); ++i)
+			flux << "(" << polygone.vertices[i].first << ", " << polygone.vertices[i].second << (i == polygone.vertices.size()-1 ? ") " : "); ");
+		flux << "}";
+
+		return flux;
+	}
 }

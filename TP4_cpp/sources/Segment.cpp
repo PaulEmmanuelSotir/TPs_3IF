@@ -44,6 +44,12 @@ namespace TP4
 		return false;
 	}
 
+	std::ostream& operator<<(std::ostream& flux, const Segment& seg)
+	{
+		flux << "{ (" << seg.first_point.first << ", " << seg.second_point.first << "); (" << seg.second_point.first << ", " << seg.second_point.second << ") }";
+		return flux;
+	}
+
 	Segment::Segment(const Point&& first_point, const Point&& second_point)
 		: first_point(std::move(first_point)), second_point(std::move(second_point))
 	{ }

@@ -30,13 +30,16 @@ namespace TP4
 
 		Group() = default;
 		Group(shape_vec_t&& shapes);
-		Group(Group&&) = default;// TODO: default ou delete?
-		Group& operator=(Group&&) = default; // TODO: default ou delete?
+		Group(Group&&) = default;
+		Group& operator=(Group&&) = default;
 		Group(const Group&) = delete;
 		Group& operator=(const Group&) = delete;
 
 	private:
 		shape_vec_t shapes;
+
+		template<bool is_u>
+		friend std::ostream& operator<<(std::ostream& flux, const Group<is_u>& shape);
 
 		template<bool is_u>
 		friend Group<is_u> Move(const Group<is_u>& group, coord_t dx, coord_t dy);
@@ -62,6 +65,14 @@ namespace TP4
 	{ }
 
 	template<bool is_union>
+	std::ostream& operator<<(std::ostream& os, const Group<is_union>& shape)
+	{
+		os << (is_union ? "Union de " : "Intersection de " )<< shape.shapes.size() << " formes";
+		return os;
+	}
+
+
+	template<bool is_union>
 	Group<is_union> Move(const Group<is_union>& group, coord_t dx, coord_t dy)
 	{
 		typename Group<is_union>::shape_vec_t new_shapes;
@@ -80,6 +91,7 @@ namespace TP4
 				return is_union;
 		return !is_union;
 	}
+
 }
 
 #endif // !GROUP_H

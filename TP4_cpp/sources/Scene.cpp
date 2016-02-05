@@ -119,10 +119,17 @@ namespace TP4
 
 	void Scene::List()
 	{
-		const auto& current_shapes = m_shapes.current();
-		boost::archive::xml_oarchive archive(std::cout);
-		archive << boost::serialization::make_nvp("shapes", current_shapes);
-		// archive is closed when destructors are called
+		if (m_shapes.current().size() == 0)
+			std::cout << "Aucunes formes" << std::endl;
+		else
+		{
+			for (const auto& shape : m_shapes.current())
+			{
+				std::cout << "* " << shape.first << " :\t";
+				Print(shape.second);
+				std::cout << std::endl;
+			}
+		}
 	}
 
 	void Scene::Load(std::string filename)

@@ -33,6 +33,12 @@ namespace TP4
 			&& y >= shape.Get_bottom_right_corner().second;
 	}
 
+	std::ostream& operator<<(std::ostream& flux, const Rectangle& rect)
+	{
+		flux << "{ (" << rect.top_left_corner.first << ", " << rect.top_left_corner.first << "); (" << rect.bottom_right_corner.first << ", " << rect.bottom_right_corner.second << ") }";
+		return flux;
+	}
+
 	Rectangle::Rectangle(const Point&& top_left_corner, const Point&& bottom_right_corner)
 		: top_left_corner(std::move(top_left_corner)), bottom_right_corner(std::move(bottom_right_corner))
 	{ }

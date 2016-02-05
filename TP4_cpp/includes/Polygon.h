@@ -23,16 +23,21 @@ namespace TP4
 	struct Polygon
 	{
 		Polygon() = default;
+		Polygon& operator=(const Polygon&) = delete;
 	
 		std::vector<Point> Get_vertices() const
 		{
 			return vertices;
 		}
 
+		
+
 	private:
 		explicit Polygon(const std::vector<Point>&& vertices);
 
 		std::vector<Point> vertices;
+
+		friend std::ostream& operator<<(std::ostream &flux, const Polygon& polygone);
 
 		friend std::experimental::optional<Polygon> make_polygon(const std::vector<Point> vertices);
 

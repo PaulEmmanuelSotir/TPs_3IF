@@ -50,4 +50,9 @@ namespace TP4
 	{
 		return history_obj.m_self->polymorphic_move(dx, dy);
 	}
+
+	void Print(const History_shape& history_obj)
+	{
+		history_obj.m_self->polymorphic_print();
+	}
 }

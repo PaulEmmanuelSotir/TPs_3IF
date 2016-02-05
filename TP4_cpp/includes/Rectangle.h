@@ -24,6 +24,7 @@ namespace TP4
 	struct Rectangle
 	{
 		Rectangle() = default;
+		Rectangle& operator=(const Rectangle&) = delete;
 
 		Point Get_top_left_corner() const
 		{
@@ -35,11 +36,15 @@ namespace TP4
 			return bottom_right_corner;
 		}
 
+		
+
 	private:
 		Rectangle(const Point&& top_left_corner, const Point&& bottom_right_corner);
 
 		Point top_left_corner;
 		Point bottom_right_corner;
+
+		friend std::ostream& operator<<(std::ostream &flux, const Rectangle& rect);
 
 		friend std::experimental::optional<Rectangle> make_rectangle(const Point top_left_corner, const Point bottom_right_corner);
 		

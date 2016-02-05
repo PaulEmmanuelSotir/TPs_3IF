@@ -58,6 +58,7 @@ namespace TP4
 
 		friend bool Is_contained(const History_shape& history_obj, Point point);
 		friend History_shape Move(const History_shape& history_obj, coord_t dx, coord_t dy);
+		friend void Print(const History_shape& history_obj);
 
 	private:
 		struct shape_concept
@@ -65,6 +66,7 @@ namespace TP4
 			virtual ~shape_concept() = default;
 			virtual bool polymorphic_is_contained(Point point) const = 0;
 			virtual History_shape polymorphic_move(coord_t dx, coord_t dy) const = 0;
+			virtual void polymorphic_print() const = 0;
 
 		private:
 			friend class boost::serialization::access;
@@ -123,18 +125,6 @@ namespace TP4
 	History_shape Move(const History_shape& history_obj, coord_t dx, coord_t dy);
 }
 
-//----------------------------------------------------------- Forward declarations
-namespace boost
-{
-	namespace serialization
-	{
-		/*template<typename Archive, typename S>
-		inline void save_construct_data(Archive& ar, const TP4::History_shape::shape_model<S>* shape_mod, const unsigned int file_version);
-		template<typename Archive, typename S>
-		inline void load_construct_data(Archive& ar, TP4::History_shape::shape_model<S>* shape_mod, const unsigned int file_version);*/
-	}
-}
-
 //------------------------------------------ History_shape::shape_model inner type
 namespace TP4
 {
@@ -155,6 +145,11 @@ namespace TP4
 			return Move(shape, dx, dy);
 		}
 
+		void polymorphic_print() const override
+		{
+			std::cout << shape;
+		}
+
 		Shape_t shape;
 
 	private:
@@ -166,11 +161,6 @@ namespace TP4
 			ar & boost::serialization::make_nvp("shape_concept", boost::serialization::base_object<shape_concept>(*this))
 				& boost::serialization::make_nvp("shape", shape);
 		}
-
-		/*template<typename Archive, typename S>
-		friend void boost::serialization::save_construct_data(Archive& ar, const shape_model<S>* shape_mod, const unsigned int file_version);
-		template<typename Archive, typename S>
-		friend void boost::serialization::load_construct_data(Archive& ar, shape_model<S>* shape_mod, const unsigned int file_version);*/
 	};
 }
 

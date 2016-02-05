@@ -24,6 +24,7 @@ namespace TP4
 	struct Segment
 	{
 		Segment() = default;
+		Segment& operator=(const Segment&) = delete;
 
 		Point Get_first_point() const
 		{
@@ -35,11 +36,15 @@ namespace TP4
 			return second_point;
 		}
 
+
 	private:
 		Segment(const Point&& first_point, const Point&& second_point);
 
 		Point first_point;
 		Point second_point;
+
+		friend std::ostream& operator<<(std::ostream &flux, const Segment& seg);
+
 
 		friend std::experimental::optional<Segment> make_segment(const Point first_point, const Point second_point);
 

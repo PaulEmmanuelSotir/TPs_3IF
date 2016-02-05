@@ -44,12 +44,13 @@ namespace TP4
 		Scene& operator=(Scene&&) = default;
 		Scene& operator=(const Scene&) = delete;
 
-		//! @throws std::invalid_argument ...
 		void Undo();
 		void Redo();
 		void Clear();
 		void List();
+		//! @throws std::invalid_argument
 		void Load(std::string filename);
+		//! @throws std::invalid_argument
 		void Save(std::string filename);
 		void Delete(const std::vector<name_t>& name);
 		void Add_segment(name_t name, Point x, Point y);
