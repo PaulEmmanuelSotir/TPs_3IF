@@ -113,10 +113,7 @@ int main()
 				case TP4::command_type::LIST:
 				{
 					check_size(words, TP4::List_cmd::args_count);
-					// TODO: OVERLOAD << INSTEAD
-					//boost::archive::text_oarchive archive{ std::cout };
-					boost::archive::xml_oarchive archive{ std::cout };
-					archive << boost::serialization::make_nvp("scene", geometry_scene);
+					geometry_scene.List();
 					break;
 				}
 				case TP4::command_type::UNDO:

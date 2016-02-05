@@ -4,42 +4,47 @@
 
 #include "Utils.h"
 #include "Command.h"
+#include "optional.h"
 
 namespace TP4
 {
-	std::unique_ptr<Segment> make_segment(name_t name, Point first_point, Point second_point)
+	std::experimental::optional<Segment> make_segment(const Point first_point, const Point second_point)
 	{
-		if (name.empty() || first_point == second_point)
-			return nullptr;
-		return std::unique_ptr<Segment>(new Segment(std::move(name), std::move(first_point), std::move(second_point)));
+		if (first_point == second_point)
+			return std::experimental::nullopt;
+		return std::experimental::optional<Segment>(Segment(std::move(first_point), std::move(second_point)));
 	}
 
-	void Segment::Move(coord_t dx, coord_t dy)
+	Segment Move(const Segment& shape, coord_t dx, coord_t dy)
 	{
-		m_first_point.first += dx;
-		m_first_point.second += dy;
+		const Point first_point{ shape.first_point.first + dx, shape.first_point.second + dy };
+		const Point second_point{ shape.second_point.first + dx,  shape.second_point.second + dy };
 
-		m_second_point.first += dx;
-		m_second_point.second += dy;
+		return Segment(std::move(first_point), std::move(second_point));
 	}
 
-	bool Segment::Is_contained(const Point& point) const
+	bool Is_contained(const Segment& shape, Point point)
 	{
-		double cross_product = (m_second_point.first - m_first_point.first)*(point.second - m_first_point.second) - (point.first - m_first_point.first)*(m_second_point.second - m_first_point.second);
+		// TODO: definir ces opérations dans utils (produit vectoriel et scalaire) ?
+		double cross_product =	(shape.second_point.first - shape.first_point.first) * (point.second - shape.first_point.second)
+							 -	(point.first - shape.first_point.first) * (shape.second_point.second - shape.first_point.second);
 
 		if (cross_product == 0)
 		{
-			double produit_scalaire_un = (m_second_point.first - m_first_point.first)*(point.first - m_first_point.first) + (m_second_point.second - m_first_point.second)*(point.second - m_first_point.second);
-			double produit_scalaire_deux = (m_second_point.first - m_first_point.first)*(m_second_point.first - m_first_point.first) + (m_second_point.second - m_first_point.second)*(m_second_point.second - m_first_point.second);
+			double scalar_product1 =	(shape.second_point.first - shape.first_point.first) * (point.first - shape.first_point.first)
+								   +	(shape.second_point.second - shape.first_point.second) * (point.second - shape.first_point.second);
+			
+			double scalar_product2 =	(shape.second_point.first - shape.first_point.first) * (shape.second_point.first - shape.first_point.first)
+								   +	(shape.second_point.second - shape.first_point.second) * (shape.second_point.second - shape.first_point.second);
 
-			if (produit_scalaire_un >= 0 && produit_scalaire_un < produit_scalaire_deux)
+			if (scalar_product1 >= 0 && scalar_product1 < scalar_product2)
 				return true;
 		}
 
 		return false;
 	}
 
-	Segment::Segment(std::string&& name, Point&& first_point, Point&& second_point)
-		: IShape(std::move(name)), m_first_point(std::move(first_point)), m_second_point(std::move(second_point))
+	Segment::Segment(const Point&& first_point, const Point&& second_point)
+		: first_point(std::move(first_point)), second_point(std::move(second_point))
 	{ }
 }

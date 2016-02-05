@@ -7,117 +7,122 @@
 #include "Segment.h"
 #include "Polygon.h"
 #include "rectangle.h"
+#include "Serializable_shape_history.h"
 
 namespace TP4
 {
 	void Scene::Add_segment(name_t name, Point x, Point y)
 	{
-		auto segment = static_cast<std::unique_ptr<IShape>>(make_segment(name, x, y));
+		m_shapes.commit();
+		auto segment = make_segment(x, y);
 		if (!segment)
 			throw std::invalid_argument("Invalid segment");
 
 		bool inserted;
-		std::tie(std::ignore, inserted) = m_shapes.emplace(name, std::move(segment));
+		std::tie(std::ignore, inserted) = m_shapes.current().emplace(std::move(name), segment.value());
 		if (!inserted)
 			throw std::invalid_argument("Shape name already existing");
-
-		Append_to_history(Add_segment_cmd(std::move(name), x, y));
 	}
 
 	void Scene::Add_rectangle(name_t name, Point x, Point y)
 	{
-		auto rectangle = static_cast<std::unique_ptr<IShape>>(make_rectangle(name, x, y));
+		m_shapes.commit();
+		auto rectangle = make_rectangle(x, y);
 		if (!rectangle)
 			throw std::invalid_argument("Invalid rectangle");
 
 		bool inserted;
-		std::tie(std::ignore, inserted) = m_shapes.emplace(name, std::move(rectangle));
+		std::tie(std::ignore, inserted) = m_shapes.current().emplace(std::move(name), rectangle.value());
 		if (!inserted)
 			throw std::invalid_argument("Shape name already existing");
-
-		Append_to_history(Add_rectangle_cmd(std::move(name), x, y));
 	}
 
 	void Scene::Add_polygon(name_t name, const std::vector<Point>& vertices)
 	{
-		auto polygon = static_cast<std::unique_ptr<IShape>>(make_polygon(name, vertices));
+		m_shapes.commit();
+		auto polygon = make_polygon(vertices);
 		if (!polygon)
 			throw std::invalid_argument("Invalid polygon");
 
 		bool inserted;
-		std::tie(std::ignore, inserted) = m_shapes.emplace(name, std::move(polygon));
+		std::tie(std::ignore, inserted) = m_shapes.current().emplace(std::move(name), polygon.value());
 		if (!inserted)
 			throw std::invalid_argument("Shape name already existing");
-
-		Append_to_history(Add_polygon_cmd(std::move(name), vertices));
 	}
 
 	void Scene::Delete(const std::vector<name_t>& shapes_names)
 	{
-		using it_t = decltype(m_shapes)::const_iterator;
+		m_shapes.commit();
+		using it_t = History_state::const_iterator;
+		auto& current_shapes = m_shapes.current();
 
 		std::vector<it_t> shape_iterators;
 
 		for (const auto& shape_name : shapes_names)
 		{
-			it_t it = m_shapes.find(shape_name);
-			if (it == std::end(m_shapes)) // C++ 14: std::cend
+			it_t it = current_shapes.find(shape_name);
+			if (it == std::end(current_shapes)) // C++ 14: std::cend
 				throw std::invalid_argument("One or more shape name is invalid");
 			shape_iterators.push_back(it);
 		}
 
 		for (auto& it : shape_iterators)
-			m_shapes.erase(it);
-
-		Append_to_history(Delete_cmd(shapes_names));
+			current_shapes.erase(it);
 	}
 
 	void Scene::Union(name_t union_name, const std::unordered_set<name_t>& shapes_names)
 	{
 		Create_group<Shape_union>(union_name, shapes_names);
-		Append_to_history(Union_cmd(std::move(union_name), shapes_names));
 	}
 
 	void Scene::Intersect(name_t inter_name, const std::unordered_set<name_t>& shapes_names)
 	{
 		Create_group<Shape_intersection>(inter_name, shapes_names);
-		Append_to_history(Inter_cmd(std::move(inter_name), shapes_names));
 	}
 
 	bool Scene::Is_point_contained_by(Point point, name_t shape_name) const
 	{
-		auto it = m_shapes.find(shape_name);
-		if (it == std::end(m_shapes)) // C++ 14: std::cend
+		const auto& current_shapes = m_shapes.current();
+		auto it = current_shapes.find(shape_name);
+		if (it == std::end(current_shapes)) // C++ 14: std::cend
 			throw std::invalid_argument("Invalid shape name");
 
-		return it->second->Is_contained(point);
+		return Is_contained(it->second, point);
 	}
 
 	void Scene::Move_shape(name_t shape_name, coord_t dx, coord_t dy)
 	{
-		auto it = m_shapes.find(shape_name);
-		if (it == std::end(m_shapes)) // C++ 14: std::cend
+		m_shapes.commit();
+		auto& current_shapes = m_shapes.current();
+		auto it = current_shapes.find(shape_name);
+		if (it == std::end(current_shapes)) // C++ 14: std::cend
 			throw std::invalid_argument("Invalid shape name");
 
-		it->second->Move(dx, dy);
-
-		Append_to_history(Move_cmd(std::move(shape_name), dx, dy));
+		Move(it->second, dx, dy);
 	}
 
 	void Scene::Clear()
 	{
-		m_shapes.clear();
-		Append_to_history(Clear_cmd());
+		m_shapes.commit();
+		m_shapes.current().clear();
 	}
 
 	void Scene::Undo()
 	{
-		// ...
+		m_shapes.undo();
 	}
 
 	void Scene::Redo()
 	{
-		// ...
+		m_shapes.redo();
+	}
+
+	void Scene::List()
+	{
+		const auto& current_shapes = m_shapes.current();
+		boost::archive::xml_oarchive archive(std::cout);
+		archive << boost::serialization::make_nvp("shapes", current_shapes);
+		// archive is closed when destructors are called
 	}
 
 	void Scene::Load(std::string filename)
@@ -128,23 +133,26 @@ namespace TP4
 			throw std::invalid_argument("Wrong file name");
 
 		boost::archive::xml_iarchive archive(in_fstream);
-		archive >> boost::serialization::make_nvp("scene", *this);
-		// archive and stream are closed when destructors are called
 
-		Append_to_history(Load_cmd(std::move(filename)));
+		m_shapes.commit();
+		auto& current_shapes = m_shapes.current();
+		current_shapes.clear();
+
+		archive >> boost::serialization::make_nvp("shapes", current_shapes);
+		// archive and stream are closed when destructors are called
 	}
 
 	void Scene::Save(std::string filename)
 	{
+		const auto& current_shapes = m_shapes.current();
+
 		std::ofstream out_fstream;
 		out_fstream.open(filename);
 		if (!out_fstream.is_open())
 			throw std::invalid_argument("Wrong file name");
 
 		boost::archive::xml_oarchive archive(out_fstream);
-		archive << boost::serialization::make_nvp("scene", *this);
+		archive << boost::serialization::make_nvp("shapes", current_shapes);
 		// archive and stream are closed when destructors are called
-
-		Append_to_history(Save_cmd(std::move(filename)));
 	}
 }

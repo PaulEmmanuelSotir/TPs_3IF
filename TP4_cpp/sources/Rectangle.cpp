@@ -1,37 +1,39 @@
 #include "rectangle.h"
 
 #include <string>
-#include <iostream>
 
-#include "Polygon.h"
+#include "Utils.h"
+#include "optional.h"
 
 namespace TP4
 {
-	std::unique_ptr<Rectangle> make_rectangle(name_t name, Point top_left_corner, Point bottom_right_corner)
+	std::experimental::optional<Rectangle> make_rectangle(const Point top_left_corner, const Point bottom_right_corner)
 	{
-		if (name.empty() || top_left_corner.first >= bottom_right_corner.first || top_left_corner.second <= bottom_right_corner.second)
-			return nullptr;
-		return std::unique_ptr<Rectangle>(new Rectangle(std::move(name), std::move(top_left_corner), std::move(bottom_right_corner)));
+		if (top_left_corner.first >= bottom_right_corner.first || top_left_corner.second <= bottom_right_corner.second)
+			return std::experimental::nullopt;
+		return std::experimental::optional<Rectangle>(Rectangle(std::move(top_left_corner), std::move(bottom_right_corner)));
 	}
 
-	void Rectangle::Move(coord_t dx, coord_t dy)
+	Rectangle Move(const Rectangle& shape, coord_t dx, coord_t dy)
 	{
-		m_top_left_corner.first += dx;
-		m_top_left_corner.second += dy;
+		const Point top_left{ shape.top_left_corner.first + dx, shape.top_left_corner.second + dy };
+		const Point bottom_right{ shape.bottom_right_corner.first + dx,  shape.bottom_right_corner.second + dy };
 
-		m_bottom_right_corner.first += dx;
-		m_bottom_right_corner.second += dy;
+		return Rectangle(std::move(top_left), std::move(bottom_right));
 	}
 
-	bool Rectangle::Is_contained(const Point& point) const
+	bool Is_contained(const Rectangle& shape, Point point)
 	{
 		auto x = point.first;
 		auto y = point.second;
 
-		return (x >= m_top_left_corner.first && x <= m_bottom_right_corner.first && y <= m_top_left_corner.second && y >= m_bottom_right_corner.second);
+		return x >= shape.Get_top_left_corner().first 
+			&& x <= shape.Get_bottom_right_corner().first
+			&& y <= shape.Get_top_left_corner().second
+			&& y >= shape.Get_bottom_right_corner().second;
 	}
 
-	Rectangle::Rectangle(std::string&& name, Point&& top_left_corner, Point&& bottom_right_corner)
-		: IShape(std::move(name)), m_top_left_corner(std::move(top_left_corner)), m_bottom_right_corner(std::move(bottom_right_corner))
+	Rectangle::Rectangle(const Point&& top_left_corner, const Point&& bottom_right_corner)
+		: top_left_corner(std::move(top_left_corner)), bottom_right_corner(std::move(bottom_right_corner))
 	{ }
 }

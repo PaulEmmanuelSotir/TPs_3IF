@@ -8,9 +8,7 @@
 
 #include <tuple>
 #include <string>
-
-#include <boost/serialization/unordered_map.hpp>
-#include <boost/serialization/unordered_set.hpp>
+#include <unordered_set>
 
 #include "Utils.h"
 
@@ -22,7 +20,6 @@ namespace TP4
 	enum class command_type { ADD_SEGMENT, ADD_RECTANGLE, ADD_POLYGON, UNION, INTER, HIT, DELETE, MOVE, LIST, UNDO, REDO, LOAD, SAVE, CLEAR, ENABLE_ERROR_MESSAGES, DISABLE_ERROR_MESSAGES, EXIT };
 	std::string underlying(command_type command);
 	command_type overlying(const std::string& name);
-
 
 	//! Classe abstraite représentant une commande (permet le polymorphisme sur n'importe quel type de commandes)
 	class Command
@@ -41,7 +38,7 @@ namespace TP4
 		~Command_spec() override = default;
 
 		static const size_t args_count = sizeof...(Args);
-		static const command_type command_type = type;
+		static const command_type cmd_type = type;
 	private:
 		std::tuple<Args...> m_command_arguments;
 	};
@@ -93,4 +90,4 @@ namespace TP4
 	using Exit_cmd = Command_spec<command_type::EXIT>;
 }
 
-#endif // COMMAND_H
+#endif // !COMMAND_H
