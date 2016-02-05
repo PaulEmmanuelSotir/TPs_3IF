@@ -66,7 +66,7 @@ int main()
 				}
 				case TP4::command_type::UNION:
 				{
-					check_size(words, TP4::Union_cmd::args_count + 1, true);
+					check_size(words, 3U, true);
 					std::unordered_set<TP4::name_t> shape_names;
 					for (size_t i = 2; i < words.size(); ++i)
 						if (!shape_names.insert(std::move(words[i])).second)
@@ -78,7 +78,7 @@ int main()
 				}
 				case TP4::command_type::INTER:
 				{
-					check_size(words, TP4::Inter_cmd::args_count + 1, true);
+					check_size(words, 3U, true);
 					std::unordered_set<TP4::name_t> shape_names;
 					for (size_t i = 2; i < words.size(); ++i)
 						if (!shape_names.insert(std::move(words[i])).second)
@@ -106,47 +106,47 @@ int main()
 					break;
 				}
 				case TP4::command_type::MOVE:
-					check_size(words, TP4::Move_cmd::args_count);
+					check_size(words, 3U);
 					geometry_scene.Move_shape(std::move(words[1]), move_str_to_coord_t(words[2]), move_str_to_coord_t(words[3]));
 					std::cout << "OK" << std::endl;
 					break;
 				case TP4::command_type::LIST:
 				{
-					check_size(words, TP4::List_cmd::args_count);
+					check_size(words, 0U);
 					geometry_scene.List();
 					break;
 				}
 				case TP4::command_type::UNDO:
-					check_size(words, TP4::Undo_cmd::args_count);
+					check_size(words, 0U);
 					geometry_scene.Undo();
 					std::cout << "OK" << std::endl;
 					break;
 				case TP4::command_type::REDO:
-					check_size(words, TP4::Redo_cmd::args_count);
+					check_size(words, 0U);
 					geometry_scene.Redo();
 					std::cout << "OK" << std::endl;
 					break;
 				case TP4::command_type::LOAD:
 				{
-					check_size(words, TP4::Load_cmd::args_count);
+					check_size(words, 1U);
 					geometry_scene.Load(std::move(words[1]));
 					std::cout << "OK" << std::endl;
 					break;
 				}
 				case TP4::command_type::SAVE:
 				{
-					check_size(words, TP4::Save_cmd::args_count);
+					check_size(words, 1U);
 					geometry_scene.Save(std::move(words[1]));
 					std::cout << "OK" << std::endl;
 					break;
 				}
 				case TP4::command_type::CLEAR:
-					check_size(words, TP4::Clear_cmd::args_count);
+					check_size(words, 0U);
 					geometry_scene.Clear();
 					std::cout << "OK" << std::endl;
 					break;
 				case TP4::command_type::EXIT:
-					check_size(words, TP4::Exit_cmd::args_count);
+					check_size(words, 0U);
 					return EXIT_SUCCESS;
 				case TP4::command_type::ENABLE_ERROR_MESSAGES:
 					is_error_message_enabled = true;
