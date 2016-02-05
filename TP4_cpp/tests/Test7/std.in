@@ -1,0 +1,8 @@
+EN_ERROR_MESS
+S seg1 0 1 2 3
+R rec 0 1 1 0
+S seg2 3 1 2 0
+HIT seg2 3 1
+HIT recoo 7 8
+HIT rec 0 1
+EXIT

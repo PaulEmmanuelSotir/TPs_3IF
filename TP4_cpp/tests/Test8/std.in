@@ -1,0 +1,10 @@
+EN_ERROR_MESS
+S seg 0 1 2 3
+R rzc 0 1 1 0
+OI inter s r
+S seg 3 1 2 0
+SAVE test.xml
+CLEAR
+LOAD test.xml
+LIST
+EXIT

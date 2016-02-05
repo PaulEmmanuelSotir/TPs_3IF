@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE boost_serialization>
+<boost_serialization signature="serialization::archive" version="14">
+<shapes class_id="0" tracking_level="0" version="0">
+	<shape_count>2</shape_count>
+	<name>rzc</name>
+	<history_shape class_id="1" tracking_level="0" version="0">
+		<shape_ptr class_id="7" tracking_level="0" version="1">
+			<px class_id="2" tracking_level="1" version="0" object_id="_0">
+				<shape_concept class_id="8" tracking_level="0" version="0"></shape_concept>
+				<shape class_id="9" tracking_level="0" version="0">
+					<top_left_corner class_id="10" tracking_level="0" version="0">
+						<first>0</first>
+						<second>1</second>
+					</top_left_corner>
+					<bottom_right_corner>
+						<first>1</first>
+						<second>0</second>
+					</bottom_right_corner>
+				</shape>
+			</px>
+		</shape_ptr>
+	</history_shape>
+	<name>seg</name>
+	<history_shape>
+		<shape_ptr>
+			<px class_id="3" tracking_level="1" version="0" object_id="_1">
+				<shape_concept></shape_concept>
+				<shape class_id="11" tracking_level="0" version="0">
+					<first_point>
+						<first>0</first>
+						<second>1</second>
+					</first_point>
+					<second_point>
+						<first>2</first>
+						<second>3</second>
+					</second_point>
+				</shape>
+			</px>
+		</shape_ptr>
+	</history_shape>
+</shapes>
+</boost_serialization>
+
