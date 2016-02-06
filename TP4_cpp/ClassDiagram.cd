@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TP4::Scene">
+    <Position X="3.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgYAAAAAABAAAgAAEAAABEAEAIAAAACYgARBAAAI=</HashCode>
+      <FileName>src\Scene.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="TP4::Shape_history">
+    <Position X="5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAEIAAAAAAAAAEAAAAAgAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Serializable_shape_history.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TP4::Segment">
+    <Position X="7.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAEAIAAAAAAAAAAgAAAhgAAAAAA=</HashCode>
+      <FileName>src\Segment.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TP4::Rectangle">
+    <Position X="10.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQAAAAAAAAAAAAAAIAgAAAAgAAAAAAAgAAAAgAA=</HashCode>
+      <FileName>src\Rectangle.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TP4::Polygon">
+    <Position X="9" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACIAAAAAAQAAAAAAAgAAAAACA=</HashCode>
+      <FileName>src\Polygon.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TP4::Group&lt;is_union&gt;">
+    <Position X="12.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAIAAAAAAAAAAAAAAgAAAABAA=</HashCode>
+      <FileName>src\Group.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="TP4::command_type">
+    <Position X="14.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAgAAwAAAAQAAACBACIAAAIAAAAABQEAAAABAgIE=</HashCode>
+      <FileName>src\Command.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
