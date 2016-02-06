@@ -4,20 +4,27 @@ nKo=0
 nTotal=0
 nMis=0
 
-for i in Test*
+if [ "$1" = "" ]
+then
+	Directory="."
+else
+	Directory="$1"
+fi
+
+for i in $Directory/Test*
 do
-  ./test.sh $i results.csv
-  result=$?
-  if [ $result -eq 0 ]
-  then
-    let "nKo=$nKo+1"
-  elif [ $result -eq 1 ]
-  then
-    let "nOk=$nOk+1"
-  else
-    let "nMis=$nMis+1"
-  fi
-  let "nTotal=$nTotal+1"
+	$Directory/test.sh $i results.csv
+	result=$?
+	if [ $result -eq 0 ]
+	then
+		let "nKo=$nKo+1"
+	elif [ $result -eq 1 ]
+	then
+		let "nOk=$nOk+1"
+	else
+		let "nMis=$nMis+1"
+	fi
+	let "nTotal=$nTotal+1"
 done
 
 echo "Passed tests     : $nOk"
