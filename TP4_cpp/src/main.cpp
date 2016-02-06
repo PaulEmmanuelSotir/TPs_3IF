@@ -14,6 +14,7 @@
 #include "Utils.h"
 #include "Scene.h"
 #include "Command.h"
+#include "Benchmark.h"
 
 namespace
 {
@@ -142,20 +143,26 @@ int main()
 				}
 				case TP4::command_type::CLEAR:
 					check_size(words, 0U);
-					geometry_scene.Clear();
+					geometry_scene.ClearCurrentState();
 					std::cout << "OK" << std::endl;
 					break;
-				case TP4::command_type::EXIT:
-					check_size(words, 0U);
-					return EXIT_SUCCESS;
 				case TP4::command_type::ENABLE_ERROR_MESSAGES:
+					check_size(words, 0U);
 					is_error_message_enabled = true;
 					std::cout << "OK" << std::endl;
 					break;
 				case TP4::command_type::DISABLE_ERROR_MESSAGES:
+					check_size(words, 0U);
 					is_error_message_enabled = false;
 					std::cout << "OK" << std::endl;
 					break;
+				case TP4::command_type::BENCHMARK:
+					check_size(words, 1U, true);
+					TP4::execute_benchmarks(geometry_scene, std::stoi(words[1]));
+					break;
+				case TP4::command_type::EXIT:
+					check_size(words, 0U);
+					return EXIT_SUCCESS;
 				}
 			}
 			catch (const std::range_error&)

@@ -8,7 +8,7 @@
 
 #include <unordered_map>
 #include <ostream>
-#include <memory>
+#include <boost/smart_ptr/shared_ptr.hpp> //#include <memory>
 #include <vector>
 
 #include <boost/config.hpp>
@@ -53,7 +53,7 @@ namespace TP4
 		//! Constructeur de la classe History_shape à partir d'une forme de type T.
 		//! Ce constructeur permet en autre la convertion implicite d'un type validant le concept de forme vers 'History_shape'.
 		template<typename Shape_t>
-		History_shape(Shape_t shape) : m_self(std::make_shared<shape_model<Shape_t>>(std::move(shape)))
+		History_shape(Shape_t shape) : m_self(boost::shared_ptr<shape_model<Shape_t>>(new shape_model<Shape_t>(std::move(shape)))) // Boost 60: std::make_shared<shape_model<Shape_t>>(std::move(shape))
 		{ }
 
 		friend bool Is_contained(const History_shape& history_obj, Point point);
@@ -81,8 +81,12 @@ namespace TP4
 		struct shape_model;
 
 		//! Pointeur vers une forme quelquonque (par le quel les appels polymorphiques sont faits)
-		//! @remarks C'est un shared_ptr car ce pointeur est propiétaire de la forme pointée et 
-		std::shared_ptr<const shape_concept> m_self;
+		//! @remarks C'est un shared_ptr car ce pointeur est propiétaire de la forme pointée et que
+		//! l'historique peut contenir des mêmes formes à des moments différents (plusieurs shared_ptr
+		//! pointent alors vers la même forme)
+		//! @remarks on utilise boost::shared_ptr plutot que std::shared_ptr car la version de boost 
+		//! installée en IF ne supporte pas la serialisation de std::shared_ptr.
+		boost::shared_ptr<const shape_concept> m_self;
 
 		friend class boost::serialization::access;
 
@@ -115,6 +119,7 @@ namespace TP4
 		void commit();
 		void undo();
 		void redo();
+		void clear();
 
 	private:
 		std::vector<History_state> m_history = { History_state() };

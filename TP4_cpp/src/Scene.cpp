@@ -101,7 +101,12 @@ namespace TP4
 		Move(it->second, dx, dy);
 	}
 
-	void Scene::Clear()
+	void Scene::ClearAll()
+	{
+		m_shapes.clear();
+	}
+
+	void Scene::ClearCurrentState()
 	{
 		m_shapes.commit();
 		m_shapes.current().clear();

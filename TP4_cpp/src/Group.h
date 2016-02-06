@@ -57,7 +57,7 @@ namespace TP4
 	};
 
 	using Shape_union = Group<true>;
-	using Shape_intersection = Group<false>;
+	using Shape_intersection = Group<false>; 
 
 	template<bool is_union>
 	Group<is_union>::Group(shape_vec_t&& shapes)

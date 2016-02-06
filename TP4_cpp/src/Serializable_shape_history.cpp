@@ -19,8 +19,12 @@ namespace TP4
 			if(std::distance(m_current_state, std::end(m_history)) > 1)
 				m_history.erase(m_current_state + 1, std::end(m_history));
 			m_history.push_back(m_history.back());
-			if (m_history.size() > 2)
-				m_history.erase(std::begin(m_history));
+
+			// Delete old history state (user can undo from 20 to 40 actions)
+			// We delete old history state by groups of 20 for perfomance reasons
+			if (m_history.size() > 40U)
+				m_history.erase(std::begin(m_history), std::begin(m_history) + 20U);
+
 			m_current_state = std::end(m_history)-1;
 		}
 	}
@@ -39,6 +43,12 @@ namespace TP4
 			++m_current_state;
 		else
 			throw std::logic_error("Cannot redo anymore.");
+	}
+
+	void Shape_history::clear()
+	{
+		m_history = { History_state() };
+		m_current_state = std::begin(m_history);
 	}
 
 	bool Is_contained(const History_shape& history_obj, Point point)

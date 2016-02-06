@@ -5,7 +5,7 @@
 # TODO: g√rer les extentions .hpp, .cxx, ...
 
 # Debug mode (comment this line to build project in release mode)
-DEBUG = true
+#DEBUG = true
 
 # Compiler
 CC = g++
@@ -23,12 +23,12 @@ SRC_EXT = cpp
 # TODO allow .hpp header files
 HDR_EXT = h
 
-TEST_SCRIPT = ./tests/test.sh
+TEST_SCRIPT = ./tests/mktest.sh ./tests
 
 # Source directory
-SRCDIR = sources
+SRCDIR = src
 # Headers directory
-INCDIR = includes
+INCDIR = src
 # Main output directory
 OUTPUT_DIR = bin
 # Release output directory
@@ -62,7 +62,7 @@ OBJS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
 # List of dependency files
 DEPS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(DEP_PATH)/%.d)
 
-.PHONY: all clean rebuild help
+.PHONY: all clean rebuild help test
 
 all: $(BUILD_PATH)/$(EXE_NAME)
 
@@ -80,7 +80,11 @@ help:
 	@echo '	clean 	...'
 	@echo '	rebuild ...'
 	@echo '	help	...'
-	
+
+test:
+	@cd tests/
+	$(TEST_SCRIPT)
+
 # Build object files
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 	@mkdir -p $(DEP_PATH)

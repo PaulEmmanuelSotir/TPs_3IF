@@ -46,7 +46,8 @@ namespace TP4
 
 		void Undo();
 		void Redo();
-		void Clear();
+		void ClearAll();
+		void ClearCurrentState();
 		void List();
 		//! @throws std::invalid_argument
 		void Load(std::string filename);
