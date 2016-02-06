@@ -106,6 +106,19 @@ namespace TP4
 			}
 		});
 
+		// Save and load 'repetition_count/40' XML files 
+		repetition_count /= 40;
+		benchmark("XML serialisation of " + std::to_string(40*repetition_count) + " intersections", repetition_count, [&geometry_scene, repetition_count]()
+		{
+			unsigned int i = repetition_count + 1;
+			while (--i)
+			{
+				geometry_scene.Save("test.xml");
+				geometry_scene.ClearCurrentState();
+				geometry_scene.Load("test.xml");
+			}
+		});
+
 		geometry_scene.ClearAll();
 
 		std::cout << std::endl << std::endl << "Press ENTER to continue...";
@@ -132,7 +145,7 @@ namespace TP4
 
 			std::cout << "Executed benchmark " << repeat_count << " times" << std::endl;
 			std::cout << "Total execution time : " << std::chrono::duration<double, std::milli>(diff).count() << " ms" << std::endl;
-			std::cout << "Execution mean time : \x1b[32m" << std::chrono::duration<double, std::nano>(diff / repeat_count).count() << " ns \x1b[0m(nano seconds)" << std::endl << std::endl;
+			std::cout << "Execution mean time : \x1b[32m" << std::chrono::duration<double, std::micro>(diff / repeat_count).count() << " us \x1b[0m(micro seconds)" << std::endl << std::endl;
 			std::cout << "############################################################";
 		}
 	}
