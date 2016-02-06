@@ -106,9 +106,9 @@ namespace TP4
 			}
 		});
 
-		// Save and load 'repetition_count/40' XML files 
+		// Save and load 'repetition_count/40' XML files
 		repetition_count /= 40;
-		benchmark("XML serialisation of " + std::to_string(40*repetition_count) + " intersections", repetition_count, [&geometry_scene, repetition_count]()
+		benchmark("XML serialisation of " + std::to_string(40 * repetition_count) + " intersections", repetition_count, [&geometry_scene, repetition_count]()
 		{
 			unsigned int i = repetition_count + 1;
 			while (--i)
