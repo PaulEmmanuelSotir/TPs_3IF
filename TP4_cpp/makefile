@@ -38,7 +38,7 @@ DEBUGDIR = debug
 # Dependency files directory
 DEPDIR = dep
 # Libraries paths
-LIB_DIRS = /mingw64/lib
+LIB_DIRS = -L /mingw64/lib
 # Library file names (e.g. '-lboost_serialization-mt')
 LIBS = -lboost_serialization-mt
 # List of include paths
@@ -92,7 +92,7 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 
 # Build main target
 $(BUILD_PATH)/$(EXE_NAME): $(OBJS)
-	$(CC) -L $(LIB_DIRS) -o $(BUILD_PATH)/$(EXE_NAME) $(OBJS) $(LIBS)
+	$(CC) $(LIB_DIRS) -o $(BUILD_PATH)/$(EXE_NAME) $(OBJS) $(LIBS)
 
 # -lboost_serialization
 
