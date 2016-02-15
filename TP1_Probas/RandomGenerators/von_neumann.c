@@ -1,5 +1,4 @@
 #include "von_neumann.h"
-#include "von_neumann.h"
 
 int Dec_size(word32 e)
 {
@@ -14,14 +13,16 @@ int Dec_size(word32 e)
 
 word16 Von_Neumann(word16 *next)
 {
-	word32 result = (*next)*(*next);
-	int pds = (Dec_size(result) - 4) / 2;
-
-	for (int i = 0; i < pds; ++i)
+	word32 result;
+	int pds, i;
+	result = (*next)*(*next);
+	pds = Dec_size(result);
+	pds = (pds - 4) / 2;
+	for (i = 0; i < pds; i++)
+	{
 		result = (result) / 10;
-
-	result %= 10000;
+	}
+	result = result % 10000;
 	*next = result;
-
-	return static_cast<word16>(result);
+	return ((word16)result);
 }

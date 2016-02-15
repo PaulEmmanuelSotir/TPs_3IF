@@ -403,14 +403,13 @@ static const u32 rcon[31] = { 0,
 	0xc5000000, 0x91000000
 };
 
-void KeyExpansion(u32* Key_ex, const u32* Key)
-{
+void KeyExpansion(u32* Key_ex, const u32* Key) {
 	for (uf8 i = 0; i != NK; i++)
 		Key_ex[i] = Key[i];
 
 	u32 tmp;
 
-	for (uf32 i = NK; i < NB*(NR + 1); i++) { // Erreur dans les indices !!
+	for (uf32 i = NK; i < NB*(NR + 1); i++) {
 		tmp = Key_ex[i - 1];
 		if (i%NK == 0) {
 			tmp = (T4[(u8)(tmp >> 24)] & 0x000000FF)
@@ -431,8 +430,7 @@ void KeyExpansion(u32* Key_ex, const u32* Key)
 	}
 }
 
-void Round(u32* r, const u32* x, const u32* Key_ex)
-{
+void Round(u32* r, const u32* x, const u32* Key_ex) {
 	for (uf8 j = 0; j != NB; j++)
 		r[j] = T0[(u8)(x[j] >> 24)]
 		^ T1[(u8)(x[(j + C1) % NB] >> 16)]
@@ -441,32 +439,22 @@ void Round(u32* r, const u32* x, const u32* Key_ex)
 		^ Key_ex[j];
 }
 
-void memxor(u32* dest, const u32* src)
-{
+void memxor(u32* dest, const u32* src) {
 	for (uf8 i = 0; i != NB; i++)
 		dest[i] ^= src[i];
 }
 
-void memmask(u8* dest, const u8 mask)
-{
+void memmask(u8* dest, const u8 mask) {
 	for (uf8 i = 0; i != 4 * NB; i++)
 		dest[i] &= mask;
 }
 
-void memrem(u8* dest, const u8 pat)
-{
+void memrem(u8* dest, const u8 pat) {
 	for (uf8 i = 0; i != 4 * NB; i++)
 		dest[i] = (dest[i] == pat ? 0xFF : 0x00);
 }
 
-
-/*
-void init_rand(u32* r, const size_t nb){
-	fread(r,sizeof(u32),nb,frand);
-}*/
-
-void init_rand(u32* key, u32* plain, const size_t nk, const size_t nb, int params)
-{
+void init_rand(u32* key, u32* plain, const size_t nk, const size_t nb, int params) {
 	int i;
 
 	for (i = 0; i < nk; i++)
@@ -474,10 +462,10 @@ void init_rand(u32* key, u32* plain, const size_t nk, const size_t nb, int param
 
 	for (i = 0; i < nb; i++)
 		plain[i] = ((rand() + rand() * 7 + 13 * i + 321651 * i)) << i ^ ((rand() + rand() * 7 + 13 * i + 346541 * i)) >> i + params & 0xFFFFFFFF;
+
 }
 
-u32 AES(u32* Px, const u32* Kex)
-{
+u32 AES(u32* Px, const u32* Kex) {
 	u32 R1x[NB];
 	u32 R2x[NB];
 
@@ -497,5 +485,4 @@ u32 AES(u32* Px, const u32* Kex)
 	memcpy(Px, R1x, NB*sizeof(u32));
 
 	return R1x[0];
-
 }
