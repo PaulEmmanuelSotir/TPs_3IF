@@ -32,11 +32,11 @@ double Runs(generator_array* data);
 
 //--------------------------------------------------------------------------------------------- MAIN
 
-int main()
+int main(int argc, char *argv[])
 {
 	srand(rdtsc());
 
-	// Ouverture du fichier de resultat des tests
+	// Ouverture du fichier de resultat des tests des générateurs d'aléatoire
 	FILE* fichier = fopen("../_test_results.csv", "w");
 	if (fichier == NULL)
 		return -1;
@@ -65,22 +65,61 @@ int main()
 
 	fclose(fichier);
 
-	// Test de la fonction f_inversion (distribution de f avec la méthode d'inversion)
-	struct timeval tps1, tps2;
-	volatile double test;
-	gettimeofday(&tps1, NULL);
-	for (size_t i = 0; i < 3000; ++i)
-		test = f_inversion();
-	gettimeofday(&tps2, NULL);
-	printf("Temps d'execution du calcul de 3000 valeurs de la distribution f (inversion): %ld us\n", tps2.tv_usec - tps1.tv_usec);
+	if (argc == 1) //----------------------------------- Test des fonctions simulant une loi de distribution f
+	{
+		double f_distrib_inv[3000], f_distrib_rej[3000];
 
-	// Test de la fonction f_inversion (distribution de f avec la méthode par rejet)
-	gettimeofday(&tps1, NULL);
-	for (size_t i = 0; i < 3000; ++i)
-		test = f_rejet();
-	gettimeofday(&tps2, NULL);
-	printf("Temps d'execution du calcul de 3000 valeurs de la distribution f (rejet): %ld us\n", tps2.tv_usec - tps1.tv_usec);
+		// Test de la fonction f_inversion (distribution de f avec la méthode d'inversion)
+		struct timeval tps1, tps2;
+		gettimeofday(&tps1, NULL);
+		for (size_t i = 0; i < 3000; ++i)
+			f_distrib_inv[i] = f_inversion();
+		gettimeofday(&tps2, NULL);
+		printf("Temps d'execution du calcul de 3000 valeurs de la distribution f (inversion): %ld us\n", tps2.tv_usec - tps1.tv_usec);
 
+		// Test de la fonction f_inversion (distribution de f avec la méthode par rejet)
+		struct timeval tps3, tps4;
+		gettimeofday(&tps3, NULL);
+		for (size_t i = 0; i < 3000; ++i)
+			f_distrib_rej[i] = f_rejet();
+		gettimeofday(&tps4, NULL);
+		printf("Temps d'execution du calcul de 3000 valeurs de la distribution f (rejet): %ld us\n", tps4.tv_usec - tps3.tv_usec);
+	
+		// Ouverture du fichier où l'on vas enregister les distributions de f obtenues
+		FILE* fichier_f = fopen("../_distributions_f.csv", "w");
+		if (fichier_f == NULL)
+			return -1;
+
+		fprintf(fichier, "inversion, rejet\n");
+		for (size_t i = 0; i < 3000; ++i)
+			fprintf(fichier, "%lf, %lf\n", f_distrib_inv[i], f_distrib_rej[i]);
+
+		fclose(fichier_f);
+	}
+	else if (argc == 2) //----------------------------------- File d'attente MM1
+	{
+		double lambda = 12.0 / 60;
+		file_attente fa = FileMM1(lambda, 20.0 / 60, 3 * 60);
+		fprint(&fa, "../_file_mm1.csv");
+
+		// Calcul de l'évolution de la liste d'attante MM1
+		evolution evol = get_evolution(&fa, 3 * 60);
+		fprint_evol(&evol, "../_evolution.csv");
+
+		// Affichage du nombre moyen de client dans le système et du temps moyen de présence
+		double E_N = get_number_mean(&evol);
+		double E_W = get_time_mean(&fa, &evol);
+		printf("Nombre moyen de clients dans la file : E(N) = %lf clients\n", E_N);
+		printf("Temps moyen de présence d'un client dans la file : E(W) = %lf min\n", E_W);
+		printf("D'ou, lambda * E(W) = %lf\n", lambda * E_W);
+	}
+	else if (argc == 3) //-----------------------------------File d'attente MMN
+	{
+		// Création et enregistrement d'une file M/M/N avec n = 2
+		double lambda = 12.0 / 60;
+		file_attente mm2 = FileMMN(lambda, 20.0 / 60, 3 * 60, 2);
+		fprint(&mm2, "../_file_mm2.csv");
+	}
 
 	return 0;
 }

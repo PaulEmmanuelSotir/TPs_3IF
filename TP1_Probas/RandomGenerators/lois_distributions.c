@@ -12,6 +12,7 @@
 
 //----------------------------------------------------------------------------- LOIS DE DISTRIBUTION
 
+// Loi uniforme
 double Alea()
 {
 	static double n = 4294967296; // 2^32
@@ -40,14 +41,17 @@ double f_inversion()
 double f_rejet()
 {
 	static double n = 4294967296; // 2^32
-	static double c = 2.0 / (log(2)*log(2));
+	static double c = 2.0 / 0.48045301391820139; // 2/log(2)^2
 
-	double U, Y;
+	double U, Y; // Deux variables issues de deux lois de probabilitées uniformes indépendantes
+	double f;
 	do
 	{
 		U = 1 / 2.0 + generate_aes() / n;
 		Y = 1 / 2.0 + generate_twister() / n;
 
-	} while (0/*U > f(Y) / (c * g(Y))*/); // TODO: complèter
-	return 0;//Y;
+		f = c * log(1 + Y) / (1 + Y); // Calcul de f(Y), avec Y toujours compris entre 0 et 1
+	} while (U <= f / (c * Y)); // On tire de nouvelles valeures tant que la condition n'est pas vérifiée (rejet)
+
+	return Y; // Y suit alors la loi de probabilitées decrite par f
 }
