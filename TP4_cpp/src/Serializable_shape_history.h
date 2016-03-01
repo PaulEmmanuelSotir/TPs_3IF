@@ -56,6 +56,8 @@ namespace TP4
 		History_shape(Shape_t shape) : m_self(boost::shared_ptr<shape_model<Shape_t>>(new shape_model<Shape_t>(std::move(shape)))) // Boost 60: std::make_shared<shape_model<Shape_t>>(std::move(shape))
 		{ }
 
+		History_shape clone() const;
+
 		friend bool Is_contained(const History_shape& history_obj, Point point);
 		friend History_shape Move(const History_shape& history_obj, coord_t dx, coord_t dy);
 		friend void Print(const History_shape& history_obj);
@@ -67,6 +69,7 @@ namespace TP4
 			virtual bool polymorphic_is_contained(Point point) const = 0;
 			virtual History_shape polymorphic_move(coord_t dx, coord_t dy) const = 0;
 			virtual void polymorphic_print() const = 0;
+			virtual History_shape polymorphic_clone() const = 0;
 
 		private:
 			friend class boost::serialization::access;
@@ -153,6 +156,11 @@ namespace TP4
 		void polymorphic_print() const override
 		{
 			std::cout << shape;
+		}
+
+		History_shape polymorphic_clone() const override
+		{
+			return shape;
 		}
 
 		Shape_t shape;

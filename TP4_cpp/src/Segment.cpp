@@ -29,7 +29,7 @@ namespace TP4
 		double cross_product =	(shape.second_point.first - shape.first_point.first) * (point.second - shape.first_point.second)
 							 -	(point.first - shape.first_point.first) * (shape.second_point.second - shape.first_point.second);
 
-		if (cross_product == 0)
+		if (abs(cross_product) < 0.001)
 		{
 			double scalar_product1 =	(shape.second_point.first - shape.first_point.first) * (point.first - shape.first_point.first)
 								   +	(shape.second_point.second - shape.first_point.second) * (point.second - shape.first_point.second);
@@ -37,7 +37,7 @@ namespace TP4
 			double scalar_product2 =	(shape.second_point.first - shape.first_point.first) * (shape.second_point.first - shape.first_point.first)
 								   +	(shape.second_point.second - shape.first_point.second) * (shape.second_point.second - shape.first_point.second);
 
-			if (scalar_product1 >= 0 && scalar_product1 < scalar_product2)
+			if (scalar_product1 > -0.001 && scalar_product1 < scalar_product2)
 				return true;
 		}
 
@@ -46,7 +46,7 @@ namespace TP4
 
 	std::ostream& operator<<(std::ostream& flux, const Segment& seg)
 	{
-		flux << "{ (" << seg.first_point.first << ", " << seg.second_point.first << "); (" << seg.second_point.first << ", " << seg.second_point.second << ") }";
+		flux << "{ (" << seg.first_point.first << ", " << seg.first_point.second << "); (" << seg.second_point.first << ", " << seg.second_point.second << ") }";
 		return flux;
 	}
 

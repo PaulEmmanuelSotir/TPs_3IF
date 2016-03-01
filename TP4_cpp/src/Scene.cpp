@@ -98,7 +98,7 @@ namespace TP4
 		if (it == std::end(current_shapes)) // C++ 14: std::cend
 			throw std::invalid_argument("Invalid shape name");
 
-		Move(it->second, dx, dy);
+		it->second = Move(it->second, dx, dy);
 	}
 
 	void Scene::ClearAll()

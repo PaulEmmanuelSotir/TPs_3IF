@@ -51,6 +51,11 @@ namespace TP4
 		m_current_state = std::begin(m_history);
 	}
 
+	History_shape History_shape::clone() const
+	{
+		return m_self->polymorphic_clone();
+	}
+
 	bool Is_contained(const History_shape& history_obj, Point point)
 	{
 		return history_obj.m_self->polymorphic_is_contained(std::move(point));

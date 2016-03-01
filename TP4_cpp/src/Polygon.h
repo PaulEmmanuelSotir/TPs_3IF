@@ -30,8 +30,6 @@ namespace TP4
 			return vertices;
 		}
 
-		
-
 	private:
 		explicit Polygon(const std::vector<Point>&& vertices);
 

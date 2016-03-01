@@ -82,22 +82,15 @@ namespace TP4
 			throw std::invalid_argument("Shape name already existing");
 
 		// Trouve les formes concernées et vérifie qu'il n'y a pas de duplicats
+		std::vector<History_shape> shapes;
 		for (const auto& shape_name : shapes_names)
 		{
 			auto it = current_shapes.find(shape_name);
 			if (it == std::end(current_shapes))
 				throw std::invalid_argument("One or more shape name is invalid");
-			shapes_its.push_back(it);
+			shapes.emplace_back(it->second.clone());
 		}
-
-		// Transfert l'ownership des formes vers le groupe
-		std::vector<History_shape> shapes;
-		for (auto& it : shapes_its)
-		{
-			shapes.emplace_back(std::move(it->second));
-			current_shapes.erase(it);
-		}
-
+		
 		// Add shape to current history state
 		current_shapes.emplace(group_name, Group_t(std::move(shapes)));
 	}

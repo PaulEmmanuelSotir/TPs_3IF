@@ -35,7 +35,7 @@ namespace TP4
 
 	std::ostream& operator<<(std::ostream& flux, const Rectangle& rect)
 	{
-		flux << "{ (" << rect.top_left_corner.first << ", " << rect.top_left_corner.first << "); (" << rect.bottom_right_corner.first << ", " << rect.bottom_right_corner.second << ") }";
+		flux << "{ (" << rect.top_left_corner.first << ", " << rect.top_left_corner.second << "); (" << rect.bottom_right_corner.first << ", " << rect.bottom_right_corner.second << ") }";
 		return flux;
 	}
 

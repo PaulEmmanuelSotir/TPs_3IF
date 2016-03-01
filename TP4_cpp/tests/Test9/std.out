@@ -6,5 +6,5 @@ Error: Shape name already existing
 OK
 OK
 OK
-* seg : { (0, 2); (2, 3) }
-* rzc : { (0, 0); (1, 0) }
+* seg : { (0, 1); (2, 3) }
+* rzc : { (0, 1); (1, 0) }

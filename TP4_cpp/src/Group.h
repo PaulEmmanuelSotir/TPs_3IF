@@ -32,7 +32,7 @@ namespace TP4
 		Group(shape_vec_t&& shapes);
 		Group(Group&&) = default;
 		Group& operator=(Group&&) = default;
-		Group(const Group&) = delete;
+		Group(const Group&);
 		Group& operator=(const Group&) = delete;
 
 	private:
@@ -63,6 +63,14 @@ namespace TP4
 	Group<is_union>::Group(shape_vec_t&& shapes)
 		: shapes(std::move(shapes))
 	{ }
+
+	template<bool is_union>
+	Group<is_union>::Group(const Group& g)
+	{
+		shapes.reserve(g.shapes.size());
+		for (const auto& shape : g.shapes)
+			shapes.emplace_back(shape.clone());
+	}
 
 	template<bool is_union>
 	std::ostream& operator<<(std::ostream& os, const Group<is_union>& shape)
