@@ -1,0 +1,15 @@
+CREATE OR REPLACE TRIGGER SUPP_EMPLOYE 
+BEFORE DELETE ON Employes  
+FOR EACH ROW
+DECLARE
+  isReferenced NUMBER;
+BEGIN
+  SELECT COUNT(*) INTO isReferenced
+  FROM Commandes
+  WHERE NO_EMPLOYE = :OLD.NO_EMPLOYE;
+  
+  if(isReferenced != 0)
+  THEN
+    RAISE_APPLICATION_ERROR(-20002, 'Commande existante pour NO_EMPLOYE !');
+  END IF;
+END;
