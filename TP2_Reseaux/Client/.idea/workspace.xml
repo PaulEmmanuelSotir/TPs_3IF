@@ -10,15 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eda4b964-775c-4915-b0da-f61da99fab79" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users" afterPath="$PROJECT_DIR$/users" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Reseau/Client/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../TP1_Reseau/Client/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/messages" afterPath="$PROJECT_DIR$/messages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/controller/Chat_controller.java" afterPath="$PROJECT_DIR$/src/Client/controller/Chat_controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/controller/Groups_controller.java" afterPath="$PROJECT_DIR$/src/Client/controller/Groups_controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/controller/Login_controller.java" afterPath="$PROJECT_DIR$/src/Client/controller/Login_controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP3_cpp/sources/main.cpp" afterPath="$PROJECT_DIR$/../../TP3_cpp/sources/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP_Fourier/transfo_Fourier_discrete.m" afterPath="$PROJECT_DIR$/../../TP_Fourier/transfo_Fourier_discrete.m" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_Probas/ResultAnalysisNotebook.ipynb" afterPath="$PROJECT_DIR$/../../TP1_Probas/ResultAnalysisNotebook.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../TP1_SI/dessins.svg" afterPath="$PROJECT_DIR$/../../TP1_SI/dessins.svg" />
     </list>
     <ignored path="Client.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -103,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/src/Client/controller/Chat_controller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="116" column="32" selection-start-line="112" selection-start-column="7" selection-end-line="116" selection-end-column="32" />
+              <caret line="116" column="7" selection-start-line="112" selection-start-column="0" selection-end-line="116" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setDAL#0;class#Chat_controller#0" expanded="false" />
@@ -118,14 +111,14 @@
       </file>
       <file leaf-file-name="groups_view.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Client/view/groups_view.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.2">
+            <state vertical-scroll-proportion="0.0">
               <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
               <folding />
             </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -133,9 +126,8 @@
         <entry file="file://$PROJECT_DIR$/../Server/src/Server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="83" column="32" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+              <caret line="83" column="7" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
               <folding>
-                <element signature="imports" expanded="false" />
                 <element signature="method#finalize#0;class#Server#0" expanded="false" />
                 <element signature="method#on_user_disconnected#0;class#Server#0" expanded="false" />
                 <element signature="method#CreateUser#0;class#Server#0" expanded="false" />
@@ -238,7 +230,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -392,6 +383,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -878,19 +870,19 @@
       <workItem from="1451936622983" duration="14699000" />
       <workItem from="1451996101601" duration="421000" />
       <workItem from="1451998118589" duration="12536000" />
+      <workItem from="1457304971872" duration="763000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119011000" />
+    <option name="totallyTimeSpent" value="119774000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29386893" sideWeight="0.50208336" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -898,7 +890,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33826637" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17083333" sideWeight="0.49577168" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17083333" sideWeight="0.49577168" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -906,6 +898,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12604167" sideWeight="0.50422835" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31501058" sideWeight="0.49791667" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1000,19 +993,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19716775">
           <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/view/newAccount_view.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.381818">
           <caret line="92" column="26" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_66/javafx-src.zip!/javafx/stage/Stage.java">
@@ -1191,7 +1183,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="210" column="12" selection-start-line="210" selection-start-column="12" selection-end-line="210" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1199,7 +1190,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3328125">
           <caret line="875" column="15" selection-start-line="875" selection-start-column="15" selection-end-line="875" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1213,9 +1203,8 @@
     <entry file="file://$PROJECT_DIR$/../Server/src/Server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="83" column="32" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+          <caret line="83" column="7" selection-start-line="83" selection-start-column="7" selection-end-line="83" selection-end-column="7" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="method#finalize#0;class#Server#0" expanded="false" />
             <element signature="method#on_user_disconnected#0;class#Server#0" expanded="false" />
             <element signature="method#CreateUser#0;class#Server#0" expanded="false" />
@@ -1274,9 +1263,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14716#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1284,10 +1270,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0140625">
           <caret line="197" column="32" selection-start-line="197" selection-start-column="23" selection-end-line="197" selection-end-column="32" />
-          <folding>
-            <element signature="e#6875#6876#0" expanded="true" />
-            <element signature="e#6936#6937#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1295,7 +1277,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33224222">
           <caret line="383" column="27" selection-start-line="383" selection-start-column="24" selection-end-line="383" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1303,52 +1284,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="564" column="22" selection-start-line="564" selection-start-column="22" selection-end-line="564" selection-end-column="22" />
-          <folding>
-            <element signature="e#23515#23516#0" expanded="true" />
-            <element signature="e#23563#23564#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/view/login_view.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5019455">
           <caret line="69" column="46" selection-start-line="69" selection-start-column="46" selection-end-line="69" selection-end-column="46" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_66/javafx-src.zip!/javafx/geometry/Insets.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1113801">
           <caret line="77" column="11" selection-start-line="77" selection-start-column="11" selection-end-line="77" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/view/chat_view.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.3846154">
           <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/view/groups_view.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.2">
+        <state vertical-scroll-proportion="0.0">
           <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/Socket_DAL.java">
@@ -1373,7 +1349,7 @@
     <entry file="file://$PROJECT_DIR$/src/Client/controller/Chat_controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="116" column="32" selection-start-line="112" selection-start-column="7" selection-end-line="116" selection-end-column="32" />
+          <caret line="116" column="7" selection-start-line="112" selection-start-column="0" selection-end-line="116" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setDAL#0;class#Chat_controller#0" expanded="false" />
