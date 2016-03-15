@@ -599,9 +599,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="148.0178"
-     inkscape:cy="267.34077"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="330.74833"
+     inkscape:cy="122.39316"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2720,36 +2720,6 @@
          id="tspan5897"
          sodipodi:role="line">PARTICIPANTS</tspan></text>
     <g
-       style="fill:#00d4aa;fill-opacity:1"
-       id="g5899"
-       transform="matrix(0.58902869,0,0,0.58902869,-12.74197,220.97058)">
-      <text
-         sodipodi:linespacing="125%"
-         id="text5901"
-         y="66.290771"
-         x="97.991074"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00d4aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#00d4aa;fill-opacity:1"
-           y="66.290771"
-           x="97.991074"
-           id="tspan5903"
-           sodipodi:role="line">'IF</tspan></text>
-      <text
-         transform="matrix(0,-1,1,0,0,0)"
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:6.21101999px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#00d4aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="-66.428116"
-         y="104.17657"
-         id="text5905"
-         sodipodi:linespacing="125%"><tspan
-           sodipodi:role="line"
-           id="tspan5907"
-           x="-66.428116"
-           y="104.17657"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#00d4aa;fill-opacity:1">COLLECT</tspan></text>
-    </g>
-    <g
        transform="matrix(0.64085055,0,0,0.64085055,76.152471,60.979601)"
        id="g5909"
        style="fill:#536c67;fill-opacity:1">
@@ -3536,36 +3506,6 @@
            x="-66.428116"
            id="tspan4415-3"
            sodipodi:role="line">COLLECT</tspan></text>
-    </g>
-    <g
-       style="fill:#536c67;fill-opacity:1"
-       id="g6541"
-       transform="matrix(0.64085055,0,0,0.64085055,76.152471,60.979601)">
-      <text
-         sodipodi:linespacing="125%"
-         id="text6543"
-         y="66.290771"
-         x="97.991074"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0088aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#0088aa;fill-opacity:1"
-           y="66.290771"
-           x="97.991074"
-           id="tspan6545"
-           sodipodi:role="line">'IF</tspan></text>
-      <text
-         transform="matrix(0,-1,1,0,0,0)"
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:6.21101999px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#6f918a;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="-66.428116"
-         y="104.17657"
-         id="text6547"
-         sodipodi:linespacing="125%"><tspan
-           sodipodi:role="line"
-           id="tspan6549"
-           x="-66.428116"
-           y="104.17657"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#6f918a;fill-opacity:1">COLLECT</tspan></text>
     </g>
   </g>
 </svg>
