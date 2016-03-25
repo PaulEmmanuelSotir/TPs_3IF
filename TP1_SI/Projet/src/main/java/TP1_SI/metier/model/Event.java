@@ -27,6 +27,18 @@ public class Event implements Serializable {
     private Activite activite;
     private List<Adherent> adherents;
     private Lieu lieu;
+    private boolean complet;
+    
+    public Event ()
+    {
+        
+    }
+    
+    public Event (Date date, Activite activite, Adherent adherent){
+        this.activite = activite;
+        this.date = date;
+        this.adherents.set(0, adherent);
+    } 
     
     public Long getId() {
         return id;
@@ -66,6 +78,40 @@ public class Event implements Serializable {
 
     public void setLieu(Lieu lieu) {
         this.lieu = lieu;
+    }
+    
+    public boolean getComplet(){
+       return this.complet;
+    }
+    
+    public void setComplet(){
+       this.complet = true;
+    }
+    
+    public List<Adherent> getAdherentsEquipe1(){
+        if(activite.isParEquipe())
+        {
+            List<Adherent> equipe_1 = null ;
+            for (int i=0 ; i<this.adherents.size() ; i+=2)
+            {
+                equipe_1.add(adherents.get(i));
+            }
+            return equipe_1;
+        }
+        return null;
+    }
+    
+    public List<Adherent> getAdherentsEquipe2(){
+        if(activite.isParEquipe())
+        {
+            List<Adherent> equipe_2 = null ;
+            for (int i=1 ; i<this.adherents.size() ; i+=2)
+            {
+                equipe_2.add(adherents.get(i));
+            }
+            return equipe_2;
+        }
+        return null;
     }
     
     @Override

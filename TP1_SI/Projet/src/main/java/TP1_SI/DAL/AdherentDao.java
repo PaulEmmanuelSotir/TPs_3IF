@@ -40,6 +40,23 @@ public class AdherentDao {
         return adherent;
     }
     
+    public Adherent findByMail (String mail) throws Throwable {
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        List<Adherent> adherents = null;
+        try {
+             Query q = em.createQuery("SELECT a FROM Adherent a WHERE mail='"+mail+"'");
+             adherents = (List<Adherent>) q.getResultList();
+        }
+        catch(Exception e) {
+            throw e;
+        }
+        
+        if(adherents.size() == 1)
+           return adherents.get(0);
+        
+        return null;
+    }
+    
     public List<Adherent> findAll() throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Adherent> adherents = null;

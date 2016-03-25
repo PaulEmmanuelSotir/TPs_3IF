@@ -16,7 +16,11 @@ public class Main {
     public static void main(String[] arg)
     {
         JpaUtil.creerEntityManager();
-         
+        
+        ConsoleConnexionView connexion_view = new ConsoleConnexionView();
+        connexion_view.run();
+        
+        /*
         AdherentDao adherent_dao = new AdherentDao();
         Adherent adherent = new Adherent("joey", "tim", "3 avenue Albert Einstein, 69100 VILLEURBANNE, FRANCE", "xdgszg@sdgs.com");
         Adherent adherent2 = new Adherent("joeyf8", "tsdim", "484 avenue Albert Einstein, 691500 VILLEURBANNE, FRANCE", "xdgsfzg@sdgs.com");
@@ -30,7 +34,7 @@ public class Main {
         
         try
         {
-            /*JpaUtil.ouvrirTransaction();
+            JpaUtil.ouvrirTransaction();
             adherent_dao.create(adherent);
             adherent_dao.create(adherent2);
             lieu_dao.create(l);
@@ -53,12 +57,12 @@ public class Main {
             System.out.println(adherent_dao.findAll());
             
             System.out.println("Activite: ");
-            System.out.println(ativite_dao.findAll());*/
+            System.out.println(ativite_dao.findAll());
         }
         catch(Throwable e)
         {
             
-        }
+        }*/
         
         JpaUtil.fermerEntityManager();
     }

@@ -22,11 +22,13 @@ public class Adherent implements Serializable {
     public Adherent()
     { }
 
-    public Adherent(String nom, String prenom, String adresse, String mail) {
+    public Adherent(String nom, String prenom, String adresse, String mail, LatLng coordonnees) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.adresse = adresse;
+        this.lat = coordonnees.lat;
+        this.lng = coordonnees.lng;
     }
 
     public Long getId() {
