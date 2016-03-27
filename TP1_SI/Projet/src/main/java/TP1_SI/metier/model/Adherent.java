@@ -1,12 +1,16 @@
 package TP1_SI.metier.model;
 
 import com.google.maps.model.LatLng;
+
+import javax.persistence.Id;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
+/**
+ * @author B3330
+ */
 @Entity
 public class Adherent implements Serializable {
     @Id
@@ -19,8 +23,8 @@ public class Adherent implements Serializable {
     private Double lat;
     private Double lng;
 
-    public Adherent()
-    { }
+    public Adherent() {
+    }
 
     public Adherent(String nom, String prenom, String adresse, String mail, LatLng coordonnees) {
         this.nom = nom;
@@ -54,11 +58,11 @@ public class Adherent implements Serializable {
     public Double getLatitude() {
         return lat;
     }
-    
+
     public Double getLongitude() {
         return lng;
     }
-    
+
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -82,22 +86,20 @@ public class Adherent implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return (id != null ? id.hashCode() : 0);
     }
 
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Adherent))
             return false;
-            
+
         Adherent other = (Adherent) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
             return false;
         return true;
     }
-    
+
     @Override
     public String toString() {
         return "Adherent{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", adresse=" + adresse + ", longitude=" + lng + ", latitude=" + lat + '}';

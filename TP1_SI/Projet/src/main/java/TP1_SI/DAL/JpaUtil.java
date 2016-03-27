@@ -2,10 +2,10 @@ package TP1_SI.DAL;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
+import javax.persistence.EntityManagerFactory;
 
 /**
  * Cette classe fournit des méthodes statiques utiles pour accéder aux
@@ -17,7 +17,7 @@ import javax.persistence.RollbackException;
  */
 public class JpaUtil {
 
-  // *************************************************************************************
+    // *************************************************************************************
     // * TODO: IMPORTANT -- Adapter le nom de l'Unité de Persistance (cf. persistence.xml) *
     // *************************************************************************************
     /**
@@ -99,7 +99,7 @@ public class JpaUtil {
      * Valide la transaction courante sur l'instance courante de Entity Manager.
      * <br/><strong>À utiliser uniquement au niveau Service.</strong>
      *
-     * @exception RollbackException lorsque le <em>commit</em> n'a pas réussi.
+     * @throws RollbackException lorsque le <em>commit</em> n'a pas réussi.
      */
     public static void validerTransaction() throws RollbackException {
         log("commit transaction");

@@ -1,21 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP1_SI.metier.model;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import java.io.Serializable;
+import javax.persistence.Id;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
- *
- * @author pesotir
+ * @author B3330
  */
 @Entity
 public class Event implements Serializable {
@@ -28,18 +22,17 @@ public class Event implements Serializable {
     private List<Adherent> adherents;
     private Lieu lieu;
     private boolean complet;
-    
-    public Event ()
-    {
-        
+
+    public Event() {
+
     }
-    
-    public Event (Date date, Activite activite, Adherent adherent){
+
+    public Event(Date date, Activite activite, Adherent adherent) {
         this.activite = activite;
         this.date = date;
         this.adherents.set(0, adherent);
-    } 
-    
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,7 +40,7 @@ public class Event implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public Date getDate() {
         return date;
     }
@@ -55,7 +48,7 @@ public class Event implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-    
+
     public Activite getActivite() {
         return activite;
     }
@@ -63,7 +56,7 @@ public class Event implements Serializable {
     public void setActivite(Activite activite) {
         this.activite = activite;
     }
-    
+
     public List<Adherent> getAdherents() {
         return adherents;
     }
@@ -71,7 +64,7 @@ public class Event implements Serializable {
     public void setAdherents(List<Adherent> adherents) {
         this.adherents = adherents;
     }
-    
+
     public Lieu getLieu() {
         return lieu;
     }
@@ -79,46 +72,40 @@ public class Event implements Serializable {
     public void setLieu(Lieu lieu) {
         this.lieu = lieu;
     }
-    
-    public boolean getComplet(){
-       return this.complet;
+
+    public boolean getComplet() {
+        return this.complet;
     }
-    
-    public void setComplet(){
-       this.complet = true;
+
+    public void setComplet() {
+        this.complet = true;
     }
-    
-    public List<Adherent> getAdherentsEquipe1(){
-        if(activite.isParEquipe())
-        {
-            List<Adherent> equipe_1 = null ;
-            for (int i=0 ; i<this.adherents.size() ; i+=2)
-            {
+
+    public List<Adherent> getAdherentsEquipe1() {
+        if (activite.isParEquipe()) {
+            List<Adherent> equipe_1 = null;
+            for (int i = 0; i < this.adherents.size(); i += 2) {
                 equipe_1.add(adherents.get(i));
             }
             return equipe_1;
         }
         return null;
     }
-    
-    public List<Adherent> getAdherentsEquipe2(){
-        if(activite.isParEquipe())
-        {
-            List<Adherent> equipe_2 = null ;
-            for (int i=1 ; i<this.adherents.size() ; i+=2)
-            {
+
+    public List<Adherent> getAdherentsEquipe2() {
+        if (activite.isParEquipe()) {
+            List<Adherent> equipe_2 = null;
+            for (int i = 1; i < this.adherents.size(); i += 2) {
                 equipe_2.add(adherents.get(i));
             }
             return equipe_2;
         }
         return null;
     }
-    
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return (id != null ? id.hashCode() : 0);
     }
 
     @Override
@@ -138,5 +125,5 @@ public class Event implements Serializable {
     public String toString() {
         return "Event[ id=" + id + " ]";
     }
-    
+
 }

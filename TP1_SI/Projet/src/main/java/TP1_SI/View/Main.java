@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package TP1_SI.View;
+
+import java.util.List;
 
 import TP1_SI.DAL.*;
 import TP1_SI.metier.model.*;
-import java.util.List;
+
 /**
- *
  * @author B3330
  */
 public class Main {
-    public static void main(String[] arg)
-    {
+
+    public static void main(String[] arg) {
         JpaUtil.creerEntityManager();
-        
+
         ConsoleConnexionView connexion_view = new ConsoleConnexionView();
         connexion_view.run();
         
@@ -63,7 +59,7 @@ public class Main {
         {
             
         }*/
-        
+
         JpaUtil.fermerEntityManager();
     }
 }

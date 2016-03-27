@@ -6,9 +6,9 @@
     <class>TP1_SI.metier.model.Event</class>
     <class>TP1_SI.metier.model.Adherent</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/COLLECTIF_B3330"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:$PROJECT_DIR$/../COLLECTIF_DB;create=true"/>
       <property name="javax.persistence.jdbc.password" value="collectif"/>
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.user" value="B3330"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
