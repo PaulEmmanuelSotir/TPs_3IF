@@ -12,25 +12,23 @@ import javax.persistence.GenerationType;
  * @author B3330
  */
 @Entity
-public class Lieu implements Serializable {
+public class Location implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String denomination;
     private String description;
-    private String adresse;
+    private String address;
     private Double longitude;
     private Double latitude;
 
-    public Lieu() {
-    }
+    public Location() { }
 
-    public Lieu(String denomination, String description, String adresse) {
+    public Location(String denomination, String description, String address) {
         this.denomination = denomination;
         this.description = description;
-        this.adresse = adresse;
+        this.address = address;
     }
-
 
     public Integer getId() {
         return id;
@@ -40,13 +38,12 @@ public class Lieu implements Serializable {
         return denomination;
     }
 
-
     public String getDescription() {
         return description;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getAddress() {
+        return address;
     }
 
     public Double getLongitude() {
@@ -66,13 +63,12 @@ public class Lieu implements Serializable {
         this.denomination = denomination;
     }
 
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAddress(String adresse) {
+        this.address = adresse;
     }
 
     public void setLongitude(Double longitude) {
@@ -90,10 +86,10 @@ public class Lieu implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Lieu))
+        if (!(object instanceof Location))
             return false;
 
-        Lieu other = (Lieu) object;
+        Location other = (Location) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
             return false;
         return true;
@@ -101,6 +97,6 @@ public class Lieu implements Serializable {
 
     @Override
     public String toString() {
-        return "Lieu{" + "id=" + id + ", denomination=" + denomination + ", description=" + description + ", adresse=" + adresse + ", longitude=" + longitude + ", latitude=" + latitude + '}';
+        return "Location{" + "id=" + id + ", denomination=" + denomination + ", description=" + description + ", address=" + address + ", longitude=" + longitude + ", latitude=" + latitude + '}';
     }
 }

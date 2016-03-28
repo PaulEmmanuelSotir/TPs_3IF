@@ -18,19 +18,17 @@ public class Event implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date date;
-    private Activite activite;
-    private List<Adherent> adherents;
-    private Lieu lieu;
+    private Activity activity;
+    private List<Member> members;
+    private Location location;
     private boolean complet;
 
-    public Event() {
+    public Event() { }
 
-    }
-
-    public Event(Date date, Activite activite, Adherent adherent) {
-        this.activite = activite;
+    public Event(Date date, Activity activity, Member member) {
+        this.activity = activity;
         this.date = date;
-        this.adherents.set(0, adherent);
+        this.members.set(0, member);
     }
 
     public Long getId() {
@@ -49,28 +47,28 @@ public class Event implements Serializable {
         this.date = date;
     }
 
-    public Activite getActivite() {
-        return activite;
+    public Activity getActivity() {
+        return activity;
     }
 
-    public void setActivite(Activite activite) {
-        this.activite = activite;
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
-    public List<Adherent> getAdherents() {
-        return adherents;
+    public List<Member> getMembers() {
+        return members;
     }
 
-    public void setAdherents(List<Adherent> adherents) {
-        this.adherents = adherents;
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
 
-    public Lieu getLieu() {
-        return lieu;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLieu(Lieu lieu) {
-        this.lieu = lieu;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public boolean getComplet() {
@@ -81,22 +79,22 @@ public class Event implements Serializable {
         this.complet = true;
     }
 
-    public List<Adherent> getAdherentsEquipe1() {
-        if (activite.isParEquipe()) {
-            List<Adherent> equipe_1 = null;
-            for (int i = 0; i < this.adherents.size(); i += 2) {
-                equipe_1.add(adherents.get(i));
+    public List<Member> getAdherentsEquipe1() {
+        if (activity.isByTeam()) {
+            List<Member> equipe_1 = null;
+            for (int i = 0; i < this.members.size(); i += 2) {
+                equipe_1.add(members.get(i));
             }
             return equipe_1;
         }
         return null;
     }
 
-    public List<Adherent> getAdherentsEquipe2() {
-        if (activite.isParEquipe()) {
-            List<Adherent> equipe_2 = null;
-            for (int i = 1; i < this.adherents.size(); i += 2) {
-                equipe_2.add(adherents.get(i));
+    public List<Member> getAdherentsEquipe2() {
+        if (activity.isByTeam()) {
+            List<Member> equipe_2 = null;
+            for (int i = 1; i < this.members.size(); i += 2) {
+                equipe_2.add(members.get(i));
             }
             return equipe_2;
         }

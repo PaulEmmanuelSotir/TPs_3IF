@@ -5,7 +5,7 @@ package TP1_SI.View;
  */
 public class ConsoleDashboardView extends ConsoleViewBase {
 
-    public static void run() {
+    public void run() {
         System.out.println("Bonjour !");
         String nom = ConsoleConnexionView.lireChaine("Entrez votre nom: ");
         System.out.println("Bonjour, " + nom + " !");

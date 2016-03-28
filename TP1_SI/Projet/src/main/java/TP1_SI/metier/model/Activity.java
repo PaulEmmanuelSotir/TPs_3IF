@@ -10,20 +10,19 @@ import javax.persistence.GenerationType;
  * @author B3330
  */
 @Entity
-public class Activite implements Serializable {
+public class Activity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String denomination;
-    private Boolean parEquipe;
+    private String name;
+    private Boolean byTeam;
     private Integer nbParticipants;
 
-    public Activite() {
-    }
+    public Activity() { }
 
-    public Activite(String denomination, Boolean parEquipe, Integer nbParticipants) {
-        this.denomination = denomination;
-        this.parEquipe = parEquipe;
+    public Activity(String name, Boolean byTeam, Integer nbParticipants) {
+        this.name = name;
+        this.byTeam = byTeam;
         this.nbParticipants = nbParticipants;
     }
 
@@ -31,24 +30,24 @@ public class Activite implements Serializable {
         return id;
     }
 
-    public String getDenomination() {
-        return denomination;
+    public String getName() {
+        return name;
     }
 
-    public Boolean isParEquipe() {
-        return parEquipe;
+    public Boolean isByTeam() {
+        return byTeam;
     }
 
     public Integer getNbParticipants() {
         return nbParticipants;
     }
 
-    public void setDenomination(String denomination) {
-        this.denomination = denomination;
+    public void setName(String denomination) {
+        this.name = denomination;
     }
 
-    public void setParEquipe(Boolean parEquipe) {
-        this.parEquipe = parEquipe;
+    public void setByTeam(Boolean parEquipe) {
+        this.byTeam = parEquipe;
     }
 
     public void setNbParticipants(Integer nbParticipants) {
@@ -62,10 +61,10 @@ public class Activite implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Activite))
+        if (!(object instanceof Activity))
             return false;
 
-        Activite other = (Activite) object;
+        Activity other = (Activity) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
             return false;
         return true;
@@ -73,6 +72,6 @@ public class Activite implements Serializable {
 
     @Override
     public String toString() {
-        return "Activite{" + "id=" + id + ", denomination=" + denomination + ", parEquipe=" + parEquipe + ", nbParticipants=" + nbParticipants + '}';
+        return "Activity{" + "id=" + id + ", denomination=" + name + ", byTeam=" + byTeam + ", nbParticipants=" + nbParticipants + '}';
     }
 }

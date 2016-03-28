@@ -1,62 +1,68 @@
 package TP1_SI.metier.service;
 
-import com.google.maps.model.LatLng;
-
-import TP1_SI.metier.model.Activite;
-import TP1_SI.metier.model.Adherent;
-import TP1_SI.metier.model.Event;
-import TP1_SI.metier.model.Lieu;
-import TP1_SI.DAL.ActiviteDao;
-import TP1_SI.DAL.AdherentDao;
-import TP1_SI.DAL.EventDao;
-import TP1_SI.DAL.LieuDao;
-
 import java.sql.Date;
 import java.util.List;
+import com.google.maps.model.LatLng;
+
+import TP1_SI.DAL.EventDAL;
+import TP1_SI.DAL.MemberDAL;
+import TP1_SI.DAL.LocationDAL;
+import TP1_SI.DAL.ActivityDAL;
+import TP1_SI.metier.model.Event;
+import TP1_SI.metier.model.Member;
+import TP1_SI.metier.model.Activity;
+import TP1_SI.metier.model.Location;
 
 /**
  * @author B3330
  */
 public class Services {
+    public enum ConnexionError {
+        OK, EMPTY_NAME, EMPTY_FIRSTNAME, EMPTY_ADDRESS, EMPTY_EMAIL, WRONG_ADDRESS, BAD_EMAIL, DATABASE_ERROR
+    }
 
-    public ServiceResult<Adherent, ConnexionError> Connexion(String mail) {
+    public enum Request_Error {
+        OK, WRONG_EVENT_ID, WRONG_LIEU_ID, WRONG_ADHERENT_ID, WRONG_ACTIVITY_ID, FULL_EVENT, DATABASE_ERROR
+    }
+
+    public ServiceResult<Member, ConnexionError> Connexion(String mail) {
         try {
-            AdherentDao adherent_dao = new AdherentDao();
-            Adherent adherent = adherent_dao.findByMail(mail);
-            if (adherent == null)
-                return new ServiceResult<Adherent, ConnexionError>(null, ConnexionError.BAD_EMAIL);
-            return new ServiceResult<Adherent, ConnexionError>(adherent, ConnexionError.OK);
+            MemberDAL adherent_dao = new MemberDAL();
+            Member member = adherent_dao.findByMail(mail);
+            if (member == null)
+                return new ServiceResult<Member, ConnexionError>(null, ConnexionError.BAD_EMAIL);
+            return new ServiceResult<Member, ConnexionError>(member, ConnexionError.OK);
         } catch (Throwable e) {
-            return new ServiceResult<Adherent, ConnexionError>(null, ConnexionError.DATABASE_ERROR);
+            return new ServiceResult<Member, ConnexionError>(null, ConnexionError.DATABASE_ERROR);
         }
     }
 
-    public ServiceResult<Adherent, ConnexionError> Inscription(String nom, String prenom, String mail, String adresse) {
-
+    public ServiceResult<Member, ConnexionError> Inscription(String nom, String prenom, String mail, String address) {
+        // TODO: verifier si les champs sont vides
         try {
-            LatLng coordonnees = ServiceTechnique.GetLatLngFromAddress(adresse);
-            Adherent adherent = new Adherent(nom, prenom, adresse, mail, coordonnees);
-            AdherentDao adherent_dao = new AdherentDao();
+            LatLng coords = ServiceTechnique.GetLatLngFromAddress(address);
+            Member member = new Member(nom, prenom, address, mail, coords);
+            MemberDAL adherent_dao = new MemberDAL();
 
             try {
                 if (adherent_dao.findByMail(mail) != null) {
-                    ServiceTechnique.SendFailedInscriptionMail(adherent);
-                    return new ServiceResult<Adherent, ConnexionError>(null, ConnexionError.BAD_EMAIL);
+                    ServiceTechnique.SendFailedInscriptionMail(member);
+                    return new ServiceResult<Member, ConnexionError>(null, ConnexionError.BAD_EMAIL);
                 }
-                adherent_dao.create(adherent);
-                ServiceTechnique.SendSuccessfullInscriptionMail(adherent);
-                return new ServiceResult<Adherent, ConnexionError>(adherent, ConnexionError.OK);
+                adherent_dao.create(member);
+                ServiceTechnique.SendSuccessfullInscriptionMail(member);
+                return new ServiceResult<Member, ConnexionError>(member, ConnexionError.OK);
             } catch (Throwable e) {
-                ServiceTechnique.SendFailedInscriptionMail(adherent);
-                return new ServiceResult<Adherent, ConnexionError>(null, ConnexionError.DATABASE_ERROR);
+                ServiceTechnique.SendFailedInscriptionMail(member);
+                return new ServiceResult<Member, ConnexionError>(null, ConnexionError.DATABASE_ERROR);
             }
         } catch (Exception e) {
-            return new ServiceResult<Adherent, ConnexionError>(null, ConnexionError.WRONG_ADDRESS);
+            return new ServiceResult<Member, ConnexionError>(null, ConnexionError.WRONG_ADDRESS);
         }
     }
 
-    public ServiceResult<List<Event>, Request_Error> ListeEventDate(Date date) {
-        EventDao event_dao = new EventDao();
+    public ServiceResult<List<Event>, Request_Error> ListEventsOfDate(Date date) {
+        EventDAL event_dao = new EventDAL();
         try {
             return new ServiceResult<List<Event>, Request_Error>(event_dao.findByDate(date), Request_Error.OK);
         } catch (Throwable e) {
@@ -64,27 +70,27 @@ public class Services {
         }
     }
 
-    public ServiceResult<List<Event>, Request_Error> ListeEvent() {
+    public ServiceResult<List<Event>, Request_Error> ListAllEvents() {
         try {
-            EventDao event_dao = new EventDao();
+            EventDAL event_dao = new EventDAL();
             return new ServiceResult<List<Event>, Request_Error>(event_dao.findAll(), Request_Error.OK);
         } catch (Throwable e) {
             return new ServiceResult<List<Event>, Request_Error>(null, Request_Error.DATABASE_ERROR);
         }
     }
 
-    public Request_Error AssigneLieu(int lieu_id, long event_id) {
+    public Request_Error AssignLocationToEvent(int location_id, long event_id) {
         try {
-            EventDao event_dao = new EventDao();
+            EventDAL event_dao = new EventDAL();
             Event event = event_dao.findById(event_id);
             if (event == null)
                 return Request_Error.WRONG_EVENT_ID;
 
-            LieuDao lieu_dao = new LieuDao();
-            Lieu lieu = lieu_dao.findById(lieu_id);
-            if (lieu == null)
+            LocationDAL lieu_dao = new LocationDAL();
+            Location location = lieu_dao.findById(location_id);
+            if (location == null)
                 return Request_Error.WRONG_LIEU_ID;
-            event.setLieu(lieu);
+            event.setLocation(location);
             if (event.getComplet())
                 ServiceTechnique.SendEventMail(event);
 
@@ -94,21 +100,21 @@ public class Services {
         }
     }
 
-    public Request_Error RejoindreEvent(long adherent_id, long event_id) {
+    public Request_Error JoinEvent(long member_id, long event_id) {
         try {
-            EventDao event_dao = new EventDao();
+            EventDAL event_dao = new EventDAL();
             Event event = event_dao.findById(event_id);
             if (event == null)
                 return Request_Error.WRONG_EVENT_ID;
             if (event.getComplet())
                 return Request_Error.FULL_EVENT;
 
-            AdherentDao adherent_dao = new AdherentDao();
-            Adherent adherent = adherent_dao.findById(adherent_id);
-            if (adherent == null)
+            MemberDAL adherent_dao = new MemberDAL();
+            Member member = adherent_dao.findById(member_id);
+            if (member == null)
                 return Request_Error.WRONG_ADHERENT_ID;
 
-            event_dao.AddAdherentToEvent(event, adherent);
+            event_dao.AddAdherentToEvent(event, member);
             if (event.getComplet())
                 ServiceTechnique.SendEventMail(event);
 
@@ -118,61 +124,51 @@ public class Services {
         }
     }
 
-    public ServiceResult<Event, Request_Error> CreerEvent(long adherent_id, int activite_id, Date date) {
+    public ServiceResult<Event, Request_Error> CreateEvent(long member_id, int activity_id, Date date) {
         try {
-            EventDao event_dao = new EventDao();
-            ActiviteDao activite_dao = new ActiviteDao();
-            Activite activite = activite_dao.findById(activite_id);
-            if (activite == null)
-                return new ServiceResult<Event, Request_Error>(null, Request_Error.WRONG_ACTIVITE_ID);
+            EventDAL event_dao = new EventDAL();
+            ActivityDAL activity_dao = new ActivityDAL();
+            Activity activity = activity_dao.findById(activity_id);
+            if (activity == null)
+                return new ServiceResult<Event, Request_Error>(null, Request_Error.WRONG_ACTIVITY_ID);
 
-            AdherentDao adherent_dao = new AdherentDao();
-            Adherent adherent = adherent_dao.findById(adherent_id);
-            if (adherent == null)
+            MemberDAL adherent_dao = new MemberDAL();
+            Member member = adherent_dao.findById(member_id);
+            if (member == null)
                 return new ServiceResult<Event, Request_Error>(null, Request_Error.WRONG_ADHERENT_ID);
 
-            Event event = new Event(date, activite, adherent);
+            Event event = new Event(date, activity, member);
             return new ServiceResult<Event, Request_Error>(event, Request_Error.OK);
         } catch (Throwable e) {
             return new ServiceResult<Event, Request_Error>(null, Request_Error.DATABASE_ERROR);
         }
-
     }
 
-    public ServiceResult<List<Event>, Request_Error> ListeEventAdherent(long adherent_id) {
+    public ServiceResult<List<Event>, Request_Error> ListEventsOfMember(long member_id) {
         try {
-            EventDao event_dao = new EventDao();
-            List<Event> liste = event_dao.findByAdherent(adherent_id);
-            return new ServiceResult<List<Event>, Request_Error>(liste, Request_Error.OK);
+            EventDAL event_dao = new EventDAL();
+            List<Event> events = event_dao.findByMember(member_id);
+            return new ServiceResult<List<Event>, Request_Error>(events, Request_Error.OK);
         } catch (Throwable e) {
             return new ServiceResult<List<Event>, Request_Error>(null, Request_Error.DATABASE_ERROR);
         }
     }
 
-    public ServiceResult<List<Event>, Request_Error> ListeEventDispo() {
+    public ServiceResult<List<Event>, Request_Error> ListAvailableEvents() {
         try {
-            EventDao event_dao = new EventDao();
+            EventDAL event_dao = new EventDAL();
             return new ServiceResult<List<Event>, Request_Error>(event_dao.findDispo(), Request_Error.OK);
         } catch (Throwable e) {
             return new ServiceResult<List<Event>, Request_Error>(null, Request_Error.DATABASE_ERROR);
         }
     }
 
-    public ServiceResult<List<Activite>, Request_Error> ListeActivite() {
+    public ServiceResult<List<Activity>, Request_Error> ListActivities() {
         try {
-            ActiviteDao activite_dao = new ActiviteDao();
-            return new ServiceResult<List<Activite>, Request_Error>(activite_dao.findAll(), Request_Error.OK);
+            ActivityDAL activity_dao = new ActivityDAL();
+            return new ServiceResult<List<Activity>, Request_Error>(activity_dao.findAll(), Request_Error.OK);
         } catch (Throwable e) {
-            return new ServiceResult<List<Activite>, Request_Error>(null, Request_Error.DATABASE_ERROR);
+            return new ServiceResult<List<Activity>, Request_Error>(null, Request_Error.DATABASE_ERROR);
         }
-    }
-
-
-    public enum ConnexionError {
-        OK, EMPTY_NAME, EMPTY_FIRSTNAME, EMPTY_ADDRESS, EMPTY_EMAIL, WRONG_ADDRESS, BAD_EMAIL, DATABASE_ERROR
-    }
-
-    public enum Request_Error {
-        OK, WRONG_EVENT_ID, WRONG_LIEU_ID, WRONG_ADHERENT_ID, WRONG_ACTIVITE_ID, FULL_EVENT, DATABASE_ERROR
     }
 }

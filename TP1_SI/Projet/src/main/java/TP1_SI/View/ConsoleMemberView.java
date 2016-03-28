@@ -3,9 +3,9 @@ package TP1_SI.View;
 /**
  * @author B3330
  */
-public class ConsoleAdherentView extends ConsoleViewBase {
+public class ConsoleMemberView extends ConsoleViewBase {
 
-    public static void run() {
+    public void run() {
         System.out.println("Bonjour !");
         String nom = ConsoleConnexionView.lireChaine("Entrez votre nom: ");
         System.out.println("Bonjour, " + nom + " !");

@@ -35,8 +35,6 @@ public class ConsoleMenu {
                 else
                     System.out.println(ANSI_RESET + "\t" + entry.getKey());
             }
-
-
         }
     }
 

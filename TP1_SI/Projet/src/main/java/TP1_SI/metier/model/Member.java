@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
  * @author B3330
  */
 @Entity
-public class Adherent implements Serializable {
+public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,10 +23,9 @@ public class Adherent implements Serializable {
     private Double lat;
     private Double lng;
 
-    public Adherent() {
-    }
+    public Member() { }
 
-    public Adherent(String nom, String prenom, String adresse, String mail, LatLng coordonnees) {
+    public Member(String nom, String prenom, String adresse, String mail, LatLng coordonnees) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -91,10 +90,10 @@ public class Adherent implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Adherent))
+        if (!(object instanceof Member))
             return false;
 
-        Adherent other = (Adherent) object;
+        Member other = (Member) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)))
             return false;
         return true;
@@ -102,6 +101,6 @@ public class Adherent implements Serializable {
 
     @Override
     public String toString() {
-        return "Adherent{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", adresse=" + adresse + ", longitude=" + lng + ", latitude=" + lat + '}';
+        return "Member{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", adresse=" + adresse + ", longitude=" + lng + ", latitude=" + lat + '}';
     }
 }

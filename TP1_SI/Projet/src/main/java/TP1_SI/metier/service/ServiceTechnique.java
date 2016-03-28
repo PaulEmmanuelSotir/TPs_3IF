@@ -1,6 +1,6 @@
 package TP1_SI.metier.service;
 
-import TP1_SI.metier.model.Adherent;
+import TP1_SI.metier.model.Member;
 import TP1_SI.metier.model.Event;
 
 import com.google.maps.DistanceMatrixApi;
@@ -22,63 +22,62 @@ public class ServiceTechnique {
     private static final String IMAP_ACCOUNT1 = "";*/
     private static final String GeoAPIKey = "AIzaSyDcVVJjfmxsNdbdUYeg9MjQoJJ6THPuap4";
 
-    public static void SendSuccessfullInscriptionMail(Adherent adherent) { 
+    public static void SendSuccessfullInscriptionMail(Member member) {
         /*Properties properties = new Properties(); 
         properties.setProperty("mail.transport.protocol", "smtp"); 
         properties.setProperty("mail.smtp.host", SMTP_HOST1); 
         properties.setProperty("mail.smtp.user", LOGIN_SMTP1); 
         properties.setProperty("mail.from", IMAP_ACCOUNT1); 
         Session session = Session.getInstance(properties);*/
-        String corps = "Bonjour " + adherent.getPrenom() + ",\n" +
-                "Nous vous confirmons votre adhésion à l'association COLLECT’IF. Votre numéro d'adhérent est : " + adherent.getId();
+        String corps = "Bonjour " + member.getPrenom() + ",\n" +
+                "Nous vous confirmons votre adhésion à l'association COLLECT’IF. Votre numéro d'adhérent est : " + member.getId();
 
         System.out.println(corps);
-
     }
 
-    public static void SendFailedInscriptionMail(Adherent adherent) {
-        String corps = "Bonjour " + adherent.getPrenom() + ",\n" +
+    public static void SendFailedInscriptionMail(Member member) {
+        String corps = "Bonjour " + member.getPrenom() + ",\n" +
                 "Votre adhésion à l'association COLLECT’IF a malencontreusement échoué... Merci de recommencer ultérieurement.";
 
         System.out.println(corps);
     }
 
     public static void SendEventMail(Event event) {
-        final LatLng coord = new LatLng(event.getLieu().getLatitude(), event.getLieu().getLongitude());
-        List<Adherent> adherents = event.getAdherents();
+        final LatLng coord = new LatLng(event.getLocation().getLatitude(), event.getLocation().getLongitude());
+        List<Member> members = event.getMembers();
 
-        for (int i = 0; i < adherents.size(); i++) {
+        for (int i = 0; i < members.size(); i++) {
             try {
-                long distance = Distance(coord, new LatLng(adherents.get(i).getLatitude(), adherents.get(i).getLongitude()));
+                long distance = Distance(coord, new LatLng(members.get(i).getLatitude(), members.get(i).getLongitude()));
 
-                String corps = "Bonjour" + adherents.get(i).getPrenom() + ",\n" +
-                        "Comme vous l'aviez souhaité, COLLECT’IF organise un évènement de " + event.getActivite().getDenomination() + " le " + event.getDate() + ".\n" +
+                String corps = "Bonjour" + members.get(i).getPrenom() + ",\n" +
+                        "Comme vous l'aviez souhaité, COLLECT’IF organise un évènement de " + event.getActivity().getName() + " le " + event.getDate() + ".\n" +
                         "Vous trouverez ci-dessous les détails de cet évènement.\n" +
                         "Associativement vôtre,\n" +
                         "Le Responsable de l'Association\n" +
-                        "Evénement : " + event.getActivite().getDenomination() + "\n" +
+                        "Evénement : " + event.getActivity().getName() + "\n" +
                         "Date : " + event.getDate() + "\n" +
-                        "Lieu : " + event.getLieu().getDenomination() + ", " + event.getLieu().getAdresse() + "\n" +
+                        "Location : " + event.getLocation().getDenomination() + ", " + event.getLocation().getAddress() + "\n" +
                         "(à " + distance + " km de chez vous)\n" +
                         "Vous jouerez avec :\n";
-                if (event.getActivite().isParEquipe()) {
-                    List<Adherent> equipe_1 = event.getAdherentsEquipe1();
+                if (event.getActivity().isByTeam()) {
+                    List<Member> equipe_1 = event.getAdherentsEquipe1();
                     for (int j = 0; j < equipe_1.size(); j++) {
-                        if (equipe_1.get(j) != adherents.get(i))
+                        if (equipe_1.get(j) != members.get(i))
                             corps += equipe_1.get(j).getPrenom() + " " + equipe_1.get(j).getNom() + "\n";
                     }
                     corps += "Contre :\n";
 
-                    List<Adherent> equipe_2 = event.getAdherentsEquipe2();
+                    List<Member> equipe_2 = event.getAdherentsEquipe2();
                     for (int j = 0; j < equipe_2.size(); j++) {
-                        if (equipe_2.get(j) != adherents.get(i))
+                        if (equipe_2.get(j) != members.get(i))
                             corps += equipe_2.get(j).getPrenom() + " " + equipe_2.get(j).getNom() + "\n";
                     }
 
                 } else {
-                    for (int j = 0; j < adherents.size(); j++) {
+                    for (int j = 0; j < members.size(); j++) {
                         if (j != i)
-                            corps += adherents.get(j).getPrenom() + " " + adherents.get(j).getNom() + "\n";
+                            corps += members.get(j).getPrenom() + " " + members.get(j).getNom() + "\n";
                     }
                 }
 
