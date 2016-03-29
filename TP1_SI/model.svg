@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="110.87198mm"
+   height="67.675758mm"
+   viewBox="0 0 392.85347 239.79599"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="model.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="286.5217"
+     inkscape:cy="149.35117"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-148.2975,-44.035039)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="153.24133"
+       y="64.251251"
+       id="text4152"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4154"
+         x="153.24133"
+         y="64.251251">MODEL</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:11.25px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="155.71429"
+       y="137.45015"
+       id="text4164"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4166"
+         x="155.71429"
+         y="137.45015" /></text>
+    <g
+       id="g4188"
+       transform="translate(8.2719537,89.30133)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="152.93637"
+         y="110.04079"
+         id="text4140"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4142"
+           x="152.93637"
+           y="110.04079">Activity</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4168"
+         y="127.00169"
+         x="153.6734"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="127.00169"
+           x="153.6734"
+           id="tspan4170"
+           sodipodi:role="line">id :                         Long</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.59909"
+         y="135.90475"
+         id="text4172"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4174"
+           x="153.59909"
+           y="135.90475"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">name :                   String</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4176"
+         y="144.80775"
+         x="153.59909"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="144.80775"
+           x="153.59909"
+           id="tspan4178"
+           sodipodi:role="line">nbParticipants :     int</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.59909"
+         y="153.7108"
+         id="text4180"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4182"
+           x="153.59909"
+           y="153.7108"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">byTeam :                Boolean</tspan></text>
+      <rect
+         y="90.933632"
+         x="149.82143"
+         height="70.357147"
+         width="111.13036"
+         id="rect4184"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4186"
+         d="m 149.82143,115.04077 111.3905,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(146.48624,89.30133)"
+       id="g4202">
+      <text
+         sodipodi:linespacing="125%"
+         id="text4204"
+         y="110.04079"
+         x="152.93637"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="110.04079"
+           x="152.93637"
+           id="tspan4206"
+           sodipodi:role="line">Member</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.39679"
+         y="127.00169"
+         id="text4208"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4210"
+           x="153.39679"
+           y="127.00169"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">id :                Long</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4212"
+         y="136.21423"
+         x="153.32246"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="136.21423"
+           x="153.32246"
+           id="tspan4214"
+           sodipodi:role="line">nom :            String</tspan></text>
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4224"
+         width="87.01297"
+         height="96.277565"
+         x="149.82143"
+         y="90.933632" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 149.82143,115.04077 86.8943,0"
+         id="path4226"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.32246"
+         y="145.42683"
+         id="text4228"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4230"
+           x="153.32246"
+           y="145.42683"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">prenom :       String</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4232"
+         y="154.63934"
+         x="153.59909"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="154.63934"
+           x="153.59909"
+           id="tspan4234"
+           sodipodi:role="line">adresse :      String</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.32246"
+         y="163.8519"
+         id="text4236"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4238"
+           x="153.32246"
+           y="163.8519"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">mail :            String</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4242"
+         y="173.06448"
+         x="153.32246"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="173.06448"
+           x="153.32246"
+           id="tspan4244"
+           sodipodi:role="line">lat :               Double</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.32246"
+         y="182.27705"
+         id="text4246"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4248"
+           x="153.32246"
+           y="182.27705"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">lng :              Double</tspan></text>
+    </g>
+    <g
+       id="g4250"
+       transform="translate(286.48624,89.30133)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="152.93637"
+         y="110.04079"
+         id="text4252"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4254"
+           x="152.93637"
+           y="110.04079">Location</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4256"
+         y="127.00169"
+         x="153.12428"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="127.00169"
+           x="153.12428"
+           id="tspan4258"
+           sodipodi:role="line">id :                Long</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.32246"
+         y="136.19963"
+         id="text4260"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4262"
+           x="153.32246"
+           y="136.19963"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">description : String</tspan></text>
+      <rect
+         y="90.933632"
+         x="149.82143"
+         height="86.634705"
+         width="87.01297"
+         id="rect4264"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4266"
+         d="m 149.82143,115.04077 86.8943,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4268"
+         y="145.39757"
+         x="153.04997"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="145.39757"
+           x="153.04997"
+           id="tspan4270"
+           sodipodi:role="line">nom :            String</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.3266"
+         y="154.59549"
+         id="text4272"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4274"
+           x="153.3266"
+           y="154.59549"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">adresse :      String</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.04997"
+         y="163.79343"
+         id="text4280"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4282"
+           x="153.04997"
+           y="163.79343"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">lat :               Double</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4284"
+         y="172.99133"
+         x="153.04997"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="172.99133"
+           x="153.04997"
+           id="tspan4286"
+           sodipodi:role="line">lng :              Double</tspan></text>
+    </g>
+    <g
+       id="g4288"
+       transform="translate(136.765,-37.977891)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="152.93637"
+         y="110.04079"
+         id="text4290"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4292"
+           x="152.93637"
+           y="110.04079">Event</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4294"
+         y="127.00169"
+         x="153.12016"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="127.00169"
+           x="153.12016"
+           id="tspan4296"
+           sodipodi:role="line">id :                Long</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.31833"
+         y="136.21426"
+         id="text4298"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4300"
+           x="153.31833"
+           y="136.21426"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">date :            Date</tspan></text>
+      <rect
+         y="90.933632"
+         x="149.82143"
+         height="87.565002"
+         width="116.55993"
+         id="rect4302"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4304"
+         d="m 149.82143,115.04077 116.31499,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4306"
+         y="145.31534"
+         x="153.32246"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="145.31534"
+           x="153.32246"
+           id="tspan4308"
+           sodipodi:role="line">activity :       Activity</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.04584"
+         y="154.63939"
+         id="text4310"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4312"
+           x="153.04584"
+           y="154.63939"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">members :    List&lt;Member&gt;</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4314"
+         y="163.85193"
+         x="153.04584"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="163.85193"
+           x="153.04584"
+           id="tspan4316"
+           sodipodi:role="line">location :      Location</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="153.31421"
+         y="173.06448"
+         id="text4318"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4320"
+           x="153.31421"
+           y="173.06448"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">complet :      Boolean</tspan></text>
+    </g>
+    <g
+       id="g4344">
+      <rect
+         transform="matrix(-0.87069709,-0.49181966,0.87069709,-0.49181966,0,0)"
+         y="47.715508"
+         x="-270.26871"
+         height="9.9608593"
+         width="9.9608593"
+         id="rect4160"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.51278269;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccc"
+         inkscape:connector-curvature="0"
+         id="path4162"
+         d="m 207.67737,180.04077 0.17977,-75.53571 61.17903,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="211.35222"
+         y="175.84081"
+         id="text4168-1"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4170-1"
+           x="211.35222"
+           y="175.84081"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">1</tspan></text>
+    </g>
+    <g
+       id="g4350"
+       transform="translate(68.690373,55.810928)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.51278269;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4352"
+         width="9.9608593"
+         height="9.9608593"
+         x="-226.30711"
+         y="-334.78983"
+         transform="matrix(-0.49181966,0.87069709,-0.49181966,-0.87069709,0,0)" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 270.84347,123.85104 0.17977,-21.49255"
+         id="path4354"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4356"
+         y="121.08971"
+         x="272.86691"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'"
+           y="121.08971"
+           x="272.86691"
+           id="tspan4358"
+           sodipodi:role="line">1..N</tspan></text>
+    </g>
+    <g
+       transform="translate(123.74369,55.810928)"
+       id="g4360">
+      <rect
+         transform="matrix(-0.49181966,0.87069709,-0.49181966,-0.87069709,0,0)"
+         y="-334.78983"
+         x="-226.30711"
+         height="9.9608593"
+         width="9.9608593"
+         id="rect4362"
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.51278269;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path4364"
+         d="m 356.81277,124.69794 0.071,-10.95434 -85.95521,-0.0681 0.0947,-11.31697"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:15.03226376px;line-height:125%;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="358.98242"
+         y="121.08971"
+         id="text4366"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4368"
+           x="358.98242"
+           y="121.08971"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:8.45564842px;font-family:'Yu Gothic';-inkscape-font-specification:'Yu Gothic Medium'">0..1</tspan></text>
+    </g>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.39999998;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4370"
+       width="391.45346"
+       height="238.396"
+       x="148.9975"
+       y="44.735039" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 148.92857,70.219345 72.67858,0 7.85714,-8.035715 0,-16.964285"
+       id="path4372"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+  </g>
+</svg>
