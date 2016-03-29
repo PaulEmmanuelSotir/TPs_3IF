@@ -1,4 +1,4 @@
-package TP1_SI.View;
+package TP1_SI.Utils;
 
 import java.util.List;
 import java.io.IOException;
@@ -6,9 +6,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
+ * Classe regourpant quelques fonction utiles à l'interface console
  * @author B3330
  */
-public class ConsoleViewBase {
+public class ConsoleUtils {
 
     public static String lireChaine(String invite) {
         String chaineLue = null;

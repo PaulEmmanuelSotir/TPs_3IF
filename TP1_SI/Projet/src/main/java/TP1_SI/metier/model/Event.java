@@ -1,6 +1,7 @@
 package TP1_SI.metier.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
 import javax.persistence.Id;
@@ -9,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 /**
+ * Classe représentant un événement constitué de membres voulant participer à cet événement.
+ * Un événement peut ne pas être encore assigné à un lieu (location == null)
+ *
  * @author B3330
  */
 @Entity
 public class Event implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,12 +26,14 @@ public class Event implements Serializable {
     private Location location;
     private boolean complet;
 
-    public Event() { }
+    public Event() {
+    }
 
-    public Event(Date date, Activity activity, Member member) {
+    public Event(Date date, Activity activity, Member creator) {
         this.activity = activity;
         this.date = date;
-        this.members.set(0, member);
+        this.members = new ArrayList<>();
+        this.members.add(creator);
     }
 
     public Long getId() {
@@ -121,7 +126,7 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return "Event[ id=" + id + " ]";
+        return "Event{ id=" + id + ", date=" + date + ", location=" + location + ", is_complet=" + complet + " }";
     }
 
 }

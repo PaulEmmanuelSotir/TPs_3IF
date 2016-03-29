@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import TP1_SI.metier.model.Member;
 
 /**
+ * Data Access Layer permettant d'obtenir, de créer et modifier des instances de la classe 'Member'.
+ * Utilise JPA pour persiter les Membres.
  * @author B3330
  */
 public class MemberDAL {
@@ -28,7 +30,7 @@ public class MemberDAL {
 
     public Member findByMail(String mail) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        Query q = em.createQuery("SELECT a FROM Member a WHERE mail='" + mail + "'");
+        Query q = em.createQuery("SELECT a FROM Member a WHERE a.mail='" + mail + "'");
         List<Member> members = (List<Member>) q.getResultList();
 
         if (members.size() >= 1)

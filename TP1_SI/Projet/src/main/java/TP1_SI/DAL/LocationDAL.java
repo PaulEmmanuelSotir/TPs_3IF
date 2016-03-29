@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import TP1_SI.metier.model.Location;
 
 /**
+ * Data Access Layer permettant d'obtenir, de créer et modifier des instances de la classe 'Location'.
+ * Utilise JPA pour persiter les Lieux.
  * @author B3330
  */
 public class LocationDAL {

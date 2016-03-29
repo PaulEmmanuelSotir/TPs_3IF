@@ -9,18 +9,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 /**
+ * Classe représentant un lieux définit par des coordonées, une addresse, un nom et une description.
  * @author B3330
  */
 @Entity
 public class Location implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String denomination;
-    private String description;
+    private Long id;
     private String address;
-    private Double longitude;
+    private String description;
+    private String denomination;
     private Double latitude;
+    private Double longitude;
 
     public Location() { }
 
@@ -30,7 +31,7 @@ public class Location implements Serializable {
         this.address = address;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

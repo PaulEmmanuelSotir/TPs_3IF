@@ -5,6 +5,7 @@
     <class>TP1_SI.metier.model.Location</class>
     <class>TP1_SI.metier.model.Event</class>
     <class>TP1_SI.metier.model.Member</class>
+    <class>TP1_SI.metier.model.Activity</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:$PROJECT_DIR$/../COLLECTIF_DB;create=true"/>
       <property name="javax.persistence.jdbc.password" value="collectif"/>

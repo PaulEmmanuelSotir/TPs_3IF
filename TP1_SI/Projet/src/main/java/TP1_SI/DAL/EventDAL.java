@@ -9,6 +9,8 @@ import TP1_SI.metier.model.Member;
 import TP1_SI.metier.model.Event;
 
 /**
+ * Data Access Layer permettant d'obtenir, de créer et modifier des instances de la classe 'Event'.
+ * Utilise JPA pour persiter les Evenements.
  * @author B3330
  */
 public class EventDAL {
@@ -29,9 +31,8 @@ public class EventDAL {
     }
 
     public void AddAdherentToEvent(Event event, Member member) throws Throwable {
-        List<Member> members = event.getMembers();
-        members.add(member);
-        event.setMembers(members);
+        event.getMembers().add(member);
+        update(event);
         if (event.getMembers().size() == event.getActivity().getNbParticipants())
             event.setComplet();
     }
@@ -48,9 +49,9 @@ public class EventDAL {
         return (List<Event>)q.getResultList();
     }
 
-    public List<Event> findByMember(long adherent_id) throws Throwable {
+    public List<Event> findByMember(long member_id) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        Query q = em.createQuery("SELECT a FROM Event a, Event_Member c WHERE a.id = c.event_id AND b.id = " + adherent_id);
+        Query q = em.createQuery("SELECT e FROM Event e INNER JOIN e.members event_member WHERE event_member.id = " + member_id);
         return (List<Event>)q.getResultList();
     }
 

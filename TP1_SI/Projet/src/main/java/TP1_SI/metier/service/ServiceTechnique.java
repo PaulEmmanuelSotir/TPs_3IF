@@ -13,6 +13,8 @@ import com.google.maps.model.LatLng;
 import java.util.List;
 
 /**
+ * Classe regroupant les méthodes des services techniques (services permettant l'envoi de mail et
+ * la géolocalisation via l'API google maps).
  * @author B3330
  */
 public class ServiceTechnique {
@@ -22,6 +24,10 @@ public class ServiceTechnique {
     private static final String IMAP_ACCOUNT1 = "";*/
     private static final String GeoAPIKey = "AIzaSyDcVVJjfmxsNdbdUYeg9MjQoJJ6THPuap4";
 
+    /**
+     * Envoie un mail de confirmation d'inscription d'un membre
+     * @param member membre venant de s'inscrire
+     */
     public static void SendSuccessfullInscriptionMail(Member member) {
         /*Properties properties = new Properties(); 
         properties.setProperty("mail.transport.protocol", "smtp"); 
@@ -35,6 +41,10 @@ public class ServiceTechnique {
         System.out.println(corps);
     }
 
+    /**
+     * Envoie un mail expliquant que l'inscription d'un membre a échouée
+     * @param member membre voulant s'inscrire
+     */
     public static void SendFailedInscriptionMail(Member member) {
         String corps = "Bonjour " + member.getPrenom() + ",\n" +
                 "Votre adhésion à l'association COLLECT’IF a malencontreusement échoué... Merci de recommencer ultérieurement.";
@@ -42,6 +52,10 @@ public class ServiceTechnique {
         System.out.println(corps);
     }
 
+    /**
+     * Envoie un mail pour notifier les membres d'un evenement que l'évenement a été assigné à un lieu
+     * @param event Evenement ayant été assigné à un lieu
+     */
     public static void SendEventMail(Event event) {
         final LatLng coord = new LatLng(event.getLocation().getLatitude(), event.getLocation().getLongitude());
         List<Member> members = event.getMembers();
@@ -89,6 +103,13 @@ public class ServiceTechnique {
         }
     }
 
+    /**
+     * Donne la distance entre deux positions
+     * @param position1 coordonnées de la première position
+     * @param position2 coordonnées de la seconde position
+     * @return la distance entre 'position1' et 'position2'
+     * @throws Exception pouvant être lancée par l'API google maps
+     */
     public static long Distance(LatLng position1, LatLng position2) throws Exception {
         GeoApiContext context = new GeoApiContext().setApiKey(GeoAPIKey);
 
@@ -99,6 +120,12 @@ public class ServiceTechnique {
         return result.rows[0].elements[0].distance.inMeters;
     }
 
+    /**
+     * Retourne les coordonées d'un adresse donnée grâce à l'API google maps.
+     * @param address Addresse sous forme de chaine de charactères
+     * @return les coordonées de l'adresse
+     * @throws Exception pouvant être lancée par l'API google maps
+     */
     public static LatLng GetLatLngFromAddress(String address) throws Exception {
         GeoApiContext context = new GeoApiContext().setApiKey(GeoAPIKey);
         GeocodingResult[] results = GeocodingApi.geocode(context, address).await();

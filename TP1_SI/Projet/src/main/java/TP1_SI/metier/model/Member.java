@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 /**
+ * Classe représentant un membre de l'association pouvant rejoindre ou créer des événements
  * @author B3330
  */
 @Entity
@@ -16,20 +17,20 @@ public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String nom;
-    private String prenom;
-    private String mail;
-    private String adresse;
+    private String address;
     private Double lat;
     private Double lng;
+    private String mail;
+    private String nom;
+    private String prenom;
 
     public Member() { }
 
-    public Member(String nom, String prenom, String adresse, String mail, LatLng coordonnees) {
+    public Member(String nom, String prenom, String address, String mail, LatLng coordonnees) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
-        this.adresse = adresse;
+        this.address = address;
         this.lat = coordonnees.lat;
         this.lng = coordonnees.lng;
     }
@@ -50,8 +51,8 @@ public class Member implements Serializable {
         return mail;
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getAddress() {
+        return address;
     }
 
     public Double getLatitude() {
@@ -74,8 +75,8 @@ public class Member implements Serializable {
         this.mail = mail;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAddress(String adresse) {
+        this.address = adresse;
     }
 
     public void setCoordonnees(LatLng latLng) {
@@ -101,6 +102,6 @@ public class Member implements Serializable {
 
     @Override
     public String toString() {
-        return "Member{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", adresse=" + adresse + ", longitude=" + lng + ", latitude=" + lat + '}';
+        return "Member{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", adresse=" + address + ", longitude=" + lng + ", latitude=" + lat + '}';
     }
 }

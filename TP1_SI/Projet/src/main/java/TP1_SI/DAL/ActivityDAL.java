@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import TP1_SI.metier.model.Activity;
 
 /**
+ * Data Access Layer permettant d'obtenir, de créer et modifier des instances de la classe 'Activity'.
+ * Utilise JPA pour persiter les Activitées.
  * @author B3330
  */
 public class ActivityDAL {

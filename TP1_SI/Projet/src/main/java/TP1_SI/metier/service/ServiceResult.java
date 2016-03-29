@@ -1,11 +1,20 @@
 package TP1_SI.metier.service;
 
+import java.io.Serializable;
+
 /**
- * @param <Result_t>
- * @param <ErrorEnum_t>
+ * Classe générique représentant le résultat d'un appel à une méthode d'un service.
+ * Cette classe peut être utilisé comme type de retour pour fournir à la fois un résultat de type 'Result_t'
+ * et un éventuel code d'erreur appartenant à l'énumératrion 'ErrorEnum_t'.
+ * Ce méchanisme peut être préférable à l'utilisation d'exeptions car ficilite l'ajout d'informations sur une erreur
+ * et peut être sérialisé (ce qui peut faciliter la création de services REST en serialisant directement en JSON cette
+ * classe par exemple ;) )
+ * @param <Result_t> type du résultat de l'appel
+ * @param <ErrorEnum_t> type des codes d'erreur
  * @author B3330
  */
-public class ServiceResult<Result_t, ErrorEnum_t> {
+public class ServiceResult<Result_t, ErrorEnum_t> implements Serializable {
+
     public ServiceResult(Result_t result, ErrorEnum_t error) {
         this.result = result;
         this.error = error;
@@ -32,7 +41,10 @@ public class ServiceResult<Result_t, ErrorEnum_t> {
 
     @Override
     public String toString() {
-        return "ServiceResult{ result = '" + result.toString() + "', error_code = '" + error.toString() + "'}";
+        if(result != null)
+            return "ServiceResult{ result = '" + result + "', error_code = '" + error + "'}";
+        else
+            return "ServiceResult{ error_code = '" + error + "'}";
     }
 
     public Result_t result;

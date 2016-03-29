@@ -7,16 +7,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 /**
+ * Classe représentatn une activité.
+ * Une activité peut être partiquée par une ou deux équipes (booléen 'byTeam').
  * @author B3330
  */
 @Entity
 public class Activity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String name;
-    private Boolean byTeam;
     private Integer nbParticipants;
+    private Boolean byTeam;
 
     public Activity() { }
 
@@ -26,7 +28,7 @@ public class Activity implements Serializable {
         this.nbParticipants = nbParticipants;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
