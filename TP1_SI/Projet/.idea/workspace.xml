@@ -37,11 +37,69 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MemberDAL.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/MemberDAL.java">
+      <file leaf-file-name="Services.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/Services.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <caret line="262" column="7" selection-start-line="262" selection-start-column="7" selection-end-line="262" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#Connexion#0;class#Services#0" expanded="false" />
+                <element signature="method#Inscription#0;class#Services#0" expanded="false" />
+                <element signature="method#ListEventsOfDate#0;class#Services#0" expanded="false" />
+                <element signature="method#ListAllEvents#0;class#Services#0" expanded="false" />
+                <element signature="method#JoinEvent#0;class#Services#0" expanded="false" />
+                <element signature="method#CreateEvent#0;class#Services#0" expanded="false" />
+                <element signature="method#ListEventsOfMember#0;class#Services#0" expanded="false" />
+                <element signature="method#ListAvailableEvents#0;class#Services#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Activity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="19" column="34" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#808#809#0" expanded="true" />
+                <element signature="e#833#834#0" expanded="true" />
+                <element signature="method#equals#0;class#Activity#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConsoleConnexionView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleConnexionView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="18" column="67" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="67" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#Quit#0;class#ConsoleConnexionView#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServiceTechnique.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/ServiceTechnique.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="53" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Member.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Member.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,12 +107,62 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/Main.java">
+      <file leaf-file-name="Location.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Location.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3888889">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Event.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Event.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="89" column="27" selection-start-line="89" selection-start-column="27" selection-end-line="89" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventDAL.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/EventDAL.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2037037">
+              <caret line="11" column="91" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="91" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConsoleDashboardView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleDashboardView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServiceResult.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/ServiceResult.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="49" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="49" />
+              <folding>
+                <element signature="e#961#962#0" expanded="true" />
+                <element signature="e#1024#1025#0" expanded="true" />
+                <element signature="method#equals#0;class#ServiceResult#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,7 +203,6 @@
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/Utils/ConsoleUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Location.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Member.java" />
-        <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Activity.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/DAL/ActivityDAL.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/DAL/EventDAL.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/DAL/LocationDAL.java" />
@@ -104,10 +211,11 @@
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/ServiceTechnique.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/View/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleConnexionView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/Services.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleMemberView.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Event.java" />
         <option value="$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleDashboardView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Activity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/Services.java" />
       </list>
     </option>
   </component>
@@ -157,8 +265,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-1928" />
+    <option name="y" value="155" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -850,15 +958,15 @@
       <created>1459095649832</created>
       <option name="number" value="Default" />
       <updated>1459095649832</updated>
-      <workItem from="1459095652271" duration="39521000" />
+      <workItem from="1459095652271" duration="48022000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39521000" />
+    <option name="totallyTimeSpent" value="48022000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="155" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -874,8 +982,8 @@
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.159375" sideWeight="0.3660856" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29809725" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15052083" sideWeight="0.6339144" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2265625" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.175" sideWeight="0.6339144" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.454071" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1014,117 +1122,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/Utils/Callable.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09315068">
-          <caret line="4" column="85" selection-start-line="4" selection-start-column="85" selection-end-line="4" selection-end-column="85" />
+        <state vertical-scroll-proportion="0.39273927">
+          <caret line="21" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/Utils/ConsoleMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32465753">
-          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.32563257">
+          <caret line="30" column="44" selection-start-line="0" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
           <folding>
             <element signature="method#ConsoleMenu#0;class#ConsoleMenu#0" expanded="false" />
-            <element signature="method#ConsoleMenu#1;class#ConsoleMenu#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/Utils/ConsoleUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11643836">
-          <caret line="8" column="67" selection-start-line="8" selection-start-column="67" selection-end-line="8" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.39273927">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Member.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/Utils/Callable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="91" selection-start-line="11" selection-start-column="91" selection-end-line="11" selection-end-column="91" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.1870187">
+          <caret line="10" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Location.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/LocationDAL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="100" selection-start-line="11" selection-start-column="100" selection-end-line="11" selection-end-column="100" />
+          <caret line="21" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#equals#0;class#Location#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#equals#0;class#Activity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/ActivityDAL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="12" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.2431243">
+          <caret line="13" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/ServiceResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41917807">
-          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
-          <folding>
-            <element signature="method#equals#0;class#ServiceResult#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/ServiceTechnique.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.841096">
-          <caret line="132" column="34" selection-start-line="132" selection-start-column="34" selection-end-line="132" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/MemberDAL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/EventDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="23" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/LocationDAL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58219177">
-          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+          <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1134,17 +1189,76 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/JpaUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+          <caret line="59" column="26" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleMemberView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#CreateEvent#0;class#ConsoleMemberView#0" expanded="false" />
+            <element signature="class#JoinEvent#0;class#ConsoleMemberView#0" expanded="false" />
+            <element signature="class#Logout#0;class#ConsoleMemberView#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleDashboardView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleConnexionView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="67" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#Quit#0;class#ConsoleConnexionView#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/ServiceResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="49" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="49" />
+          <folding>
+            <element signature="e#961#962#0" expanded="true" />
+            <element signature="e#1024#1025#0" expanded="true" />
+            <element signature="method#equals#0;class#ServiceResult#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#808#809#0" expanded="true" />
+            <element signature="e#833#834#0" expanded="true" />
+            <element signature="method#equals#0;class#Activity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/Services.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3328767">
-          <caret line="128" column="32" selection-start-line="128" selection-start-column="32" selection-end-line="128" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="262" column="7" selection-start-line="262" selection-start-column="7" selection-end-line="262" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Connexion#0;class#Services#0" expanded="false" />
@@ -1159,57 +1273,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/service/ServiceTechnique.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="53" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Member.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/metier/model/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.568889">
-          <caret line="128" column="108" selection-start-line="128" selection-start-column="108" selection-end-line="128" selection-end-column="108" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="27" selection-start-line="89" selection-start-column="27" selection-end-line="89" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleDashboardView.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/DAL/EventDAL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.2037037">
+          <caret line="11" column="91" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleConnexionView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="18" column="67" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#Quit#0;class#ConsoleConnexionView#0" expanded="false" />
-            <element signature="e#3092#3093#0" expanded="true" />
-            <element signature="e#3164#3165#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/ConsoleMemberView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.94335514">
-          <caret line="54" column="73" selection-start-line="54" selection-start-column="73" selection-end-line="54" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#CreateEvent#0;class#ConsoleMemberView#0" expanded="false" />
-            <element signature="class#JoinEvent#0;class#ConsoleMemberView#0" expanded="false" />
-            <element signature="class#Logout#0;class#ConsoleMemberView#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/TP1_SI/View/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3888889">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
