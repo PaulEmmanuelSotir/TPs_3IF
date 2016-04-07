@@ -1,11 +1,11 @@
 ############################################################################################
 ################################## GENERIC MAKEFILE ########################################
 ############################################################################################
-# TODO: gÃrer les sous-dossiers / fichiers ayants le mÃªmes noms dans des dossiers diffÃ©rts
-# TODO: gÃrer les extentions .hpp, .cxx, ...
+# TODO: gerer les sous-dossiers / fichiers ayants le mêmes noms dans des dossiers différts
+# TODO: gerer les extentions .hpp, .cxx, ...
 
 # Debug mode (comment this line to build project in release mode)
-#DEBUG = true
+DEBUG = true
 
 # Compiler
 CC = g++
@@ -16,19 +16,17 @@ CPPFLAGS = -Wall -std=c++11 -Ofast
 # Debug flags
 DEBUGFLAGS = -g
 # Resulting program file name
-EXE_NAME = geometry
+EXE_NAME = Parking
 # The source file extentions
 SRC_EXT = cpp
 # The header file types
 # TODO allow .hpp header files
 HDR_EXT = h
 
-TEST_SCRIPT = ./tests/mktest.sh ./tests
-
 # Source directory
-SRCDIR = src
+SRCDIR = source
 # Headers directory
-INCDIR = src
+INCDIR = include
 # Main output directory
 OUTPUT_DIR = bin
 # Release output directory
@@ -38,16 +36,16 @@ DEBUGDIR = debug
 # Dependency files directory
 DEPDIR = dep
 # Libraries paths
-LIB_DIRS = -L /mingw64/lib
+LIB_DIRS = -L libs # /mingw64/lib /usr/lib /var/lib/pacman/local
 # Library file names (e.g. '-lboost_serialization-mt')
-LIBS = -lboost_serialization-mt
+LIBS = -ltp -ltcl8.5 -lncurses
 # List of include paths
 INCLUDES = ./$(INCDIR) #"/c/Program Files (x86)/boost_1_60_0"
 
 ifdef DEBUG
 BUILD_PATH = ./$(OUTPUT_DIR)/$(DEBUGDIR)
 else
-DEBUGFLAGS = 
+DEBUGFLAGS =
 BUILD_PATH = ./$(OUTPUT_DIR)/$(RELEASEDIR)
 endif
 # Source directory path
@@ -62,28 +60,26 @@ OBJS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
 # List of dependency files
 DEPS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(DEP_PATH)/%.d)
 
-.PHONY: all clean rebuild help test
+.PHONY: all clean rebuild help
 
 all: $(BUILD_PATH)/$(EXE_NAME)
 
 clean:
+	dos2unix clear_ipc.sh
+	./clear_ipc.sh
 	$(RM) $(BUILD_PATH)/*.o
 	$(RM) $(BUILD_PATH)/$(EXE_NAME)
 	$(RM) $(DEP_PATH)/*.d
-	
+
 rebuild: clean all
 
 help:
-	@echo '				### MAKEFILE HELP ###'
+	@echo '                         ### MAKEFILE HELP ###'
 	@echo 'PHONY TARGETS:'
-	@echo '	all 	...'
-	@echo '	clean 	...'
-	@echo '	rebuild ...'
-	@echo '	help	...'
-
-test:
-	@cd tests/
-	$(TEST_SCRIPT)
+	@echo ' all     ...'
+	@echo ' clean   ...'
+	@echo ' rebuild ...'
+	@echo ' help    ...'
 
 # Build object files
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
@@ -93,6 +89,3 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 # Build main target
 $(BUILD_PATH)/$(EXE_NAME): $(OBJS)
 	$(CC) $(LIB_DIRS) -o $(BUILD_PATH)/$(EXE_NAME) $(OBJS) $(LIBS)
-
-# -lboost_serialization
-

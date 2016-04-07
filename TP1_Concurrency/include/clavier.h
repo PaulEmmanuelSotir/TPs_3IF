@@ -1,23 +1,25 @@
 /*************************************************************************
-                 Clavier  -  tache gèrant l'entrée clavi
-                 -----------------------------------------
-    début                :18/03/2016
-    copyright            : (C) Clavier.h par B3330
-    e-mail               : paul-emmanuel.sotir@insa-lyon.fr
+					Clavier  -  tache gerant l'entree clavier
+					-----------------------------------------
+	debut				 : 18/03/2016
+	copyright            : (C) clavier.h par B3330
+	e-mail               : paul-emmanuel.sotir@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface du module <CLAVIER> (fichier clavier.h) ---------
-#if ! defined ( CLAVIER_H )
+//---------- Interface du module <CLAVIER> (fichier clavier.h) -----------
+#ifndef CLAVIER_H
 #define CLAVIER_H
 
 //------------------------------------------------------------------------
-// Rôle du moduleclavier
+// Role du module clavier
 //
 //
 //------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
+#include "sys/types.h"
+#include "msvc_utils.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -26,7 +28,9 @@
 //////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
 //! 
+pid_t activer_clavier();
 
+void quit_clavier();
 
 #endif // CLAVIER_H
 
