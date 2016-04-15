@@ -6,21 +6,21 @@
 	e-mail               : Mathieu.Maranzana@insa-lyon.fr
 *************************************************************************/
 
-//---------- Interface de la tâche <Heure> (fichier Heure.h) -------------
+//---------- Interface de la tache <Heure> (fichier Heure.h) -------------
 #ifndef HEURE_H
 #define HEURE_H
 
 //------------------------------------------------------------------------
-// Rôle de la tâche <Heure>
-//    Cette tâche est chargée de l'affichage périodique (toutes les
+// Rôle de la tache <Heure>
+//    Cette tache est chargee de l'affichage periodique (toutes les
 //    <PERIODE> secondes (on pose <PERIODE> = 1 seconde)) de l'heure
-//    courante dans la zone adéquate de l'écran du TP (en haut, à droite).
-//    La fin de la tâche <Heure> est déclenchée à la réception du
+//    courante dans la zone adequate de l'ecran du TP (en haut, a droite).
+//    La fin de la tache <Heure> est declenchee a la reception du
 //    signal <SIGUSR2>.
 //------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////  INCLUDE
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisees
 
 //------------------------------------------------------------- Constantes
 
@@ -30,13 +30,13 @@
 //---------------------------------------------------- Fonctions publiques
 pid_t ActiverHeure(void);
 // Mode d'emploi :
-//    - cette fonction lance une tâche fille <Heure> chargée de
-//      l'affichage périodique (toutes les <PERIODE> secondes) de l'heure
-//      courante dans la zone <HEURE> de l'écran du TP
-//    - la fin de la tâche <Heure> est déclenchée à la réception du
+//    - cette fonction lance une tache fille <Heure> chargee de
+//      l'affichage periodique (toutes les <PERIODE> secondes) de l'heure
+//      courante dans la zone <HEURE> de l'ecran du TP
+//    - la fin de la tache <Heure> est declenchee à la reception du
 //      signal <SIGUSR2>
-//    - renvoie le PID de la tâche <Heure>, si sa création se passe bien
-//    - renvoie -1 en cas d'échec à la création de la tâche <Heure>
+//    - renvoie le PID de la tache <Heure>, si sa creation se passe bien
+//    - renvoie -1 en cas d'echec à la creation de la tache <Heure>
 //
 // Contrat : aucun
 //

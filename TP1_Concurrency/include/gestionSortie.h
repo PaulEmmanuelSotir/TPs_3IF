@@ -2,31 +2,22 @@
 			Gestion sortie - tache gerant les barrieres de sortie
 			-----------------------------------------------------
 	debut   			 : 18/03/2016
-	copyright            : (C) gestionSortie.h par B3330
-	e-mail               : paul-emmanuel.sotir@insa-lyon.fr
+	binome               : B3330
 *************************************************************************/
 
 //-- Interface de la tache <GESTION_SORTIE> (fichier gestionSortie.h) ----
 #ifndef GESTION_SORTIE_H
 #define GESTION_SORTIE_H
 
-//------------------------------------------------------------------------
-// Role de la tache
-//
-//
-//------------------------------------------------------------------------
-
 /////////////////////////////////////////////////////////////////  INCLUDE
 //--------------------------------------------------- Interfaces utilisées
-#include "msvc_utils.h"
+#include "process_utils.h"
+#include "gestionEntree.h"
 
-//------------------------------------------------------------- Constantes
-
-//------------------------------------------------------------------ Types
-
-//////////////////////////////////////////////////////////////////  PUBLIC
 //---------------------------------------------------- Fonctions publiques
-pid_t ActiverPorteSortie();
 
+//! Demare la tache gestionSortie pour permettre aux voitures de sortir
+//! Retourne le PID du processus fils ou -1 en cas d'echec.
+pid_t ActiverPorteSortie();
 
 #endif // GESTION_SORTIE_H

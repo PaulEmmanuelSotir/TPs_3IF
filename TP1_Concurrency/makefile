@@ -20,7 +20,7 @@ EXE_NAME = Parking
 # The source file extentions
 SRC_EXT = cpp
 # The header file types
-# TODO allow .hpp header files
+# TODO permettre les .hpp
 HDR_EXT = h
 
 # Source directory
@@ -36,11 +36,11 @@ DEBUGDIR = debug
 # Dependency files directory
 DEPDIR = dep
 # Libraries paths
-LIB_DIRS = -L libs # /mingw64/lib /usr/lib /var/lib/pacman/local
+LIB_DIRS = -L libs
 # Library file names (e.g. '-lboost_serialization-mt')
 LIBS = -ltp -ltcl8.5 -lncurses
 # List of include paths
-INCLUDES = ./$(INCDIR) #"/c/Program Files (x86)/boost_1_60_0"
+INCLUDES = ./$(INCDIR)
 
 ifdef DEBUG
 BUILD_PATH = ./$(OUTPUT_DIR)/$(DEBUGDIR)
@@ -60,26 +60,18 @@ OBJS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(BUILD_PATH)/%.o)
 # List of dependency files
 DEPS = $(SOURCES:$(SRC_PATH)/%.$(SRC_EXT)=$(DEP_PATH)/%.d)
 
-.PHONY: all clean rebuild help
+.PHONY: all clean rebuild
 
 all: $(BUILD_PATH)/$(EXE_NAME)
 
 clean:
-	dos2unix clear_ipc.sh
+	#dos2unix clear_ipc.sh
 	./clear_ipc.sh
 	$(RM) $(BUILD_PATH)/*.o
 	$(RM) $(BUILD_PATH)/$(EXE_NAME)
 	$(RM) $(DEP_PATH)/*.d
 
 rebuild: clean all
-
-help:
-	@echo '                         ### MAKEFILE HELP ###'
-	@echo 'PHONY TARGETS:'
-	@echo ' all     ...'
-	@echo ' clean   ...'
-	@echo ' rebuild ...'
-	@echo ' help    ...'
 
 # Build object files
 $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
@@ -89,3 +81,5 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.$(SRC_EXT)
 # Build main target
 $(BUILD_PATH)/$(EXE_NAME): $(OBJS)
 	$(CC) $(LIB_DIRS) -o $(BUILD_PATH)/$(EXE_NAME) $(OBJS) $(LIBS)
+	# Copie l'executable dans le dossier principal
+	cp $(BUILD_PATH)/$(EXE_NAME) ./$(EXE_NAME)
