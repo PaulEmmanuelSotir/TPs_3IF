@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Index</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>Bienvenue</h1>
+        <U><a href="listeRestaurants">Voir la liste des restaurants</a></U>
+
+        <script>
+            $(function() {
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'gotoRestaurants'
+                    },
+                    dataType: 'json'
+                })
+                .done(function(data) {
+                    
+                })
+                .fail(function() {
+                    
+                })
+                .always(function() {
+                    
+                });
+            });
+        </script>
+    </body>
+</html>
