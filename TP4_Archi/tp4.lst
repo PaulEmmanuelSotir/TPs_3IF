@@ -1,0 +1,502 @@
+
+tp4.elf:     file format elf32-msp430
+
+
+Disassembly of section .text:
+
+00003100 <__watchdog_support>:
+    3100:	b2 40 80 5a 	mov	#23168,	&0x0120	;#0x5a80
+    3104:	20 01 
+
+00003106 <__init_stack>:
+    3106:	31 40 00 31 	mov	#12544,	r1	;#0x3100
+
+0000310a <__do_copy_data>:
+    310a:	3f 40 00 00 	mov	#0,	r15	;#0x0000
+    310e:	0f 93       	tst	r15		
+    3110:	05 24       	jz	$+12     	;abs 0x311c
+    3112:	2f 83       	decd	r15		
+    3114:	9f 4f 48 36 	mov	13896(r15),4352(r15);0x3648(r15), 0x1100(r15)
+    3118:	00 11 
+    311a:	fb 23       	jnz	$-8      	;abs 0x3112
+
+0000311c <__do_clear_bss>:
+    311c:	3f 40 02 00 	mov	#2,	r15	;#0x0002
+    3120:	0f 93       	tst	r15		
+    3122:	04 24       	jz	$+10     	;abs 0x312c
+    3124:	1f 83       	dec	r15		
+    3126:	cf 43 00 11 	mov.b	#0,	4352(r15);r3 As==00, 0x1100(r15)
+    312a:	fc 23       	jnz	$-6      	;abs 0x3124
+
+0000312c <main>:
+    312c:	04 41       	mov	r1,	r4	
+    312e:	24 53       	incd	r4		
+    3130:	b0 12 58 31 	call	#0x3158	
+    3134:	5f 42 32 00 	mov.b	&0x0032,r15	
+    3138:	6f d3       	bis.b	#2,	r15	;r3 As==10
+    313a:	c2 4f 32 00 	mov.b	r15,	&0x0032	
+    313e:	b0 12 56 35 	call	#0x3556	
+    3142:	1f 42 00 11 	mov	&0x1100,r15	
+    3146:	b0 12 d4 33 	call	#0x33d4	
+    314a:	32 d2       	eint			
+    314c:	ff 3f       	jmp	$+0      	;abs 0x314c
+
+0000314e <__stop_progExec__>:
+    314e:	32 d0 f0 00 	bis	#240,	r2	;#0x00f0
+    3152:	fd 3f       	jmp	$-4      	;abs 0x314e
+
+00003154 <__ctors_end>:
+    3154:	30 40 12 36 	br	#0x3612	
+
+00003158 <lcd_init>:
+    3158:	04 12       	push	r4		
+    315a:	04 41       	mov	r1,	r4	
+    315c:	24 53       	incd	r4		
+    315e:	5f 42 32 00 	mov.b	&0x0032,r15	
+    3162:	7f d0 1c 00 	bis.b	#28,	r15	;#0x001c
+    3166:	c2 4f 32 00 	mov.b	r15,	&0x0032	
+    316a:	5f 42 33 00 	mov.b	&0x0033,r15	
+    316e:	7f d0 1c 00 	bis.b	#28,	r15	;#0x001c
+    3172:	c2 4f 33 00 	mov.b	r15,	&0x0033	
+    3176:	f2 40 1d 00 	mov.b	#29,	&0x0090	;#0x001d
+    317a:	90 00 
+    317c:	f2 40 7e 00 	mov.b	#126,	&0x00ac	;#0x007e
+    3180:	ac 00 
+    3182:	c2 43 ad 00 	mov.b	#0,	&0x00ad	;r3 As==00
+    3186:	34 41       	pop	r4		
+    3188:	30 41       	ret			
+
+0000318a <lcd_clear>:
+    318a:	04 12       	push	r4		
+    318c:	04 41       	mov	r1,	r4	
+    318e:	24 53       	incd	r4		
+    3190:	21 82       	sub	#4,	r1	;r2 As==10
+    3192:	b4 40 91 00 	mov	#145,	-6(r4)	;#0x0091, 0xfffa(r4)
+    3196:	fa ff 
+    3198:	09 3c       	jmp	$+20     	;abs 0x31ac
+    319a:	94 44 fa ff 	mov	-6(r4),	-4(r4)	;0xfffa(r4), 0xfffc(r4)
+    319e:	fc ff 
+    31a0:	1f 44 fc ff 	mov	-4(r4),	r15	;0xfffc(r4)
+    31a4:	cf 43 00 00 	mov.b	#0,	0(r15)	;r3 As==00, 0x0000(r15)
+    31a8:	94 53 fa ff 	inc	-6(r4)		;0xfffa(r4)
+    31ac:	b4 90 a5 00 	cmp	#165,	-6(r4)	;#0x00a5, 0xfffa(r4)
+    31b0:	fa ff 
+    31b2:	f3 2b       	jnc	$-24     	;abs 0x319a
+    31b4:	21 52       	add	#4,	r1	;r2 As==10
+    31b6:	34 41       	pop	r4		
+    31b8:	30 41       	ret			
+
+000031ba <lcd_fill>:
+    31ba:	04 12       	push	r4		
+    31bc:	04 41       	mov	r1,	r4	
+    31be:	24 53       	incd	r4		
+    31c0:	21 82       	sub	#4,	r1	;r2 As==10
+    31c2:	b4 40 91 00 	mov	#145,	-6(r4)	;#0x0091, 0xfffa(r4)
+    31c6:	fa ff 
+    31c8:	09 3c       	jmp	$+20     	;abs 0x31dc
+    31ca:	94 44 fa ff 	mov	-6(r4),	-4(r4)	;0xfffa(r4), 0xfffc(r4)
+    31ce:	fc ff 
+    31d0:	1f 44 fc ff 	mov	-4(r4),	r15	;0xfffc(r4)
+    31d4:	ff 43 00 00 	mov.b	#-1,	0(r15)	;r3 As==11, 0x0000(r15)
+    31d8:	94 53 fa ff 	inc	-6(r4)		;0xfffa(r4)
+    31dc:	b4 90 a5 00 	cmp	#165,	-6(r4)	;#0x00a5, 0xfffa(r4)
+    31e0:	fa ff 
+    31e2:	f3 2b       	jnc	$-24     	;abs 0x31ca
+    31e4:	21 52       	add	#4,	r1	;r2 As==10
+    31e6:	34 41       	pop	r4		
+    31e8:	30 41       	ret			
+
+000031ea <lcd_fill_px>:
+    31ea:	04 12       	push	r4		
+    31ec:	04 41       	mov	r1,	r4	
+    31ee:	24 53       	incd	r4		
+    31f0:	31 50 fa ff 	add	#-6,	r1	;#0xfffa
+    31f4:	84 4f fc ff 	mov	r15,	-4(r4)	;0xfffc(r4)
+    31f8:	b4 40 93 00 	mov	#147,	-8(r4)	;#0x0093, 0xfff8(r4)
+    31fc:	f8 ff 
+    31fe:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3202:	ff 40 6b 00 	mov.b	#107,	0(r15)	;#0x006b, 0x0000(r15)
+    3206:	00 00 
+    3208:	b4 40 94 00 	mov	#148,	-6(r4)	;#0x0094, 0xfffa(r4)
+    320c:	fa ff 
+    320e:	1f 44 fa ff 	mov	-6(r4),	r15	;0xfffa(r4)
+    3212:	ff 40 36 00 	mov.b	#54,	0(r15)	;#0x0036, 0x0000(r15)
+    3216:	00 00 
+    3218:	31 50 06 00 	add	#6,	r1	;#0x0006
+    321c:	34 41       	pop	r4		
+    321e:	30 41       	ret			
+
+00003220 <lcd_display_digit_hexa>:
+    3220:	04 12       	push	r4		
+    3222:	04 41       	mov	r1,	r4	
+    3224:	24 53       	incd	r4		
+    3226:	31 50 fa ff 	add	#-6,	r1	;#0xfffa
+    322a:	84 4f fa ff 	mov	r15,	-6(r4)	;0xfffa(r4)
+    322e:	84 4e fc ff 	mov	r14,	-4(r4)	;0xfffc(r4)
+    3232:	1f 44 fa ff 	mov	-6(r4),	r15	;0xfffa(r4)
+    3236:	0e 4f       	mov	r15,	r14	
+    3238:	3e 50 92 00 	add	#146,	r14	;#0x0092
+    323c:	84 4e f8 ff 	mov	r14,	-8(r4)	;0xfff8(r4)
+    3240:	b4 90 10 00 	cmp	#16,	-4(r4)	;#0x0010, 0xfffc(r4)
+    3244:	fc ff 
+    3246:	67 2c       	jc	$+208    	;abs 0x3316
+    3248:	1f 44 fc ff 	mov	-4(r4),	r15	;0xfffc(r4)
+    324c:	0f 5f       	rla	r15		
+    324e:	3f 50 14 36 	add	#13844,	r15	;#0x3614
+    3252:	2f 4f       	mov	@r15,	r15	
+    3254:	00 4f       	br	r15		
+    3256:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    325a:	ff 40 5f 00 	mov.b	#95,	0(r15)	;#0x005f, 0x0000(r15)
+    325e:	00 00 
+    3260:	5a 3c       	jmp	$+182    	;abs 0x3316
+    3262:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3266:	ff 40 06 00 	mov.b	#6,	0(r15)	;#0x0006, 0x0000(r15)
+    326a:	00 00 
+    326c:	54 3c       	jmp	$+170    	;abs 0x3316
+    326e:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3272:	ff 40 6b 00 	mov.b	#107,	0(r15)	;#0x006b, 0x0000(r15)
+    3276:	00 00 
+    3278:	4e 3c       	jmp	$+158    	;abs 0x3316
+    327a:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    327e:	ff 40 2f 00 	mov.b	#47,	0(r15)	;#0x002f, 0x0000(r15)
+    3282:	00 00 
+    3284:	48 3c       	jmp	$+146    	;abs 0x3316
+    3286:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    328a:	ff 40 36 00 	mov.b	#54,	0(r15)	;#0x0036, 0x0000(r15)
+    328e:	00 00 
+    3290:	42 3c       	jmp	$+134    	;abs 0x3316
+    3292:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3296:	ff 40 3d 00 	mov.b	#61,	0(r15)	;#0x003d, 0x0000(r15)
+    329a:	00 00 
+    329c:	3c 3c       	jmp	$+122    	;abs 0x3316
+    329e:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32a2:	ff 40 7d 00 	mov.b	#125,	0(r15)	;#0x007d, 0x0000(r15)
+    32a6:	00 00 
+    32a8:	36 3c       	jmp	$+110    	;abs 0x3316
+    32aa:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32ae:	ff 40 07 00 	mov.b	#7,	0(r15)	;#0x0007, 0x0000(r15)
+    32b2:	00 00 
+    32b4:	30 3c       	jmp	$+98     	;abs 0x3316
+    32b6:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32ba:	ff 40 7f 00 	mov.b	#127,	0(r15)	;#0x007f, 0x0000(r15)
+    32be:	00 00 
+    32c0:	2a 3c       	jmp	$+86     	;abs 0x3316
+    32c2:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32c6:	ff 40 3f 00 	mov.b	#63,	0(r15)	;#0x003f, 0x0000(r15)
+    32ca:	00 00 
+    32cc:	24 3c       	jmp	$+74     	;abs 0x3316
+    32ce:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32d2:	ff 40 77 00 	mov.b	#119,	0(r15)	;#0x0077, 0x0000(r15)
+    32d6:	00 00 
+    32d8:	1e 3c       	jmp	$+62     	;abs 0x3316
+    32da:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32de:	ff 40 7c 00 	mov.b	#124,	0(r15)	;#0x007c, 0x0000(r15)
+    32e2:	00 00 
+    32e4:	18 3c       	jmp	$+50     	;abs 0x3316
+    32e6:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32ea:	ff 40 39 00 	mov.b	#57,	0(r15)	;#0x0039, 0x0000(r15)
+    32ee:	00 00 
+    32f0:	12 3c       	jmp	$+38     	;abs 0x3316
+    32f2:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    32f6:	ff 40 5e 00 	mov.b	#94,	0(r15)	;#0x005e, 0x0000(r15)
+    32fa:	00 00 
+    32fc:	0c 3c       	jmp	$+26     	;abs 0x3316
+    32fe:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3302:	ff 40 79 00 	mov.b	#121,	0(r15)	;#0x0079, 0x0000(r15)
+    3306:	00 00 
+    3308:	06 3c       	jmp	$+14     	;abs 0x3316
+    330a:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    330e:	ff 40 71 00 	mov.b	#113,	0(r15)	;#0x0071, 0x0000(r15)
+    3312:	00 00 
+    3314:	03 43       	nop			
+    3316:	31 50 06 00 	add	#6,	r1	;#0x0006
+    331a:	34 41       	pop	r4		
+    331c:	30 41       	ret			
+
+0000331e <lcd_display_digit>:
+    331e:	04 12       	push	r4		
+    3320:	04 41       	mov	r1,	r4	
+    3322:	24 53       	incd	r4		
+    3324:	31 50 fa ff 	add	#-6,	r1	;#0xfffa
+    3328:	84 4f fa ff 	mov	r15,	-6(r4)	;0xfffa(r4)
+    332c:	84 4e fc ff 	mov	r14,	-4(r4)	;0xfffc(r4)
+    3330:	1f 44 fa ff 	mov	-6(r4),	r15	;0xfffa(r4)
+    3334:	0e 4f       	mov	r15,	r14	
+    3336:	3e 50 92 00 	add	#146,	r14	;#0x0092
+    333a:	84 4e f8 ff 	mov	r14,	-8(r4)	;0xfff8(r4)
+    333e:	b4 90 0a 00 	cmp	#10,	-4(r4)	;#0x000a, 0xfffc(r4)
+    3342:	fc ff 
+    3344:	43 2c       	jc	$+136    	;abs 0x33cc
+    3346:	1f 44 fc ff 	mov	-4(r4),	r15	;0xfffc(r4)
+    334a:	0f 5f       	rla	r15		
+    334c:	3f 50 34 36 	add	#13876,	r15	;#0x3634
+    3350:	2f 4f       	mov	@r15,	r15	
+    3352:	00 4f       	br	r15		
+    3354:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3358:	ff 40 5f 00 	mov.b	#95,	0(r15)	;#0x005f, 0x0000(r15)
+    335c:	00 00 
+    335e:	36 3c       	jmp	$+110    	;abs 0x33cc
+    3360:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3364:	ff 40 06 00 	mov.b	#6,	0(r15)	;#0x0006, 0x0000(r15)
+    3368:	00 00 
+    336a:	30 3c       	jmp	$+98     	;abs 0x33cc
+    336c:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3370:	ff 40 6b 00 	mov.b	#107,	0(r15)	;#0x006b, 0x0000(r15)
+    3374:	00 00 
+    3376:	2a 3c       	jmp	$+86     	;abs 0x33cc
+    3378:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    337c:	ff 40 2f 00 	mov.b	#47,	0(r15)	;#0x002f, 0x0000(r15)
+    3380:	00 00 
+    3382:	24 3c       	jmp	$+74     	;abs 0x33cc
+    3384:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3388:	ff 40 36 00 	mov.b	#54,	0(r15)	;#0x0036, 0x0000(r15)
+    338c:	00 00 
+    338e:	1e 3c       	jmp	$+62     	;abs 0x33cc
+    3390:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3394:	ff 40 3d 00 	mov.b	#61,	0(r15)	;#0x003d, 0x0000(r15)
+    3398:	00 00 
+    339a:	18 3c       	jmp	$+50     	;abs 0x33cc
+    339c:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    33a0:	ff 40 7d 00 	mov.b	#125,	0(r15)	;#0x007d, 0x0000(r15)
+    33a4:	00 00 
+    33a6:	12 3c       	jmp	$+38     	;abs 0x33cc
+    33a8:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    33ac:	ff 40 07 00 	mov.b	#7,	0(r15)	;#0x0007, 0x0000(r15)
+    33b0:	00 00 
+    33b2:	0c 3c       	jmp	$+26     	;abs 0x33cc
+    33b4:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    33b8:	ff 40 7f 00 	mov.b	#127,	0(r15)	;#0x007f, 0x0000(r15)
+    33bc:	00 00 
+    33be:	06 3c       	jmp	$+14     	;abs 0x33cc
+    33c0:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    33c4:	ff 40 3f 00 	mov.b	#63,	0(r15)	;#0x003f, 0x0000(r15)
+    33c8:	00 00 
+    33ca:	03 43       	nop			
+    33cc:	31 50 06 00 	add	#6,	r1	;#0x0006
+    33d0:	34 41       	pop	r4		
+    33d2:	30 41       	ret			
+
+000033d4 <lcd_display_number>:
+    33d4:	0b 12       	push	r11		
+    33d6:	0a 12       	push	r10		
+    33d8:	09 12       	push	r9		
+    33da:	08 12       	push	r8		
+    33dc:	04 12       	push	r4		
+    33de:	04 41       	mov	r1,	r4	
+    33e0:	34 50 0a 00 	add	#10,	r4	;#0x000a
+    33e4:	31 50 f4 ff 	add	#-12,	r1	;#0xfff4
+    33e8:	84 4f f4 ff 	mov	r15,	-12(r4)	;0xfff4(r4)
+    33ec:	b0 12 8a 31 	call	#0x318a	
+    33f0:	94 43 ea ff 	mov	#1,	-22(r4)	;r3 As==01, 0xffea(r4)
+    33f4:	b4 40 0a 00 	mov	#10,	-20(r4)	;#0x000a, 0xffec(r4)
+    33f8:	ec ff 
+    33fa:	84 43 ee ff 	mov	#0,	-18(r4)	;r3 As==00, 0xffee(r4)
+    33fe:	1c 3c       	jmp	$+58     	;abs 0x3438
+    3400:	94 53 ea ff 	inc	-22(r4)	;0xffea(r4)
+    3404:	1e 44 ec ff 	mov	-20(r4),r14	;0xffec(r4)
+    3408:	1f 44 ee ff 	mov	-18(r4),r15	;0xffee(r4)
+    340c:	0c 4e       	mov	r14,	r12	
+    340e:	0d 4f       	mov	r15,	r13	
+    3410:	0e 4c       	mov	r12,	r14	
+    3412:	0f 4d       	mov	r13,	r15	
+    3414:	0e 5e       	rla	r14		
+    3416:	0f 6f       	rlc	r15		
+    3418:	0c 4e       	mov	r14,	r12	
+    341a:	0d 4f       	mov	r15,	r13	
+    341c:	0e 4c       	mov	r12,	r14	
+    341e:	0f 4d       	mov	r13,	r15	
+    3420:	0e 5e       	rla	r14		
+    3422:	0f 6f       	rlc	r15		
+    3424:	0e 5e       	rla	r14		
+    3426:	0f 6f       	rlc	r15		
+    3428:	08 4c       	mov	r12,	r8	
+    342a:	09 4d       	mov	r13,	r9	
+    342c:	08 5e       	add	r14,	r8	
+    342e:	09 6f       	addc	r15,	r9	
+    3430:	84 48 ec ff 	mov	r8,	-20(r4)	;0xffec(r4)
+    3434:	84 49 ee ff 	mov	r9,	-18(r4)	;0xffee(r4)
+    3438:	1a 44 f4 ff 	mov	-12(r4),r10	;0xfff4(r4)
+    343c:	0b 43       	clr	r11		
+    343e:	1b 94 ee ff 	cmp	-18(r4),r11	;0xffee(r4)
+    3442:	06 38       	jl	$+14     	;abs 0x3450
+    3444:	84 9b ee ff 	cmp	r11,	-18(r4)	;0xffee(r4)
+    3448:	db 3b       	jl	$-72     	;abs 0x3400
+    344a:	1a 94 ec ff 	cmp	-20(r4),r10	;0xffec(r4)
+    344e:	d8 2f       	jc	$-78     	;abs 0x3400
+    3450:	94 43 f0 ff 	mov	#1,	-16(r4)	;r3 As==01, 0xfff0(r4)
+    3454:	18 3c       	jmp	$+50     	;abs 0x3486
+    3456:	1f 44 f4 ff 	mov	-12(r4),r15	;0xfff4(r4)
+    345a:	3e 40 0a 00 	mov	#10,	r14	;#0x000a
+    345e:	b0 12 0a 36 	call	#0x360a	
+    3462:	84 4f f2 ff 	mov	r15,	-14(r4)	;0xfff2(r4)
+    3466:	1f 44 f0 ff 	mov	-16(r4),r15	;0xfff0(r4)
+    346a:	1e 44 f2 ff 	mov	-14(r4),r14	;0xfff2(r4)
+    346e:	b0 12 1e 33 	call	#0x331e	
+    3472:	1f 44 f4 ff 	mov	-12(r4),r15	;0xfff4(r4)
+    3476:	3e 40 0a 00 	mov	#10,	r14	;#0x000a
+    347a:	b0 12 f0 35 	call	#0x35f0	
+    347e:	84 4f f4 ff 	mov	r15,	-12(r4)	;0xfff4(r4)
+    3482:	94 53 f0 ff 	inc	-16(r4)	;0xfff0(r4)
+    3486:	1f 44 ea ff 	mov	-22(r4),r15	;0xffea(r4)
+    348a:	1f 94 f0 ff 	cmp	-16(r4),r15	;0xfff0(r4)
+    348e:	e3 2f       	jc	$-56     	;abs 0x3456
+    3490:	31 50 0c 00 	add	#12,	r1	;#0x000c
+    3494:	34 41       	pop	r4		
+    3496:	38 41       	pop	r8		
+    3498:	39 41       	pop	r9		
+    349a:	3a 41       	pop	r10		
+    349c:	3b 41       	pop	r11		
+    349e:	30 41       	ret			
+
+000034a0 <lcd_display_hexa>:
+    34a0:	0b 12       	push	r11		
+    34a2:	0a 12       	push	r10		
+    34a4:	04 12       	push	r4		
+    34a6:	04 41       	mov	r1,	r4	
+    34a8:	34 50 06 00 	add	#6,	r4	;#0x0006
+    34ac:	31 50 f4 ff 	add	#-12,	r1	;#0xfff4
+    34b0:	84 4f f8 ff 	mov	r15,	-8(r4)	;0xfff8(r4)
+    34b4:	b0 12 8a 31 	call	#0x318a	
+    34b8:	94 43 ee ff 	mov	#1,	-18(r4)	;r3 As==01, 0xffee(r4)
+    34bc:	b4 40 10 00 	mov	#16,	-16(r4)	;#0x0010, 0xfff0(r4)
+    34c0:	f0 ff 
+    34c2:	84 43 f2 ff 	mov	#0,	-14(r4)	;r3 As==00, 0xfff2(r4)
+    34c6:	12 3c       	jmp	$+38     	;abs 0x34ec
+    34c8:	94 53 ee ff 	inc	-18(r4)	;0xffee(r4)
+    34cc:	1e 44 f0 ff 	mov	-16(r4),r14	;0xfff0(r4)
+    34d0:	1f 44 f2 ff 	mov	-14(r4),r15	;0xfff2(r4)
+    34d4:	0e 5e       	rla	r14		
+    34d6:	0f 6f       	rlc	r15		
+    34d8:	0e 5e       	rla	r14		
+    34da:	0f 6f       	rlc	r15		
+    34dc:	0e 5e       	rla	r14		
+    34de:	0f 6f       	rlc	r15		
+    34e0:	0e 5e       	rla	r14		
+    34e2:	0f 6f       	rlc	r15		
+    34e4:	84 4e f0 ff 	mov	r14,	-16(r4)	;0xfff0(r4)
+    34e8:	84 4f f2 ff 	mov	r15,	-14(r4)	;0xfff2(r4)
+    34ec:	1a 44 f8 ff 	mov	-8(r4),	r10	;0xfff8(r4)
+    34f0:	0b 43       	clr	r11		
+    34f2:	1b 94 f2 ff 	cmp	-14(r4),r11	;0xfff2(r4)
+    34f6:	06 38       	jl	$+14     	;abs 0x3504
+    34f8:	84 9b f2 ff 	cmp	r11,	-14(r4)	;0xfff2(r4)
+    34fc:	e5 3b       	jl	$-52     	;abs 0x34c8
+    34fe:	1a 94 f0 ff 	cmp	-16(r4),r10	;0xfff0(r4)
+    3502:	e2 2f       	jc	$-58     	;abs 0x34c8
+    3504:	94 43 f4 ff 	mov	#1,	-12(r4)	;r3 As==01, 0xfff4(r4)
+    3508:	1b 3c       	jmp	$+56     	;abs 0x3540
+    350a:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    350e:	0e 4f       	mov	r15,	r14	
+    3510:	3e f0 0f 00 	and	#15,	r14	;#0x000f
+    3514:	84 4e f6 ff 	mov	r14,	-10(r4)	;0xfff6(r4)
+    3518:	1f 44 f4 ff 	mov	-12(r4),r15	;0xfff4(r4)
+    351c:	1e 44 f6 ff 	mov	-10(r4),r14	;0xfff6(r4)
+    3520:	b0 12 20 32 	call	#0x3220	
+    3524:	1f 44 f8 ff 	mov	-8(r4),	r15	;0xfff8(r4)
+    3528:	12 c3       	clrc			
+    352a:	0f 10       	rrc	r15		
+    352c:	12 c3       	clrc			
+    352e:	0f 10       	rrc	r15		
+    3530:	12 c3       	clrc			
+    3532:	0f 10       	rrc	r15		
+    3534:	12 c3       	clrc			
+    3536:	0f 10       	rrc	r15		
+    3538:	84 4f f8 ff 	mov	r15,	-8(r4)	;0xfff8(r4)
+    353c:	94 53 f4 ff 	inc	-12(r4)	;0xfff4(r4)
+    3540:	1f 44 ee ff 	mov	-18(r4),r15	;0xffee(r4)
+    3544:	1f 94 f4 ff 	cmp	-12(r4),r15	;0xfff4(r4)
+    3548:	e0 2f       	jc	$-62     	;abs 0x350a
+    354a:	31 50 0c 00 	add	#12,	r1	;#0x000c
+    354e:	34 41       	pop	r4		
+    3550:	3a 41       	pop	r10		
+    3552:	3b 41       	pop	r11		
+    3554:	30 41       	ret			
+
+00003556 <init_timer>:
+    3556:	04 12       	push	r4		
+    3558:	04 41       	mov	r1,	r4	
+    355a:	24 53       	incd	r4		
+    355c:	82 43 70 01 	mov	#0,	&0x0170	;r3 As==00
+    3560:	b2 40 f6 28 	mov	#10486,	&0x0172	;#0x28f6
+    3564:	72 01 
+    3566:	b2 40 10 40 	mov	#16400,	&0x0162	;#0x4010
+    356a:	62 01 
+    356c:	b2 40 10 02 	mov	#528,	&0x0160	;#0x0210
+    3570:	60 01 
+    3572:	34 41       	pop	r4		
+    3574:	30 41       	ret			
+
+00003576 <mon_traitement_interuption_timer>:
+    3576:	04 12       	push	r4		
+    3578:	04 41       	mov	r1,	r4	
+    357a:	24 53       	incd	r4		
+    357c:	1f 42 00 11 	mov	&0x1100,r15	
+    3580:	1f 53       	inc	r15		
+    3582:	82 4f 00 11 	mov	r15,	&0x1100	
+    3586:	1f 42 00 11 	mov	&0x1100,r15	
+    358a:	b0 12 d4 33 	call	#0x33d4	
+    358e:	5f 42 31 00 	mov.b	&0x0031,r15	
+    3592:	6f e3       	xor.b	#2,	r15	;r3 As==10
+    3594:	c2 4f 31 00 	mov.b	r15,	&0x0031	
+    3598:	34 41       	pop	r4		
+    359a:	30 41       	ret			
+
+0000359c <main_2>:
+    359c:	04 12       	push	r4		
+    359e:	04 41       	mov	r1,	r4	
+    35a0:	24 53       	incd	r4		
+    35a2:	21 83       	decd	r1		
+    35a4:	b0 12 58 31 	call	#0x3158	
+    35a8:	5f 42 32 00 	mov.b	&0x0032,r15	
+    35ac:	6f d3       	bis.b	#2,	r15	;r3 As==10
+    35ae:	c2 4f 32 00 	mov.b	r15,	&0x0032	
+    35b2:	b0 12 56 35 	call	#0x3556	
+    35b6:	84 43 fc ff 	mov	#0,	-4(r4)	;r3 As==00, 0xfffc(r4)
+    35ba:	1f 44 fc ff 	mov	-4(r4),	r15	;0xfffc(r4)
+    35be:	b0 12 d4 33 	call	#0x33d4	
+    35c2:	01 3c       	jmp	$+4      	;abs 0x35c6
+    35c4:	03 43       	nop			
+    35c6:	1f 42 60 01 	mov	&0x0160,r15	
+    35ca:	1f f3       	and	#1,	r15	;r3 As==01
+    35cc:	4f 4f       	mov.b	r15,	r15	
+    35ce:	4f 93       	tst.b	r15		
+    35d0:	f9 27       	jz	$-12     	;abs 0x35c4
+    35d2:	94 53 fc ff 	inc	-4(r4)		;0xfffc(r4)
+    35d6:	1f 44 fc ff 	mov	-4(r4),	r15	;0xfffc(r4)
+    35da:	b0 12 d4 33 	call	#0x33d4	
+    35de:	5f 42 31 00 	mov.b	&0x0031,r15	
+    35e2:	6f e3       	xor.b	#2,	r15	;r3 As==10
+    35e4:	c2 4f 31 00 	mov.b	r15,	&0x0031	
+    35e8:	b2 40 62 02 	mov	#610,	&0x0160	;#0x0262
+    35ec:	60 01 
+    35ee:	ea 3f       	jmp	$-42     	;abs 0x35c4
+
+000035f0 <__udivhi3>:
+    35f0:	7c 40 10 00 	mov.b	#16,	r12	;#0x0010
+    35f4:	0d 4e       	mov	r14,	r13	
+    35f6:	0e 43       	clr	r14		
+    35f8:	0f 5f       	rla	r15		
+    35fa:	0e 6e       	rlc	r14		
+    35fc:	0e 9d       	cmp	r13,	r14	
+    35fe:	02 28       	jnc	$+6      	;abs 0x3604
+    3600:	0e 8d       	sub	r13,	r14	
+    3602:	1f d3       	bis	#1,	r15	;r3 As==01
+    3604:	1c 83       	dec	r12		
+    3606:	f8 23       	jnz	$-14     	;abs 0x35f8
+    3608:	30 41       	ret			
+
+0000360a <__umodhi3>:
+    360a:	b0 12 f0 35 	call	#0x35f0	
+    360e:	0f 4e       	mov	r14,	r15	
+    3610:	30 41       	ret			
+
+00003612 <_unexpected_>:
+    3612:	00 13       	reti			
+
+Disassembly of section .vectors:
+
+0000ffc0 <__ivtbl_32>:
+    ffc0:	54 31 54 31 54 31 54 31 54 31 54 31 54 31 54 31     T1T1T1T1T1T1T1T1
+    ffd0:	54 31 54 31 54 31 54 31 54 31 54 31 54 31 54 31     T1T1T1T1T1T1T1T1
+    ffe0:	54 31 54 31 54 31 54 31 54 31 54 31 54 31 54 31     T1T1T1T1T1T1T1T1
+    fff0:	54 31 54 31 54 31 54 31 54 31 54 31 54 31 00 31     T1T1T1T1T1T1T1.1
