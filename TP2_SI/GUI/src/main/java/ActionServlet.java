@@ -84,6 +84,8 @@ public class ActionServlet extends HttpServlet {
                 m_main_page_controller.createClient(request, response);
             if("connectClient".equals(request.getParameter("action")))
                 m_main_page_controller.connectClient(request, response);
+            if("validateDelivery".equals(request.getParameter("action")))
+                m_delivery_page_controller.validateDelivery(request, response);
         }
     }
 
