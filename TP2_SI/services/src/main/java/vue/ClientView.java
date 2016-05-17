@@ -32,7 +32,7 @@ public class ClientView {
             }
             System.out.println("Entrez votre mot de passe : ");
             String pw = sc.nextLine();
-            c = service.connection(name, pw);
+            c = service.connectClient(name, pw);
             if(c == null) {
                 System.out.println("Ce client n'existe pas");
             }

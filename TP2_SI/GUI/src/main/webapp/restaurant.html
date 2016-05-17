@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
+    </head>
+    <body>
+        <div id="restaurant">Chargement des détails du restaurant...</div>
+        <script>
+            function getUrlParameter(sParam) {
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                }
+            };
+            
+             $(function() {
+                var id = getUrlParameter("id");
+                $.ajax({
+                     url: './ActionServlet',
+                     type: 'POST',
+                     data: {
+                         action: 'findRestaurantById',
+                         id: id
+                     },
+                     dataType: 'json'
+                 })
+                 .done(function(data) {
+                    $('#restaurant').html('<h1>' + data.denomination + '</h1></br>' + data.adresse + '</br>' + data.description);
+                 })
+                 .fail(function() {
+
+                 })
+                 .always(function() {
+
+                 });
+            });
+        </script>
+    </body>
+</html>

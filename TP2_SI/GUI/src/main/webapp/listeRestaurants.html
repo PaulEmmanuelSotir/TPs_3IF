@@ -25,11 +25,11 @@
                     dataType: 'json'
                 })
                 .done(function(data) {
-                    var restaurants = data.restaurants;
                     var contenuHtml = '<ul>';
                     var i;
-                    for (i = 0; i < restaurants.length; i++) {
-                        contenuHtml += '<li>' + restaurants[i] + '</li>';
+                    for (i = 0; i < data.length; i++) {
+                        var id = data[i].id;
+                        contenuHtml += '<li>[' + id + '] ' + data[i].denomination + '  <a href="restaurant.html?id=' + id + '">voir</a></li>';
                     }
                     contenuHtml += '</ul>';
                     $('#listeRestaurants').html(contenuHtml);

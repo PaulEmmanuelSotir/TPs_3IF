@@ -24,7 +24,7 @@ import metier.service.Service;
 public class testCommande {
     public static void main(String[] args) {
         Service service = new Service();
-        Client c = service.connection("qvecchio", "qvecchio");
+        Client c = service.connectClient("qvecchio", "qvecchio");
         Restaurant r = service.findRestaurantById(new Long(1));
         List<ProduitCommande> contenues = new ArrayList<>();
         System.out.println(c);

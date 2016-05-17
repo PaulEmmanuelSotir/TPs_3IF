@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.*;
@@ -19,6 +20,16 @@ import metier.service.Service;
  */
 @WebServlet(urlPatterns = {"/ActionServlet"})
 public class ActionServlet extends HttpServlet {
+    /**
+     * Constructor
+     */
+    public ActionServlet()
+    {
+         m_main_page_controller = new MainPageAction();
+         m_dashboard_controller = new DashboardAction();
+         m_client_page_controller = new ClientPageAction();
+         m_delivery_page_controller = new DeliveryAction();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -49,14 +60,30 @@ public class ActionServlet extends HttpServlet {
             }
             if("findAllRestaurant".equals(request.getParameter("action"))) {
                 response.setContentType("json;charset=UTF-8");
+                
+                List<Restaurant> rests = service.findAllRestaurant();
+                Gson gson = new Gson();
+                String json = gson.toJson(rests);
+                
                 try (PrintWriter out = response.getWriter()) {
-                    out.println("{ restaurants: [");
-                    List<Restaurant> rests = service.findAllRestaurant();
-                    for(Restaurant r : rests)
-                        out.println(r.getId());
-                    out.println("] }");
+                    out.println(json);
                 }
             }
+            if("findRestaurantById".equals(request.getParameter("action"))) {
+                response.setContentType("json;charset=UTF-8");
+                
+                Restaurant rest = service.findRestaurantById(Long.parseLong(request.getParameter("id")));
+                Gson gson = new Gson();
+                String json = gson.toJson(rest);
+                
+                try (PrintWriter out = response.getWriter()) {
+                    out.println(json);
+                }
+            }
+            if("createClient".equals(request.getParameter("action")))
+                m_main_page_controller.createClient(request, response);
+            if("connectClient".equals(request.getParameter("action")))
+                m_main_page_controller.connectClient(request, response);
         }
     }
 
@@ -99,4 +126,8 @@ public class ActionServlet extends HttpServlet {
         return "Gustatif web service controller servlet";
     }
 
+    private MainPageAction m_main_page_controller;
+    private DashboardAction m_dashboard_controller;
+    private ClientPageAction m_client_page_controller;
+    private DeliveryAction m_delivery_page_controller;
 }

@@ -90,7 +90,7 @@ public class Service {
         return null;
     }
      
-    public Client connection(String pseudo, String password) {
+    public Client connectClient(String pseudo, String password) {
         JpaUtil.creerEntityManager();
         try {
             return clientDao.findClientByPseudoAndPassword(pseudo, password);

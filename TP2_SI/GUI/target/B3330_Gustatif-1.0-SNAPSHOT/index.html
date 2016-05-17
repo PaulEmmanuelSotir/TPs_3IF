@@ -2,13 +2,113 @@
 <html>
     <head>
         <title>Index</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+        <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
     </head>
     <body>
-        <h1>Bienvenue</h1>
-        <U><a href="listeRestaurants">Voir la liste des restaurants</a></U>
+        <h1>Gustatif</h1>
+        <div>
+            <a href='dashboard.html'>Accès administration</a>
+            <a href='delivery.html'>Accès livreurs</a>
+        </div>
+        <div>
+            <h1>Inscription</h1>
+            <form name='incription_form' action='client_restaurant.html' onsubmit='return validateInscription()' method='post'>
+                Pseudo:<br>
+                <input type='text' name='pseudo'><br>
+                Nom:<br>
+                <input type='text' name='nom'><br>
+                Prénom:<br>
+                <input type='text' name='prenom'><br>
+                Email:<br>
+                <input type='text' name='email'><br>
+                Mot de passe:<br>
+                <input type='text' name='password1'><br>
+                Confirmation:<br>
+                <input type='text' name='password2'><br>
+                Adresse:<br>
+                <input type='text' name='adresse'><br>
+                Tel:<br>
+                <input type='text' name='phone'><br>
+                <input type='submit' value='Valider'>
+            </form>
+        </div>
+        
+        <div>
+            <h1>Connexion</h1>
+            <form name='connexion_form' action='client_restaurant.html' onsubmit='return validateConnexion()' method='post'>
+                Pseudo:<br>
+                <input type='text' name='pseudo'><br>
+                Mot de passe:<br>
+                <input type='text' name='password'><br>
+                <input type='submit' value='Valider'>
+            </form>
+        </div>
+        
+        <U><a href='listeRestaurants.html'>Voir la liste des restaurants</a></U>
 
         <script>
+            function validateConnexion() {
+                var form = document.forms['connexion_form'];
+                
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'connectClient',
+                        pseudo: form['pseudo'],
+                        password: form['password']
+                    },
+                    dataType: 'json'
+                })
+                .done(function(client) {
+                    return true;
+                })
+                .fail(function() { return false; });
+                return false;
+            }
+            
+            function validateInscription() {
+                var success = false;
+                
+                var form = document.forms['incription_form'];
+                var client = {
+                    pseudo: form['pseudo'].value,
+                    nom: form['nom'].value,
+                    prenom: form['prenom'].value,
+                    email: form['email'].value,
+                    password1: form['password1'].value,
+                    password2: form['password2'].value,
+                    adresse: form['adresse'].value,
+                    phone: form['phone'].value
+                };
+                
+                if (client.password1 != client.password2) {
+                    alert('Les deux mots de passe doivent être identiques');
+                    return false;
+                }
+                if (client.password1 == null || client.password1 == '') {
+                    alert('Le mot de passe ne doit pas être vide');
+                    return false;
+                }
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'createClient',
+                        client: client
+                    },
+                    dataType: 'json',
+                    async: false
+                })
+                .done(function(id) {
+                    success = true;
+                })
+                .fail(function() { });
+                
+                return success;
+            }
+            
             $(function() {
                 $.ajax({
                     url: './ActionServlet',
@@ -18,15 +118,7 @@
                     },
                     dataType: 'json'
                 })
-                .done(function(data) {
-                    
-                })
-                .fail(function() {
-                    
-                })
-                .always(function() {
-                    
-                });
+                .fail(function() {  });
             });
         </script>
     </body>

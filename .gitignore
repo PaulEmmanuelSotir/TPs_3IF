@@ -7,6 +7,8 @@
 Debug/
 Release/
 .vs/
+TP2_SI/GUI/target
+
 
 *.opendb
 *.pyproj
