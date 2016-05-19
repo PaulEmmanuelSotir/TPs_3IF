@@ -11,3 +11,12 @@ public class ClientPageAction {
     
     private Service m_service;
 }
+
+            /*Enumeration names = request.getParameterNames();
+            
+            while(names.hasMoreElements())
+            {
+                String name = (String)names.nextElement();
+                String[] values = request.getParameterValues(name);
+                System.out.println("name : " + name + "  , values : " + values);
+            }*/

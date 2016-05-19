@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +10,7 @@ import metier.service.Service;
 
 /**
  *
- * @author vchapelle
+ * @author B3330
  */
 @WebServlet(urlPatterns = {"/ActionServlet"})
 public class ActionServlet extends HttpServlet {
@@ -46,29 +40,6 @@ public class ActionServlet extends HttpServlet {
         
         if(request != null)
         {
-            /*Enumeration names = request.getParameterNames();
-            
-            while(names.hasMoreElements())
-            {
-                String name = (String)names.nextElement();
-                String[] values = request.getParameterValues(name);
-                System.out.println("name : " + name + "  , values : " + values);
-            }*/
-            
-            if("gotoRestaurants".equals(request.getParameter("action"))) {
-                response.sendRedirect("listeRestaurants.html");
-            }
-            if("findAllRestaurant".equals(request.getParameter("action"))) {
-                response.setContentType("json;charset=UTF-8");
-                
-                List<Restaurant> rests = service.findAllRestaurant();
-                Gson gson = new Gson();
-                String json = gson.toJson(rests);
-                
-                try (PrintWriter out = response.getWriter()) {
-                    out.println(json);
-                }
-            }
             if("findRestaurantById".equals(request.getParameter("action"))) {
                 response.setContentType("json;charset=UTF-8");
                 

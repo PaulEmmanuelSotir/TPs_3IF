@@ -819,16 +819,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.84075371"
-     inkscape:cx="470.29049"
-     inkscape:cy="255.85337"
+     inkscape:zoom="8"
+     inkscape:cx="303.71622"
+     inkscape:cy="-29.894145"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g5416"
      showgrid="false"
      showguides="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1912"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -850,7 +850,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -861,18 +861,18 @@
      transform="translate(-42.406827,-47.064938)">
     <g
        id="g4217"
-       transform="matrix(0.78806045,0,0,0.78806045,-56.17116,279.57101)">
+       transform="matrix(0.78806045,0,0,0.78806045,-57.117329,299.12517)">
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffc345;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="178.2982"
-         y="66.290771"
+         x="176.29715"
+         y="63.622704"
          id="text4169"
          sodipodi:linespacing="125%"><tspan
            sodipodi:role="line"
            id="tspan4171"
-           x="178.2982"
-           y="66.290771"
+           x="176.29715"
+           y="63.622704"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Condensed';fill:#eb9e00;fill-opacity:1">'IF</tspan></text>
       <text
          inkscape:transform-center-x="0.99271094"
@@ -891,17 +891,17 @@
     </g>
     <g
        id="g4203"
-       transform="matrix(0.78806045,0,0,0.78806045,-61.886534,278.03182)">
+       transform="matrix(0.78806045,0,0,0.78806045,-56.41978,282.65753)">
       <text
          sodipodi:linespacing="125%"
          id="text4195"
-         y="66.290771"
-         x="233.73032"
+         y="63.889511"
+         x="232.39629"
          style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffc345;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Eras Light ITC';-inkscape-font-specification:'Eras Light ITC';fill:#eb9e00;fill-opacity:1"
-           y="66.290771"
-           x="233.73032"
+           y="63.889511"
+           x="232.39629"
            id="tspan4197"
            sodipodi:role="line">'IF</tspan></text>
       <text
@@ -921,14 +921,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:31.52241898px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff6600;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="46.675091"
-       y="331.81213"
+       x="44.782753"
+       y="329.9198"
        id="text4209"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4211"
-         x="46.675091"
-         y="331.81213"
+         x="44.782753"
+         y="329.9198"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Condensed';fill:#ff6600;fill-opacity:1">'IF</tspan></text>
     <text
        inkscape:transform-center-x="0.78231559"
@@ -1203,16 +1203,16 @@
       <text
          transform="matrix(0,-1,1,0,0,0)"
          xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:6.21101999px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#6f918a;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="-66.428116"
-         y="104.17657"
+         style="font-style:normal;font-weight:normal;font-size:6.99492884px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#6f918a;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="-66.455673"
+         y="104.38486"
          id="text4329"
          sodipodi:linespacing="125%"><tspan
            sodipodi:role="line"
            id="tspan4331"
-           x="-66.428116"
-           y="104.17657"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#6f918a;fill-opacity:1">COLLECT</tspan></text>
+           x="-66.455673"
+           y="104.38486"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#6f918a;fill-opacity:1">GUSTAT</tspan></text>
     </g>
     <g
        transform="matrix(0.58902869,0,0,0.58902869,105.7267,373.47058)"
@@ -1742,7 +1742,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#eb9e00;fill-opacity:1">COLLECT</tspan></text>
     </g>
     <g
-       transform="matrix(0.70009303,0,0,0.74765958,109.52056,279.55115)"
+       transform="matrix(0.70009303,0,0,0.74765958,105.21023,275.66134)"
        id="g4867"
        style="fill:#88aa00;fill-opacity:1"
        inkscape:export-xdpi="48"
@@ -1762,14 +1762,14 @@
       <text
          sodipodi:linespacing="125%"
          id="text4873"
-         y="98.937225"
-         x="-66.498444"
-         style="font-style:normal;font-weight:normal;font-size:8.21146965px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#88aa00;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         y="106.63501"
+         x="-67.540024"
+         style="font-style:normal;font-weight:normal;font-size:5.84157705px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#88aa00;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"
          transform="matrix(0,-1,1,0,0,0)"><tspan
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#88aa00;fill-opacity:1"
-           y="98.937225"
-           x="-66.498444"
+           y="106.63501"
+           x="-67.540024"
            id="tspan4875"
            sodipodi:role="line">COLLECT</tspan></text>
     </g>
@@ -1829,9 +1829,9 @@
          id="text4918"
          y="66.290771"
          x="97.991074"
-         style="font-style:normal;font-variant:normal;font-weight:800;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, Ultra-Bold';letter-spacing:0px;word-spacing:0px;fill:#0088aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:800;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, Ultra-Bold';letter-spacing:0px;word-spacing:0px;fill:#337ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
          xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:800;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, Ultra-Bold';fill:#0088aa;fill-opacity:1"
+           style="font-style:normal;font-variant:normal;font-weight:800;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, Ultra-Bold';fill:#337ab7;fill-opacity:1;"
            y="66.290771"
            x="97.991074"
            id="tspan4920"
@@ -1839,29 +1839,29 @@
       <text
          transform="matrix(0,-1,1,0,0,0)"
          xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:5.56448174px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0088aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="-66.405388"
-         y="95.795822"
+         style="font-style:normal;font-weight:normal;font-size:6.66810465px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#337ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+         x="-66.385071"
+         y="96.318657"
          id="text4922"
          sodipodi:linespacing="125%"><tspan
            sodipodi:role="line"
            id="tspan4924"
-           x="-66.405388"
-           y="95.795822"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#0088aa;fill-opacity:1">COLLECT</tspan></text>
+           x="-66.385071"
+           y="96.318657"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#337ab7;fill-opacity:1;">GUSTAT</tspan></text>
       <text
          transform="scale(1.1529044,0.86737461)"
          xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:39.05444336px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0088aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="font-style:normal;font-weight:normal;font-size:39.05444336px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#337ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
          x="77.693604"
-         y="75.823906"
+         y="73.779457"
          id="text4926"
          sodipodi:linespacing="125%"><tspan
            sodipodi:role="line"
            id="tspan4928"
            x="77.693604"
-           y="75.823906"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#0088aa;fill-opacity:1">'</tspan></text>
+           y="73.779457"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#337ab7;fill-opacity:1;">'</tspan></text>
     </g>
     <g
        inkscape:export-ydpi="48"
@@ -1953,13 +1953,6 @@
            id="tspan4970"
            sodipodi:role="line">'</tspan></text>
     </g>
-    <rect
-       style="fill:none;fill-opacity:1;stroke:#111111;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4972"
-       width="28.240093"
-       height="26.162909"
-       x="129.87001"
-       y="389.50467" />
     <g
        transform="matrix(0.23364727,0,0,0.23364727,-395.27932,379.79029)"
        style="fill:#b74a00;fill-opacity:1"
@@ -5200,5 +5193,84 @@
            sodipodi:role="line"
            id="tspan13862">est déja utilisé.</tspan></text>
     </g>
+    <g
+       transform="matrix(0.70009303,0,0,0.74765958,292.04341,388.17548)"
+       id="g5210"
+       style="fill:#0088aa;fill-opacity:1"
+       inkscape:export-xdpi="48"
+       inkscape:export-ydpi="48">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:800;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, Ultra-Bold';letter-spacing:0px;word-spacing:0px;fill:#0088aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="97.991074"
+         y="66.290771"
+         id="text5212"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan5214"
+           x="97.991074"
+           y="66.290771"
+           style="font-style:normal;font-variant:normal;font-weight:800;font-stretch:normal;font-family:'Rockwell Extra Bold';-inkscape-font-specification:'Rockwell Extra Bold, Ultra-Bold';fill:#0088aa;fill-opacity:1">IF</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text5216"
+         y="96.318657"
+         x="-66.385071"
+         style="font-style:normal;font-weight:normal;font-size:6.66810465px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0088aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         transform="matrix(0,-1,1,0,0,0)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#0088aa;fill-opacity:1"
+           y="96.318657"
+           x="-66.385071"
+           id="tspan5218"
+           sodipodi:role="line">GUSTAT</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text5220"
+         y="73.779457"
+         x="77.693604"
+         style="font-style:normal;font-weight:normal;font-size:39.05444336px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0088aa;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         transform="scale(1.1529044,0.86737461)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#0088aa;fill-opacity:1"
+           y="73.779457"
+           x="77.693604"
+           id="tspan5222"
+           sodipodi:role="line">'</tspan></text>
+    </g>
+    <g
+       transform="matrix(0.58902869,0,0,0.58902869,274.37329,398.04775)"
+       id="g5366"
+       style="fill:#536c67;fill-opacity:1">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#337ab7;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+         x="97.991074"
+         y="66.290771"
+         id="text5369"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan5371"
+           x="97.991074"
+           y="66.290771"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#337ab7;fill-opacity:1;">'IF</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text5373"
+         y="104.38486"
+         x="-66.455673"
+         style="font-style:normal;font-weight:normal;font-size:6.99492884px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#778389;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+         xml:space="preserve"
+         transform="matrix(0,-1,1,0,0,0)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#778389;fill-opacity:1;"
+           y="104.38486"
+           x="-66.455673"
+           id="tspan5375"
+           sodipodi:role="line">GUSTAT</tspan></text>
+    </g>
+    <g
+       style="fill:#536c67;fill-opacity:1"
+       id="g5416"
+       transform="matrix(0.58902869,0,0,0.58902869,251.46276,436.64636)" />
   </g>
 </svg>
