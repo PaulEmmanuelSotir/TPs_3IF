@@ -40,17 +40,6 @@ public class ActionServlet extends HttpServlet {
         
         if(request != null)
         {
-            if("findRestaurantById".equals(request.getParameter("action"))) {
-                response.setContentType("json;charset=UTF-8");
-                
-                Restaurant rest = service.findRestaurantById(Long.parseLong(request.getParameter("id")));
-                Gson gson = new Gson();
-                String json = gson.toJson(rest);
-                
-                try (PrintWriter out = response.getWriter()) {
-                    out.println(json);
-                }
-            }
             if("createClient".equals(request.getParameter("action")))
                 m_main_page_controller.createClient(request, response);
             if("connectClient".equals(request.getParameter("action")))
