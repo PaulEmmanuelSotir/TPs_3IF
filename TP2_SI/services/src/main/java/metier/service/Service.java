@@ -291,7 +291,7 @@ public class Service {
             JpaUtil.fermerEntityManager();
             return cmd;
         } catch (Exception e) {
-            System.out.println(e);
+            
         } catch (Throwable ex) {
             Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
         }

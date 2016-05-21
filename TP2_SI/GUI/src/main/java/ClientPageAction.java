@@ -7,6 +7,7 @@ import metier.service.Service;
 public class ClientPageAction {
     public ClientPageAction() {
         m_service = new Service();
+        
     }
     
     private Service m_service;

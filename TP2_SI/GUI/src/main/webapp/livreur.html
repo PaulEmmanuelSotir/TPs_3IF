@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Livreur</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
+    </head>
+    <body>
+        <div>
+            <h1>Validation fin de commande</h1>
+            <form name='delivery_form' onsubmit='return validateDelivery()' method='post'>
+                Email:<br>
+                <input type='text' name='email'><br>
+                Numéro de commande:<br>
+                <input type='text' name='num'><br>
+                <input type='submit' value='Valider'>
+            </form>
+        </div>
+        
+        <script>
+            function validateDelivery() {
+                var form = document.forms['delivery_form'];
+                
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'validateDelivery',
+                        email: form['email'].value,
+                        num: form['num'].value
+                    },
+                    dataType: 'json'
+                })
+                .done(function(status) {
+                    
+                   if(status == OK){
+                   window.location.href='index.html';                    
+                    return true;
+                    } else {
+                        alert('Validation échouée');
+                        return false;
+                    }
+                })
+                .fail(function() { return false; });
+                    
+                return false;
+            }
+          
+            $(function() {
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'gotoRestaurants'
+                    },
+                    dataType: 'json'
+                })
+                .fail(function() {  });
+            });
+        </script>
+    </body>
+</html>
