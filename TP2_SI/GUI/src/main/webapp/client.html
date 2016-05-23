@@ -4,13 +4,13 @@
         <title>Gustat'IF</title>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        
         <link rel="icon" href="assets/tab_icon.png" type="image/png">
         <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
         <script src="./bootstrap/js/bootstrap.js"></script>
-
-        <style>
+        
+         <style>
             .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
             .navbar {min-height:40px !important}
             body {
@@ -53,28 +53,14 @@
         </nav>
 
         <div class="jumbotron text-center">
-            <h1>Delivery validation</h1>
-            <p>If you are a delivery boy/girl or if you are an heartless drone, this is your place...</p>
-        </div>
-        
-        <div id="content" class="container-fluid" align="center">
-            <form id="delivery_form" role="form"  style="max-width: 800px">
-                <h2>ENTER COMPLETED DELIVERY INFORMATIONS</h2>
-                <div id="delivery_validation_alert" class="alert alert-danger">
-                    <strong>Error!</strong> Delivery validation failed.
-                </div>
-                <div class="form-group">
-                    <label for="email">email:</label>
-                    <input type="email" class="form-control" id="email" required="required" placeholder="your email..."/>
-                </div>
-                <div class="form-group">
-                    <label for="email">Order number:</label>
-                    <input type="email" class="form-control" id="order_num" required="required" placeholder="reference..."/>
-                </div>
-                <button type="submit" id="delivery_validation_button" class="btn btn-primary btn-block">Validate delivery</button>
-            </form>
+            <h1>You are now logged in</h1>
+            <p>From here you can choose a restaurant and buy delicious dishes, enjoy!</p>
         </div>
 
+        <div id="content" class="container-fluid">
+            
+        </div>
+        
         <div id="footer" class="container-fluid">
             <div align="center">
                 <p>
@@ -89,39 +75,11 @@
                 </div>
             </div>
         </div>
-
+        
         <script>
             $(document).ready(function () {
-                $("#delivery_validation_alert").hide();
                 
-                $("#delivery_validation_button").click(function () {
-                    $("#delivery_validation_alert").hide();
-                    var form = document.forms['delivery_form'];
-                    
-                    $.ajax({
-                        url: './ActionServlet',
-                        type: 'POST',
-                        data: {
-                            action: 'validateDelivery',
-                            email: form['email'].value,
-                            num: form['order_num'].value
-                        },
-                        dataType: 'json'
-                    })
-                    .done(function (status) {
-                        if (status === "OK")
-                            window.location.href = 'index.html';
-                        else {
-                            $("#delivery_validation_alert").show();
-                            return false;
-                        }
-                    })
-                    .fail(function () {
-                        return false;
-                    });
-                });
             });
         </script>
     </body>
 </html>
-

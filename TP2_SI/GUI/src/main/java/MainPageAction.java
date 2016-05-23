@@ -1,61 +1,37 @@
-import com.google.gson.Gson;
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
+import metier.modele.Client;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import metier.modele.Client;
-import metier.modele.Restaurant;
-import metier.service.Service;
 
 /**
- *
+ * Main page controller
  * @author B3330
  */
-public class MainPageAction {
-    public MainPageAction() {
-        m_service = new Service();
-    }
-    
-    public void createClient(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+public class MainPageAction extends ControllerBase
+{
+    public void register_client(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("json;charset=UTF-8");
-
-        Client client = new Client();
-        client.setNom(request.getParameter("nom"));
-        client.setPseudo(request.getParameter("pseudo"));
-        client.setPrenom(request.getParameter("prenom"));
-        client.setAdresse(request.getParameter("adresse"));
-        client.setMail(request.getParameter("email"));
-        client.setTelephone(request.getParameter("phone"));
-        client.setPassword(request.getParameter("password1"));
         
-        m_service.createClient(client);
-        client = m_service.connectClient(client.getPseudo(), client.getPassword());
-        
-        Gson gson = new Gson();
-        String json = gson.toJson(client.getId());
+        String pseudo = request.getParameter("client[username]");
+        if(pseudo != null && !m_service.clientExist(pseudo))
+        {
+            Client client = new Client();
+            client.setPseudo(pseudo);
+            client.setPrenom(request.getParameter("client[first_name]"));
+            client.setNom(request.getParameter("client[last_name]"));
+            client.setPassword(request.getParameter("client[password]"));
+            client.setAdresse(request.getParameter("client[postal_address]"));
+            client.setMail(request.getParameter("client[email]"));
+            client.setTelephone(request.getParameter("client[phone]"));
 
-        try (PrintWriter out = response.getWriter()) {
-            out.println(json);
+            m_service.createClient(client);
+            client = m_service.connectClient(client.getPseudo(), client.getPassword());
+
+            send_json_to_response(response, m_serializer.toJson(client.getId()));
         }
     }
-    
-    public void connectClient(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
-        Client client = m_service.connectClient(request.getParameter("pseudo"), request.getParameter("password"));
-        
-        Gson gson = new Gson();
-        String json = gson.toJson(client);
 
-        try (PrintWriter out = response.getWriter()) {
-            out.println(json);
-        }
+    public void login_client(HttpServletRequest request, HttpServletResponse response) {
+        Client client = m_service.connectClient(request.getParameter("username"), request.getParameter("password"));
+        send_json_to_response(response, m_serializer.toJson(client));
     }
-    
-    private Service m_service;
-
-   
 }

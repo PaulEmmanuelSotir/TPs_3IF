@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package metier.service;
+
 import dao.ClientDao;
 import dao.CommandeDao;
 import dao.DroneDao;
@@ -27,7 +23,6 @@ import metier.modele.ProduitCommande;
 import metier.modele.Restaurant;
 
 /**
- *
  * @author qvecchio
  */
 public class Service {

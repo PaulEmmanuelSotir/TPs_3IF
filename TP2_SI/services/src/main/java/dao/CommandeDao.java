@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Date;
@@ -18,68 +13,44 @@ import metier.modele.ProduitCommande;
  * @author qvecchio
  */
 public class CommandeDao {
+
     public void create(Commande cmd) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        try {
-            for(ProduitCommande c : cmd.getContenues()) {
-                em.persist(c);
-            }
-            em.persist(cmd);
+        for (ProduitCommande c : cmd.getContenues()) {
+            em.persist(c);
         }
-        catch(Exception e) {
-            throw e;
-        }
+        em.persist(cmd);
     }
-    
+
     public Commande update(Commande cmd) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        try {
-            cmd = em.merge(cmd);
-        }
-        catch(Exception e){
-            throw e;
-        }
+        cmd = em.merge(cmd);
         return cmd;
     }
-    
+
     public Commande findById(Long id) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         Commande cmd = null;
-        try {
-            cmd = em.find(Commande.class, id);
-        }
-        catch(Exception e) {
-            throw e;
-        }
+        cmd = em.find(Commande.class, id);
         return cmd;
     }
-    
+
     public List<Commande> findAll() throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Commande> commandes = null;
-        try {
-            Query q = em.createQuery("SELECT c FROM Commande c");
-            commandes = (List<Commande>) q.getResultList();
-        }
-        catch(Exception e) {
-            throw e;
-        }     
+        Query q = em.createQuery("SELECT c FROM Commande c");
+        commandes = (List<Commande>) q.getResultList();
         return commandes;
     }
-    
+
     public List<Commande> findAllEnCours() throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Commande> commandes = null;
-        try {
-            Query q = em.createQuery("SELECT c FROM Commande c WHERE c.dateFin IS NULL");
-            commandes = (List<Commande>) q.getResultList();
-        }
-        catch(Exception e) {
-            throw e;
-        }     
+        Query q = em.createQuery("SELECT c FROM Commande c WHERE c.dateFin IS NULL");
+        commandes = (List<Commande>) q.getResultList();
         return commandes;
     }
-    
+
     public Commande valideCommande(Commande cmd) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         cmd.setDateFin(new Date(System.currentTimeMillis()));

@@ -1,45 +1,22 @@
-import com.google.gson.Gson;
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
+import metier.modele.Commande;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import metier.modele.Client;
-import metier.modele.Commande;
-import metier.service.Service;
 
 /**
- *
+ * Dashboard page controller
  * @author B3330
  */
-public class DeliveryAction {
-    
+public class DeliveryAction extends ControllerBase
+{
     enum status {OK, ERREUR};
     
-    public DeliveryAction() {
-        m_service = new Service();
-        
-    }
-    
-    @SuppressWarnings("empty-statement")
     public void validateDelivery(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
     {
-        Commande commande = m_service.valideCommande(request.getParameter("email"),Long.parseLong(request.getParameter("num")));
-        Gson gson = new Gson();
+        Commande commande = m_service.valideCommande(request.getParameter("email"), Long.parseLong(request.getParameter("num")));
         
-        if (commande == null){
-            String json = gson.toJson(status.ERREUR);
-            try (PrintWriter out = response.getWriter()) {
-            out.println(json);
-            }
-        } else {
-            String json = gson.toJson(status.OK);
-            try (PrintWriter out = response.getWriter()) {
-            out.println(json);
-            }
-        }
-        
+        if (commande == null)
+            send_json_to_response(response, m_serializer.toJson(status.ERREUR));
+        else
+            send_json_to_response(response, m_serializer.toJson(status.OK));
     }
-    private Service m_service;
 }

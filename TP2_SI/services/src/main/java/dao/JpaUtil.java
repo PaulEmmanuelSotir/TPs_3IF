@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -18,7 +17,7 @@ import javax.persistence.RollbackException;
  */
 public class JpaUtil {
 
-  // *************************************************************************************
+    // *************************************************************************************
     // * TODO: IMPORTANT -- Adapter le nom de l'Unité de Persistance (cf. persistence.xml) *
     // *************************************************************************************
     /**
@@ -47,27 +46,11 @@ public class JpaUtil {
         }
     };
 
-    // Essai pour avoir des messages de Log dans le bon ordre
-    private static void pause(long milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException ex) {
-        }
-    }
-
-    private static void log(String message) {
-//        pause(5);
-//        System.err.println(message);
-//        pause(5);
-    }
-
-
     /**
      * Créée l'instance courante de Entity Manager (liée à ce Thread).
      * <br/><strong>À utiliser uniquement au niveau Service.</strong>
      */
     public static void creerEntityManager() {
-        log("création du contexte de persistance");
         threadLocalEntityManager.set(entityManagerFactory.createEntityManager());
     }
 
@@ -76,7 +59,6 @@ public class JpaUtil {
      * <br/><strong>À utiliser uniquement au niveau Service.</strong>
      */
     public static void fermerEntityManager() {
-        log("fermeture du contexte de persistance");
         EntityManager em = threadLocalEntityManager.get();
         em.close();
         threadLocalEntityManager.set(null);
@@ -87,7 +69,6 @@ public class JpaUtil {
      * <br/><strong>À utiliser uniquement au niveau Service.</strong>
      */
     public static void ouvrirTransaction() {
-        log("debut transaction");
         try {
             EntityManager em = threadLocalEntityManager.get();
             em.getTransaction().begin();
@@ -103,7 +84,6 @@ public class JpaUtil {
      * @exception RollbackException lorsque le <em>commit</em> n'a pas réussi.
      */
     public static void validerTransaction() throws RollbackException {
-        log("commit transaction");
         try {
             EntityManager em = threadLocalEntityManager.get();
             em.getTransaction().commit();
@@ -120,11 +100,8 @@ public class JpaUtil {
      */
     public static void annulerTransaction() {
         try {
-            log("rollback transaction");
-
             EntityManager em = threadLocalEntityManager.get();
             if (em.getTransaction().isActive()) {
-                log("rollback transaction effectue");
                 em.getTransaction().rollback();
             }
 
@@ -140,7 +117,6 @@ public class JpaUtil {
      * @return instance de Entity Manager
      */
     protected static EntityManager obtenirEntityManager() {
-        log("obtention du contexte de persistance");
         return threadLocalEntityManager.get();
     }
 }

@@ -1,18 +1,11 @@
-import metier.service.Service;
 
 /**
- *
+ * Clients page controller
  * @author B3330
  */
-public class ClientPageAction {
-    public ClientPageAction() {
-        m_service = new Service();
-        
-    }
+public class ClientPageAction extends ControllerBase{
     
-    private Service m_service;
 }
-
             /*Enumeration names = request.getParameterNames();
             
             while(names.hasMoreElements())

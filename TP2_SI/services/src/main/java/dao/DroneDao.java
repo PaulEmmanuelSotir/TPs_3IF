@@ -15,37 +15,23 @@ import metier.modele.Drone;
  * @author quentinvecchio
  */
 public class DroneDao {
+
     public void create(Drone drone) throws Throwable {
-           EntityManager em = JpaUtil.obtenirEntityManager();
-        try {
-            em.persist(drone);
-        }
-        catch(Exception e) {
-            throw e;
-        }
+        EntityManager em = JpaUtil.obtenirEntityManager();
+        em.persist(drone);
     }
-    
+
     public Drone update(Drone drone) throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
-        try {
-            drone = em.merge(drone);
-        }
-        catch(Exception e){
-            throw e;
-        }
+        drone = em.merge(drone);
         return drone;
     }
-    
+
     public List<Drone> findAll() throws Throwable {
         EntityManager em = JpaUtil.obtenirEntityManager();
         List<Drone> livreurs = null;
-        try {
-            Query q = em.createQuery("SELECT l FROM Livreur l");
-            livreurs = (List<Drone>) q.getResultList();
-        }
-        catch(Exception e) {
-            throw e;
-        }
+        Query q = em.createQuery("SELECT l FROM Livreur l");
+        livreurs = (List<Drone>) q.getResultList();
         return livreurs;
     }
 }
