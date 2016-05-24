@@ -31,6 +31,12 @@ public class ActionServlet extends HttpServlet {
                 m_client_page_controllerr.list_products(request, response);
             if("checkout".equals(request.getParameter("action")))
                 m_client_page_controllerr.checkout_order(request, response);
+            if("list_deliveries".equals(request.getParameter("action")))
+                m_dashboard_controller.get_all_deliveries(request, response);
+            if("list_clients".equals(request.getParameter("action")))
+                m_dashboard_controller.get_all_clients(request, response);
+            if("list_restaurants_map".equals(request.getParameter("action")))
+                m_dashboard_controller.get_all_restaurants(request, response);
         }
     }
 

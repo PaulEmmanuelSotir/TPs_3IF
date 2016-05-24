@@ -11,8 +11,16 @@ import metier.service.Service;
 public class ControllerBase
 {
     protected void send_json_to_response(HttpServletResponse response, String data) {
+        print_json_header(response);
+        append_json_to_response(response, data);
+    }
+    
+    protected void print_json_header(HttpServletResponse response) {
         response.setContentType("application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
+    }
+    
+    protected void append_json_to_response(HttpServletResponse response, String data) {
         try {
             PrintWriter out = response.getWriter();
             out.println(data);

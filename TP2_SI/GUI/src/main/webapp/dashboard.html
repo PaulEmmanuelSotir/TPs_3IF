@@ -40,7 +40,7 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-
+                
             });
 
             var map;
@@ -67,63 +67,114 @@
 
                 var infowindow = makeInfoWindow('');
 
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: {lat: 45.782122, lng: 4.872735},
-                    title: "Département IF, INSA de Lyon",
-                    icon: {url: './assets/drone.svg', scaledSize: new google.maps.Size(32, 32)}
-                });
-
-                marker.addListener('click', function () {
-                    infowindow.setContent('<div>Information: ' + marker.title + '</div>');
-                    infowindow.open(map, marker);
-                });
-
-                var marker2 = new google.maps.Marker({
-                    map: map,
-                    position: {lat: 45.782592, lng: 4.878238},
-                    title: "Entrée principale, INSA de Lyon",
-                    icon: {url: './assets/scooter.svg', scaledSize: new google.maps.Size(32, 32)}
-                });
-
-                marker2.addListener('click', function () {
-
-                    infowindow.setContent('<div>Information: ' + marker2.title + '</div>');
-                    infowindow.open(map, marker2);
-                });
-
+                // Get all clients
                 $.ajax({
                     url: './ActionServlet',
                     type: 'POST',
                     data: {
-                        action: 'carteRestaurants'
+                        action: 'list_clients'
                     },
                     dataType: 'json'
                 })
-                .done(function (data) {
-                    var restaurants = data.restaurants;
-                    var i;
-                    for (i = 0; i < restaurants.length; i++)
+                .done(function (clients) {
+                    if (clients)
                     {
-                        var resto = restaurants[i];
-
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            position: {lat: resto.latitude, lng: resto.longitude},
-                            title: resto.denomination
-                        });
-
-                        attachInfoWindow(
-                            marker, infowindow,
-                            '<div><strong><a href="./restaurant.html?' + resto.id + '">' + resto.denomination + '</a></strong><br/>' + resto.adresse + '<br/>' + resto.description + '</div>'
+                        for (var i = 0; i < clients.length; i++)
+                        {
+                            var client = clients[i];
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: {lat: client.latitude, lng: client.longitude},
+                                title: client.pseudo,
+                                icon: {url: './assets/client.svg', scaledSize: new google.maps.Size(24, 33)}
+                            });
+                            attachInfoWindow(
+                                marker, infowindow,
+                                '<div><strong>' + client.prenom + ' ' + client.nom + '</strong><br/>' + client.adresse + '<br/>' + client.mail + (client.telephone ? ('<br/>' + client.telephone) : '') + '</div>'
                             );
+                        }
                     }
                 })
                 .fail(function () {
-                    //
+                    //TODO: error
+                });
+                
+                // Get all restaurants
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'list_restaurants_map'
+                    },
+                    dataType: 'json'
                 })
-                .always(function () {
-                    //
+                .done(function (restaurants) {
+                    if (restaurants)
+                    {
+                        for (var i = 0; i < restaurants.length; i++)
+                        {
+                            var resto = restaurants[i];
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: {lat: resto.latitude, lng: resto.longitude},
+                                title: resto.denomination,
+                                icon: {url: './assets/food.svg', scaledSize: new google.maps.Size(45, 45)}
+                            });
+                            attachInfoWindow(
+                                marker, infowindow,
+                                '<div><strong>' + resto.denomination + '</strong><br/>' + resto.adresse + '<br/>' + resto.description + '</div>'
+                            );
+                        }
+                    }
+                })
+                .fail(function () {
+                    //TODO: error
+                });
+                
+                // Get all delivery boy/drones
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'list_deliveries'
+                    },
+                    dataType: 'json'
+                })
+                .done(function (delivs) {
+                    if (delivs)
+                    {
+                        for (var i = 0; i < delivs.length; i++)
+                        {
+                            var liv = delivs[i];
+                       //     if(!liv.IsFree)
+                            {
+                                var is_drone = !(liv.nom);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: {lat: liv.latitude, lng: liv.longitude},
+                                    title: liv.mail,
+                                    icon: {url: is_drone ? './assets/drone.svg' : './assets/truck.svg', scaledSize: new google.maps.Size(45, 45)}
+                                });
+                                if(is_drone)
+                                {
+                                    attachInfoWindow(
+                                        marker, infowindow,
+                                        '<div><strong>Drone #' + liv.id + '</strong><br/>' + liv.mail + '<br/>' + liv.vitesse + 'm/s</div>'
+                                    );
+                                }
+                                else
+                                {
+                                    attachInfoWindow(
+                                        marker, infowindow,
+                                        '<div><strong>' +  liv.nom + ' ' + liv.prenom + '</strong><br/>' + liv.mail + '</div>'
+                                    );
+                                }
+                            }
+                        }
+                    }
+                })
+                .fail(function () {
+                    //TODO: error
                 });
             }
 
