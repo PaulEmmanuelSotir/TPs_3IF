@@ -40,7 +40,6 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-                
             });
 
             var map;
@@ -131,30 +130,36 @@
                     //TODO: error
                 });
                 
-                // Get all delivery boy/drones
-                $.ajax({
-                    url: './ActionServlet',
-                    type: 'POST',
-                    data: {
-                        action: 'list_deliveries'
-                    },
-                    dataType: 'json'
-                })
-                .done(function (delivs) {
-                    if (delivs)
-                    {
-                        for (var i = 0; i < delivs.length; i++)
+                45.766279, 4.861152
+                var markers = [];
+                function refresh_deliveries() {
+                    // Get all delivery boy/drones
+                    $.ajax({
+                        url: './ActionServlet',
+                        type: 'POST',
+                        data: {
+                            action: 'list_deliveries'
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function (delivs) {
+                        if (delivs)
                         {
-                            var liv = delivs[i];
-                       //     if(!liv.IsFree)
+                            for(var i = 0; i < markers.length; ++i)
+                                markers[i].setMap(null);
+                            markers = [];
+                            
+                            for (var i = 0; i < delivs.length; i++)
                             {
+                                var liv = delivs[i];
                                 var is_drone = !(liv.nom);
                                 var marker = new google.maps.Marker({
                                     map: map,
-                                    position: {lat: liv.latitude, lng: liv.longitude},
+                                    position: {lat: liv.longitude, lng: liv.latitude},
                                     title: liv.mail,
-                                    icon: {url: is_drone ? './assets/drone.svg' : './assets/truck.svg', scaledSize: new google.maps.Size(45, 45)}
+                                    icon: {url: (is_drone ? (liv.IsFree ? './assets/drone2.svg' : './assets/drone.svg') : (liv.IsFree ? './assets/truck2.svg' : './assets/truck.svg')), scaledSize: new google.maps.Size(45, 45)}
                                 });
+                                markers.push(marker);
                                 if(is_drone)
                                 {
                                     attachInfoWindow(
@@ -171,11 +176,16 @@
                                 }
                             }
                         }
-                    }
-                })
-                .fail(function () {
-                    //TODO: error
-                });
+                    })
+                    .fail(function () {
+                        //TODO: error
+                    });
+                }
+                
+                refresh_deliveries();                
+                var intervalID = setInterval(function(){
+                    refresh_deliveries();             
+                }, 3000);
             }
 
         </script>

@@ -14,7 +14,6 @@ import javax.persistence.Entity;
 @Entity
 public class Drone extends Livreur{
         private Double vitesse;
-
     public Drone() {
         super();
     }

@@ -19,23 +19,23 @@ public class ActionServlet extends HttpServlet {
         {
             if("register_client".equals(request.getParameter("action")))
                 m_main_page_controller.register_client(request, response);
-            if("login_client".equals(request.getParameter("action")))
+            else if("login_client".equals(request.getParameter("action")))
                 m_main_page_controller.login_client(request, response);
-            if("validateDelivery".equals(request.getParameter("action")))
+            else if("validateDelivery".equals(request.getParameter("action")))
                 m_delivery_page_controller.validateDelivery(request, response);
-            if("get_client_by_id".equals(request.getParameter("action")))
+            else if("get_client_by_id".equals(request.getParameter("action")))
                 m_client_page_controllerr.get_client_by_id(request, response);
-            if("list_restaurants".equals(request.getParameter("action")))
+            else if("list_restaurants".equals(request.getParameter("action")))
                 m_client_page_controllerr.list_restaurants(request, response);
-            if("list_products".equals(request.getParameter("action")))
+            else if("list_products".equals(request.getParameter("action")))
                 m_client_page_controllerr.list_products(request, response);
-            if("checkout".equals(request.getParameter("action")))
+            else if("checkout".equals(request.getParameter("action")))
                 m_client_page_controllerr.checkout_order(request, response);
-            if("list_deliveries".equals(request.getParameter("action")))
+            else if("list_deliveries".equals(request.getParameter("action")))
                 m_dashboard_controller.get_all_deliveries(request, response);
-            if("list_clients".equals(request.getParameter("action")))
+            else if("list_clients".equals(request.getParameter("action")))
                 m_dashboard_controller.get_all_clients(request, response);
-            if("list_restaurants_map".equals(request.getParameter("action")))
+            else if("list_restaurants_map".equals(request.getParameter("action")))
                 m_dashboard_controller.get_all_restaurants(request, response);
         }
     }

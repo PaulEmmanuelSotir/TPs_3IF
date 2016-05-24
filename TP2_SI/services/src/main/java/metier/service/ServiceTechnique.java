@@ -50,7 +50,7 @@ public class ServiceTechnique {
             }
 
             //recherche max Val : 
-            if (currentTime < TimeMin) {
+            if (currentTime < TimeMin || nirestLivrer == null) {
                 TimeMin = currentTime;
                 nirestLivrer = currenteLivreur;
             }
