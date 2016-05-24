@@ -25,18 +25,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="201.43831"
-     inkscape:cy="190.35926"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="-213.73813"
+     inkscape:cy="310.4215"
      inkscape:document-units="px"
-     inkscape:current-layer="g5366"
+     inkscape:current-layer="layer1"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2560"
-     inkscape:window-height="1377"
+     inkscape:window-width="2194"
+     inkscape:window-height="1171"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -58,35 +58,30 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-326.59111,-70.493925)">
-    <g
-       transform="matrix(9.6775314,0,0,9.6775314,-628.5251,-265.02297)"
-       id="g5366"
-       style="fill:#536c67;fill-opacity:1">
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0083f4;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-         x="97.991074"
-         y="66.290771"
-         id="text5369"
-         sodipodi:linespacing="125%"><tspan
-           sodipodi:role="line"
-           id="tspan5371"
-           x="97.991074"
-           y="66.290771"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#0083f4;fill-opacity:1;">'IF</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text5373"
-         y="104.38486"
-         x="-66.455673"
-         style="font-style:normal;font-weight:normal;font-size:6.99492884px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#778389;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"
-         transform="matrix(0,-1,1,0,0,0)"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#778389;fill-opacity:1"
-           y="104.38486"
-           x="-66.455673"
-           id="tspan5375"
-           sodipodi:role="line">GUSTAT</tspan></text>
-    </g>
+    <text
+       sodipodi:linespacing="125%"
+       id="text5369"
+       y="376.50806"
+       x="319.78659"
+       style="font-style:normal;font-weight:normal;font-size:387.10125732px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#0083f4;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#0083f4;fill-opacity:1"
+         y="376.50806"
+         x="319.78659"
+         id="tspan5371"
+         sodipodi:role="line">'IF</tspan></text>
+    <text
+       transform="matrix(0,-1,1,0,0,0)"
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:67.69364166px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#778389;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-378.10388"
+       y="381.66263"
+       id="text5373"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5375"
+         x="-378.10388"
+         y="381.66263"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-family:Impact;-inkscape-font-specification:'Impact Condensed';fill:#778389;fill-opacity:1">GUSTAT</tspan></text>
   </g>
 </svg>

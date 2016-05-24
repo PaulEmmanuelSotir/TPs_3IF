@@ -203,16 +203,12 @@ public class Service {
                         return false;
                     }
                     JpaUtil.ouvrirTransaction();
-                    System.out.println("Veullez tapper sur une touche du clavier pour continuer...");
                     cmd.setDateDebut(new Date(System.currentTimeMillis()));
                     cmd.setDateFin(null);
-                    Scanner s = new Scanner(System.in);
-                    s.nextLine();
                     commandeDao.create(cmd);
                     JpaUtil.validerTransaction();
-                    //Envoyer un mail
-                    serviceTechnique.sendMail(l2.getMail(),"Livraison commande " + cmd.getId(), cmd.toString());
                     JpaUtil.fermerEntityManager();
+                    serviceTechnique.sendMail(l2.getMail(),"Livraison commande " + cmd.getId(), cmd.toString());
                     return true;
                 }
             }
@@ -262,6 +258,21 @@ public class Service {
             Livreur l = livreurDao.findById(id);
             JpaUtil.fermerEntityManager();
             return l;
+        } catch (Exception e) {
+            System.out.println(e);
+        } catch (Throwable ex) {
+            Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JpaUtil.fermerEntityManager();
+        return null;
+    }
+    
+    public Client findClientById(Long id) {
+        JpaUtil.creerEntityManager();
+        try {
+            Client c = clientDao.findById(id);
+            JpaUtil.fermerEntityManager();
+            return c;
         } catch (Exception e) {
             System.out.println(e);
         } catch (Throwable ex) {

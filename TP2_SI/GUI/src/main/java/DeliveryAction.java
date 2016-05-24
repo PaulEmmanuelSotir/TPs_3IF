@@ -12,11 +12,16 @@ public class DeliveryAction extends ControllerBase
     
     public void validateDelivery(HttpServletRequest request, HttpServletResponse response)
     {
-        Commande commande = m_service.valideCommande(request.getParameter("email"), Long.parseLong(request.getParameter("num")));
-        
-        if (commande == null)
-            send_json_to_response(response, m_serializer.toJson(status.ERREUR));
-        else
-            send_json_to_response(response, m_serializer.toJson(status.OK));
+        try
+        {
+            Commande commande = m_service.valideCommande(request.getParameter("email"), Long.parseLong(request.getParameter("num")));
+
+            if (commande != null) {
+                send_json_to_response(response, m_serializer.toJson(status.OK));
+                return;
+            }
+        }
+        catch(java.lang.NumberFormatException e) { }
+        send_json_to_response(response, m_serializer.toJson(status.ERREUR));
     }
 }

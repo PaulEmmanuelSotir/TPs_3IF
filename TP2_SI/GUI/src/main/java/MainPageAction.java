@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 public class MainPageAction extends ControllerBase
 {
     public void register_client(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("json;charset=UTF-8");
-        
         String pseudo = request.getParameter("client[username]");
         if(pseudo != null && !m_service.clientExist(pseudo))
         {

@@ -1,39 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Gustat'IF</title>
+        <title>Gustat'IF - Dashboard</title>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="icon" href="assets/tab_icon.png" type="image/png">
         <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
         <script src="./bootstrap/js/bootstrap.js"></script>
-        
-         <style>
-            .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
-            .navbar {min-height:40px !important}
-            body {
-                padding-top: 140px;
-                background: url(assets/shattered_clear.png) repeat;
-            }
-            .jumbotron { 
-                background: transparent !important;
-            }
-            #content {
-                background: white;
-                padding-bottom: 40px;
-                padding-top: 20px;
-                padding-right: 40px;
-                padding-left: 40px;
-            }
-            #footer {
-                margin: 40px 0px 20px 0px;
-            }
+
+        <style>
+            html, body { height: 100%; margin: 0; padding: 0; }
+            #map { height: 100%; }
+            .navbar { margin-bottom: 0; }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
@@ -51,35 +35,100 @@
                 </ul>
             </div>
         </nav>
-
-        <div class="jumbotron text-center">
-            <h1>Dashboard</h1>
-            <p>This is were you can see all deliveries live on a map!</p>
-        </div>
-
-        <div id="content" class="container-fluid">
-            
-        </div>
         
-        <div id="footer" class="container-fluid">
-            <div align="center">
-                <p>
-                    Gustat'if website made by:<br>
-                    <a href="mailto:victoire.chapelle@insa-lyon.fr">Victoire CHAPELLE</a><br>
-                    <a href="mailto:ruxandra.pomana@insa-lyon.fr">Ruxandra POMANA</a><br>
-                    <a href="mailto:paul-emmanuel.sotir@insa-lyon.fr">Paul-Emmanuel SOTIR</a>
-                </p>
-                <div style="margin-top: 20px">
-                    <img src="assets/insa_logo.svg" alt="INSA logo" height="100" align="center" style="margin: 0px 20px 20px 0px"/>
-                    <img src="assets/logo.svg" alt="Gustat'if logo" height="100" style="margin: 0px 0px 20px 20px"/>
-                </div>
-            </div>
-        </div>
-        
-        <script>
+        <div id="map"></div>
+
+        <script type="text/javascript">
             $(document).ready(function () {
-                
+
             });
+
+            var map;
+
+            function makeInfoWindow(title) {
+                return new google.maps.InfoWindow({
+                    content: '<div>Information: ' + title + '</div>'
+                });
+            }
+
+            function attachInfoWindow(marker, infowindow, htmlDescription) {
+                marker.addListener('click', function () {
+
+                    infowindow.setContent(htmlDescription);
+                    infowindow.open(map, this);
+                });
+            }
+
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 45.7601424, lng: 4.8961779},
+                    zoom: 13
+                });
+
+                var infowindow = makeInfoWindow('');
+
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: {lat: 45.782122, lng: 4.872735},
+                    title: "Département IF, INSA de Lyon",
+                    icon: {url: './assets/drone.svg', scaledSize: new google.maps.Size(32, 32)}
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.setContent('<div>Information: ' + marker.title + '</div>');
+                    infowindow.open(map, marker);
+                });
+
+                var marker2 = new google.maps.Marker({
+                    map: map,
+                    position: {lat: 45.782592, lng: 4.878238},
+                    title: "Entrée principale, INSA de Lyon",
+                    icon: {url: './assets/scooter.svg', scaledSize: new google.maps.Size(32, 32)}
+                });
+
+                marker2.addListener('click', function () {
+
+                    infowindow.setContent('<div>Information: ' + marker2.title + '</div>');
+                    infowindow.open(map, marker2);
+                });
+
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'carteRestaurants'
+                    },
+                    dataType: 'json'
+                })
+                .done(function (data) {
+                    var restaurants = data.restaurants;
+                    var i;
+                    for (i = 0; i < restaurants.length; i++)
+                    {
+                        var resto = restaurants[i];
+
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: {lat: resto.latitude, lng: resto.longitude},
+                            title: resto.denomination
+                        });
+
+                        attachInfoWindow(
+                            marker, infowindow,
+                            '<div><strong><a href="./restaurant.html?' + resto.id + '">' + resto.denomination + '</a></strong><br/>' + resto.adresse + '<br/>' + resto.description + '</div>'
+                            );
+                    }
+                })
+                .fail(function () {
+                    //
+                })
+                .always(function () {
+                    //
+                });
+            }
+
         </script>
+
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcVVJjfmxsNdbdUYeg9MjQoJJ6THPuap4&callback=initMap"></script>
     </body>
 </html>

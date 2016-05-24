@@ -4,12 +4,12 @@
         <title>Gustat'IF</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-        
+
         <link rel="icon" href="assets/tab_icon.png" type="image/png">
         <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
         <script src="./bootstrap/js/bootstrap.js"></script>
-        
+
         <style>
             .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
             .navbar {min-height:40px !important}
@@ -19,6 +19,7 @@
             }
             .jumbotron { 
                 background: transparent !important;
+                padding-bottom: 0px;
             }
             #content {
                 background: white;
@@ -67,13 +68,13 @@
                         </div>
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <input type="text" class="form-control" id="username" required="required" placeholder="username"/>
+                            <input type="text" class="form-control" id="username_login" required="required" placeholder="username"/>
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" required="required" placeholder="password"/>
+                            <input type="password" class="form-control" id="password_login" required="required" placeholder="password"/>
                         </div>
-                        <button type="submit" id="LoginFormButton" class="btn btn-primary btn-block">Login</button>
+                        <input type="submit" class="btn btn-primary btn-block" value="Login"/>
                     </form>
                 </div>
                 <div class="col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-1">
@@ -115,9 +116,9 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone number:</label>
-                            <input type="text" class="form-control" id="phone" required="required" placeholder="phone"/>
+                            <input type="tel" class="form-control" id="phone" required="required" placeholder="phone"/>
                         </div>
-                        <button type="submit" id="RegisterFormButton" class="btn btn-primary btn-block">Sign in</button>
+                        <input type="submit" class="btn btn-primary btn-block" value="Sign in"/>
                     </form>
                 </div>
             </div>
@@ -138,47 +139,44 @@
             </div>
         </div>
 
-        <script>
+        <script type="text/javascript">
             $(document).ready(function () {
                 $('#bad_login_alert').hide();
                 $('#bad_register_alert').hide();
                 $('#password_match_alert').hide();
-                
-                // Login form validation
-                $("#LoginFormButton").click(function () {
-                    $('#bad_login_alert').hide();
-                    var form = document.forms['login_form'];
 
+                // Login form validation
+                $('#login_form').submit(function () {
+                    $('#bad_login_alert').hide();
+
+                    var form = document.forms['login_form'];
                     $.ajax({
                         url: './ActionServlet',
                         type: 'POST',
+                        async: false,
                         data: {
                             action: 'login_client',
-                            username: form['username'].value,
-                            password: form['password'].value
+                            username: form['username_login'].value,
+                            password: form['password_login'].value
                         },
                         dataType: 'json'
                     })
                     .done(function (client) {
-                        if(client)
-                        {
-                            window.location.href = 'client.html';
-                            // TODO: naviger vers la page client
-                        }
+                        if (client)
+                            window.location.href = 'client.html?id=' + client.id + '&name=' + client.pseudo;
                         else
-                             $('#bad_login_alert').show();
+                            $('#bad_login_alert').show();
                     })
                     .fail(function () {
                         $('#bad_login_alert').show();
                     });
                     return false;
                 });
-                
+
                 // Register form validation
-                $("#RegisterFormButton").click(function () {
+                $('#register_form').submit(function () {
                     $('#bad_register_alert').hide();
                     $('#password_match_alert').hide();
-                    
                     var form = document.forms['register_form'];
                     var client = {
                         username: form['username'].value,
@@ -191,35 +189,29 @@
                     };
                     var password_confirmation = form['password_confirmation'].value;
 
-                    if (client.password !== password_confirmation) {
+                    if (client.password !== password_confirmation)
                         $('#password_match_alert').show();
-                        return false;
-                    }
-                    
+
                     $.ajax({
                         url: './ActionServlet',
                         type: 'POST',
+                        async: false,
                         data: {
                             action: 'register_client',
                             client: client
                         },
-                        dataType: 'json',
-                        async: false
+                        dataType: 'json'
                     })
-                    .done(function (client) {
-                        if(client)
-                        {
-                            window.location.href = 'client.html';
-                            // TODO: naviger vers la page client
-                        }
+                    .done(function (id) {
+                        if (id)
+                            window.location.href = 'client.html?id=' + id + '&name=' + client.username;
                         else
                             $('#bad_register_alert').show();
                     })
                     .fail(function () {
                         $('#bad_register_alert').show();
                     });
-
-                    return success;
+                    return false;
                 });
             });
         </script>

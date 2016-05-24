@@ -23,6 +23,14 @@ public class ActionServlet extends HttpServlet {
                 m_main_page_controller.login_client(request, response);
             if("validateDelivery".equals(request.getParameter("action")))
                 m_delivery_page_controller.validateDelivery(request, response);
+            if("get_client_by_id".equals(request.getParameter("action")))
+                m_client_page_controllerr.get_client_by_id(request, response);
+            if("list_restaurants".equals(request.getParameter("action")))
+                m_client_page_controllerr.list_restaurants(request, response);
+            if("list_products".equals(request.getParameter("action")))
+                m_client_page_controllerr.list_products(request, response);
+            if("checkout".equals(request.getParameter("action")))
+                m_client_page_controllerr.checkout_order(request, response);
         }
     }
 

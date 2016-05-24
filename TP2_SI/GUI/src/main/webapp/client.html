@@ -4,36 +4,34 @@
         <title>Gustat'IF</title>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <link rel="icon" href="assets/tab_icon.png" type="image/png">
-        <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
-        <script src="./bootstrap/js/bootstrap.js"></script>
-        
-         <style>
-            .navbar-nav > li > a {padding-top:10px !important; padding-bottom:10px !important;}
-            .navbar {min-height:40px !important}
+
+        <style>
             body {
-                padding-top: 140px;
                 background: url(assets/shattered_clear.png) repeat;
             }
             .jumbotron { 
                 background: transparent !important;
+                padding-bottom: 0px;
             }
-            #content {
-                background: white;
-                padding-bottom: 40px;
-                padding-top: 20px;
-                padding-right: 40px;
-                padding-left: 40px;
+            #products_div {
+                padding-right: 0px;
+                padding-left: 0px;
+                border-style: solid;
+                border-width: 0px 1px 0px 1px;
             }
-            #footer {
-                margin: 40px 0px 20px 0px;
+            .section_title {
+                background: black;
+                color: white;
+                margin-top: 0px; margin-bottom: 0px;
+                padding-top: 20px; padding-bottom: 15px; padding-left: 16px;
             }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
@@ -53,32 +51,228 @@
         </nav>
 
         <div class="jumbotron text-center">
-            <h1>You are now logged in</h1>
+            <h1 id="wellcome_message">Hi, </h1>
             <p>From here you can choose a restaurant and buy delicious dishes, enjoy!</p>
         </div>
 
-        <div id="content" class="container-fluid">
-            
-        </div>
-        
-        <div id="footer" class="container-fluid">
-            <div align="center">
-                <p>
-                    Gustat'if website made by:<br>
-                    <a href="mailto:victoire.chapelle@insa-lyon.fr">Victoire CHAPELLE</a><br>
-                    <a href="mailto:ruxandra.pomana@insa-lyon.fr">Ruxandra POMANA</a><br>
-                    <a href="mailto:paul-emmanuel.sotir@insa-lyon.fr">Paul-Emmanuel SOTIR</a>
-                </p>
-                <div style="margin-top: 20px">
-                    <img src="assets/insa_logo.svg" alt="INSA logo" height="100" align="center" style="margin: 0px 20px 20px 0px"/>
-                    <img src="assets/logo.svg" alt="Gustat'if logo" height="100" style="margin: 0px 0px 20px 20px"/>
+        <div id="content" class="container-fluid" style="background-color: white;">
+            <div id="server_error_alert" class="alert alert-danger">
+                <strong>Error!</strong> We may have trouble accessing our server (you may need to <a href="index.html"><strong>reconnect</strong></a> or check your internet connection).
+            </div>
+            <div id="order_successfull_message" class="alert alert-success">
+                You have successfully placed your order!
+            </div>
+            <div class="row">
+                <!-- Restaurants -->
+                <div class="col-md-3" style="padding-right: 0px; padding-left: 0px;">
+                    <h2 class="section_title">RESTAURANTS</h2>
+                    <div id="restaurants_list" class="list-group" style="overflow-y:auto; margin-bottom: 0px;">
+                        <!-- restaurants... -->
+                    </div>
+                </div>
+                <!-- Products -->
+                <div id="products_div" class="col-md-3">
+                    <h2 class="section_title">PRODUCTS</h2>
+                    <div id="products_list" class="list-group" style="overflow-y:auto; margin-bottom: 0px;">
+                        <!-- products... -->
+                    </div>
+                </div>
+                <!-- Cart -->
+                <div class="col-md-6" style="padding-left: 0px">
+                    <h2 class="section_title">CART</h2>
+                    <div style="padding-left: 60px; padding-top: 40px">
+                        <ul id="cart_list" class="list-group" style="overflow-y:auto; margin-bottom: 20px;">
+                            <!-- cart products... -->
+                        </ul>
+                        <button id="reset_cart_button" class="btn btn-danger">Reset cart</button>
+                        <button id="checkout_button" class="btn btn-success" style="margin-left: 10px">Checkout</button>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <script>
+        <script src="//code.jquery.com/jquery-1.12.1.min.js"></script>
+        <script src="./bootstrap/js/bootstrap.js"></script>
+
+        <script type="text/javascript">
+            var restaurants = [];
+            var products = [];
+            var selected_restaurant_id;
+            var client_id;
+            var cart_products = [];
+
+            function fill_product_list()
+            {
+                var prod_list = $("#products_list");
+                for (var i = 0; i < products.length; i++) {
+                    var product = products[i];
+                    prod_list.append("<a href='#prod_" 
+                            + product.id + "' class='list-group-item'><div class='row'><div class='col-md-10'><h3 Style='margin-top: 0px'><strong>"
+                            + product.denomination + "</strong></h3><p>"
+                            + product.description + "</p></div><div class='col-md-2'><h3 align='right'><strong>"
+                            + product.prix + "€</strong></h3></div></div></a>");
+                }
+            }
+
+            function fill_restaurant_list()
+            {
+                var rest_list = $("#restaurants_list");
+                for (var i = 0; i < restaurants.length; i++) {
+                    var resto = restaurants[i];
+                    rest_list.append("<a href='#rest_" 
+                            + resto.id + "' class='list-group-item restaurant_item" + (i === 0 ? " active" : "") + "'><div class='row'><div class='col-md-7'><h3 Style='margin-top: 0px'>"
+                            + resto.denomination + "</h3><p>"
+                            + resto.description + "</p></div><div class='col-md-5'><p><strong>"
+                            + resto.adresse + "</strong></p></div></div></a>");
+                }
+            }
+            
+            function getParameterByName(name, url) {
+                if (!url) url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                    results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
             $(document).ready(function () {
+                $("#server_error_alert").hide();
+                $("#order_successfull_message").hide();
                 
+                // Get URL parameters identifying Client
+                client_id = getParameterByName('id', location);
+                var client_name = getParameterByName('name', location);
+                if (!client_id || !client_name)
+                    window.location.href = 'index.html';
+                $('#wellcome_message').append(client_name);
+
+                // Get list of restaurants
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'list_restaurants'
+                    },
+                    dataType: 'json'
+                })
+                .done(function (restos) {
+                    if (restos)
+                    {
+                        restaurants = restos;
+                        if (restaurants.length > 0)
+                            selected_restaurant_id = restaurants[0].id;
+                        fill_restaurant_list();
+                    } else {
+                        $("#server_error_alert").show();
+                    }
+                })
+                .fail(function () {
+                    $("#server_error_alert").show();
+                });
+
+                // Get list of products
+                $.ajax({
+                    url: './ActionServlet',
+                    type: 'POST',
+                    data: {
+                        action: 'list_products'
+                    },
+                    dataType: 'json'
+                })
+                .done(function (prods) {
+                    if (prods)
+                    {
+                        products = prods;
+                        fill_product_list();
+                    } else {
+                        $("#server_error_alert").show();
+                    }
+                })
+                .fail(function () {
+                    $("#server_error_alert").show();
+                });
+
+                // Handle restaurant selection
+                $('#restaurants_list').on('click', '> a', function (e) {
+                    var $this = $(this);
+                    $('#restaurants_list').find('.active').removeClass('active');
+                    $this.addClass('active');
+                    selected_restaurant_id = $this.attr('href').substr('#rest_'.length);
+                });
+
+                // Handle product selection
+                $('#products_list').on('click', '> a', function (e) {
+                    var $this = $(this);
+                    var product_id = $this.attr('href').substr('#prod_'.length);
+                    if(!(cart_products.indexOf(product_id) > -1))
+                    {
+                        var i;
+                        for(i = 0; i < products.length; i++) {
+                            if(products[i].id.toString() === product_id)
+                                break;
+                        }
+                        if(i < products.length) {
+                            var product = products[i];
+                            cart_products.push(product_id);
+                            
+                            var cart_list = $("#cart_list");
+                            cart_list.append("<li class='list-group-item' data-prod_id='" 
+                                 + product_id + "'><div class='row'><div class='col-md-7'><h3><strong>" 
+                                 + product.denomination + "</strong></h3></div><div class='col-md-3'><label class='control-label'>QUANTITY</label><input class='form-control' type='number' value='1' min='1' max='100' style='padding: 0px 0px 0px 0px'/></div><div class='col-md-2'><label class='control-label'>UNIT PRICE</label><h3 style='margin: 4px 0px 0px 0px'><strong>" 
+                                 + product.prix + "€</strong></h3></div></div></li>");
+                        }
+                    }                        
+                });
+                
+                // Cart checkout
+                $("#checkout_button").click(function (event) {
+                    $("#order_successfull_message").hide();
+                    $("#server_error_alert").hide();
+                    if(cart_products.length > 0)
+                    {
+                        var order_products = [];
+                        $("#cart_list").children("li").each( function( index, el ) {
+                            var element = $(el);
+                            var quantity = element.find("input").val();
+                            var id = element.attr("data-prod_id");
+                            order_products.push({ product_id: id, quantity: quantity });
+                        });
+                        
+                        $.ajax({
+                            url: './ActionServlet',
+                            type: 'POST',
+                            data: {
+                                action: 'checkout',
+                                client_id: client_id,
+                                restaurant_id: selected_restaurant_id,
+                                product_count: order_products.length,
+                                order: order_products
+                            },
+                            dataType: 'json'
+                        })
+                        .done(function (status) {
+                            if(status === "OK")
+                            {
+                                $("#order_successfull_message").show();
+                                cart_products = [];
+                                $("#cart_list").empty();
+                            } else {
+                                $("#server_error_alert").show();
+                            }
+                        })
+                        .fail(function () {
+                            $("#server_error_alert").show();
+                        });
+                    }
+                });
+
+                // Cart reset
+                $("#reset_cart_button").click(function () {
+                    cart_products = [];
+                    $("#cart_list").empty();
+                });
             });
         </script>
     </body>
